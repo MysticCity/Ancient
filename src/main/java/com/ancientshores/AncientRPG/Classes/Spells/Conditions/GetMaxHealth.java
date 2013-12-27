@@ -11,37 +11,31 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-public class GetMaxHealth extends IArgument
-{
-	@ArgumentDescription(
-			description = "Returns the maximum health of the given entity",
-			parameterdescription = {"entity"}, returntype = ParameterType.Number, rparams ={ParameterType.Entity})
-	public GetMaxHealth()
-	{
-		this.pt = ParameterType.Number;
-		this.requiredTypes = new ParameterType[]{ParameterType.Entity};
-		this.name = "getmaxhealth";
-	}
+public class GetMaxHealth extends IArgument {
+    @ArgumentDescription(
+            description = "Returns the maximum health of the given entity",
+            parameterdescription = {"entity"}, returntype = ParameterType.Number, rparams = {ParameterType.Entity})
+    public GetMaxHealth() {
+        this.pt = ParameterType.Number;
+        this.requiredTypes = new ParameterType[]{ParameterType.Entity};
+        this.name = "getmaxhealth";
+    }
 
-	@Override
-	public Object getArgument(Object obj[], SpellInformationObject so)
-	{
-		if (!(obj[0] instanceof Entity[]))
-			return 0;
-		LivingEntity e = (LivingEntity) ((Entity[]) obj[0])[0];
-		if (e instanceof Player)
-		{
-			Player mPlayer = (Player) e;
-			PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
-			if (DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(mPlayer))
-			{
-				return pd.getHpsystem().maxhp;
-			}
-		}
-		else if(e instanceof Creature && CreatureHp.isEnabled(e.getWorld()))
-		{
-			return e.getMaxHealth();
-		}
-		return e.getMaxHealth();
-	}
+    @Override
+    public Object getArgument(Object obj[], SpellInformationObject so) {
+        if (!(obj[0] instanceof Entity[])) {
+            return 0;
+        }
+        LivingEntity e = (LivingEntity) ((Entity[]) obj[0])[0];
+        if (e instanceof Player) {
+            Player mPlayer = (Player) e;
+            PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+            if (DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(mPlayer)) {
+                return pd.getHpsystem().maxhp;
+            }
+        } else if (e instanceof Creature && CreatureHp.isEnabled(e.getWorld())) {
+            return e.getMaxHealth();
+        }
+        return e.getMaxHealth();
+    }
 }

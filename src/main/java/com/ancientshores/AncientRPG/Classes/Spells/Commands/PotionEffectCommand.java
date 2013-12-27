@@ -7,58 +7,51 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class PotionEffectCommand extends ICommand
-{
-	@CommandDescription(description = "<html>Adds a potioneffect with the specified effect to the entity for the specified duration</html>",
-			argnames = {"entity", "name", "duration", "amplifier"}, name = "PotionEffect", parameters = {ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number})
-	public PotionEffectCommand()
-	{
-		ParameterType[] buffer = { ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number };
-		this.paramTypes = buffer;
-	}
+public class PotionEffectCommand extends ICommand {
+    @CommandDescription(description = "<html>Adds a potioneffect with the specified effect to the entity for the specified duration</html>",
+            argnames = {"entity", "name", "duration", "amplifier"}, name = "PotionEffect", parameters = {ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number})
+    public PotionEffectCommand() {
+        ParameterType[] buffer = {ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number};
+        this.paramTypes = buffer;
+    }
 
-	@Override
-	public boolean playCommand(EffectArgs ca)
-	{
-		if (ca.params.size() == 4 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof String && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number)
-		{
-			Entity[] players = (Entity[]) ca.params.get(0);
-			String name = (String) ca.params.get(1);
-			int time = (int) ((Number) ca.params.get(2)).doubleValue();
-			int amplifier = (int) ((Number) ca.params.get(3)).doubleValue();
-			PotionEffectType pet = getTypeByName(name);
-			if (pet == null)
-				return true;
-			for (Entity p : players)
-			{
-				if (p == null || !(p instanceof LivingEntity))
-					continue;
-				int t = Math.round(time / 50);
-				if (t == 0)
-					t = Integer.MAX_VALUE;
-				if(((LivingEntity) p).hasPotionEffect(pet))
-				{
-					((LivingEntity)p).removePotionEffect(pet);
-				}
-				((LivingEntity) p).addPotionEffect(new PotionEffect(pet, t, amplifier));
-			}
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean playCommand(EffectArgs ca) {
+        if (ca.params.size() == 4 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof String && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number) {
+            Entity[] players = (Entity[]) ca.params.get(0);
+            String name = (String) ca.params.get(1);
+            int time = (int) ((Number) ca.params.get(2)).doubleValue();
+            int amplifier = (int) ((Number) ca.params.get(3)).doubleValue();
+            PotionEffectType pet = getTypeByName(name);
+            if (pet == null) {
+                return true;
+            }
+            for (Entity p : players) {
+                if (p == null || !(p instanceof LivingEntity)) {
+                    continue;
+                }
+                int t = Math.round(time / 50);
+                if (t == 0) {
+                    t = Integer.MAX_VALUE;
+                }
+                if (((LivingEntity) p).hasPotionEffect(pet)) {
+                    ((LivingEntity) p).removePotionEffect(pet);
+                }
+                ((LivingEntity) p).addPotionEffect(new PotionEffect(pet, t, amplifier));
+            }
+            return true;
+        }
+        return false;
+    }
 
-	public static PotionEffectType getTypeByName(String name)
-	{
-		for (PotionEffectType pt : PotionEffectType.values())
-		{
-			if (pt != null && pt.getName() != null && pt.getName().replace("_", "").equalsIgnoreCase(name))
-			{
-				return pt;
-			} else if (pt != null && pt.getName() != null && pt.getName().equalsIgnoreCase(name))
-			{
-				return pt;
-			}
-		}
-		return null;
-	}
+    public static PotionEffectType getTypeByName(String name) {
+        for (PotionEffectType pt : PotionEffectType.values()) {
+            if (pt != null && pt.getName() != null && pt.getName().replace("_", "").equalsIgnoreCase(name)) {
+                return pt;
+            } else if (pt != null && pt.getName() != null && pt.getName().equalsIgnoreCase(name)) {
+                return pt;
+            }
+        }
+        return null;
+    }
 }

@@ -1,37 +1,33 @@
 package com.ancientshores.AncientRPG.HP;
 
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.ancientshores.AncientRPG.PlayerData;
+public class HPCommand {
+    public static void showHP(Player p) {
+        if (DamageConverter.isWorldEnabled(p) && DamageConverter.isEnabled()) {
+            PlayerData pd = PlayerData.getPlayerData(p.getName());
+            double hp = p.getHealth();
+            double maxhp = p.getMaxHealth();
+            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (((float) hp) / DamageConverter.displayDivider) + "/" + (((float) maxhp) / DamageConverter.displayDivider) + " hp");
+            p.sendMessage(AncientRPG.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + (((float) pd.getHpsystem().hpReg) / DamageConverter.displayDivider));
+        } else {
+            double hp = p.getHealth();
+            double maxhp = p.getMaxHealth();
+            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + hp + "/" + maxhp + " hp");
+        }
+    }
 
-public class HPCommand
-{
-	public static void showHP(Player p)
-	{
-		if (DamageConverter.isWorldEnabled(p) && DamageConverter.isEnabled())
-		{
-			PlayerData pd = PlayerData.getPlayerData(p.getName());
-			double hp = p.getHealth();
-			double maxhp = p.getMaxHealth();
-			p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (((float)hp)/DamageConverter.displayDivider) + "/" + (((float)maxhp)/DamageConverter.displayDivider) + " hp");
-			p.sendMessage(AncientRPG.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + (((float)pd.getHpsystem().hpReg)/DamageConverter.displayDivider));
-		} else
-		{
-			double hp = p.getHealth();
-			double maxhp = p.getMaxHealth();
-			p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + hp + "/" + maxhp + " hp");
-		}
-	}
-
-	public static ChatColor getChatColorByHp(double hp, double maxhp)
-	{
-		if (hp /  maxhp >= 0.5)
-			return ChatColor.GREEN;
-		if ( hp / maxhp >= 0.25)
-			return ChatColor.YELLOW;
-		else
-			return ChatColor.RED;
-	}
+    public static ChatColor getChatColorByHp(double hp, double maxhp) {
+        if (hp / maxhp >= 0.5) {
+            return ChatColor.GREEN;
+        }
+        if (hp / maxhp >= 0.25) {
+            return ChatColor.YELLOW;
+        } else {
+            return ChatColor.RED;
+        }
+    }
 }

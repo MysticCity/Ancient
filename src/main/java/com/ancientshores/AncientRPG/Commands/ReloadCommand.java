@@ -18,60 +18,52 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
-public class ReloadCommand
-{
-	public static void reload()
-	{
-		Bukkit.getServer().getLogger().log(Level.INFO, "AncientRPG: reloading...");
-		Config mConfig = AncientRPG.plugin.mConfig;
-		if (mConfig == null)
-		{
-			mConfig = new Config(AncientRPG.plugin);
-		}
-		for (Entry<String, Integer> entr : Spell.registeredTasks.entrySet())
-		{
-			Bukkit.getScheduler().cancelTask(entr.getValue());
-		}
-		mConfig.configCheck();
-		mConfig.loadkeys();
-		mConfig.addDefaults();
-		AncientRPG.plugin.saveConfig();
-		AncientRPG.plugin.initializeHelpFiles();
-		for (PlayerData pd : PlayerData.playerData)
-		{
-			pd.save();
-			pd.dispose();
-		}
-		AncientRPGGuild.loadGuilds();
-		PlayerData.writePlayerData();
-		PlayerData.playerData = new HashSet<PlayerData>();
-		AncientRPG.plugin.reloadConfig();
-		for (Player p : Bukkit.getOnlinePlayers())
-		{
-			PlayerData pd = PlayerData.getPlayerData(p.getName());
-			pd.getHpsystem().stopRegenTimer();
-			if (DamageConverter.isEnabled() && DamageConverter.isEnabled(p.getWorld()))
-			{
-				pd.getHpsystem().setMaxHp();
-				pd.getHpsystem().setHpRegen();
-				pd.getHpsystem().setMinecraftHP();
-			}
-			pd.getManasystem().setMaxMana();
-			if (AncientRPGExperience.isEnabled())
-			{
-				pd.getXpSystem().addXP(0, false);
-			}
-			pd.getHpsystem().player = p;
-			pd.getHpsystem().startRegenTimer();
-		}
-		AncientRPGSpellListener.clearAll();
-		AncientRPGClass.classList = new LinkedStringHashMap<AncientRPGClass>();
-		AncientRPGRace.races = new HashSet<AncientRPGRace>();
-		AncientRPGClass.loadClasses();
-		AncientRPGClass.loadConfig(AncientRPG.plugin);
-		AncientRPGRace.loadRaces();
-		AncientRPGRace.loadRacesConfig(AncientRPG.plugin);
-		Bukkit.getServer().getLogger().log(Level.INFO, "AncientRPG: reload complete");
+public class ReloadCommand {
+    public static void reload() {
+        Bukkit.getServer().getLogger().log(Level.INFO, "AncientRPG: reloading...");
+        Config mConfig = AncientRPG.plugin.mConfig;
+        if (mConfig == null) {
+            mConfig = new Config(AncientRPG.plugin);
+        }
+        for (Entry<String, Integer> entr : Spell.registeredTasks.entrySet()) {
+            Bukkit.getScheduler().cancelTask(entr.getValue());
+        }
+        mConfig.configCheck();
+        mConfig.loadkeys();
+        mConfig.addDefaults();
+        AncientRPG.plugin.saveConfig();
+        AncientRPG.plugin.initializeHelpFiles();
+        for (PlayerData pd : PlayerData.playerData) {
+            pd.save();
+            pd.dispose();
+        }
+        AncientRPGGuild.loadGuilds();
+        PlayerData.writePlayerData();
+        PlayerData.playerData = new HashSet<PlayerData>();
+        AncientRPG.plugin.reloadConfig();
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            PlayerData pd = PlayerData.getPlayerData(p.getName());
+            pd.getHpsystem().stopRegenTimer();
+            if (DamageConverter.isEnabled() && DamageConverter.isEnabled(p.getWorld())) {
+                pd.getHpsystem().setMaxHp();
+                pd.getHpsystem().setHpRegen();
+                pd.getHpsystem().setMinecraftHP();
+            }
+            pd.getManasystem().setMaxMana();
+            if (AncientRPGExperience.isEnabled()) {
+                pd.getXpSystem().addXP(0, false);
+            }
+            pd.getHpsystem().player = p;
+            pd.getHpsystem().startRegenTimer();
+        }
+        AncientRPGSpellListener.clearAll();
+        AncientRPGClass.classList = new LinkedStringHashMap<AncientRPGClass>();
+        AncientRPGRace.races = new HashSet<AncientRPGRace>();
+        AncientRPGClass.loadClasses();
+        AncientRPGClass.loadConfig(AncientRPG.plugin);
+        AncientRPGRace.loadRaces();
+        AncientRPGRace.loadRacesConfig(AncientRPG.plugin);
+        Bukkit.getServer().getLogger().log(Level.INFO, "AncientRPG: reload complete");
 
-	}
+    }
 }

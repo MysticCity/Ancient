@@ -6,10 +6,9 @@ package com.ancientshores.AncientRPG.Scoreboard;
  * Date: 30.03.13
  * Time: 22:54
  */
-public class ScoreboardInterface
-{
-	/*public static boolean scoreboardenabled = false;
-	public static void showScoreboard(Player p)
+public class ScoreboardInterface {
+    /*public static boolean scoreboardenabled = false;
+    public static void showScoreboard(Player p)
 	{
 		ScoreboardAPI api = ScoreboardAPI.getInstance();
 		String scoreboardname = "ARPG"+p.getName();

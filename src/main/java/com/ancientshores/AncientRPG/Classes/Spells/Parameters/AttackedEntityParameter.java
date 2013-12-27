@@ -15,71 +15,61 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 0,
-		description = "<html>returns the attacked entity, can only be used in attack/damagebyentity events</html>",
-		returntype = "Entity", name = "AttackedEntity")
-public class AttackedEntityParameter implements IParameter
-{
+        description = "<html>returns the attacked entity, can only be used in attack/damagebyentity events</html>",
+        returntype = "Entity", name = "AttackedEntity")
+public class AttackedEntityParameter implements IParameter {
 
-	@Override
-	public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt)
-	{
-		if (!ea.p.active && ea.so.mEvent instanceof EntityDamageEvent)
-		{
-			EntityDamageEvent event = (EntityDamageEvent) ea.so.mEvent;
-			switch (pt)
-			{
-				case Player:
-					if (event.getEntity() instanceof Player)
-					{
-						Player[] p = new Player[1];
-						p[0] = (Player) event.getEntity();
-						ea.params.addLast(p);
-					}
-					return;
-				case Entity:
-					Entity[] e = new Entity[1];
-					e[0] = event.getEntity();
-					ea.params.addLast(e);
-					return;
-				case Location:
-					Location[] l = new Location[1];
-					l[0] = event.getEntity().getLocation();
-					ea.params.addLast(l);
-					return;
-				case String:
-					if (event.getEntity() instanceof Player)
-					{
-						Player p = (Player) event.getEntity();
-						ea.params.addLast(p.getName());
-					}
-					return;
-				default:
-					break;
-			}
-		} else
-		{
-			AncientRPG.plugin.getLogger().log(Level.SEVERE,
-					"Invalid usage of attackedentity parameter in Command " + ea.mCommand.commandString + " in spell " + ea.mCommand.mSpell.name + " in line " + ea.mCommand.lineNumber);
-		}
-	}
+    @Override
+    public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
+        if (!ea.p.active && ea.so.mEvent instanceof EntityDamageEvent) {
+            EntityDamageEvent event = (EntityDamageEvent) ea.so.mEvent;
+            switch (pt) {
+                case Player:
+                    if (event.getEntity() instanceof Player) {
+                        Player[] p = new Player[1];
+                        p[0] = (Player) event.getEntity();
+                        ea.params.addLast(p);
+                    }
+                    return;
+                case Entity:
+                    Entity[] e = new Entity[1];
+                    e[0] = event.getEntity();
+                    ea.params.addLast(e);
+                    return;
+                case Location:
+                    Location[] l = new Location[1];
+                    l[0] = event.getEntity().getLocation();
+                    ea.params.addLast(l);
+                    return;
+                case String:
+                    if (event.getEntity() instanceof Player) {
+                        Player p = (Player) event.getEntity();
+                        ea.params.addLast(p.getName());
+                    }
+                    return;
+                default:
+                    break;
+            }
+        } else {
+            AncientRPG.plugin.getLogger().log(Level.SEVERE,
+                    "Invalid usage of attackedentity parameter in Command " + ea.mCommand.commandString + " in spell " + ea.mCommand.mSpell.name + " in line " + ea.mCommand.lineNumber);
+        }
+    }
 
-	@Override
-	public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so)
-	{
-		if (so.mEvent instanceof EntityDamageByEntityEvent)
-		{
-			EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) so.mEvent;
-			Entity[] e = new Entity[1];
-			e[0] = event.getEntity();
-			return e;
-		}
-		return null;
-	}
+    @Override
+    public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so) {
+        if (so.mEvent instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) so.mEvent;
+            Entity[] e = new Entity[1];
+            e[0] = event.getEntity();
+            return e;
+        }
+        return null;
+    }
 
-	@Override
-	public String getName()
-	{
-		return "attackedentity";
-	}
+    @Override
+    public String getName() {
+        return "attackedentity";
+    }
 
 }

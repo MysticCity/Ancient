@@ -10,10 +10,12 @@ import java.lang.annotation.RetentionPolicy;
  * Time: 00:06
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface ParameterDescription
-{
-	String description();
-	int amount();
-	String returntype();
-	String name();
+public @interface ParameterDescription {
+    String description();
+
+    int amount();
+
+    String returntype();
+
+    String name();
 }

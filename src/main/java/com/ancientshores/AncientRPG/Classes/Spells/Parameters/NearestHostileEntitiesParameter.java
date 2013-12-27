@@ -11,108 +11,93 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Level;
-@ParameterDescription(amount = 2, description = "<html>returns the nearest hostile entities of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>",returntype = "Entity", name = "NearestHostileEntities")
-public class NearestHostileEntitiesParameter implements IParameter
-{
-	@Override
-	public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt)
-	{
-		int range = 10;
-		int count = 1;
-		if (subparam != null)
-		{
-			try
-			{
-				if (ea.p.variables.contains(subparam[0].toLowerCase()))
-					range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
-				else
-					range = Integer.parseInt(subparam[0]);
-			} catch (Exception e)
-			{
-				AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
-			}
-			if(subparam.length == 2)
-			{
-				try
-				{
-					if (ea.p.variables.contains(subparam[1].toLowerCase()))
-						count = ea.so.parseVariable(mPlayer, subparam[1].toLowerCase());
-					else
-						count = Integer.parseInt(subparam[1]);
-				} catch (Exception e)
-				{
-					AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
-				}
-			}
-		}
-		if (subparam != null || ea.so.nearestEntity == null)
-		{
-			Entity[] nEntity = ea.so.getNearestHostileEntities(mPlayer, range, count);
-			ea.so.hostileEntities = nEntity;
-			if (nEntity == null)
-				return;
-		}
-		switch (pt)
-		{
-		case Entity:
-			ea.params.addLast(ea.so.hostileEntities);
-			break;
-		case Location:
-			Location[] l = new Location[ea.so.hostileEntities.length];
-			for (int i = 0; i < ea.so.hostileEntities.length; i++)
-			{
-				if (ea.so.hostileEntities[i] != null)
-				{
-					l[i] = ea.so.hostileEntities[i].getLocation();
-				}
-			}
-			ea.params.addLast(l);
-			break;
-		default:
-			AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
-		}
-	}
 
-	@Override
-	public String getName()
-	{
-		return "nearesthostileentities";
-	}
+@ParameterDescription(amount = 2, description = "<html>returns the nearest hostile entities of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Entity", name = "NearestHostileEntities")
+public class NearestHostileEntitiesParameter implements IParameter {
+    @Override
+    public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
+        int range = 10;
+        int count = 1;
+        if (subparam != null) {
+            try {
+                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
+                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                } else {
+                    range = Integer.parseInt(subparam[0]);
+                }
+            } catch (Exception e) {
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+            }
+            if (subparam.length == 2) {
+                try {
+                    if (ea.p.variables.contains(subparam[1].toLowerCase())) {
+                        count = ea.so.parseVariable(mPlayer, subparam[1].toLowerCase());
+                    } else {
+                        count = Integer.parseInt(subparam[1]);
+                    }
+                } catch (Exception e) {
+                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                }
+            }
+        }
+        if (subparam != null || ea.so.nearestEntity == null) {
+            Entity[] nEntity = ea.so.getNearestHostileEntities(mPlayer, range, count);
+            ea.so.hostileEntities = nEntity;
+            if (nEntity == null) {
+                return;
+            }
+        }
+        switch (pt) {
+            case Entity:
+                ea.params.addLast(ea.so.hostileEntities);
+                break;
+            case Location:
+                Location[] l = new Location[ea.so.hostileEntities.length];
+                for (int i = 0; i < ea.so.hostileEntities.length; i++) {
+                    if (ea.so.hostileEntities[i] != null) {
+                        l[i] = ea.so.hostileEntities[i].getLocation();
+                    }
+                }
+                ea.params.addLast(l);
+                break;
+            default:
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+        }
+    }
 
-	@Override
-	public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so)
-	{
-		int range = 10;
-		int count = 1;
-		if (subparam != null)
-		{
-			try
-			{
-				if (so.mSpell.variables.contains(subparam[0].toLowerCase()))
-					range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
-				else
-					range = Integer.parseInt(subparam[0]);
-			} catch (Exception ignored)
-			{
-			}
-			if(subparam.length == 2)
-			{
-				try
-				{
-					if (so.mSpell.variables.contains(subparam[1].toLowerCase()))
-						count = so.parseVariable(mPlayer, subparam[1].toLowerCase());
-					else
-						count = Integer.parseInt(subparam[1]);
-				} catch (Exception ignored)
-				{
-				}
-			}
-		}
-		if (subparam != null || so.nearestEntity == null)
-		{
-			Entity[] nEntity = so.getNearestHostileEntities(mPlayer, range, count);
-			so.hostileEntities = nEntity;
-		}
-		return so.hostileEntities;
-	}
+    @Override
+    public String getName() {
+        return "nearesthostileentities";
+    }
+
+    @Override
+    public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so) {
+        int range = 10;
+        int count = 1;
+        if (subparam != null) {
+            try {
+                if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
+                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                } else {
+                    range = Integer.parseInt(subparam[0]);
+                }
+            } catch (Exception ignored) {
+            }
+            if (subparam.length == 2) {
+                try {
+                    if (so.mSpell.variables.contains(subparam[1].toLowerCase())) {
+                        count = so.parseVariable(mPlayer, subparam[1].toLowerCase());
+                    } else {
+                        count = Integer.parseInt(subparam[1]);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        if (subparam != null || so.nearestEntity == null) {
+            Entity[] nEntity = so.getNearestHostileEntities(mPlayer, range, count);
+            so.hostileEntities = nEntity;
+        }
+        return so.hostileEntities;
+    }
 }

@@ -5,25 +5,21 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 
-public class GetYCoordinate extends IArgument
-{
-	@ArgumentDescription(
-			description = "Returns the y coordinate of a location",
-			parameterdescription = {"location"}, returntype = ParameterType.Number, rparams ={ParameterType.Location})
-	public GetYCoordinate()
-	{
-		this.pt = ParameterType.Number;
-		this.requiredTypes = new ParameterType[]{ParameterType.Location};
-		this.name = "getycoordinate";
-	}
+public class GetYCoordinate extends IArgument {
+    @ArgumentDescription(
+            description = "Returns the y coordinate of a location",
+            parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
+    public GetYCoordinate() {
+        this.pt = ParameterType.Number;
+        this.requiredTypes = new ParameterType[]{ParameterType.Location};
+        this.name = "getycoordinate";
+    }
 
-	@Override
-	public Object getArgument(Object obj[], SpellInformationObject so)
-	{
-		if(obj.length == 1 && obj[0] instanceof Location[])
-		{
-			return ((Location[])obj[0])[0].getY();
-		}
-		return null;
-	}
+    @Override
+    public Object getArgument(Object obj[], SpellInformationObject so) {
+        if (obj.length == 1 && obj[0] instanceof Location[]) {
+            return ((Location[]) obj[0])[0].getY();
+        }
+        return null;
+    }
 }

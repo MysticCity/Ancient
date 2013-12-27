@@ -6,26 +6,22 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-public class GetProjectileHitLocation extends IArgument
-{
-	@ArgumentDescription(
-			description = "Returns the location the projectile hit, only usable in projectilehitevent",
-			parameterdescription = {}, returntype = ParameterType.Location, rparams ={})
-	public GetProjectileHitLocation()
-	{
-		this.pt = ParameterType.Location;
-		this.requiredTypes = new ParameterType[] {};
-		this.name = "getprojectilehitlocation";
-	}
+public class GetProjectileHitLocation extends IArgument {
+    @ArgumentDescription(
+            description = "Returns the location the projectile hit, only usable in projectilehitevent",
+            parameterdescription = {}, returntype = ParameterType.Location, rparams = {})
+    public GetProjectileHitLocation() {
+        this.pt = ParameterType.Location;
+        this.requiredTypes = new ParameterType[]{};
+        this.name = "getprojectilehitlocation";
+    }
 
-	@Override
-	public Object getArgument(Object obj[], SpellInformationObject so)
-	{
-		if (so.mEvent instanceof ProjectileHitEvent)
-		{
-			ProjectileHitEvent pEvent = (ProjectileHitEvent) so.mEvent;
-			return new Location[] { pEvent.getEntity().getLocation() };
-		}
-		return null;
-	}
+    @Override
+    public Object getArgument(Object obj[], SpellInformationObject so) {
+        if (so.mEvent instanceof ProjectileHitEvent) {
+            ProjectileHitEvent pEvent = (ProjectileHitEvent) so.mEvent;
+            return new Location[]{pEvent.getEntity().getLocation()};
+        }
+        return null;
+    }
 }

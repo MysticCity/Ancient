@@ -15,119 +15,95 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class Config
-{
-	final AncientRPG instance;
+public class Config {
+    final AncientRPG instance;
 
-	public Config(AncientRPG instance)
-	{
-		this.instance = instance;
-		this.directory = AncientRPG.plugin.getDataFolder().getPath();
-		this.file = new File(directory + File.separator + "config.yml");
-	}
+    public Config(AncientRPG instance) {
+        this.instance = instance;
+        this.directory = AncientRPG.plugin.getDataFolder().getPath();
+        this.file = new File(directory + File.separator + "config.yml");
+    }
 
-	public final String directory;
-	final File file;
+    public final String directory;
+    final File file;
 
-	public void configCheck()
-	{
-	}
+    public void configCheck() {
+    }
 
-	public void addDefaults()
-	{
-		try
-		{
-			if (file.exists())
-			{
-				instance.getConfig().load(file);
-			}
-		} catch (FileNotFoundException e)
-		{
-		} catch (IOException e)
-		{
-		} catch (InvalidConfigurationException e)
-		{
-		}
-		instance.getConfig().set("AncientRPG.language", AncientRPG.languagecode);
-		// Party Config
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty"))
-		{
-			AncientRPGParty.writeConfig(instance);
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild"))
-		{
-			AncientRPGGuild.writeConfig(instance);
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists(
-				"com.ancientshores.AncientRPG.HP.AncientRPGHP"))
-		{
-			DamageConverter.writeConfig(instance);
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience"))
-		{
-			AncientRPGExperience.writeConfig(instance);
-		}
-		CreatureHp.writeConfig(instance);
-		AncientRPGClass.writeConfig(instance);
-		AncientRPGRace.writeRacesConfig(instance);
-		ManaSystem.writeConfig(instance);
-		Spell.writeConfig(instance.getConfig());
-		instance.saveConfig();
-	}
+    public void addDefaults() {
+        try {
+            if (file.exists()) {
+                instance.getConfig().load(file);
+            }
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        } catch (InvalidConfigurationException e) {
+        }
+        instance.getConfig().set("AncientRPG.language", AncientRPG.languagecode);
+        // Party Config
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty")) {
+            AncientRPGParty.writeConfig(instance);
+        }
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild")) {
+            AncientRPGGuild.writeConfig(instance);
+        }
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists(
+                "com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
+            DamageConverter.writeConfig(instance);
+        }
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {
+            AncientRPGExperience.writeConfig(instance);
+        }
+        CreatureHp.writeConfig(instance);
+        AncientRPGClass.writeConfig(instance);
+        AncientRPGRace.writeRacesConfig(instance);
+        ManaSystem.writeConfig(instance);
+        Spell.writeConfig(instance.getConfig());
+        instance.saveConfig();
+    }
 
-	public void loadkeys()
-	{
-		try
-		{
-			if (file.exists())
-			{
-				instance.getConfig().load(file);
-			}
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		AncientRPG.languagecode = instance.getConfig().getString("AncientRPG.language", AncientRPG.languagecode);
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty"))
-		{
-			AncientRPGParty.loadConfig(instance);
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild"))
-		{
-			AncientRPGGuild.loadConfig(instance);
-		}
+    public void loadkeys() {
+        try {
+            if (file.exists()) {
+                instance.getConfig().load(file);
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InvalidConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        AncientRPG.languagecode = instance.getConfig().getString("AncientRPG.language", AncientRPG.languagecode);
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty")) {
+            AncientRPGParty.loadConfig(instance);
+        }
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild")) {
+            AncientRPGGuild.loadConfig(instance);
+        }
 
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists(
-				"com.ancientshores.AncientRPG.HP.AncientRPGHP"))
-		{
-			DamageConverter.loadConfig(instance);
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience"))
-		{
-			AncientRPGExperience.loadConfig(instance);
-		}
-		CreatureHp.loadConfig(instance);
-		AncientRPGClass.loadConfig(instance);
-		AncientRPGRace.loadRacesConfig(instance);
-		ManaSystem.loadConfig(instance);
-		Spell.loadConfig(instance.getConfig());
-		instance.loadConfig(instance.getConfig());
-		if(file.exists())
-		{
-			file.renameTo(new File(file.getPath()+".old"));
-		}
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists(
+                "com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
+            DamageConverter.loadConfig(instance);
+        }
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {
+            AncientRPGExperience.loadConfig(instance);
+        }
+        CreatureHp.loadConfig(instance);
+        AncientRPGClass.loadConfig(instance);
+        AncientRPGRace.loadRacesConfig(instance);
+        ManaSystem.loadConfig(instance);
+        Spell.loadConfig(instance.getConfig());
+        instance.loadConfig(instance.getConfig());
+        if (file.exists()) {
+            file.renameTo(new File(file.getPath() + ".old"));
+        }
 
 		/*
-		 * // Guild Config if (Main.classExisting("de.pylamo.rpgplugin.Guild"))
+         * // Guild Config if (Main.classExisting("de.pylamo.rpgplugin.Guild"))
 		 * { Guild.maxPlayers = (int) Math.round(this
 		 * .readDouble(Guild.gConfigSize)); Guild.enabled =
 		 * this.readBoolean(Guild.gConfigEnabled); Guild.Iconomyenabled = this
@@ -147,5 +123,5 @@ public class Config
 		 * Achievement.enabled =
 		 * this.readBoolean(Achievement.aConfigAchievementEnabled); }
 		 */
-	}
+    }
 }

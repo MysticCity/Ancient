@@ -7,16 +7,14 @@ import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
 
-public class EffectArgs
-{
-	public final LinkedList<Object> params = new LinkedList<Object>();
-	public Player caster;
-	public Spell p;
-	public SpellInformationObject so;
-	public Command mCommand;
+public class EffectArgs {
+    public final LinkedList<Object> params = new LinkedList<Object>();
+    public Player caster;
+    public Spell p;
+    public SpellInformationObject so;
+    public Command mCommand;
 
-	public EffectArgs()
-	{
-	}
+    public EffectArgs() {
+    }
 
 }
