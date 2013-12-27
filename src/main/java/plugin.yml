@@ -1,0 +1,5 @@
+name: AncientRPG
+main: com.ancientshores.AncientRPG.AncientRPG
+version: "1.0"
+depend: [Vault]
+commands:

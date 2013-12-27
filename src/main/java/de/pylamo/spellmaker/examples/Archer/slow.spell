@@ -1,0 +1,8 @@
+slow
+passive
+attackevent
+if, getattacker == arrow
+Checkcooldown, slowarrow
+slow, attackedentity, 4000
+Cooldown, slowarrow, 25000
+endif

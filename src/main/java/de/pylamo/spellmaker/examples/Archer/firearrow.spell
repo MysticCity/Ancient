@@ -1,0 +1,8 @@
+Cauterizing_arrow
+passive
+attackevent
+if, getattacker == arrow
+Checkcooldown, firearrow
+ignite, attackedentity, 4000
+Cooldown, firearrow, 25000
+endif

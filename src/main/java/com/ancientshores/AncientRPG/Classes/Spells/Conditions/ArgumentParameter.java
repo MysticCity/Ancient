@@ -1,0 +1,165 @@
+package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.ArgumentParameterWrapper;
+
+public class ArgumentParameter
+{
+	IParameter parameter;
+	Object c;
+	boolean variable;
+	public final String s;
+	public final String[] subparam;
+	final String varname = "";
+
+	public ArgumentParameter(String s, Spell mSpell)
+	{
+		s = s.trim();
+		if (s.contains(":") && !s.startsWith("("))
+		{
+			String[] buffer = s.split(":");
+			this.s = buffer[0];
+			subparam = new String[buffer.length - 1];
+			System.arraycopy(buffer, 1, subparam, 0, buffer.length - 1);
+		} else
+		{
+			this.s = s;
+			this.subparam = null;
+		}
+		for (IParameter p : Parameter.registeredParameters)
+		{
+			if (p.getName().toLowerCase().equalsIgnoreCase(this.s))
+			{
+				this.parameter = p;
+				break;
+			}
+		}
+		if (this.parameter == null)
+		{
+			this.parameter = new ArgumentParameterWrapper(IArgument.parseArgumentByString(s, mSpell));
+		}
+	}
+
+	public Object parseParameter(ParameterType pt, SpellInformationObject so, Player mPlayer, Spell spell)
+	{
+		if (variable)
+		{
+			try
+			{
+				c = so.variables.get(varname).obj;
+			} catch (Exception ignored)
+			{
+
+			}
+		}
+		if(parameter != null)
+		{
+			c = parameter.parseParameter(mPlayer, subparam, so);
+		}
+		if (c != null && parameter == null)
+		{
+			switch (pt)
+			{
+			case Player:
+			{
+				if (c instanceof Player[])
+				{
+					Player[] players = (Player[]) c;
+					return players[0];
+				}
+			}
+			case Location:
+			{
+				if (c instanceof Location[])
+				{
+					Location[] locs = (Location[]) c;
+					return locs[0];
+				}
+			}
+			case Entity:
+			{
+				if (c instanceof Entity[])
+				{
+					Entity[] locs = (Entity[]) c;
+					return locs[0];
+				}
+			}
+			case String:
+				return c.toString();
+			default:
+				break;
+			}
+			return c;
+		}
+		EffectArgs ea = new EffectArgs();
+		ea.caster = mPlayer;
+		ea.so = so;
+		ea.p = spell;
+		if (pt == ParameterType.Void || parameter == null)
+		{
+			Player[] p = { mPlayer };
+			ea.params.addLast(p);
+			switch (pt)
+			{
+			case Player:
+			{
+				Player[] players = (Player[]) ea.params.get(0);
+				return players;
+			}
+			case Location:
+			{
+				Location[] locs = (Location[]) ea.params.get(0);
+				return locs;
+			}
+			case Entity:
+			{
+				Entity[] locs = (Entity[]) ea.params.get(0);
+				return locs;
+			}
+			default:
+				break;
+			}
+			return mPlayer;
+		} else
+			parameter.parseParameter(ea, mPlayer, subparam, pt);
+		try
+		{
+			if (ea.params.size() == 1)
+			{
+				switch (pt)
+				{
+				case Player:
+				{
+					Player[] players = (Player[]) ea.params.get(0);
+					return players;
+				}
+				case Location:
+				{
+					Location[] locs = (Location[]) ea.params.get(0);
+					return locs;
+				}
+				case Entity:
+				{
+					Entity[] locs = (Entity[]) ea.params.get(0);
+					return locs;
+				}
+				default:
+					break;
+				}
+			}
+		} catch (Exception ignored)
+		{
+
+		}
+		return c;
+	}
+}

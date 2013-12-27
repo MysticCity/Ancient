@@ -1,0 +1,21 @@
+{RED}/guild help <#pagenumber> {GRAY}- {GREEN}Displays guild help by page.
+{RED}/guild create <name> {GRAY}- {GREEN}Creates a new guild with <name>.
+{RED}/guild invite <player> {GRAY}- {GREEN}Invites <player> to join your guild. (Officer rank or higher)
+{RED}/guild accept {GRAY}- {GREEN}Accepts a guilds invitation.
+{RED}/guild reject {GRAY}- {GREEN}Rejects a guild invitation.
+{RED}/guild chat <message> or /gs <message> {GRAY}- {GREEN}Sends <message> to guild chat.
+{RED}/guild toggle {GRAY}- {GREEN}Toggles guild chat on or off.
+{RED}/guild toggleff {GRAY}- {GREEN}Toggles friendly fire for members in the guild.
+{RED}/guild list {GRAY}- {GREEN}Lists all Guilds created.
+{RED}/guild leave {GRAY}- {GREEN}Leaves your current guild.
+{RED}/guild kick <player> {GRAY}- {GREEN}Kicks <player> from guild. (Co-leader or higher)
+{RED}/guild disband {GRAY}- {GREEN}Disbands a guild as the Leader.
+{RED}/guild grant <player> <rank> {GRAY}- {GREEN}Grants <player> specified <rank>.
+{RED}Ranks are: {GREY}Trial, {WHITE}Member, {AQUA}Officer, {YELLOW}Coleader, {GOLD}Leader
+{RED}/guild motd {GRAY}- {GREEN}Shows the Message of the Day for your guild. 
+{RED}/guild setmotd <text> {GRAY}- {GREEN}Sets the MOTD to <text>. (Co-leader or higher)
+{RED}/guild online {GRAY}- {GREEN}Shows a list of all online members of your guild.
+{RED}/guild memberlist {GRAY}- {GREEN}Shows a list of all members in your guild.
+{RED}/guild money {GRAY}- {GREEN}Shows the balance of the guild bank.
+{RED}/guild deposit <amount> {GRAY}- {GREEN}Deposits the given amount to the guild bank.
+{RED}/guild withdraw <amount> {GRAY}- {GREEN}Withdraws the given amount from the guild bank. (Co-leader or higher)

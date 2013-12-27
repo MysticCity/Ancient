@@ -1,0 +1,41 @@
+damagereduction
+passive
+damagebyentityevent
+if, getchestplate == 307
+damagemodify, 98
+endif
+if, getchestplate == 315
+damagemodify, 95
+endif
+if, getchestplate == 311
+damagemodify, 93
+endif
+if, gethelmet == 306
+damagemodify, 98
+endif
+if, gethelmet == 314
+damagemodify, 95
+endif
+if, gethelmet == 310
+damagemodify, 93
+endif
+
+if, getleggings == 308
+damagemodify, 98
+endif
+if, getleggings == 316
+damagemodify, 95
+endif
+if, getleggings == 312
+damagemodify, 93
+endif
+
+if, getboots == 309
+damagemodify, 98
+endif
+if, getboots == 317
+damagemodify, 95
+endif
+if, getboots == 313
+damagemodify, 93
+endif

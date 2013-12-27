@@ -1,0 +1,5 @@
+{RED}/race help <#pagenumber> {GRAY}- {YELLOW}Displays race help by page.
+{RED}/race list {GRAY}- {YELLOW}Displays a list of all races available.
+{RED}/race set <racename> {GRAY}- {YELLOW}sets your race to the specified race
+{RED}/race spawn {GRAY}- {YELLOW}teleports you to the race spawn
+{RED}/race setspawn <racename> {GRAY}- {YELLOW}sets the spawn of the specified race

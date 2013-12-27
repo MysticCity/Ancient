@@ -1,0 +1,9 @@
+arrowdamageboost
+passive
+attackevent
+if, getattacker != arrow
+damagemodify, 50
+endif
+if, getattacker == arrow && gethelmet == 298 && getchestplate == 299 && getleggings == 300 && getboots == 301
+damagemodify, 5000
+endif

@@ -1,0 +1,15 @@
+{RED}/party help <#pagenumber> {GRAY}- {BLUE}Displays party help by page.
+{RED}/party invite <player> {GRAY}- {BLUE}Invites a player to your party, will create a party if you don't have one.
+{RED}/party accept{GRAY} - {BLUE}Accepts a party invitation.
+{RED}/party reject {GRAY}- {BLUE}Rejects a party invitation.
+{RED}/party chat <message> or /ps <message> {GRAY}- {BLUE}Sends <message> to party chat.
+{RED}/party toggle {GRAY}- {BLUE}Toggles party chat on or off.
+{RED}/party toggleff {GRAY}- {BLUE}Toggles friendly fire for the party.
+{RED}/party list {GRAY}- {BLUE}Lists all party members.
+{RED}/party ignore <player> {GRAY}- {BLUE}Ignores invites from <player>.
+{RED}/party kick <player> {GRAY}- {BLUE}Kicks <player> from party.
+{RED}/party disband {GRAY}- {BLUE}Disbands the party as the leader.
+{RED}/party grant <player> {GRAY}- {BLUE}Grants a player party leader rights.
+{RED}/party admin show {GRAY} - {BLUE}List all parties as an admin.
+{RED}/party admin pl <partymember> {GRAY} - {BLUE}List all members in a party by the name of a partymember.
+{RED}/party admin db <partymember> {GRAY} - {BLUE}Disbands a party by the name of a partymember.

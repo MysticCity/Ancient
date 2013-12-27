@@ -1,0 +1,5 @@
+Bulwark
+active
+checkcooldown, bulwark
+invulnerable, player, 6000
+cooldown, bulwark, 60000

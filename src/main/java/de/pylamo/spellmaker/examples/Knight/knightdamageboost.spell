@@ -1,0 +1,18 @@
+knightdamageboost
+passive
+attackevent
+if, getiteminhands == 268
+damagemodify, 75
+endif
+if, getiteminhands == 272
+damagemodify, 60
+endif
+if, getiteminhands == 267
+damagemodify, 50
+endif
+if, getiteminhands == 283
+damagemodify, 75
+endif
+if, getiteminhands == 276
+damagemodify, 43
+endif

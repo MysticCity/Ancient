@@ -1,0 +1,27 @@
+Sunder
+active
+if, getiteminhands == 268
+Checkcooldown, sunder
+damage, nearestplayers:3:2, 4
+Cooldown, sunder, 1
+endif
+if, getiteminhands == 272
+Checkcooldown, sunder
+damage, nearestplayers:3:2, 5
+Cooldown, sunder, 1
+endif
+if, getiteminhands == 283
+Checkcooldown, sunder
+damage, nearestplayers:3:2, 6
+Cooldown, sunder, 1
+endif
+if, getiteminhands == 267
+Checkcooldown, sunder
+damage, nearestplayers:3:2, 4
+Cooldown, sunder, 1
+endif
+if, getiteminhands == 276
+Checkcooldown, sunder
+damage, nearestplayers:3:2, 7
+Cooldown, sunder, 1
+endif

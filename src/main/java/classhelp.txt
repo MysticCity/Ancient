@@ -1,0 +1,7 @@
+{RED}/class help <#pagenumber> {GRAY}- {YELLOW}Displays class help by page.
+{RED}/class list {GRAY}- {YELLOW}Displays a list of all classes available.
+{RED}/class set <classname> {GRAY}- {YELLOW}Sets your class, all xp will be lost.
+{RED}/class spelllist {GRAY}- {YELLOW}Displays a list of all spells for your class.
+{RED}/class bind <spellname> {GRAY}- {YELLOW}Binds the spell to the item in hand.
+{RED}/class unbind {GRAY}- {YELLOW}Unbinds a spell from the item in hand.
+{RED}/class <spellname> {GRAY}- {YELLOW}Casts the spell.
