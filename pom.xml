@@ -13,6 +13,8 @@
         <bukkit.version>R0.3-SNAPSHOT</bukkit.version>
 
         <vault.version>1.2.27</vault.version>
+
+        <metrics.version>R7</metrics.version>
     </properties>
 
     <repositories>
@@ -23,6 +25,10 @@
         <repository>
             <id>vault-repo</id>
             <url>http://ci.herocraftonline.com/plugin/repository/everything/</url>
+        </repository>
+        <repository>
+            <id>metrics-repo</id>
+            <url>http://repo.mcstats.org/content/repositories/releases/</url>
         </repository>
     </repositories>
 
@@ -51,6 +57,12 @@
                     <artifactId>bukkit</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mcstats.bukkit</groupId>
+            <artifactId>metrics</artifactId>
+            <version>${metrics.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -85,6 +97,33 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.mcstats.bukkit:metrics:*</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.mcstats</pattern>
+                                    <shadedPattern>com.ancientshores.AncientRPG.Util</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
