@@ -11,9 +11,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class ParameterPanel extends IParameter {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final String name;
     public final Parameter p;

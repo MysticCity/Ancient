@@ -3,12 +3,6 @@ package com.ancientshores.AncientRPG.Util;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 23.02.13
- * Time: 21:51
- */
 public class Plane {
     Vector nv;
     Location p;

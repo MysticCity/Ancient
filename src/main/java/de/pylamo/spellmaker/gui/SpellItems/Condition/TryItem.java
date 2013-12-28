@@ -12,10 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class TryItem extends ComplexItem {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     private final SimpleStartPanel istp;
@@ -84,25 +80,21 @@ public class TryItem extends ComplexItem {
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override

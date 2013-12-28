@@ -9,9 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RepeatStartPanel extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public final ParameterSlot amount;

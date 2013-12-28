@@ -31,7 +31,6 @@ public class ThrowEnderpearlCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

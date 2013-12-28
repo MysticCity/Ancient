@@ -57,7 +57,6 @@ public class AncientRPGBlockListener implements Listener {
                     return;
                 default:
                     break;
-
             }
         }
     }

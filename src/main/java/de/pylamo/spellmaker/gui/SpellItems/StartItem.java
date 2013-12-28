@@ -10,9 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class StartItem extends ISpellItem implements MouseListener, MouseMotionListener {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private ISpellItem nachfolger;
     private final JLabel l = new JLabel("Start", null, JLabel.CENTER);
@@ -84,25 +81,21 @@ public class StartItem extends ISpellItem implements MouseListener, MouseMotionL
     @Override
     public void mouseMoved(MouseEvent arg0) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override

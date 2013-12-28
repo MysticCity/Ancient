@@ -17,7 +17,6 @@ public class SkipCommand extends ICommand {
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

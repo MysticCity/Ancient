@@ -65,5 +65,4 @@ public class InvisibleCommand extends ICommand {
         }
         return false;
     }
-
 }

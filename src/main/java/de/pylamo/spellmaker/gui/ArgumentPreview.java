@@ -10,9 +10,6 @@ import java.awt.*;
 import java.util.HashSet;
 
 public class ArgumentPreview extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public static final HashSet<Argument> arguments = new HashSet<Argument>();
 

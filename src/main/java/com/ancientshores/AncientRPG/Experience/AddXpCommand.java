@@ -42,6 +42,5 @@ public class AddXpCommand {
         pd.getXpSystem().xp += amount;
         pd.getXpSystem().addXP(0, false);
         cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Successfully added " + amount + " to the experience of the player " + playername);
-
     }
 }

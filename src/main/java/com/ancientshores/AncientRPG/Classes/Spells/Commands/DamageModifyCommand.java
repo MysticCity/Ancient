@@ -29,5 +29,4 @@ public class DamageModifyCommand extends ICommand {
         }
         return false;
     }
-
 }

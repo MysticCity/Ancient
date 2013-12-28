@@ -7,9 +7,6 @@ import javax.swing.*;
 import java.util.HashSet;
 
 public class ParameterPreview extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public static final HashSet<param> parameters = new HashSet<param>();

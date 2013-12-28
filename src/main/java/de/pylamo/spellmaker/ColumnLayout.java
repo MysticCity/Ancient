@@ -180,9 +180,6 @@ class ColumnLayout implements LayoutManager2 {
 }
 
 class ColumnLayoutPane extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     private ColumnLayoutPane() {

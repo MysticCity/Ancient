@@ -29,9 +29,6 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AncientRPGClass implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public static final boolean enabled = true;
     public int level = 1;
@@ -592,7 +589,7 @@ public class AncientRPGClass implements Serializable {
             if (race.raceSpells.contains(p)) {
                 return true;
             }
-			/*
+            /*
 			 * return (globalSpells.containsKey(spellname.toLowerCase()) ||
 			 * (classList.containsKey(pd.className.toLowerCase()) &&
 			 * (classList.get(pd.className.toLowerCase()).spellList

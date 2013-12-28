@@ -122,7 +122,6 @@ public class ArgumentParameter {
                 }
             }
         } catch (Exception ignored) {
-
         }
         return c;
     }

@@ -24,7 +24,6 @@ public class RaceHelpCommand {
             }
         }
         helpList.printToPlayer(mPlayer, site);
-
     }
 
     public static void initHelp() {

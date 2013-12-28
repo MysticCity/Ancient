@@ -136,5 +136,4 @@ public class CastTo extends IArgument {
         }
         return obj;
     }
-
 }

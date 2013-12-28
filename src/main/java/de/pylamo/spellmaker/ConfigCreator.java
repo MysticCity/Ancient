@@ -12,9 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfigCreator extends JFrame {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final int count;
     private final String[] vars;

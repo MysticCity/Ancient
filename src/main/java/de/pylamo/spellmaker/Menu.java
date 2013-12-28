@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class Menu extends JFrame {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     // public static Menu instance;
@@ -462,13 +459,11 @@ public class Menu extends JFrame {
         @Override
         public void componentResized(ComponentEvent e) {
             // TODO Auto-generated method stub
-
         }
 
         @Override
         public void componentMoved(ComponentEvent e) {
             // TODO Auto-generated method stub
-
         }
 
         @Override
@@ -485,5 +480,4 @@ public class Menu extends JFrame {
             }
         }
     };
-
 }

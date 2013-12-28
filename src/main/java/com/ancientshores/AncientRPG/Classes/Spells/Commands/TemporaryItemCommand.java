@@ -55,7 +55,6 @@ public class TemporaryItemCommand extends ICommand {
                 return true;
             }
         } catch (Exception ignored) {
-
         }
         return false;
     }

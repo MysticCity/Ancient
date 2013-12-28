@@ -21,10 +21,6 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 
 public class PlayerData implements Serializable, ConfigurationSerializable {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -509,6 +505,4 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
     public HashMap<Integer, String> getSlotbinds() {
         return slotbinds;
     }
-
-
 }

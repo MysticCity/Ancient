@@ -74,5 +74,4 @@ public class TargetInSight implements IParameter {
         }
         return l;
     }
-
 }

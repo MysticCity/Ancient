@@ -37,5 +37,4 @@ public class SpellsCommandExecutor implements CommandExecutor {
         }
         return false;
     }
-
 }

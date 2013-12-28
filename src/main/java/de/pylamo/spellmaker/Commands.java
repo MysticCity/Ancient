@@ -2,12 +2,6 @@ package de.pylamo.spellmaker;
 
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 21.02.13
- * Time: 00:27
- */
 public enum Commands {
     AddExperience(
             "<html>Adds the specific amount of experience to the player<br>Parameter 1: The player who receives the xp<br>Parameter 2: The amount of experience the player receives</html>",
@@ -248,7 +242,6 @@ public enum Commands {
             new String[]{"entity", "duration", "amplifier"}, "Weaken",
             new ParameterType[]{ParameterType.Entity, ParameterType.Number, ParameterType.Number});
 
-
     private String description;
     private String[] argnames;
     private String name;
@@ -276,5 +269,4 @@ public enum Commands {
     public ParameterType[] getParams() {
         return params;
     }
-
 }

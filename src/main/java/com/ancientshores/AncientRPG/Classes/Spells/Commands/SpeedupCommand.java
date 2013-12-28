@@ -34,7 +34,6 @@ public class SpeedupCommand extends ICommand {
                         t = Integer.MAX_VALUE;
                     }
                     ((LivingEntity) e).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, t, amplifier));
-
                 }
                 return true;
             }

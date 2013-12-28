@@ -83,5 +83,4 @@ public class NearestHostilePlayerParameter implements IParameter {
         }
         return so.hostilePlayers;
     }
-
 }

@@ -84,25 +84,21 @@ public class ElseIfItem extends ComplexItem {
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -243,5 +239,4 @@ public class ElseIfItem extends ComplexItem {
             ImageMover.w.setLocation(new Point(dsde.getLocation().x + 2, dsde.getLocation().y + 4));
         }
     }
-
 }

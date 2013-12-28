@@ -33,7 +33,6 @@ public class ThrowPotionCommand extends ICommand {
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

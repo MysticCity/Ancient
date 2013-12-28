@@ -28,7 +28,6 @@ public class LightningEffectCommand extends ICommand {
                             }
                             ca.caster.getWorld().strikeLightningEffect(l);
                         }
-
                     }
                 });
                 return true;

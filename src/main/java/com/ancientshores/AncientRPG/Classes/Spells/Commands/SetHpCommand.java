@@ -37,5 +37,4 @@ public class SetHpCommand extends ICommand {
         }
         return false;
     }
-
 }

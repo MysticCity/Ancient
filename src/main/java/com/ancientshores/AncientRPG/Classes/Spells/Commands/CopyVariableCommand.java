@@ -31,5 +31,4 @@ public class CopyVariableCommand extends ICommand {
         }
         return false;
     }
-
 }

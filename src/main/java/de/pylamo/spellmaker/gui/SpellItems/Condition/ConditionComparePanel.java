@@ -14,9 +14,6 @@ import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
 
 public class ConditionComparePanel extends IParameter {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public final ParameterSlot lefthand;
@@ -24,7 +21,6 @@ public class ConditionComparePanel extends IParameter {
     public final ParameterSlot righthand;
 
     Window w;
-
 
     public IParameter clone() {
         ConditionComparePanel ccp = new ConditionComparePanel(preview, w);
@@ -70,25 +66,21 @@ public class ConditionComparePanel extends IParameter {
                 @Override
                 public void dropActionChanged(DragSourceDragEvent dsde) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override
                 public void dragOver(DragSourceDragEvent dsde) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override
                 public void dragExit(DragSourceEvent dse) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override
                 public void dragEnter(DragSourceDragEvent dsde) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override

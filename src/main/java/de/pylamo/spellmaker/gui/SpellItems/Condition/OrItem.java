@@ -14,9 +14,6 @@ import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
 
 public class OrItem extends IParameter {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public final ParameterSlot lefthand;
@@ -63,25 +60,21 @@ public class OrItem extends IParameter {
                 @Override
                 public void dropActionChanged(DragSourceDragEvent dsde) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override
                 public void dragOver(DragSourceDragEvent dsde) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override
                 public void dragExit(DragSourceEvent dse) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override
                 public void dragEnter(DragSourceDragEvent dsde) {
                     // TODO Auto-generated method stub
-
                 }
 
                 @Override

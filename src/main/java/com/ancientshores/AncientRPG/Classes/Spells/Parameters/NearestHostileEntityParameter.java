@@ -98,5 +98,4 @@ public class NearestHostileEntityParameter implements IParameter {
         }
         return so.hostileEntities;
     }
-
 }

@@ -89,5 +89,4 @@ abstract class ComplexStatement {
     }
 
     public abstract ISpellItem getSpellItem();
-
 }

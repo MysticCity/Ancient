@@ -81,5 +81,4 @@ public class NearestPlayerParameter implements IParameter {
         }
         return so.nearestPlayer;
     }
-
 }

@@ -12,9 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 public class VariablePreview extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final HashSet<String> vars = new HashSet<String>();
     private final Window w;
@@ -36,9 +33,6 @@ public class VariablePreview extends JPanel {
     }
 
     class AddVariablePanel extends JPanel {
-        /**
-         *
-         */
         private static final long serialVersionUID = 1L;
 
         public AddVariablePanel() {

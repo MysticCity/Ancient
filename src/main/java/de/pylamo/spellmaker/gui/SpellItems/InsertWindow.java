@@ -10,12 +10,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 28.01.13
- * Time: 23:19
- */
 public class InsertWindow extends JFrame {
     JTextArea textArea = new JTextArea();
 

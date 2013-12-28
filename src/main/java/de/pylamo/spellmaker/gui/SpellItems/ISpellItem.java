@@ -9,9 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public abstract class ISpellItem extends JPanel implements MouseListener, MouseMotionListener {
-    /**
-     *
-     */
     protected boolean b;
     private static final long serialVersionUID = 1L;
     protected ISpellItem vorgaenger;
@@ -46,7 +43,6 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
         });
         menu.add(menuItem);
         menu.add(menuItem2);
-
     }
 
     public abstract ISpellItem clone();
@@ -140,13 +136,11 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     private boolean dragEnabled = false;
@@ -276,6 +270,5 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 }

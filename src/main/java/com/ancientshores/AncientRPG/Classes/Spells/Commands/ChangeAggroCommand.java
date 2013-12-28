@@ -47,5 +47,4 @@ public class ChangeAggroCommand extends ICommand {
         }
         return false;
     }
-
 }

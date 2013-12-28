@@ -49,5 +49,4 @@ public class PlayerParameter implements IParameter {
         Player[] p = {mPlayer};
         return p;
     }
-
 }

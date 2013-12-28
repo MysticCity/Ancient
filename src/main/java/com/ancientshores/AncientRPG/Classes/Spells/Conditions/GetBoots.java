@@ -27,6 +27,4 @@ public class GetBoots extends IArgument {
         }
         return ((LivingEntity) ent).getEquipment().getBoots().getTypeId();
     }
-
-
 }

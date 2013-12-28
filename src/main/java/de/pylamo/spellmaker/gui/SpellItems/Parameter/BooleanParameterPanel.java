@@ -6,9 +6,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class BooleanParameterPanel extends ParameterPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final JCheckBox boolbox = new JCheckBox();
 

@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SidePanel extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public SidePanel() {

@@ -26,5 +26,4 @@ public class AddGlobalVariableCommand extends ICommand {
         }
         return false;
     }
-
 }

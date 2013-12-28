@@ -1,11 +1,5 @@
 package com.ancientshores.AncientRPG.Scoreboard;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 30.03.13
- * Time: 22:54
- */
 public class ScoreboardInterface {
     /*public static boolean scoreboardenabled = false;
     public static void showScoreboard(Player p)

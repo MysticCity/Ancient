@@ -175,7 +175,7 @@ public class AncientRPGGuild implements Serializable {
     }
 
     public void disband(boolean admin) {
-		/*
+        /*
 		 * if (AncientRPG.plugin.economy != null) {
 		 * iConomy.getAccount(this.gName).remove(); }
 		 */

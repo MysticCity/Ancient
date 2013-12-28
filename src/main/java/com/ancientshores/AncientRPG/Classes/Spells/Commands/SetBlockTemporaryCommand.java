@@ -60,6 +60,5 @@ public class SetBlockTemporaryCommand extends ICommand {
 
         }
         return false;
-
     }
 }

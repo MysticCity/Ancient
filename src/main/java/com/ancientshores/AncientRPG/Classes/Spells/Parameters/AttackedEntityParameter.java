@@ -71,5 +71,4 @@ public class AttackedEntityParameter implements IParameter {
     public String getName() {
         return "attackedentity";
     }
-
 }

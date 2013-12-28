@@ -41,7 +41,6 @@ public class SlowCommand extends ICommand {
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

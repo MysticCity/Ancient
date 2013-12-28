@@ -5,12 +5,6 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 21.02.13
- * Time: 02:27
- */
 public class SpellmakerScrollPanel extends JPanel {
     JScrollBar jsb = new JScrollBar();
 

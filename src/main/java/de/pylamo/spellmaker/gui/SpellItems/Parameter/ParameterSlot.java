@@ -19,9 +19,6 @@ import java.awt.dnd.*;
 import java.util.regex.Pattern;
 
 public class ParameterSlot extends JPanel implements Cloneable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final Parameter param;
     private final String desc;

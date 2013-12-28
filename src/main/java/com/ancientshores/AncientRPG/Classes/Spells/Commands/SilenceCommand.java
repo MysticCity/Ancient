@@ -52,9 +52,7 @@ public class SilenceCommand extends ICommand {
                 });
                 return true;
             }
-            return false;
-        } else {
-            return false;
         }
+        return false;
     }
 }

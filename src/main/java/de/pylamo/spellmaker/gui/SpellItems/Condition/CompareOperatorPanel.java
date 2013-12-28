@@ -41,25 +41,21 @@ public class CompareOperatorPanel extends IParameter {
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override

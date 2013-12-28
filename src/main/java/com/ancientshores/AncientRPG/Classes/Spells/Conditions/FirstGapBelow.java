@@ -52,7 +52,6 @@ public class FirstGapBelow extends IArgument {
                     return new Location[]{b.getLocation()};
                 }
             } catch (Exception ignored) {
-
             }
         }
         return null;

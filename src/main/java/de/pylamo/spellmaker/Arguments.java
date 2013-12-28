@@ -2,12 +2,6 @@ package de.pylamo.spellmaker;
 
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 21.02.13
- * Time: 01:00
- */
 public enum Arguments {
     AreEntities("Checks a collection of locations if all of them are entities.", new String[]{"collection"},
             "AreEntities", new ParameterType[]{ParameterType.Location}, ParameterType.Boolean),

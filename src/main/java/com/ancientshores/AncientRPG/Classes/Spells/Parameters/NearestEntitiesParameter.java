@@ -103,5 +103,4 @@ public class NearestEntitiesParameter implements IParameter {
         }
         return so.nearestEntities;
     }
-
 }

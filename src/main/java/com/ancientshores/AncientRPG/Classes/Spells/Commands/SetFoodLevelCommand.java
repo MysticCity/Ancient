@@ -27,5 +27,4 @@ public class SetFoodLevelCommand extends ICommand {
         }
         return false;
     }
-
 }

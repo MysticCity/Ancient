@@ -30,5 +30,4 @@ public class SetFlyCommand extends ICommand {
         }
         return false;
     }
-
 }

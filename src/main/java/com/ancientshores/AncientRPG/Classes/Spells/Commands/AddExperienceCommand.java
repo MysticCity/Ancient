@@ -29,5 +29,4 @@ public class AddExperienceCommand extends ICommand {
         }
         return false;
     }
-
 }

@@ -69,7 +69,6 @@ public class NearestHostilePlayersParameter implements IParameter {
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
         }
-
     }
 
     @Override

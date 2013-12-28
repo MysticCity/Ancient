@@ -31,7 +31,6 @@ public class ThrowEggCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

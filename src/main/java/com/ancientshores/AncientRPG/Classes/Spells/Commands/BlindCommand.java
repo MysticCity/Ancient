@@ -35,5 +35,4 @@ public class BlindCommand extends ICommand {
         }
         return false;
     }
-
 }

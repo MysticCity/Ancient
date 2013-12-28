@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BindingData implements Serializable, ConfigurationSerializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public boolean spoutstack;
     public String spoutname = "";

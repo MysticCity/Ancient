@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import java.io.Serializable;
 
 public enum AncientRPGGuildRanks implements Serializable {
-
     TRIAL("Trial", 0),
     MEMBER("Member", 1),
     OFFICER("Officer", 2),

@@ -3,7 +3,6 @@ package com.ancientshores.AncientRPG.Classes.Spells;
 import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
 
 public class StringArgument extends IArgument {
-
     final String s;
 
     public StringArgument(String value) {
@@ -22,5 +21,4 @@ public class StringArgument extends IArgument {
         }
         return s.trim();
     }
-
 }

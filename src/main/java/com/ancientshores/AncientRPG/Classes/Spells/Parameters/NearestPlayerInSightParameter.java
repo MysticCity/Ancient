@@ -81,5 +81,4 @@ public class NearestPlayerInSightParameter implements IParameter {
         }
         return so.nearestPlayerInSight;
     }
-
 }

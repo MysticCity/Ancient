@@ -43,8 +43,6 @@ public class KillCommand extends ICommand {
                     }
                 });
             }
-        } else {
-
         }
         return false;
     }

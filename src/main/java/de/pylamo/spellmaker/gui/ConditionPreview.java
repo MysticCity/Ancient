@@ -6,10 +6,6 @@ import de.pylamo.spellmaker.gui.SpellItems.Parameter.BooleanParameterPanel;
 import javax.swing.*;
 
 public class ConditionPreview extends JPanel {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public ConditionPreview(Window w) {
@@ -65,5 +61,4 @@ public class ConditionPreview extends JPanel {
         this.add(comp9);
         w.spellItems.put("compare", comp9);
     }
-
 }

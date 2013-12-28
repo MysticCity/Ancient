@@ -3,9 +3,6 @@ package de.pylamo.spellmaker.gui.SpellItems;
 import javax.swing.*;
 
 public class TopInformation extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final JLabel l = new JLabel();
     private final ToolTipItem tip = new ToolTipItem();

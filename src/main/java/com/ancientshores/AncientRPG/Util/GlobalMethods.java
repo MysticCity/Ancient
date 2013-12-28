@@ -148,7 +148,6 @@ public class GlobalMethods {
         return s;
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T> T[] removeNullArrayCells(T[] objs) {
         if (objs == null || objs.length == 0) {

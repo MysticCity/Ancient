@@ -31,9 +31,7 @@ public class TeleportCommand extends ICommand {
                 return true;
             }
         } catch (Exception ignored) {
-
         }
         return false;
     }
-
 }

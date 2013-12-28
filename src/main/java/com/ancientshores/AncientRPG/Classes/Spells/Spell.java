@@ -47,9 +47,6 @@ import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 public class Spell implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public static CommandMap commandMap = null;
     public static HashSet<String> disabledWorlds = new HashSet<String>();

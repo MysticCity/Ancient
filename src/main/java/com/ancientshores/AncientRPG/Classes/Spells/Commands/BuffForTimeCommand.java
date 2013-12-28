@@ -48,5 +48,4 @@ public class BuffForTimeCommand extends ICommand {
             return false;
         }
     }
-
 }

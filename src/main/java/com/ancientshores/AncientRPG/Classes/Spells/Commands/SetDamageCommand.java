@@ -28,5 +28,4 @@ public class SetDamageCommand extends ICommand {
         }
         return false;
     }
-
 }

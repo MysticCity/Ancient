@@ -18,7 +18,6 @@ public class GetWorld extends IArgument {
     public GetWorld() {
         this.pt = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
-        ;
         this.name = "getworld";
     }
 

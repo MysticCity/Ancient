@@ -563,7 +563,7 @@ public class AncientRPG extends JavaPlugin {
                 AncientRPGRace.processCommand(sender, args);
                 return true;
             }
-			/*
+            /*
 			 * if
 			 * (AncientRPG.classExisting("com.ancientshores.AncientRPG.Achievement"
 			 * )I'll include this later && Achievement.enabled) {
@@ -652,5 +652,4 @@ public class AncientRPG extends JavaPlugin {
 
         return (economy != null);
     }
-
 }

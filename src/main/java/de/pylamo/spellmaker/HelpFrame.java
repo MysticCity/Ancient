@@ -5,9 +5,6 @@ import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 
 public class HelpFrame extends JFrame {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final JEditorPane pane = new JEditorPane();
 

@@ -72,7 +72,6 @@ public class NearestPlayersParameter implements IParameter {
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
         }
-
     }
 
     @Override
@@ -110,5 +109,4 @@ public class NearestPlayersParameter implements IParameter {
         }
         return so.nearestPlayers;
     }
-
 }

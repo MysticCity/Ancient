@@ -7,9 +7,6 @@ import org.bukkit.World;
 import java.io.Serializable;
 
 public class SerializableZone implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final double x;
     public final double y;

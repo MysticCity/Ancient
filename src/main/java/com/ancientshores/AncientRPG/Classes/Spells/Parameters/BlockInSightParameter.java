@@ -75,5 +75,4 @@ public class BlockInSightParameter implements IParameter {
         }
         return so.blockInSight;
     }
-
 }

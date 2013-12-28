@@ -38,7 +38,6 @@ public class SmokeCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

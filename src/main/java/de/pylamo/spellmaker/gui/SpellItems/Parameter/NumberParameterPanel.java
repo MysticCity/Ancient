@@ -2,12 +2,7 @@ package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
 import java.awt.*;
 
-
 public class NumberParameterPanel extends ParameterPanel {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public NumberParameterPanel(boolean preview) {
@@ -20,5 +15,4 @@ public class NumberParameterPanel extends ParameterPanel {
     public String getString() {
         return ", " + fields.get(0).getText();
     }
-
 }

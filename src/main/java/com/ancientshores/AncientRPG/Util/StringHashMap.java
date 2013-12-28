@@ -3,10 +3,6 @@ package com.ancientshores.AncientRPG.Util;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class StringHashMap<T> extends ConcurrentHashMap<String, T> {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public StringHashMap() {

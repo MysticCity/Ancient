@@ -10,9 +10,6 @@ import java.awt.*;
 import java.util.HashSet;
 
 public class SpellPreview extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public static final HashSet<Command> commands = new HashSet<Command>();
 

@@ -76,5 +76,4 @@ public class NearestEntityInSightParameter implements IParameter {
         }
         return so.nearestEntityInSight;
     }
-
 }

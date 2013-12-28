@@ -7,9 +7,6 @@ import java.awt.*;
  * FlowLayout subclass that fully supports wrapping of components.
  */
 public class WrapLayout extends FlowLayout {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     @SuppressWarnings("unused")
     private Dimension preferredLayoutSize;

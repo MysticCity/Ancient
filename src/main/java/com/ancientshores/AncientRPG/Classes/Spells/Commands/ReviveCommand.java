@@ -34,5 +34,4 @@ public class ReviveCommand extends ICommand {
         }
         return false;
     }
-
 }

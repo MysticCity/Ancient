@@ -12,10 +12,6 @@ import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
 
 public class VariableOperatorPanel extends IParameter {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final VariableOperator op;
     private String tooltip;
@@ -46,25 +42,21 @@ public class VariableOperatorPanel extends IParameter {
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -100,5 +92,4 @@ public class VariableOperatorPanel extends IParameter {
             ImageMover.w.setLocation(new Point(dsde.getLocation().x + 2, dsde.getLocation().y + 4));
         }
     }
-
 }

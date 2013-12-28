@@ -58,6 +58,5 @@ public class DisarmCommand extends ICommand {
 
         }
         return false;
-
     }
 }

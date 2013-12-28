@@ -31,7 +31,6 @@ public class ThrowSnowballCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

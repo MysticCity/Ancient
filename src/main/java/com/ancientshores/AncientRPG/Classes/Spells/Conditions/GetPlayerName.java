@@ -12,7 +12,6 @@ public class GetPlayerName extends IArgument {
     public GetPlayerName() {
         this.pt = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.String};
-        ;
         this.name = "getplayername";
     }
 

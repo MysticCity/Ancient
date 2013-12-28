@@ -19,9 +19,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Window extends JFrame {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public static int opensessions = 0;
     public static File choserpath = null;

@@ -39,5 +39,4 @@ public class AncientRPGPartyJoinEvent extends Event implements Cancellable {
     public AncientRPGParty getParty() {
         return mParty;
     }
-
 }

@@ -10,9 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CooldownTimer implements Serializable, Runnable, ConfigurationSerializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public boolean ready;
     public long time;

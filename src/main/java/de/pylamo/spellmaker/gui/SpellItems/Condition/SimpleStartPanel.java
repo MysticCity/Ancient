@@ -6,11 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimpleStartPanel extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-
 
     public SimpleStartPanel(String name) {
         this.setLayout(new FlowLayout(1));

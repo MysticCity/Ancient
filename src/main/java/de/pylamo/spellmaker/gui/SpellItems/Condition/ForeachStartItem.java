@@ -10,9 +10,6 @@ import java.awt.*;
 
 
 public class ForeachStartItem extends JPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public final ParameterSlot lefthand;

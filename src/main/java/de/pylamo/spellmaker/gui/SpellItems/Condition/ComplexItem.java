@@ -10,9 +10,6 @@ public abstract class ComplexItem extends ISpellItem {
         super(w);
     }
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public ISpellItem firstBlockItem;
 

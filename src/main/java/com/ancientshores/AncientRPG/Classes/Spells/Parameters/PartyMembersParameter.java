@@ -90,5 +90,4 @@ public class PartyMembersParameter implements IParameter {
         }
         return so.partyMembers;
     }
-
 }

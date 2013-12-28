@@ -27,7 +27,6 @@ public class WaterBreathingCommand extends ICommand implements Runnable, Listene
             Bukkit.getScheduler().scheduleSyncRepeatingTask(AncientRPG.plugin, this, 1, 1);
             AncientRPG.plugin.getServer().getPluginManager().registerEvents(this, AncientRPG.plugin);
         } catch (Exception e) {
-
         }
     }
 
@@ -76,5 +75,4 @@ public class WaterBreathingCommand extends ICommand implements Runnable, Listene
             waterbreathingPlayers.remove(p);
         }
     }
-
 }

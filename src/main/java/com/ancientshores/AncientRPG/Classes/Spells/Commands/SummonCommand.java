@@ -63,7 +63,6 @@ public class SummonCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }
@@ -128,5 +127,4 @@ public class SummonCommand extends ICommand {
             return null;
         }
     }
-
 }

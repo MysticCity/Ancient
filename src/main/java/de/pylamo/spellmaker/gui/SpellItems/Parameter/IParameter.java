@@ -10,9 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public abstract class IParameter extends JPanel implements MouseListener {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final JPopupMenu menu = new JPopupMenu();
 

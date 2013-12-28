@@ -2,11 +2,7 @@ package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
 import java.awt.*;
 
-
 public class StringParameterPanel extends ParameterPanel {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public StringParameterPanel(boolean preview) {

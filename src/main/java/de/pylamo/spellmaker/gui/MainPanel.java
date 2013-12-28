@@ -17,9 +17,6 @@ import java.io.*;
 import java.util.HashSet;
 
 public class MainPanel extends JLayeredPane {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final MainPanel instance;
     public final StartItem startItem;

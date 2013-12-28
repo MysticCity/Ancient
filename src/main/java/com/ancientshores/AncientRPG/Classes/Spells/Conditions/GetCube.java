@@ -44,5 +44,4 @@ public class GetCube extends IArgument {
         }
         return list.toArray(new Location[list.size()]);
     }
-
 }

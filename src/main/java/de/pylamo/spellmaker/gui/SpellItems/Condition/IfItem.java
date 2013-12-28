@@ -12,10 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class IfItem extends ComplexItem {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public final ConditionStartPanel istp;
@@ -88,25 +84,21 @@ public class IfItem extends ComplexItem {
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -211,7 +203,6 @@ public class IfItem extends ComplexItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String lol = "";
         if (istp.conditionslot.content != null) {
             lol = istp.conditionslot.content.getString();
@@ -247,5 +238,4 @@ public class IfItem extends ComplexItem {
             ImageMover.w.setLocation(new Point(dsde.getLocation().x + 2, dsde.getLocation().y + 4));
         }
     }
-
 }

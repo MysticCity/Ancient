@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class SimpleDragObject implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final String s;
     public static DataFlavor dataFlavor;
@@ -28,7 +25,6 @@ public class SimpleDragObject implements Serializable {
     }
 
     public static class TransferableSimpleDragObject implements Transferable {
-
         private final SimpleDragObject s;
 
         public TransferableSimpleDragObject(SimpleDragObject pp) {

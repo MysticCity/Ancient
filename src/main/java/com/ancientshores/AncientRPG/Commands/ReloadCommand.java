@@ -64,6 +64,5 @@ public class ReloadCommand {
         AncientRPGRace.loadRaces();
         AncientRPGRace.loadRacesConfig(AncientRPG.plugin);
         Bukkit.getServer().getLogger().log(Level.INFO, "AncientRPG: reload complete");
-
     }
 }

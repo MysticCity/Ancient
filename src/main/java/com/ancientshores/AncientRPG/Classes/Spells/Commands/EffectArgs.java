@@ -16,5 +16,4 @@ public class EffectArgs {
 
     public EffectArgs() {
     }
-
 }

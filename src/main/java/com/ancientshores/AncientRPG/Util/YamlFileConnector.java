@@ -10,7 +10,6 @@ public class YamlFileConnector implements FileConnector {
 
     public YamlFileConnector(AncientRPG instance) {
         this.instance = instance;
-
     }
 
     @Override
@@ -34,5 +33,4 @@ public class YamlFileConnector implements FileConnector {
                                     File f) {
         return Boolean.parseBoolean(getElementOfFile(spellName, rowName));
     }
-
 }

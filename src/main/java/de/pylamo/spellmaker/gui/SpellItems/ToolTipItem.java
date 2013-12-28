@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class ToolTipItem extends JPanel implements MouseInputListener, Cloneable, Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private BufferedImage img;
 
@@ -52,36 +49,30 @@ public class ToolTipItem extends JPanel implements MouseInputListener, Cloneable
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseDragged(MouseEvent arg0) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseMoved(MouseEvent arg0) {
         // TODO Auto-generated method stub
-
     }
 }

@@ -63,6 +63,5 @@ public class InvulnerableCommand extends ICommand {
 
         }
         return false;
-
     }
 }

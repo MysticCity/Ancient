@@ -3,10 +3,6 @@ package com.ancientshores.AncientRPG.Util;
 import java.util.HashSet;
 
 public class StringHashSet extends HashSet<String> {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public StringHashSet() {

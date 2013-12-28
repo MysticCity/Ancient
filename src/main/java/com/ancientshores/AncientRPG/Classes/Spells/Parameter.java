@@ -14,9 +14,6 @@ import java.util.HashSet;
 import java.util.logging.Level;
 
 public class Parameter implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public static HashSet<IParameter> registeredParameters = new HashSet<IParameter>();
     public final String s;
