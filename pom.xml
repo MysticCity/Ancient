@@ -75,7 +75,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>2.1</version>
                 <configuration>
+                    <jarName>${project.name}-${project.version}</jarName>
                     <archive>
                         <manifest>
                             <mainClass>de.pylamo.spellmaker.Main</mainClass>
