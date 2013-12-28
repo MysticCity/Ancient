@@ -1,0 +1,10 @@
+explodingarrow
+passive
+attackevent
+if, getrandom <= 60
+if, getattacker == arrow
+Checkcooldown, explodingarrow
+explosion, attackedentity, 2
+Cooldown, explodingarrow, 180000
+endif
+endif

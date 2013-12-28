@@ -1,0 +1,6 @@
+portarrowbuff
+buff
+projectilehitevent
+var loc = getprojectilehitlocation
+teleport, loc
+endif

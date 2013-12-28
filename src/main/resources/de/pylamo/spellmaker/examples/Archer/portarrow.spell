@@ -1,0 +1,5 @@
+portarrow
+active
+checkcooldown, portarrow
+Bufffortime, Player, portarrowbuff, 10000
+cooldown, portarrow, 60000
