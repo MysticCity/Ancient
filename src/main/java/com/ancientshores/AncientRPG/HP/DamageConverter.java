@@ -338,10 +338,12 @@ public class DamageConverter {
                 hps.lastAttackDamage = System.currentTimeMillis();
                 EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) event;
                 Entity c = damageByEntityEvent.getDamager();
-                if (c instanceof Spider) {
-                    return damageOfSpider;
-                } else if (c instanceof CaveSpider) {
+                if (c instanceof CaveSpider) {
                     return damageOfCaveSpider;
+                } else if (c instanceof Spider) {
+                    return damageOfSpider;
+                } else if (c instanceof PigZombie) {
+                    return damageOfPigZombie;
                 } else if (c instanceof Zombie) {
                     Zombie z = (Zombie) c;
                     if (z.isVillager()) {
@@ -366,8 +368,6 @@ public class DamageConverter {
                 } else if (c instanceof Skeleton) {
                     return getDamageOfItem(((LivingEntity) c).getEquipment().getItemInHand().getType(),
                             (LivingEntity) c, 0);
-                } else if (c instanceof PigZombie) {
-                    return damageOfPigZombie;
                 } else if (c instanceof Creeper) {
                     return Math.round((float) damageOfCreeper * ((float) event.getDamage() / (float) 49));
                 } else if (c instanceof Ghast) {
@@ -378,6 +378,8 @@ public class DamageConverter {
                     return damageOfGiant;
                 } else if (c instanceof Wolf) {
                     return damageOfWolf;
+                } else if (c instanceof MagmaCube) {
+                    return damageOfMagmaCube;
                 } else if (c instanceof Slime) {
                     return damageOfSlime;
                 } else if (c instanceof Ocelot) {
@@ -388,8 +390,6 @@ public class DamageConverter {
                     return damageOfIronGolem;
                 } else if (c instanceof Silverfish) {
                     return damageOfSilverfish;
-                } else if (c instanceof MagmaCube) {
-                    return damageOfMagmaCube;
                 } else if (c instanceof Player) {
                     Player p = (Player) c;
                     switch (p.getItemInHand().getType()) {
@@ -426,10 +426,12 @@ public class DamageConverter {
 
     public static double convertDamageByCreature(LivingEntity c, Player mPlayer, double defaultHP, EntityDamageEvent e) {
         PlayerData.getPlayerData(mPlayer.getName()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
-        if (c instanceof Spider) {
-            return reduceDamageByArmor(damageOfSpider, mPlayer);
-        } else if (c instanceof CaveSpider) {
+        if (c instanceof CaveSpider) {
             return reduceDamageByArmor(damageOfCaveSpider, mPlayer);
+        } else if (c instanceof Spider) {
+            return reduceDamageByArmor(damageOfSpider, mPlayer);
+        } else if (c instanceof PigZombie) {
+            return reduceDamageByArmor(damageOfPigZombie, mPlayer);
         } else if (c instanceof Zombie) {
             Zombie z = (Zombie) c;
             if (z.isVillager()) {
@@ -454,8 +456,6 @@ public class DamageConverter {
             }
         } else if (c instanceof EnderDragon) {
             return reduceDamageByArmor(damageOfEnderDragon, mPlayer);
-        } else if (c instanceof PigZombie) {
-            return reduceDamageByArmor(damageOfPigZombie, mPlayer);
         } else if (c instanceof Creeper) {
             if (e.getCause() != DamageCause.ENTITY_ATTACK) {
                 return 0;
@@ -464,8 +464,7 @@ public class DamageConverter {
             if (distance <= 1) {
                 return damageOfCreeper;
             }
-            double damage = (damageOfCreeper) / Math.sqrt(distance);
-            return damage;
+            return (damageOfCreeper) / Math.sqrt(distance);
         } else if (c instanceof Ghast) {
             return reduceDamageByArmor(damageOfGhast, mPlayer);
         } else if (c instanceof Enderman) {
@@ -474,6 +473,8 @@ public class DamageConverter {
             return reduceDamageByArmor(damageOfGiant, mPlayer);
         } else if (c instanceof Wolf) {
             return reduceDamageByArmor(damageOfWolf, mPlayer);
+        } else if (c instanceof MagmaCube) {
+            return reduceDamageByArmor(damageOfMagmaCube, mPlayer);
         } else if (c instanceof Slime) {
             return reduceDamageByArmor(damageOfSlime, mPlayer);
         } else if (c instanceof Ocelot) {
@@ -484,8 +485,6 @@ public class DamageConverter {
             return reduceDamageByArmor(damageOfIronGolem, mPlayer);
         } else if (c instanceof Silverfish) {
             return reduceDamageByArmor(damageOfSilverfish, mPlayer);
-        } else if (c instanceof MagmaCube) {
-            return reduceDamageByArmor(damageOfMagmaCube, mPlayer);
         } else if (c instanceof Skeleton) {
             return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, 0), mPlayer);
         } else {
@@ -810,8 +809,7 @@ public class DamageConverter {
                 for (PlayerData pd : PlayerData.playerData) {
                     pd.getHpsystem().maxhp = standardhp;
                 }
-            } catch (Exception e) {
-
+            } catch (Exception ignored) {
             }
         } else {
             worlds = plugin.getConfig().getString(HpConfigWorlds, "").split(",");

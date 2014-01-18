@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.logging.Level;
 
@@ -28,13 +29,13 @@ public class NearestHostileEntityInSight implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
         }
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         HashSet<Player> partyMembers = new HashSet<Player>();
         if (mParty != null) {
-            partyMembers.addAll(mParty.Member);
+            partyMembers.addAll(mParty.members);
         }
         Entity en = ea.so.getNearestEntityInSight(mPlayer, range);
         if (partyMembers.contains(en)) {
@@ -46,8 +47,10 @@ public class NearestHostileEntityInSight implements IParameter {
                 ea.params.addLast(e);
                 break;
             case Location:
-                Location[] l = {en.getLocation()};
-                ea.params.addLast(l);
+                if (en != null) {
+                    Location[] l = {en.getLocation()};
+                    ea.params.addLast(l);
+                }
                 break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
@@ -76,7 +79,7 @@ public class NearestHostileEntityInSight implements IParameter {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         HashSet<Player> partyMembers = new HashSet<Player>();
         if (mParty != null) {
-            partyMembers.addAll(mParty.Member);
+            partyMembers.addAll(mParty.members);
         }
         Entity en = so.getNearestEntityInSight(mPlayer, range);
         if (partyMembers.contains(en)) {

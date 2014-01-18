@@ -135,7 +135,7 @@ public class AncientRPGPlayerListener implements Listener {
                 PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
         if (mClass == null) {
             ClassResetCommand.reset(event.getPlayer(), null, PlayerData.getPlayerData(event.getPlayer().getName()));
-        } else if (mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
+        } else if (mClass.permGroup != null && !mClass.permGroup.equals("")) {
             if (AncientRPG.permissionHandler != null) {
                 try {
                     AncientRPG.permissionHandler.playerRemoveGroup(event.getPlayer(), mClass.permGroup);
@@ -316,7 +316,7 @@ public class AncientRPGPlayerListener implements Listener {
                         "This slot is bound to the spell: " + pd.getSlotbinds().get(event.getNewSlot()));
             }
         }
-        if (event.getPlayer() instanceof Player) {
+        if (event.getPlayer() != null) {
             Player p = event.getPlayer();
             AncientRPGClass mClass = AncientRPGClass.classList.get(
                     PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());

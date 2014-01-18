@@ -33,7 +33,7 @@ public class ClassCastCommand {
     }
 
     public static enum castType {
-        Passive, Left, Right, Command;
+        Passive, Left, Right, Command
     }
 
     public static void processCast(PlayerData pd, Player mPlayer, String s, castType ct) {
@@ -57,12 +57,10 @@ public class ClassCastCommand {
             mPlayer.sendMessage(AncientRPG.brand2 + "You don't have permissions to cast a spell");
             return;
         }
-        if (p != null && !p.active) {
+        if (!p.active) {
             mPlayer.sendMessage(AncientRPG.brand2 + "You can't cast passive spells");
             return;
         }
-        if (p != null) {
-            CommandPlayer.scheduleSpell(p, mPlayer);
-        }
+        CommandPlayer.scheduleSpell(p, mPlayer);
     }
 }

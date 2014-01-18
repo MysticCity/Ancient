@@ -39,8 +39,7 @@ public class ClassResetCommand {
             if (pd.getClassLevels().get(AncientRPGClass.standardclassName) == null) {
                 pd.getClassLevels().put(AncientRPGClass.standardclassName, 0);
             }
-            int xp = pd.getClassLevels().get(AncientRPGClass.standardclassName);
-            pd.getXpSystem().xp = xp;
+            pd.getXpSystem().xp = pd.getClassLevels().get(AncientRPGClass.standardclassName);
             pd.getXpSystem().addXP(0, false);
         }
         pd.setClassName(AncientRPGClass.standardclassName);

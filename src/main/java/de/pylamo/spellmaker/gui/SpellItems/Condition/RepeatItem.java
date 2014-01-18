@@ -124,14 +124,12 @@ public class RepeatItem extends ComplexItem {
         if (height == 0) {
             height = 25;
         }
-        if (istp != null && isp != null && eip != null) {
-            isp.setSize(25, height);
-            isp.setLocation(0, istp.getPreferredSize().height);
-            istp.setSize(istp.getPreferredSize());
-            eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
-            eip.setLocation(0, isp.getY() + isp.getHeight());
-            h = this.eip.getY() + this.eip.getHeight();
-        }
+        isp.setSize(25, height);
+        isp.setLocation(0, istp.getPreferredSize().height);
+        istp.setSize(istp.getPreferredSize());
+        eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
+        eip.setLocation(0, isp.getY() + isp.getHeight());
+        h = this.eip.getY() + this.eip.getHeight();
         for (Component com : getComponents()) {
             if (com.getPreferredSize().width + com.getX() > w) {
                 w = com.getPreferredSize().width + com.getX();

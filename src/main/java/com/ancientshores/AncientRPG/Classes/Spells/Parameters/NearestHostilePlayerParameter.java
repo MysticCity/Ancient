@@ -8,6 +8,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 public class NearestHostilePlayerParameter implements IParameter {
@@ -23,7 +24,7 @@ public class NearestHostilePlayerParameter implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
         }
         if (subparam != null || ea.so.hostilePlayers == null || ea.so.hostilePlayers[0] == null) {
@@ -78,8 +79,7 @@ public class NearestHostilePlayerParameter implements IParameter {
             }
         }
         if (subparam != null || so.hostilePlayers == null || so.hostilePlayers[0] == null) {
-            Player[] nEntity = so.getNearestHostilePlayers(mPlayer, range, 3);
-            so.hostilePlayers = nEntity;
+            so.hostilePlayers = so.getNearestHostilePlayers(mPlayer, range, 3);
         }
         return so.hostilePlayers;
     }

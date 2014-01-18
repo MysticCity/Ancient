@@ -58,20 +58,18 @@ public class ForeachSection extends ICodeSection {
         args[0] = args[0].trim();
         varname = args[1].trim();
         mSpell.variables.add(varname.trim());
-        if (args.length == 2) {
-            for (IParameter p : Parameter.registeredParameters) {
-                if (args[0].toLowerCase().startsWith(p.getName().toLowerCase())) {
-                    String[] subs = args[0].split(":");
-                    this.p = p;
-                    if (subs.length > 1) {
-                        this.subparams = new String[subs.length - 1];
-                        System.arraycopy(subs, 1, this.subparams, 0, subs.length - 1);
-                    }
-                    return;
+        for (IParameter p : Parameter.registeredParameters) {
+            if (args[0].toLowerCase().startsWith(p.getName().toLowerCase())) {
+                String[] subs = args[0].split(":");
+                this.p = p;
+                if (subs.length > 1) {
+                    this.subparams = new String[subs.length - 1];
+                    System.arraycopy(subs, 1, this.subparams, 0, subs.length - 1);
                 }
+                return;
             }
-            aio = IArgument.parseArgumentByString(args[0], this.mSpell);
         }
+        aio = IArgument.parseArgumentByString(args[0], this.mSpell);
     }
 
     public void executeCommand(final Player mPlayer, final SpellInformationObject so) {
@@ -84,13 +82,17 @@ public class ForeachSection extends ICodeSection {
             Object o = getObject(so, mPlayer);
             if (o == null || !(o instanceof Object[]) || Array.getLength(o) <= 0) {
                 removeObjects(so);
-                parentSection.executeCommand(mPlayer, so);
+                if (parentSection != null) {
+                    parentSection.executeCommand(mPlayer, so);
+                }
                 return;
             }
             o = GlobalMethods.removeNullArrayCells((Object[]) o);
             if (Array.getLength(o) <= 0) {
                 removeObjects(so);
-                parentSection.executeCommand(mPlayer, so);
+                if (parentSection != null) {
+                    parentSection.executeCommand(mPlayer, so);
+                }
                 return;
             }
             Variable v = new Variable(this.varname.trim());
@@ -106,15 +108,14 @@ public class ForeachSection extends ICodeSection {
             Object o = playersarraysobjects.get(so);
             int index = playersarrayindexes.get(so);
             if (index < Array.getLength(o)) {
-                Object c = Array.get(o, index);
-                so.variables.get(varname).obj = c;
+                so.variables.get(varname).obj = Array.get(o, index);
                 this.playersindexes.put(so, 0);
                 playersarrayindexes.put(so, index + 1);
             } else {
                 removeObjects(so);
                 if (parentSection != null) {
                     parentSection.executeCommand(mPlayer, so);
-                } else if (parentSection == null) {
+                } else {
                     so.finished = true;
                     AncientRPGClass.executedSpells.remove(so);
                 }
@@ -140,7 +141,9 @@ public class ForeachSection extends ICodeSection {
         } catch (Exception e) {
             so.canceled = true;
             removeObjects(so);
-            parentSection.executeCommand(mPlayer, so);
+            if (parentSection != null) {
+                parentSection.executeCommand(mPlayer, so);
+            }
         }
     }
 

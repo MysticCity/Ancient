@@ -13,9 +13,9 @@ public class PartyCommandList {
             if (AncientRPG.hasPermissions(mPlayer, "")) {
                 AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
                 mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "In your party are:");
-                for (Player p : mParty.Member) {
+                for (Player p : mParty.members) {
                     if (p != null) {
-                        if (p == AncientRPGParty.getPlayersParty(mPlayer).mLeader) {
+                        if (p == AncientRPGParty.getPlayersParty(mPlayer).leader) {
                             mPlayer.sendMessage(ChatColor.GREEN
                                     + p.getName() + "(Leader)");
                         } else {

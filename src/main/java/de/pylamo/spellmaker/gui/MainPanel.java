@@ -84,10 +84,10 @@ public class MainPanel extends JLayeredPane {
             bw.write(w.m.spellname + "\n");
             if (w.m.active) {
                 bw.write("active\n");
-            } else if (!w.m.active && !w.m.buff) {
+            } else if (!w.m.buff) {
                 bw.write("passive:" + w.m.priority + "\n");
                 bw.write(w.m.event + "\n");
-            } else if (w.m.buff) {
+            } else {
                 bw.write("buff:" + w.m.priority + "\n");
                 bw.write(w.m.event + "\n");
             }

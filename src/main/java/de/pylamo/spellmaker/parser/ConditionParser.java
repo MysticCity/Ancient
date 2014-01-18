@@ -98,12 +98,10 @@ class ConditionParser {
                 ccp.operator.add(ccp.operator.content);
             }
             OrItem oi = new OrItem(false, w);
-            if (ccp != null) {
-                oi.lefthand.content = ccp;
-                oi.lefthand.add(oi.lefthand.content);
-                oi.righthand.content = subparam;
-                oi.righthand.add(oi.righthand.content);
-            }
+            oi.lefthand.content = ccp;
+            oi.lefthand.add(oi.lefthand.content);
+            oi.righthand.content = subparam;
+            oi.righthand.add(oi.righthand.content);
             return oi;
         } else if (type == and) {
             ConditionComparePanel ccp = new ConditionComparePanel(false, w);
@@ -123,12 +121,10 @@ class ConditionParser {
 
             }
             AndItem ai = new AndItem(false, w);
-            if (ccp != null) {
-                ai.lefthand.content = ccp;
-                ai.lefthand.add(ai.lefthand.content);
-                ai.righthand.content = subparam;
-                ai.righthand.add(ai.righthand.content);
-            }
+            ai.lefthand.content = ccp;
+            ai.lefthand.add(ai.lefthand.content);
+            ai.righthand.content = subparam;
+            ai.righthand.add(ai.righthand.content);
             return ai;
         }
         return null;

@@ -16,7 +16,7 @@ public class PartyCommandAdmin {
                     int i = 1;
                     for (AncientRPGParty p : AncientRPGParty.partys) {
                         mPlayer.sendMessage(ChatColor.BLUE + "" + i + ": "
-                                + ChatColor.GREEN + p.mLeader.getName());
+                                + ChatColor.GREEN + p.leader.getName());
                         i++;
                     }
                 }
@@ -30,9 +30,9 @@ public class PartyCommandAdmin {
                             AncientRPGParty mParty = AncientRPGParty.getPlayersParty(playertolist);
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
                                     + "In this party are:");
-                            for (Player p : mParty.Member) {
+                            for (Player p : mParty.members) {
                                 if (p != null) {
-                                    if (p == AncientRPGParty.getPlayersParty(mPlayer).mLeader) {
+                                    if (p == AncientRPGParty.getPlayersParty(mPlayer).leader) {
                                         mPlayer.sendMessage(ChatColor.GREEN
                                                 + p.getName() + "(Leader)");
                                     } else {

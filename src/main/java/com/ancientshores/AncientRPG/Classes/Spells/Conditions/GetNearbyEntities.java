@@ -30,7 +30,7 @@ public class GetNearbyEntities extends IArgument {
             for (Entity e : entityset) {
                 if (e instanceof Creature || e instanceof Player) {
                     double dif = e.getLocation().distance(l);
-                    if (dif < range && dif < curdif && l != e.getLocation() && (e instanceof Creature || e instanceof Player) && !alreadyParsed.contains(e)) {
+                    if (dif < range && dif < curdif && l != e.getLocation() && !alreadyParsed.contains(e)) {
                         curdif = dif;
                         nearestEntity[i] = e;
                     }

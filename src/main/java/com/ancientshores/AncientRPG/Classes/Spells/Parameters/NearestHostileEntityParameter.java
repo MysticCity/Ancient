@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 public class NearestHostileEntityParameter implements IParameter {
@@ -26,7 +27,7 @@ public class NearestHostileEntityParameter implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
             try {
                 if (ea.p.variables.contains(subparam[1].toLowerCase())) {
@@ -35,7 +36,7 @@ public class NearestHostileEntityParameter implements IParameter {
                     count = Integer.parseInt(subparam[1]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
         }
         if (subparam != null || ea.so.hostileEntities == null || ea.so.hostileEntities[0] == null) {
@@ -93,8 +94,7 @@ public class NearestHostileEntityParameter implements IParameter {
             }
         }
         if (subparam != null || so.hostileEntities == null || so.hostileEntities[0] == null) {
-            Entity[] nEntities = so.getNearestHostileEntities(mPlayer, range, count);
-            so.hostileEntities = nEntities;
+            so.hostileEntities = so.getNearestHostileEntities(mPlayer, range, count);
         }
         return so.hostileEntities;
     }

@@ -48,9 +48,12 @@ public class AncientRPGRace {
     }
 
     public void loadSpells(File f) {
-        for (File spell : f.listFiles()) {
-            if (spell.getPath().endsWith(".spell")) {
-                raceSpells.add(new Spell(spell));
+        File[] files = f.listFiles();
+        if (files != null) {
+            for (File spell : files) {
+                if (spell.getPath().endsWith(".spell")) {
+                    raceSpells.add(new Spell(spell));
+                }
             }
         }
     }
@@ -180,9 +183,12 @@ public class AncientRPGRace {
         if (!raceFolder.exists()) {
             raceFolder.mkdirs();
         }
-        for (File f : raceFolder.listFiles()) {
-            if (f.isDirectory()) {
-                races.add(new AncientRPGRace(f));
+        File[] files = raceFolder.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    races.add(new AncientRPGRace(f));
+                }
             }
         }
         File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Races" + File.separator + "changecds.dat");

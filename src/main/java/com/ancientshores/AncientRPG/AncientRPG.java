@@ -87,7 +87,7 @@ public class AncientRPG extends JavaPlugin {
 
     HashMap<SpellInformationObject, Player> executingSpells = new HashMap<SpellInformationObject, Player>();
 
-    public final Logger log = Logger.getLogger("Minecraft");// Define your logger
+    public final Logger log = getLogger();
     public static String partyCommand = "party";
     public static final String partyCommandNode = "AncientRPG.Commands.party";
     public static String guildCommand = "guild";
@@ -252,17 +252,20 @@ public class AncientRPG extends JavaPlugin {
         try {
             File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "spellfreezones");
             f.mkdir();
-            for (File nf : f.listFiles()) {
-                if (nf.getName().endsWith(".sfz")) {
-                    try {
-                        String name = nf.getName().substring(0, nf.getName().lastIndexOf('.'));
-                        FileInputStream fis = new FileInputStream(nf);
-                        ObjectInputStream ois = new ObjectInputStream(fis);
-                        SerializableZone sz = (SerializableZone) ois.readObject();
-                        AddSpellFreeZoneCommand.spellfreezones.put(name, sz);
-                        ois.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            File[] files = f.listFiles();
+            if (files != null) {
+                for (File nf : files) {
+                    if (nf.getName().endsWith(".sfz")) {
+                        try {
+                            String name = nf.getName().substring(0, nf.getName().lastIndexOf('.'));
+                            FileInputStream fis = new FileInputStream(nf);
+                            ObjectInputStream ois = new ObjectInputStream(fis);
+                            SerializableZone sz = (SerializableZone) ois.readObject();
+                            AddSpellFreeZoneCommand.spellfreezones.put(name, sz);
+                            ois.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -474,7 +477,7 @@ public class AncientRPG extends JavaPlugin {
             nargs = buffer;
         }
         if (commandName.equalsIgnoreCase("ancientrpg")) {
-            if (args.length != 0 && args[0].equalsIgnoreCase("reload") && (!(sender instanceof Player) || (sender instanceof Player && hasPermissions((Player) sender, AdminPermission)))) {
+            if (args.length != 0 && args[0].equalsIgnoreCase("reload") && (!(sender instanceof Player) || (hasPermissions((Player) sender, AdminPermission)))) {
                 ReloadCommand.reload();
                 sender.sendMessage("AncientRPG reload complete!");
             }
@@ -508,7 +511,7 @@ public class AncientRPG extends JavaPlugin {
             AncientRPGExperience.processCommand(sender, nargs);
             return true;
         }
-        if (commandName.equals(classCommand) && AncientRPGClass.enabled) {
+        if (commandName.equals(classCommand)) {
             AncientRPGClass.processCommand(sender, nargs);
             return true;
         }
@@ -536,13 +539,15 @@ public class AncientRPG extends JavaPlugin {
                 return true;
             }
 
-            if (commandName.equals(bindCommand) && AncientRPGClass.enabled) {
-                if (args.length == 2) {
-                    SpellBindCommand.bindCommand(new String[]{"class", args[1]}, (Player) sender);
-                } else if (args.length == 3) {
-                    SpellBindCommand.bindCommand(new String[]{"class", args[1], args[2]}, (Player) sender);
-                } else {
-                    sender.sendMessage("Correct usage is bind [itemid]");
+            if (commandName.equals(bindCommand)) {
+                if (args != null) {
+                    if (args.length == 2) {
+                        SpellBindCommand.bindCommand(new String[]{"class", args[1]}, (Player) sender);
+                    } else if (args.length == 3) {
+                        SpellBindCommand.bindCommand(new String[]{"class", args[1], args[2]}, (Player) sender);
+                    } else {
+                        sender.sendMessage("Correct usage is bind [itemid]");
+                    }
                 }
                 return true;
             }
@@ -550,13 +555,15 @@ public class AncientRPG extends JavaPlugin {
                 HPCommand.showHP((Player) sender);
                 return true;
             }
-            if (commandName.equals(unbindCommand) && AncientRPGClass.enabled) {
-                if (args.length == 0) {
-                    ClassUnbindCommand.unbindCommand(new String[]{"unbind"}, (Player) sender);
-                } else if (args.length == 1) {
-                    ClassUnbindCommand.unbindCommand(new String[]{"unbind", args[0]}, (Player) sender);
-                } else {
-                    sender.sendMessage("Correct usage is unbind [itemid]");
+            if (commandName.equals(unbindCommand)) {
+                if (args != null) {
+                    if (args.length == 0) {
+                        ClassUnbindCommand.unbindCommand(new String[]{"unbind"}, (Player) sender);
+                    } else if (args.length == 1) {
+                        ClassUnbindCommand.unbindCommand(new String[]{"unbind", args[0]}, (Player) sender);
+                    } else {
+                        sender.sendMessage("Correct usage is unbind [itemid]");
+                    }
                 }
                 return true;
             }
@@ -565,7 +572,7 @@ public class AncientRPG extends JavaPlugin {
                 return true;
             }
             /*
-			 * if
+             * if
 			 * (AncientRPG.classExisting("com.ancientshores.AncientRPG.Achievement"
 			 * )I'll include this later && Achievement.enabled) {
 			 * Achievement.processCommands(sender, command, commandLabel, args,

@@ -22,6 +22,9 @@ public class GlobalMethods {
         if (e instanceof Chicken) {
             return "chicken";
         }
+        if (e instanceof MushroomCow) {
+            return "mushroomcow";
+        }
         if (e instanceof Cow) {
             return "cow";
         }
@@ -52,6 +55,9 @@ public class GlobalMethods {
         if (e instanceof ExperienceOrb) {
             return "experienceorb";
         }
+        if (e instanceof SmallFireball) {
+            return "smallfireball";
+        }
         if (e instanceof Fireball) {
             return "fireball";
         }
@@ -73,11 +79,14 @@ public class GlobalMethods {
         if (e instanceof MagmaCube) {
             return "magmacube";
         }
+        if (e instanceof PoweredMinecart) {
+            return "poweredminecart";
+        }
+        if (e instanceof StorageMinecart) {
+            return "storageminecart";
+        }
         if (e instanceof Minecart) {
             return "minecart";
-        }
-        if (e instanceof MushroomCow) {
-            return "mushroomcow";
         }
         if (e instanceof Ocelot) {
             return "ocelot";
@@ -94,9 +103,6 @@ public class GlobalMethods {
         if (e instanceof Player) {
             return "player";
         }
-        if (e instanceof PoweredMinecart) {
-            return "poweredminecart";
-        }
         if (e instanceof Sheep) {
             return "sheep";
         }
@@ -109,9 +115,6 @@ public class GlobalMethods {
         if (e instanceof Slime) {
             return "slime";
         }
-        if (e instanceof SmallFireball) {
-            return "smallfireball";
-        }
         if (e instanceof Snowball) {
             return "snowball";
         }
@@ -123,9 +126,6 @@ public class GlobalMethods {
         }
         if (e instanceof Squid) {
             return "squid";
-        }
-        if (e instanceof StorageMinecart) {
-            return "storageminecart";
         }
         if (e instanceof ThrownExpBottle) {
             return "thrownexpbottle";

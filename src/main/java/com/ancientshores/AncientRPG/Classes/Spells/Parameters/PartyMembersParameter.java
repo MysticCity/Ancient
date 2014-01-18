@@ -9,6 +9,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 2, description = "<html>returns members of the party<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "PartyMembers")
@@ -26,7 +27,7 @@ public class PartyMembersParameter implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
         }
         if (subparam != null || ea.so.partyMembers == null) {
@@ -85,8 +86,7 @@ public class PartyMembersParameter implements IParameter {
             }
         }
         if (subparam != null || so.partyMembers == null) {
-            Player[] nEntity = so.getPartyMembers(mPlayer, range);
-            so.partyMembers = nEntity;
+            so.partyMembers = so.getPartyMembers(mPlayer, range);
         }
         return so.partyMembers;
     }

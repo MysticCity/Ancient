@@ -106,7 +106,7 @@ public class ElseItem extends ComplexItem {
     @Override
     public void revalidate() {
         int w = 0;
-        int h = 0;
+        int h;
         int height = 0;
         ISpellItem isi = firstBlockItem;
         while (isi != null) {
@@ -116,14 +116,12 @@ public class ElseItem extends ComplexItem {
         if (height == 0) {
             height = 25;
         }
-        if (istp != null && isp != null && eip != null) {
-            isp.setSize(25, height);
-            isp.setLocation(0, istp.getPreferredSize().height);
-            istp.setSize(istp.getPreferredSize());
-            eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
-            eip.setLocation(0, isp.getY() + isp.getHeight());
-            h = this.eip.getY() + this.eip.getHeight();
-        }
+        isp.setSize(25, height);
+        isp.setLocation(0, istp.getPreferredSize().height);
+        istp.setSize(istp.getPreferredSize());
+        eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
+        eip.setLocation(0, isp.getY() + isp.getHeight());
+        h = this.eip.getY() + this.eip.getHeight();
         for (Component com : getComponents()) {
             if (com.getPreferredSize().width + com.getX() > w) {
                 w = com.getPreferredSize().width + com.getX();

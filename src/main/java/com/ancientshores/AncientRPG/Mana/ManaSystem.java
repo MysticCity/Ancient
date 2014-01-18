@@ -74,9 +74,7 @@ public class ManaSystem implements ConfigurationSerializable {
                 if (p.isDead()) {
                     return;
                 }
-                if (p != null) {
-                    addManaByName(playername, manareg);
-                }
+                addManaByName(playername, manareg);
             }
         }, Math.round(manareginterval * 20), Math.round(manareginterval * 20));
     }

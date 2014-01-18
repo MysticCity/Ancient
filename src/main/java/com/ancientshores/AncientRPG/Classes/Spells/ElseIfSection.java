@@ -37,7 +37,7 @@ public class ElseIfSection extends ICodeSection {
             playersindexes.remove(so);
             if (parentSection != null) {
                 parentSection.executeCommand(mPlayer, so);
-            } else if (parentSection == null) {
+            } else {
                 so.finished = true;
                 AncientRPGClass.executedSpells.remove(so);
             }
@@ -46,21 +46,23 @@ public class ElseIfSection extends ICodeSection {
         if (playersindexes.get(so) == 0 && !c.conditionFulfilled(mPlayer, so)) {
             playersindexes.remove(so);
             if (!so.canceled) {
-                if (parentSection.playersindexes.get(so) < parentSection.sections.size()) {
-                    if (parentSection.sections.get(parentSection.playersindexes.get(so)) instanceof ElseSection) {
-                        ElseSection es = (ElseSection) parentSection.sections.get(parentSection.playersindexes.get(so));
-                        parentSection.playersindexes.put(so, parentSection.playersindexes.get(so) + 1);
-                        es.executeElse(mPlayer, so);
-                        return;
+                if (parentSection != null) {
+                    if (parentSection.playersindexes.get(so) < parentSection.sections.size()) {
+                        if (parentSection.sections.get(parentSection.playersindexes.get(so)) instanceof ElseSection) {
+                            ElseSection es = (ElseSection) parentSection.sections.get(parentSection.playersindexes.get(so));
+                            parentSection.playersindexes.put(so, parentSection.playersindexes.get(so) + 1);
+                            es.executeElse(mPlayer, so);
+                            return;
+                        }
+                        if (parentSection.sections.get(parentSection.playersindexes.get(so)) instanceof ElseIfSection) {
+                            ElseIfSection es = (ElseIfSection) parentSection.sections.get(parentSection.playersindexes.get(so));
+                            parentSection.playersindexes.put(so, parentSection.playersindexes.get(so) + 1);
+                            es.executeElseIf(mPlayer, so);
+                            return;
+                        }
                     }
-                    if (parentSection.sections.get(parentSection.playersindexes.get(so)) instanceof ElseIfSection) {
-                        ElseIfSection es = (ElseIfSection) parentSection.sections.get(parentSection.playersindexes.get(so));
-                        parentSection.playersindexes.put(so, parentSection.playersindexes.get(so) + 1);
-                        es.executeElseIf(mPlayer, so);
-                        return;
-                    }
+                    parentSection.executeCommand(mPlayer, so);
                 }
-                parentSection.executeCommand(mPlayer, so);
             }
             return;
         }
@@ -83,7 +85,9 @@ public class ElseIfSection extends ICodeSection {
         } catch (Exception e) {
             playersindexes.remove(so);
             so.canceled = true;
-            parentSection.executeCommand(mPlayer, so);
+            if (parentSection != null) {
+                parentSection.executeCommand(mPlayer, so);
+            }
         }
     }
 

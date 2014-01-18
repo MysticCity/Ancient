@@ -46,8 +46,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
         this.hp = ((Number) map.get("hp")).intValue();
         this.maxhp = ((Number) map.get("maxhp")).intValue();
         this.playername = (String) map.get("playername");
-        int d = ((Number) map.get("hpRegInterval")).intValue();
-        this.hpRegInterval = (int) d;
+        this.hpRegInterval = ((Number) map.get("hpRegInterval")).intValue();
         this.hpReg = ((Number) map.get("hpReg")).intValue();
     }
 
@@ -75,7 +74,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
         } else {
             hpReg = DamageConverter.hpReg;
         }
-        hpRegInterval = (int) DamageConverter.hpRegInterval;
+        hpRegInterval = DamageConverter.hpRegInterval;
         task = Bukkit.getScheduler().scheduleSyncRepeatingTask(AncientRPG.plugin, new Runnable() {
             public void run() {
                 if (!damage) {
@@ -89,7 +88,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
                     }
                     hp = p.getHealth();
                     if (p.getFoodLevel() >= DamageConverter.minFoodRegLevel) {
-                        if (p != null && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(p)) {
+                        if (DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(p)) {
                             addHpByName(playername, hpReg);
                         }
                     }

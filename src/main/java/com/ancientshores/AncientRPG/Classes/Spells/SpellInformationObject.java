@@ -300,7 +300,7 @@ public class SpellInformationObject {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         HashSet<Player> partyMembers = new HashSet<Player>();
         if (mParty != null) {
-            partyMembers.addAll(mParty.Member);
+            partyMembers.addAll(mParty.members);
         }
         for (int i = 0; i < count; i++) {
             for (Entity e : entityset) {
@@ -365,7 +365,7 @@ public class SpellInformationObject {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         HashSet<Entity> partyMembers = new HashSet<Entity>();
         if (mParty != null) {
-            partyMembers.addAll(mParty.Member);
+            partyMembers.addAll(mParty.members);
         }
         partyMembers = (HashSet<Entity>) removeEntitiesInSpellfreeZone(partyMembers);
         for (int i = 0; i < count; i++) {
@@ -398,20 +398,20 @@ public class SpellInformationObject {
         if (mParty == null) {
             partymembers = new Player[0];
         } else {
-            Player[] buffer = new Player[mParty.Member.size()];
-            for (Player p : mParty.Member) {
+            Player[] buffer = new Player[mParty.members.size()];
+            for (Player p : mParty.members) {
                 buffer[i] = p;
                 i++;
             }
             int rightDistance = 0;
-            for (Player p : mParty.Member) {
+            for (Player p : mParty.members) {
                 if (p.getLocation().distance(mPlayer.getLocation()) <= range && p != mPlayer) {
                     rightDistance++;
                 }
             }
             Player[] buffer2 = new Player[rightDistance];
             int x = 0;
-            for (Player p : mParty.Member) {
+            for (Player p : mParty.members) {
                 if (p.getLocation().distance(mPlayer.getLocation()) <= range && p != mPlayer) {
                     buffer2[x] = p;
                     x++;

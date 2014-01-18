@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 2, description = "<html>returns the nearest hostile entities of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Entity", name = "NearestHostileEntities")
@@ -26,7 +27,7 @@ public class NearestHostileEntitiesParameter implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
             if (subparam.length == 2) {
                 try {
@@ -36,7 +37,7 @@ public class NearestHostileEntitiesParameter implements IParameter {
                         count = Integer.parseInt(subparam[1]);
                     }
                 } catch (Exception e) {
-                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
                 }
             }
         }
@@ -95,8 +96,7 @@ public class NearestHostileEntitiesParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntity == null) {
-            Entity[] nEntity = so.getNearestHostileEntities(mPlayer, range, count);
-            so.hostileEntities = nEntity;
+            so.hostileEntities = so.getNearestHostileEntities(mPlayer, range, count);
         }
         return so.hostileEntities;
     }

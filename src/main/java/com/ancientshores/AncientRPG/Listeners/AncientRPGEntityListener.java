@@ -72,7 +72,7 @@ public class AncientRPGEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void monsterHpListener(EntityDamageEvent event) {
-        if (event.isCancelled() || ignored || event.getDamage() == Integer.MAX_VALUE) {
+        if (event.isCancelled() || event.getDamage() == Integer.MAX_VALUE) {
             return;
         }
         double damage = event.getDamage();
@@ -86,7 +86,7 @@ public class AncientRPGEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMonsterDespawn(EntityDeathEvent event) {
-        if (CreatureHp.isEnabled(event.getEntity().getWorld()) && event.getEntity() instanceof LivingEntity && !(event.getEntity() instanceof HumanEntity)) {
+        if (CreatureHp.isEnabled(event.getEntity().getWorld()) && event.getEntity() != null && !(event.getEntity() instanceof HumanEntity)) {
             LivingEntity c = event.getEntity();
             if (CreatureHp.containsCreature(c)) {
                 CreatureHp.removeCreature(c);
@@ -267,7 +267,7 @@ public class AncientRPGEntityListener implements Listener {
 
     private void processHpSystem(EntityDamageEvent event) {
         double damage = event.getDamage();
-        PlayerData pd = PlayerData.getPlayerData(((Player) event.getEntity()).getName());
+        PlayerData.getPlayerData(((Player) event.getEntity()).getName());
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && DamageConverter.isEnabled()) {
             if (event.getDamage() < 0.0 || event.isCancelled()) {
                 return;

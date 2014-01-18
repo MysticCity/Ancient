@@ -59,7 +59,7 @@ public class ClassSetCommand {
         AncientRPGClass oldclass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
         AncientRPGClass c = AncientRPGClass.classList.get(args[1].toLowerCase());
         if (c != null) {
-            if (player == p && c == null || (c.preclass != null && !c.preclass.equals("") && (pd.getClassName() == null || !c.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())))) {
+            if ((c.preclass != null && !c.preclass.equals("") && (pd.getClassName() == null || !c.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())))) {
                 p.sendMessage(AncientRPG.brand2 + "You need to be a " + c.preclass + " to join this class");
                 return;
             }
@@ -160,7 +160,9 @@ public class ClassSetCommand {
                     }
                 }
                 if (AncientRPGExperience.isEnabled()) {
-                    pd.getClassLevels().put(oldClass.name.toLowerCase(), pd.getXpSystem().xp);
+                    if (oldClass != null) {
+                        pd.getClassLevels().put(oldClass.name.toLowerCase(), pd.getXpSystem().xp);
+                    }
                 }
             } catch (Exception ignored) {
 

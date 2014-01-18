@@ -13,7 +13,7 @@ public class PartyCommandKick {
         if (args.length == 2) {
             AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
             if (mParty != null) {
-                if (mPlayer == mParty.mLeader) {
+                if (mPlayer == mParty.leader) {
                     Player mKickedPlayer = main.getServer().getPlayer(
                             args[1]);
                     mParty.removePlayer(mKickedPlayer);

@@ -96,11 +96,11 @@ public class OrItem extends IParameter {
     @Override
     public String getString() {
         String left = "";
-        if (lefthand != null && lefthand.content != null) {
+        if (lefthand.content != null) {
             left = lefthand.content.getString();
         }
         String right = "";
-        if (righthand != null && righthand.content != null) {
+        if (righthand.content != null) {
             right = righthand.content.getString();
         }
         return left + " || " + right;

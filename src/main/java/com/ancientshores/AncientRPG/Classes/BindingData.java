@@ -49,7 +49,7 @@ public class BindingData implements Serializable, ConfigurationSerializable {
     public boolean equals(Object c) {
         if (c instanceof BindingData) {
             BindingData bd = ((BindingData) c);
-            if (bd.id == this.id && bd.data == bd.data) {
+            if (bd.id == this.id && bd.data == this.data) {
                 return true;
             }
         }

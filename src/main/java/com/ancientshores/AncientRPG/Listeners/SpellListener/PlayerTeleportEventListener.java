@@ -8,7 +8,6 @@ import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
 import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -27,7 +26,7 @@ public class PlayerTeleportEventListener extends ISpellListener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEvent(final PlayerTeleportEvent event) {
-        if ((event instanceof Cancellable) && event.isCancelled()) {
+        if (event.isCancelled()) {
             return;
         }
         if (AncientRPGSpellListener.ignoredEvents.contains(event)) {

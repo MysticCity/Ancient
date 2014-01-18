@@ -388,17 +388,12 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
                 @SuppressWarnings("unchecked") HashSet<PlayerData> oldset = (HashSet<PlayerData>) input;
                 fis.close();
                 ois.close();
-                if (ois != null) {
-                    playerData.addAll(oldset);
-                }
+                playerData.addAll(oldset);
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             String s = "oldplayer";

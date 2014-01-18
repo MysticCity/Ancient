@@ -109,21 +109,23 @@ public class AncientRPGClass implements Serializable {
     public AncientRPGClass(final File base) {
         name = base.getName();
         File[] spells = base.listFiles();
-        for (final File f : spells) {
-            if (f.getPath().endsWith(".spell")) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        Spell p = new Spell(f);
-                        spellList.put(p.name.toLowerCase(), p);
+        if (spells != null) {
+            for (final File f : spells) {
+                if (f.getPath().endsWith(".spell")) {
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
+                        @Override
+                        public void run() {
+                            Spell p = new Spell(f);
+                            spellList.put(p.name.toLowerCase(), p);
+                        }
+                    });
+                }
+                if (f.isDirectory()) {
+                    AncientRPGClass stance1 = new AncientRPGClass(f);
+                    stances.put(stance1.name.toLowerCase(), stance1);
+                    if (stance1.shortcut != null && !stance1.shortcut.equals("")) {
+                        stances.put(stance1.shortcut, stance1);
                     }
-                });
-            }
-            if (f.isDirectory()) {
-                AncientRPGClass stance1 = new AncientRPGClass(f);
-                stances.put(stance1.name.toLowerCase(), stance1);
-                if (stance1.shortcut != null && !stance1.shortcut.equals("")) {
-                    stances.put(stance1.shortcut, stance1);
                 }
             }
         }
@@ -421,21 +423,24 @@ public class AncientRPGClass implements Serializable {
         if (!globspellpath.exists()) {
             globspellpath.mkdir();
         }
-        for (final File f : globspellpath.listFiles()) {
-            if (f.getName().endsWith(".spell") && f.isFile()) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
+        File[] files = globspellpath.listFiles();
+        if (files != null) {
+            for (final File f : files) {
+                if (f.getName().endsWith(".spell") && f.isFile()) {
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 
-                    @Override
-                    public void run() {
-                        try {
-                            Spell p = new Spell(f);
-                            globalSpells.put(p.name.toLowerCase(), p);
-                        } catch (Exception ignored) {
+                        @Override
+                        public void run() {
+                            try {
+                                Spell p = new Spell(f);
+                                globalSpells.put(p.name.toLowerCase(), p);
+                            } catch (Exception ignored) {
 
+                            }
                         }
-                    }
 
-                });
+                    });
+                }
             }
         }
         for (File f : classes) {
@@ -485,7 +490,6 @@ public class AncientRPGClass implements Serializable {
                     mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "Your stance is " + ChatColor.BLUE + pd.getStance());
                 }
                 mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "To see a list of all Commands type: " + ChatColor.AQUA + "/class help");
-                return;
             } else if (args[0].equalsIgnoreCase("bind")) {
                 SpellBindCommand.bindCommand(args, mPlayer);
             } else if (args[0].equalsIgnoreCase("bindslot")) {
@@ -525,14 +529,14 @@ public class AncientRPGClass implements Serializable {
             if (classList.containsKey(pd.getClassName().toLowerCase())) {
                 AncientRPGClass mClass = classList.get(pd.getClassName().toLowerCase());
                 if (mClass != null) {
-                    if (mClass.spellList != null && mClass.spellList.containsKey(spellname.toLowerCase())) {
+                    if (mClass.spellList.containsKey(spellname.toLowerCase())) {
                         return true;
                     }
-                    if (mClass.stances != null && pd.getStance() != null && !pd.getStance().equals(
+                    if (pd.getStance() != null && !pd.getStance().equals(
                             "") && mClass.stances.containsKey(pd.getStance().toLowerCase())) {
                         AncientRPGClass mStance = mClass.stances.get(pd.getStance().toLowerCase());
                         if (mStance != null) {
-                            if (mStance.spellList != null && mStance.spellList.containsKey(spellname.toLowerCase())) {
+                            if (mStance.spellList.containsKey(spellname.toLowerCase())) {
                                 return true;
                             }
                         }
@@ -571,14 +575,13 @@ public class AncientRPGClass implements Serializable {
             if (classList.containsKey(pd.getClassName().toLowerCase())) {
                 AncientRPGClass mClass = classList.get(pd.getClassName().toLowerCase());
                 if (mClass != null) {
-                    if (mClass.spellList != null && mClass.spellList.containsValue(p)) {
+                    if (mClass.spellList.containsValue(p)) {
                         return true;
                     }
-                    if (mClass.stances != null && pd.getStance() != null && !pd.getStance().equals(
-                            "") && mClass.stances.containsValue(p)) {
+                    if (pd.getStance() != null && !pd.getStance().equals("") && mClass.stances.containsValue(p)) {
                         AncientRPGClass mStance = mClass.stances.get(pd.getStance().toLowerCase());
                         if (mStance != null) {
-                            if (mStance.spellList != null && mStance.spellList.containsValue(p)) {
+                            if (mStance.spellList.containsValue(p)) {
                                 return true;
                             }
                         }
@@ -590,7 +593,7 @@ public class AncientRPGClass implements Serializable {
                 return true;
             }
             /*
-			 * return (globalSpells.containsKey(spellname.toLowerCase()) ||
+             * return (globalSpells.containsKey(spellname.toLowerCase()) ||
 			 * (classList.containsKey(pd.className.toLowerCase()) &&
 			 * (classList.get(pd.className.toLowerCase()).spellList
 			 * .containsKey(spellname.toLowerCase()) ||

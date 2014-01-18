@@ -8,7 +8,6 @@ import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
 import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -29,7 +28,7 @@ public class PlayerChatEventListener extends ISpellListener {
     public void onEvent(final AsyncPlayerChatEvent event) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
             public void run() {
-                if ((event instanceof Cancellable) && event.isCancelled()) {
+                if (event.isCancelled()) {
                     return;
                 }
                 if (AncientRPGSpellListener.ignoredEvents.contains(event)) {

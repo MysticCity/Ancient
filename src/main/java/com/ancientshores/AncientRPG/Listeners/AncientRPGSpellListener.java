@@ -211,8 +211,10 @@ public class AncientRPGSpellListener implements Listener {
         } else if (buffEvent.equalsIgnoreCase("classchangeevent")) {
             buffs = AncientRPGSpellListener.classChangeEventBuffs;
         }
-        if (!buffs.containsKey(sp)) {
-            return;
+        if (buffs != null) {
+            if (!buffs.containsKey(sp)) {
+                return;
+            }
         }
         ConcurrentHashMap<Player[], Integer> innerMap = buffs.get(sp);
         HashSet<Player[]> removeBuffs = new HashSet<Player[]>();
@@ -444,7 +446,7 @@ public class AncientRPGSpellListener implements Listener {
         if (event instanceof EntityDamageByEntityEvent) {
             onPlayerKill((EntityDamageByEntityEvent) event);
         }
-        if (AncientRPGEntityListener.ignored || event.getDamage() == Integer.MAX_VALUE) {
+        if (event.getDamage() == Integer.MAX_VALUE) {
             return;
         } else {
             ignoredEvents.add(event);

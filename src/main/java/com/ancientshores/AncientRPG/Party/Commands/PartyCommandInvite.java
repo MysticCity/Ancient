@@ -94,7 +94,7 @@ public class PartyCommandInvite {
                                             .containsKey(invitedPlayer)) {
                                         if (!AncientRPGParty.invites
                                                 .containsKey(mPlayer)) {
-                                            if (mPlayer == mParty.mLeader) {
+                                            if (mPlayer == mParty.leader) {
                                                 if (!AncientRPGParty.mIgnoreList
                                                         .contains(invitedPlayer)) {
                                                     mParty.sendMessage(AncientRPG.brand2 + ChatColor.BLUE

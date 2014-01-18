@@ -9,6 +9,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 2, description = "<html>returns the nearest players of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "NearestPlayers")
@@ -26,7 +27,7 @@ public class NearestPlayersParameter implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
             if (subparam.length == 2) {
                 try {
@@ -36,7 +37,7 @@ public class NearestPlayersParameter implements IParameter {
                         count = Integer.parseInt(subparam[1]);
                     }
                 } catch (Exception e) {
-                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
                 }
             }
         }
@@ -104,8 +105,7 @@ public class NearestPlayersParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestPlayers == null || so.nearestPlayers[0] == null) {
-            Player[] nEntity = so.getNearestPlayers(mPlayer, range, count);
-            so.nearestPlayers = nEntity;
+            so.nearestPlayers = so.getNearestPlayers(mPlayer, range, count);
         }
         return so.nearestPlayers;
     }

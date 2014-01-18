@@ -173,82 +173,86 @@ public class Spell implements Serializable {
             int lineNumber = 1;
             BufferedReader bf = new BufferedReader(new FileReader(f));
             String line = bf.readLine();
-            while (line.startsWith("//") && line != null) {
+            while (line != null && line.startsWith("//")) {
                 line = bf.readLine();
                 lineNumber++;
             }
             name = line;
             line = bf.readLine();
             lineNumber++;
-            while (line.startsWith("//") && line != null) {
+            while (line != null && line.startsWith("//")) {
                 line = bf.readLine();
                 lineNumber++;
             }
-            if (line.toLowerCase().startsWith("passive")) {
-                active = false;
-                if (line.contains(":")) {
-                    String[] args = line.split(Pattern.quote(":"));
-                    try {
-                        priority = Integer.parseInt(args[1]);
-                    } catch (Exception ignored) {
+            if (line != null) {
+                if (line.toLowerCase().startsWith("passive")) {
+                    active = false;
+                    if (line.contains(":")) {
+                        String[] args = line.split(Pattern.quote(":"));
+                        try {
+                            priority = Integer.parseInt(args[1]);
+                        } catch (Exception ignored) {
 
+                        }
                     }
-                }
-                line = bf.readLine();
-                lineNumber++;
-                while (line.startsWith("//") && line != null) {
                     line = bf.readLine();
                     lineNumber++;
-                }
-                line = line.trim();
-                attachToEvent(line);
-            } else if (line.toLowerCase().startsWith("active")) {
-                active = true;
-                if (line.contains(":")) {
-                    String[] args = line.split(Pattern.quote(":"));
-                    try {
-                        priority = Integer.parseInt(args[1]);
-                    } catch (Exception ignored) {
-
+                    while (line.startsWith("//") && line != null) {
+                        line = bf.readLine();
+                        lineNumber++;
                     }
-                }
-            } else if (line.toLowerCase().startsWith("buff")) {
-                active = false;
-                buff = true;
-                if (line.contains(":")) {
-                    String[] args = line.split(Pattern.quote(":"));
-                    try {
-                        priority = Integer.parseInt(args[1]);
-                    } catch (Exception ignored) {
-
+                    if (line != null) {
+                        line = line.trim();
+                        attachToEvent(line);
                     }
-                }
-                line = bf.readLine();
-                lineNumber++;
-                while (line.startsWith("//") && line != null) {
+                } else if (line.toLowerCase().startsWith("active")) {
+                    active = true;
+                    if (line.contains(":")) {
+                        String[] args = line.split(Pattern.quote(":"));
+                        try {
+                            priority = Integer.parseInt(args[1]);
+                        } catch (Exception ignored) {
+
+                        }
+                    }
+                } else if (line.toLowerCase().startsWith("buff")) {
+                    active = false;
+                    buff = true;
+                    if (line.contains(":")) {
+                        String[] args = line.split(Pattern.quote(":"));
+                        try {
+                            priority = Integer.parseInt(args[1]);
+                        } catch (Exception ignored) {
+
+                        }
+                    }
                     line = bf.readLine();
                     lineNumber++;
-                }
-                line = line.trim();
-                if (line.contains(":")) {
-                    String[] args = line.split(Pattern.quote(":"));
-                    line = args[0];
-                    try {
-                        priority = Integer.parseInt(args[1]);
-                    } catch (Exception ignored) {
-
+                    while (line.startsWith("//") && line != null) {
+                        line = bf.readLine();
+                        lineNumber++;
                     }
+                    line = line.trim();
+                    if (line.contains(":")) {
+                        String[] args = line.split(Pattern.quote(":"));
+                        line = args[0];
+                        try {
+                            priority = Integer.parseInt(args[1]);
+                        } catch (Exception ignored) {
+
+                        }
+                    }
+                    this.buffEvent = line.trim().toLowerCase();
+                } else {
+                    AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load Spell " + name + " in line " + lineNumber + " forgot active/passive/buff declaration?");
+                    bf.close();
+                    return;
                 }
-                this.buffEvent = line.trim().toLowerCase();
-            } else {
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load Spell " + name + " in line " + lineNumber + " forgot active/passive/buff declaration?");
-                bf.close();
-                return;
             }
             line = bf.readLine();
             lineNumber++;
 
-            while (line.startsWith("//") && line != null) {
+            while (line != null && line.startsWith("//")) {
                 line = bf.readLine();
                 lineNumber++;
             }
@@ -263,9 +267,8 @@ public class Spell implements Serializable {
                     bf.close();
                     return;
                 }
-                line = bf.readLine();
             }
-            while (line.startsWith("//") && line != null) {
+            while (line != null && line.startsWith("//")) {
                 line = bf.readLine();
                 lineNumber++;
             }

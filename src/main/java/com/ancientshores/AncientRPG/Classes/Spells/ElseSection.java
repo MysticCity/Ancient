@@ -28,7 +28,7 @@ public class ElseSection extends ICodeSection {
             playersindexes.remove(so);
             if (parentSection != null) {
                 parentSection.executeCommand(mPlayer, so);
-            } else if (parentSection == null) {
+            } else {
                 so.finished = true;
                 AncientRPGClass.executedSpells.remove(so);
             }
@@ -53,7 +53,9 @@ public class ElseSection extends ICodeSection {
         } catch (Exception e) {
             playersindexes.remove(so);
             so.canceled = true;
-            parentSection.executeCommand(mPlayer, so);
+            if (parentSection != null) {
+                parentSection.executeCommand(mPlayer, so);
+            }
         }
     }
 

@@ -152,7 +152,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
                 AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p);
                 if (mParty != null) {
                     HashSet<Player> inrangeps = new HashSet<Player>();
-                    Collection<Player> players = mParty.Member;
+                    Collection<Player> players = mParty.members;
                     for (Player mp : players) {
                         if (mp == p) {
                             continue;
@@ -189,15 +189,14 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
             }
         }
         if (level != oldlevel) {
-            if (p != null) {
-                AncientLevelupEvent event = new AncientLevelupEvent(this.level, p, this.xp, xp);
-                Bukkit.getServer().getPluginManager().callEvent(event);
-                if (event.cancelled) {
-                    this.level = oldlevel;
-                    return;
-                }
-                PlayerData.getPlayerData(p.getName()).getHpsystem().setMaxHp();
-                PlayerData.getPlayerData(p.getName()).getManasystem().setMaxMana();
+            AncientLevelupEvent event = new AncientLevelupEvent(this.level, p, this.xp, xp);
+            Bukkit.getServer().getPluginManager().callEvent(event);
+            if (event.cancelled) {
+                this.level = oldlevel;
+                return;
+            }
+            PlayerData.getPlayerData(p.getName()).getHpsystem().setMaxHp();
+            PlayerData.getPlayerData(p.getName()).getManasystem().setMaxMana();
                 /*AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
                 if (mClass != null)
 				{
@@ -214,8 +213,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 					}
 					pd.getManasystem().setMaxMana();
 				}*/
-                p.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You reached level " + level);
-            }
+            p.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You reached level " + level);
         }
     }
 
@@ -426,7 +424,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
         if (event.getCause() == DamageCause.CUSTOM) {
             return;
         }
-        if (damager instanceof Player && !alreadyDead.contains(event.getEntity()) && event instanceof EntityDamageByEntityEvent) {
+        if (damager instanceof Player && !alreadyDead.contains(event.getEntity()) && event != null) {
             if (event.getEntity() instanceof LivingEntity && ((LivingEntity) event.getEntity()).getHealth() - event.getDamage() <= 0) {
                 alreadyDead.add(event.getEntity());
                 Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
@@ -446,9 +444,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
     }
 
     public static int getXPOfEntity(Entity e) {
-        if (e instanceof Zombie) {
-            return XPOfZombie;
-        } else if (e instanceof CaveSpider) {
+        if (e instanceof CaveSpider) {
             return XPOfCaveSpider;
         } else if (e instanceof Spider) {
             return XPOfSpider;
@@ -460,6 +456,8 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
             return XPOfEnderman;
         } else if (e instanceof PigZombie) {
             return XPOfPigzombie;
+        } else if (e instanceof Zombie) {
+            return XPOfZombie;
         } else if (e instanceof Ghast) {
             return XPOfGhast;
         } else if (e instanceof Slime) {

@@ -57,17 +57,6 @@ public class CastTo extends IArgument {
                     Entity[] e = new Entity[1];
                     e[0] = (Entity) obj;
                     return e;
-                } else if (obj instanceof Player[])
-
-                {
-                    Player[] arr = (Player[]) obj;
-                    Entity[] e = new Entity[arr.length];
-                    for (int i = 0; i < arr.length; i++) {
-                        if (arr[i] != null) {
-                            e[i] = arr[i];
-                        }
-                    }
-                    return e;
                 }
                 break;
             }
@@ -109,17 +98,6 @@ public class CastTo extends IArgument {
                     Location[] arr = new Location[1];
                     arr[0] = ((Entity) obj).getLocation();
                     return arr;
-                } else if (obj instanceof Player[])
-
-                {
-                    Player[] arr = (Player[]) obj;
-                    Location[] l = new Location[arr.length];
-                    for (int i = 0; i < arr.length; i++) {
-                        if (arr[i] != null) {
-                            l[i] = arr[i].getLocation();
-                        }
-                    }
-                    return l;
                 }
                 break;
             }

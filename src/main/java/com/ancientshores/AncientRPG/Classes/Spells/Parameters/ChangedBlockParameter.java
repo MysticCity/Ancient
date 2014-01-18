@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 0, description = "Returns the location of the broken block of a blockbreakevent", returntype = "Location", name = "ChangedBlock")
@@ -28,7 +29,7 @@ public class ChangedBlockParameter implements IParameter {
                         add = Integer.parseInt(subparam[0]);
                     }
                 } catch (Exception e) {
-                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                    AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
                 }
             }
             switch (pt) {

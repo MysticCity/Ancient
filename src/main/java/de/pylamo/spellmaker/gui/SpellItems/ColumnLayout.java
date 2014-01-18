@@ -61,7 +61,6 @@ class ColumnLayout implements LayoutManager2 {
             }
             Dimension pref = kid.getPreferredSize(); // How big is it?
             switch (alignment) { // Compute X coordinate
-                default:
                 case LEFT:
                     x = x0;
                     break;
@@ -70,6 +69,9 @@ class ColumnLayout implements LayoutManager2 {
                     break;
                 case RIGHT:
                     x = parent_size.width - insets.right - margin_width - pref.width;
+                    break;
+                default:
+                    x = x0;
                     break;
             }
             // Set the size and position of this kid

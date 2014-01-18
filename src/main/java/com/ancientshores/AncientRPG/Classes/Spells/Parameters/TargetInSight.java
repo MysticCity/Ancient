@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 1, description = "<html>returns the locaiton of the first target in sight (either an entity or the block you look at)<br> Textfield 1: range of parameter</html>", returntype = "Location", name = "TargetInSight")
@@ -26,15 +27,15 @@ public class TargetInSight implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
         }
         Entity e = ea.so.getNearestEntityInSight(mPlayer, range);
 
-        Location l = null;
+        Location l;
         if (e != null) {
             l = e.getLocation();
-        } else if (l == null) {
+        } else {
             l = ea.so.getBlockInSight(mPlayer, range);
         }
         switch (pt) {

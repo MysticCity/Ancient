@@ -24,13 +24,15 @@ public class ForeachStatement extends ComplexStatement {
         if (line.contains(" as ")) {
             parts = line.split(Pattern.quote(" as "));
         }
-        if (parts.length == 2) {
-            ArgumentParser ap1 = new ArgumentParser(w);
-            ap1.parse(parts[0]);
-            arr = ap1.getArgumentPanel(w);
-            ArgumentParser ap2 = new ArgumentParser(w);
-            ap2.parse(parts[1]);
-            var = ap2.getArgumentPanel(w);
+        if (parts != null) {
+            if (parts.length == 2) {
+                ArgumentParser ap1 = new ArgumentParser(w);
+                ap1.parse(parts[0]);
+                arr = ap1.getArgumentPanel(w);
+                ArgumentParser ap2 = new ArgumentParser(w);
+                ap2.parse(parts[1]);
+                var = ap2.getArgumentPanel(w);
+            }
         }
     }
 

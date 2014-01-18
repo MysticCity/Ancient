@@ -176,7 +176,7 @@ public class AncientRPGGuild implements Serializable {
 
     public void disband(boolean admin) {
         /*
-		 * if (AncientRPG.plugin.economy != null) {
+         * if (AncientRPG.plugin.economy != null) {
 		 * iConomy.getAccount(this.gName).remove(); }
 		 */
         if (admin) {
@@ -216,6 +216,7 @@ public class AncientRPGGuild implements Serializable {
         return gName;
     }
 
+    @SuppressWarnings("unused")
     public static void processCommand(CommandSender sender, String[] args, AncientRPG main) {
 
         if (args.length == 0) {
@@ -573,43 +574,45 @@ public class AncientRPGGuild implements Serializable {
             return;
         }
 
-        for (File f : guildFiles) {
-            if (!f.isDirectory() && f.getName().endsWith(".guild")) {
-                YamlConfiguration yc = new YamlConfiguration();
-                try {
-                    AncientRPGGuild guild = new AncientRPGGuild();
-                    yc.load(f);
-                    guild.gName = (String) yc.get("Guild.Name");
-                    guild.accountName = (String) yc.get("Guild.Accountname");
-                    guild.gLeader = (String) yc.get("Guild.Leader");
-                    guild.motd = (String) yc.get("Guild.Motd");
-                    guild.friendlyFire = (Boolean) yc.get("Guild.FF");
-                    guild.tag = yc.getString("Guild.tag", guild.tag);
-                    if (yc.get("Guild.spawnx") != null) {
-                        guild.spawnLocation = new SerializableLocation(new Location(Bukkit.getWorld(yc.getString("Guild.spawnworld")), yc.getDouble("Guild.spawnx"), yc.getDouble("Guild.spawny"),
-                                yc.getDouble("Guild.spawnz")));
-                    }
-                    if (!canToggleff) {
-                        guild.friendlyFire = true;
-                    }
-                    guild.gMember = new HashMap<String, AncientRPGGuildRanks>();
-                    int i = 0;
-                    String s = (String) yc.get("Guild.Members." + i);
-                    while (s != null && !s.equals("")) {
-                        String[] regex = s.split(":");
-                        if (regex != null && regex.length == 2) {
-                            guild.gMember.put(regex[0].trim(), AncientRPGGuildRanks.getGuildRankByString(regex[1].trim()));
-                        } else {
-                            break;
+        if (guildFiles != null) {
+            for (File f : guildFiles) {
+                if (!f.isDirectory() && f.getName().endsWith(".guild")) {
+                    YamlConfiguration yc = new YamlConfiguration();
+                    try {
+                        AncientRPGGuild guild = new AncientRPGGuild();
+                        yc.load(f);
+                        guild.gName = (String) yc.get("Guild.Name");
+                        guild.accountName = (String) yc.get("Guild.Accountname");
+                        guild.gLeader = (String) yc.get("Guild.Leader");
+                        guild.motd = (String) yc.get("Guild.Motd");
+                        guild.friendlyFire = (Boolean) yc.get("Guild.FF");
+                        guild.tag = yc.getString("Guild.tag", guild.tag);
+                        if (yc.get("Guild.spawnx") != null) {
+                            guild.spawnLocation = new SerializableLocation(new Location(Bukkit.getWorld(yc.getString("Guild.spawnworld")), yc.getDouble("Guild.spawnx"), yc.getDouble("Guild.spawny"),
+                                    yc.getDouble("Guild.spawnz")));
                         }
-                        i++;
-                        s = (String) yc.get("Guild.Members." + i);
+                        if (!canToggleff) {
+                            guild.friendlyFire = true;
+                        }
+                        guild.gMember = new HashMap<String, AncientRPGGuildRanks>();
+                        int i = 0;
+                        String s = (String) yc.get("Guild.Members." + i);
+                        while (s != null && !s.equals("")) {
+                            String[] regex = s.split(":");
+                            if (regex.length == 2) {
+                                guild.gMember.put(regex[0].trim(), AncientRPGGuildRanks.getGuildRankByString(regex[1].trim()));
+                            } else {
+                                break;
+                            }
+                            i++;
+                            s = (String) yc.get("Guild.Members." + i);
+                        }
+                        guilds.add(guild);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load guilds");
                     }
-                    guilds.add(guild);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load guilds");
                 }
             }
         }

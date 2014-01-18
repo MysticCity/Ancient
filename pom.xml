@@ -39,12 +39,14 @@
             <version>${minecraft.version}-${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
             <version>${minecraft.version}-${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>

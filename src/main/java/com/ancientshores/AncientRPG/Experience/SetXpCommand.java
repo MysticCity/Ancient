@@ -38,8 +38,10 @@ public class SetXpCommand {
         if (pd == null) {
             cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Player not found");
         }
-        pd.getXpSystem().xp = amount;
-        cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Successfully set the experience of the player " + playername + " to  " + amount);
-        pd.getXpSystem().addXP(0, false);
+        if (pd != null) {
+            pd.getXpSystem().xp = amount;
+            cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Successfully set the experience of the player " + playername + " to  " + amount);
+            pd.getXpSystem().addXP(0, false);
+        }
     }
 }

@@ -13,7 +13,7 @@ public class PartyCommandToggleFriendlyFire {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         if (AncientRPGGuild.canToggleff) {
             if (mParty != null) {
-                if (mParty.mLeader.equals(mPlayer)) {
+                if (mParty.leader.equals(mPlayer)) {
                     if (mParty.friendlyFire) {
                         mParty.friendlyFire = false;
                         mParty.sendMessage(AncientRPG.brand2 + ChatColor.BLUE

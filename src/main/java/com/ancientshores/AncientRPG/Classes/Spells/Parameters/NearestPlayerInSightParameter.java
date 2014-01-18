@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 @ParameterDescription(amount = 1, description = "<html>returns the nearest players in sight of the caster<br> Textfield: range of parameter</html>", returntype = "Player", name = "NearestPlayerInSight")
@@ -26,7 +27,7 @@ public class NearestPlayerInSightParameter implements IParameter {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + subparam + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
             }
         }
         if (subparam != null || ea.so.nearestPlayerInSight == null) {
@@ -76,8 +77,7 @@ public class NearestPlayerInSightParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestPlayerInSight == null) {
-            Player nPlayer = so.getNearestPlayerInSight(mPlayer, range);
-            so.nearestPlayerInSight = nPlayer;
+            so.nearestPlayerInSight = so.getNearestPlayerInSight(mPlayer, range);
         }
         return so.nearestPlayerInSight;
     }

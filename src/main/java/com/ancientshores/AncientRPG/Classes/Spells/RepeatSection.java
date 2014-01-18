@@ -55,7 +55,7 @@ public class RepeatSection extends ICodeSection {
             removeAll(so);
             if (parentSection != null) {
                 parentSection.executeCommand(mPlayer, so);
-            } else if (parentSection == null) {
+            } else {
                 so.finished = true;
                 AncientRPGClass.executedSpells.remove(so);
             }

@@ -20,9 +20,9 @@ import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AncientRPGParty {
-    public Player mLeader;
-    public boolean friendlyFire = false;
-    public Collection<Player> Member;
+    protected Player leader;
+    protected boolean friendlyFire = false;
+    protected Collection<Player> members;
     public static final Collection<AncientRPGParty> partys = Collections.newSetFromMap(new ConcurrentHashMap<AncientRPGParty, Boolean>());
     public static final ConcurrentHashMap<Player, AncientRPGParty> invites = new ConcurrentHashMap<Player, AncientRPGParty>();
     static final ConcurrentHashMap<String, QuitTimer> disconnects = new ConcurrentHashMap<String, QuitTimer>();
@@ -44,21 +44,21 @@ public class AncientRPGParty {
     public static int splitxprange = 10;
 
     public AncientRPGParty(Player Leader) {
-        mLeader = Leader;
-        Member = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
-        Member.add(mLeader);
+        leader = Leader;
+        members = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
+        members.add(leader);
     }
 
     public boolean addPlayer(Player player) {
 
         if (player != null) {
-            if (Member.size() <= maxPlayers) {
+            if (members.size() <= maxPlayers) {
                 AncientRPGPartyJoinEvent event = new AncientRPGPartyJoinEvent(player, this);
                 Bukkit.getPluginManager().callEvent(event);
                 if (event.isCancelled()) {
                     return false;
                 }
-                Member.add(player);
+                members.add(player);
                 return true;
             }
         }
@@ -72,20 +72,20 @@ public class AncientRPGParty {
             if (event.isCancelled()) {
                 return;
             }
-            Member.remove(mMember);
+            members.remove(mMember);
         }
     }
 
     public boolean removeByName(String name, boolean reconnected) {
-        for (Player p : Member) {
+        for (Player p : members) {
             if (p != null && p.getName().equals(name)) {
-                if (p == mLeader && !reconnected) {
+                if (p == leader && !reconnected) {
                     AncientRPGPartyLeaveEvent event = new AncientRPGPartyLeaveEvent(p, this);
                     Bukkit.getPluginManager().callEvent(event);
                     if (event.isCancelled()) {
                         return false;
                     }
-                    Member.remove(p);
+                    members.remove(p);
                     giveNextLeader();
                     this.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + name + ChatColor.BLUE + " left your party.");
                 } else {
@@ -94,7 +94,7 @@ public class AncientRPGParty {
                     if (event.isCancelled()) {
                         return false;
                     }
-                    Member.remove(p);
+                    members.remove(p);
                     this.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + name + ChatColor.BLUE + " left your party.");
                     if (this.getMemberNumber() == 0) {
                         partys.remove(this);
@@ -107,9 +107,9 @@ public class AncientRPGParty {
     }
 
     public void sendMessage(String[] message, Player sender) {
-        for (Player p : Member) {
+        for (Player p : members) {
             if (p != null) {
-                if (sender == mLeader) {
+                if (sender == leader) {
                     p.sendMessage(ChatColor.BLUE + "<Party>" + ChatColor.GREEN + sender.getName() + ChatColor.BLUE + ": " + AncientRPG.convertStringArrayToString(message));
                 } else {
                     p.sendMessage(ChatColor.BLUE + "<Party>" + ChatColor.GOLD + sender.getName() + ChatColor.BLUE + ": " + AncientRPG.convertStringArrayToString(message));
@@ -119,10 +119,10 @@ public class AncientRPGParty {
     }
 
     public void sendMessage(String message) {
-        if (Member == null) {
+        if (members == null) {
             return;
         }
-        for (Player p : Member) {
+        for (Player p : members) {
             if (p != null) {
                 p.sendMessage(message + "");
             }
@@ -130,7 +130,7 @@ public class AncientRPGParty {
     }
 
     public int getMemberNumber() {
-        return Member.size();
+        return members.size();
     }
 
     public void removeAll() {
@@ -139,20 +139,20 @@ public class AncientRPGParty {
         if (event.isCancelled()) {
             return;
         }
-        for (Player p : Member) {
+        for (Player p : members) {
             if (p != null) {
                 p.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Your party was disbanded.");
                 partys.remove(this);
             }
         }
-        Member = null;
+        members = null;
     }
 
     public void giveNextLeader() {
-        for (Player p : Member) {
+        for (Player p : members) {
             if (p != null && (AncientRPG.hasPermissions(p, pNodeCreate))) {
-                mLeader = p;
-                this.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + mLeader.getName() + ChatColor.BLUE + " is the new leader of the party.");
+                leader = p;
+                this.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + leader.getName() + ChatColor.BLUE + " is the new leader of the party.");
                 return;
             }
         }
@@ -181,7 +181,7 @@ public class AncientRPGParty {
             AncientRPGParty mParty = getPlayersPartyByName(playername);
             if (mParty != null) {
                 mParty.removeByName(playername, true);
-                mParty.mLeader = mPlayer;
+                mParty.leader = mPlayer;
                 mParty.addPlayer(mPlayer);
             }
             disconnects.remove(playername);
@@ -189,12 +189,32 @@ public class AncientRPGParty {
     }
 
     public boolean containsName(String name) {
-        for (Player p : Member) {
+        for (Player p : members) {
             if (p != null && p.getName().equals(name)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Player getLeader() {
+        return leader;
+    }
+
+    public void setLeader(Player leader) {
+        this.leader = leader;
+    }
+
+    public Collection<Player> getMembers() {
+        return Collections.unmodifiableCollection(members);
+    }
+
+    public boolean isFriendlyFireEnabled() {
+        return friendlyFire;
+    }
+
+    public void setFriendlyFireEnabled(boolean friendlyFire) {
+        this.friendlyFire = friendlyFire;
     }
 
     public static void processCommand(CommandSender sender, String[] args, AncientRPG main) {
@@ -287,7 +307,7 @@ public class AncientRPGParty {
 
     public static AncientRPGParty getPlayersParty(Player mplayer) {
         for (AncientRPGParty p : partys) {
-            if (p.Member.contains(mplayer)) {
+            if (p.members.contains(mplayer)) {
                 return p;
             }
         }
