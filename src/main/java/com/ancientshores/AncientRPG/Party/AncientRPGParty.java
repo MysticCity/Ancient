@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AncientRPGParty {
@@ -25,7 +27,7 @@ public class AncientRPGParty {
     protected Collection<Player> members;
     public static final Collection<AncientRPGParty> partys = Collections.newSetFromMap(new ConcurrentHashMap<AncientRPGParty, Boolean>());
     public static final ConcurrentHashMap<Player, AncientRPGParty> invites = new ConcurrentHashMap<Player, AncientRPGParty>();
-    static final ConcurrentHashMap<String, QuitTimer> disconnects = new ConcurrentHashMap<String, QuitTimer>();
+    static final ConcurrentHashMap<String, Timer> disconnects = new ConcurrentHashMap<String, Timer>();
     public static final Collection<Player> mIgnoreList = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
     public static final String pNodeCreate = "AncientRPG.party.create";
     public static final String pNodeJoin = "AncientRPG.party.join";
@@ -162,10 +164,19 @@ public class AncientRPGParty {
     }
 
     public static void processQuit(PlayerQuitEvent playerQuitEvent) {
-        AncientRPGParty mParty = getPlayersParty(playerQuitEvent.getPlayer());
+        final AncientRPGParty mParty = getPlayersParty(playerQuitEvent.getPlayer());
         if (getPlayersParty(playerQuitEvent.getPlayer()) != null) {
-            String playername = playerQuitEvent.getPlayer().getName();
-            disconnects.put(playername, new QuitTimer(playername, mParty));
+            final String playername = playerQuitEvent.getPlayer().getName();
+            Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    mParty.removeByName(playername, false);
+                    AncientRPGParty.disconnects.remove(playername);
+                }
+            }, 60000);
+            disconnects.put(playername, new Timer() {
+            });
             mIgnoreList.remove(playerQuitEvent.getPlayer());
         }
     }
@@ -174,7 +185,7 @@ public class AncientRPGParty {
         Player mPlayer = playerJoinEvent.getPlayer();
         String playername = mPlayer.getName();
         if (disconnects.containsKey(playername)) {
-            QuitTimer qt = disconnects.get(playername);
+            Timer qt = disconnects.get(playername);
             if (qt != null) {
                 qt.cancel();
             }
