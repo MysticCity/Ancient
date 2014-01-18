@@ -11,7 +11,7 @@ public class PartyCommandDisband {
         Player mPlayer = (Player) sender;
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         if (mParty != null) {
-            if (mParty.leader == mPlayer) {
+            if (mParty.getLeader() == mPlayer) {
                 mParty.removeAll();
                 AncientRPGParty.partys.remove(mParty);
             } else {

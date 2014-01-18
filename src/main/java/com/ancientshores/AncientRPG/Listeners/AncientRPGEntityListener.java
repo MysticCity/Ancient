@@ -179,7 +179,7 @@ public class AncientRPGEntityListener implements Listener {
         AncientRPGParty attackerParty = AncientRPGParty.getPlayersParty(attacked);
         AncientRPGParty attackedParty = AncientRPGParty.getPlayersParty(attacked);
         if (attackerParty != null && attackerParty.equals(attackedParty)) {
-            if (!attackerParty.friendlyFire) {
+            if (!attackerParty.isFriendlyFireEnabled()) {
                 event.setCancelled(true);
             }
         }

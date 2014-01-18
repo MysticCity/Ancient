@@ -13,20 +13,19 @@ public class PartyCommandGrant {
         if (args.length == 2) {
             AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
             if (mParty != null) {
-                if (mParty.mLeader == mPlayer) {
+                if (mParty.getLeader() == mPlayer) {
                     if (main.getServer().getPlayer(args[1]) != null) {
                         if (AncientRPG.hasPermissions(main.getServer()
                                 .getPlayer(args[1]), AncientRPGParty.pNodeCreate)) {
-                            mParty.mLeader = main.getServer().getPlayer(
-                                    args[1]);
+                            mParty.setLeader(main.getServer().getPlayer(args[1]));
                             mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
-                                    + mParty.mLeader.getName()
+                                    + mParty.getLeader().getName()
                                     + ChatColor.BLUE
                                     + " is the new leader of the party.");
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
                                     + "Succesfully granted "
                                     + ChatColor.GOLD
-                                    + mParty.mLeader.getName()
+                                    + mParty.getLeader().getName()
                                     + ChatColor.BLUE + " leader rights.");
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED

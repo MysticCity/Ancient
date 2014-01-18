@@ -35,7 +35,7 @@ public class NearestHostileEntityInSight implements IParameter {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         HashSet<Player> partyMembers = new HashSet<Player>();
         if (mParty != null) {
-            partyMembers.addAll(mParty.members);
+            partyMembers.addAll(mParty.getMembers());
         }
         Entity en = ea.so.getNearestEntityInSight(mPlayer, range);
         if (partyMembers.contains(en)) {
@@ -79,7 +79,7 @@ public class NearestHostileEntityInSight implements IParameter {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
         HashSet<Player> partyMembers = new HashSet<Player>();
         if (mParty != null) {
-            partyMembers.addAll(mParty.members);
+            partyMembers.addAll(mParty.getMembers());
         }
         Entity en = so.getNearestEntityInSight(mPlayer, range);
         if (partyMembers.contains(en)) {

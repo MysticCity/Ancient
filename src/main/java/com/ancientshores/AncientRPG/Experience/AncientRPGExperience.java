@@ -152,7 +152,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
                 AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p);
                 if (mParty != null) {
                     HashSet<Player> inrangeps = new HashSet<Player>();
-                    Collection<Player> players = mParty.members;
+                    Collection<Player> players = mParty.getMembers();
                     for (Player mp : players) {
                         if (mp == p) {
                             continue;
