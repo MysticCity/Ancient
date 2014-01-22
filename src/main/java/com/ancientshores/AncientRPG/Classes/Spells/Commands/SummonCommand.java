@@ -7,8 +7,7 @@ import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Ocelot;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Tameable;
 
 import java.util.logging.Level;
 
@@ -40,10 +39,8 @@ public class SummonCommand extends ICommand {
                                     for (int i = 0; i < amount; i++) {
                                         final Entity mob = ca.caster.getWorld().spawnEntity(loc, e);
 
-                                        if (mob instanceof Wolf) {
-                                            ((Wolf) mob).setOwner(ca.caster);
-                                        } else if (mob instanceof Ocelot) {
-                                            ((Ocelot) mob).setOwner(ca.caster);
+                                        if (mob instanceof Tameable) {
+                                            ((Tameable) mob).setOwner(ca.caster);
                                         }
                                         if (time > 0) {
                                             AncientRPGPlayerListener.summonedCreatures.put(mob, ca.caster);
