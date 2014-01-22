@@ -11,10 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.Event;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class SpellInformationObject {
     public Player nearestPlayer;
@@ -390,37 +387,21 @@ public class SpellInformationObject {
         return returnEnemyEntities;
     }
 
-    Player[] partymembers;
 
     public Player[] getPartyMembers(final Player mPlayer, final int range) {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
-        int i = 0;
         if (mParty == null) {
-            partymembers = new Player[0];
+            return new Player[0];
         } else {
-            Player[] buffer = new Player[mParty.getMembers().size()];
-            for (Player p : mParty.getMembers()) {
-                buffer[i] = p;
-                i++;
-            }
-            int rightDistance = 0;
-            for (Player p : mParty.getMembers()) {
-                if (p.getLocation().distance(mPlayer.getLocation()) <= range && p != mPlayer) {
-                    rightDistance++;
+            Collection<Player> partyMembers = new HashSet<Player>(mParty.getMembers());
+            for (Iterator<Player> iterator = partyMembers.iterator(); iterator.hasNext(); ) {
+                Player p = iterator.next();
+                if (p == null || p.getLocation().distance(mPlayer.getLocation()) > range) {
+                    iterator.remove();
                 }
             }
-            Player[] buffer2 = new Player[rightDistance];
-            int x = 0;
-            for (Player p : mParty.getMembers()) {
-                if (p.getLocation().distance(mPlayer.getLocation()) <= range && p != mPlayer) {
-                    buffer2[x] = p;
-                    x++;
-                }
-            }
-            partymembers = buffer2;
+            return GlobalMethods.removeNullArrayCells(partyMembers.toArray(new Player[partyMembers.size()]));
         }
-        partymembers = GlobalMethods.removeNullArrayCells(partymembers);
-        return partymembers;
     }
 
     public int parseVariable(Player mPlayer, String var) {
