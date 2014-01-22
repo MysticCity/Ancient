@@ -23,13 +23,13 @@ public class NearestHostileEntityInSight implements IParameter {
         int range = 10;
         if (subparam != null) {
             try {
-                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
+                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.getCommand().commandString + " falling back to default");
             }
         }
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
@@ -37,23 +37,23 @@ public class NearestHostileEntityInSight implements IParameter {
         if (mParty != null) {
             partyMembers.addAll(mParty.getMembers());
         }
-        Entity en = ea.so.getNearestEntityInSight(mPlayer, range);
+        Entity en = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
         if (partyMembers.contains(en)) {
             en = null;
         }
         switch (pt) {
             case Entity:
                 Entity[] e = {en};
-                ea.params.addLast(e);
+                ea.getParams().addLast(e);
                 break;
             case Location:
                 if (en != null) {
                     Location[] l = {en.getLocation()};
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                 }
                 break;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
     }
 

@@ -12,19 +12,18 @@ public class SetArmorCommand extends ICommand {
     @CommandDescription(description = "Sets the players armor in the specified slot",
             argnames = {"player", "material", "slot", "amount"}, name = "SetArmor", parameters = {ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Number})
     public SetArmorCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Number};
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Material && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number) {
-                final Entity[] ents = (Entity[]) ca.params.get(0);
-                final Material mat = (Material) ca.params.get(1);
-                final int slot = (int) ((Number) ca.params.get(2)).doubleValue();
-                final int amount = (int) ((Number) ca.params.get(3)).doubleValue();
+            if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Number) {
+                final Entity[] ents = (Entity[]) ca.getParams().get(0);
+                final Material mat = (Material) ca.getParams().get(1);
+                final int slot = (int) ((Number) ca.getParams().get(2)).doubleValue();
+                final int amount = (int) ((Number) ca.getParams().get(3)).doubleValue();
                 for (Entity e : ents) {
                     if (e == null) {
                         continue;

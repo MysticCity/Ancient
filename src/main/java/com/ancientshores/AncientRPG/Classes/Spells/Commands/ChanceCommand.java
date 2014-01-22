@@ -8,20 +8,19 @@ public class ChanceCommand extends ICommand {
     static final Random r = new Random();
 
     public ChanceCommand() {
-        ParameterType[] buffer = {ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Number, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
         try {
-            if (!(ca.params.get(0) instanceof Number) || !(ca.params.get(1) instanceof Number)) {
+            if (!(ca.getParams().get(0) instanceof Number) || !(ca.getParams().get(1) instanceof Number)) {
                 return false;
             }
-            int chance = (int) ((Number) ca.params.get(0)).doubleValue();
-            int skipcommands = (int) ((Number) ca.params.get(1)).doubleValue();
+            int chance = (int) ((Number) ca.getParams().get(0)).doubleValue();
+            int skipcommands = (int) ((Number) ca.getParams().get(1)).doubleValue();
             if (!(r.nextInt(100) < chance)) {
-                ca.p.skipCommands(ca.so, skipcommands);
+                ca.getSpell().skipCommands(ca.getSpellInfo(), skipcommands);
             }
             return true;
         } catch (IndexOutOfBoundsException e) {

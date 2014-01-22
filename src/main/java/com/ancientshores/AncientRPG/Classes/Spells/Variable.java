@@ -139,26 +139,26 @@ public class Variable extends ICodeSection {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {
-                    ea.params.addLast(((Number) obj).doubleValue());
+                    ea.getParams().addLast(((Number) obj).doubleValue());
                 }
                 break;
             }
             case String: {
                 if (obj instanceof String) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 } else if (obj instanceof Number) {
-                    ea.params.addLast("" + ((Number) obj).doubleValue());
+                    ea.getParams().addLast("" + ((Number) obj).doubleValue());
                 }
                 break;
             }
             case Entity: {
                 if (obj instanceof Entity[]) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                     return;
                 } else if (obj instanceof Entity) {
                     Entity[] e = new Entity[1];
                     e[0] = (Entity) obj;
-                    ea.params.addLast(e);
+                    ea.getParams().addLast(e);
                 } else if (obj instanceof Player[])
 
                 {
@@ -169,35 +169,35 @@ public class Variable extends ICodeSection {
                             e[i] = arr[i];
                         }
                     }
-                    ea.params.addLast(e);
+                    ea.getParams().addLast(e);
                 }
                 break;
             }
             case Player: {
                 if (obj instanceof Player[]) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 } else if (obj instanceof Player) {
                     Player[] p = new Player[1];
                     p[0] = (Player) obj;
-                    ea.params.addLast(p);
+                    ea.getParams().addLast(p);
                 }
                 break;
             }
             case Material: {
                 if (obj instanceof Number) {
                     Material m = Material.getMaterial((int) ((Number) obj).doubleValue());
-                    ea.params.addLast(m);
+                    ea.getParams().addLast(m);
                 }
             }
             case Boolean: {
                 if (obj instanceof Boolean) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 }
                 break;
             }
             case Location: {
                 if (obj instanceof Location[]) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 } else if (obj instanceof Entity[]) {
                     Entity[] arr = (Entity[]) obj;
                     Location[] l = new Location[arr.length];
@@ -206,11 +206,11 @@ public class Variable extends ICodeSection {
                             l[i] = arr[i].getLocation();
                         }
                     }
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                 } else if (obj instanceof Entity) {
                     Location[] arr = new Location[1];
                     arr[0] = ((Entity) obj).getLocation();
-                    ea.params.addLast(arr);
+                    ea.getParams().addLast(arr);
                 } else if (obj instanceof Player[])
 
                 {
@@ -221,7 +221,7 @@ public class Variable extends ICodeSection {
                             l[i] = arr[i].getLocation();
                         }
                     }
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                 }
                 break;
             }

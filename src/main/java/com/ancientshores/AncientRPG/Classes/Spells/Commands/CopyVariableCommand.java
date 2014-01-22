@@ -14,12 +14,12 @@ public class CopyVariableCommand extends ICommand {
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 2) {
-            if (ca.params.get(0) instanceof String && ca.params.get(1) instanceof String) {
-                String source = (String) ca.params.get(0);
-                String target = (String) ca.params.get(1);
-                Variable v1 = ca.so.variables.get(source);
-                Variable v2 = ca.so.variables.get(target);
+        if (ca.getParams().size() == 2) {
+            if (ca.getParams().get(0) instanceof String && ca.getParams().get(1) instanceof String) {
+                String source = (String) ca.getParams().get(0);
+                String target = (String) ca.getParams().get(1);
+                Variable v1 = ca.getSpellInfo().variables.get(source);
+                Variable v2 = ca.getSpellInfo().variables.get(target);
                 if (v1 != null && v2 != null) {
                     v2.obj = v1.obj;
                     if (Variable.globVars.containsKey(v2.name)) {

@@ -14,14 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AncientRPGHP implements Serializable, ConfigurationSerializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public double maxhp;
     public double hpReg = DamageConverter.hpReg;
     public double hpRegInterval = DamageConverter.hpRegInterval;
-    public double hp;
+    public double health;
     public final String playername;
     public int task;
     public long lastAttackDamage;
@@ -37,13 +34,13 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
         map.put("maxhp", maxhp);
         map.put("hpReg", hpReg);
         map.put("hpRegInterval", hpRegInterval);
-        map.put("hp", hp);
+        map.put("hp", health);
         map.put("playername", playername);
         return map;
     }
 
     public AncientRPGHP(Map<String, Object> map) {
-        this.hp = ((Number) map.get("hp")).intValue();
+        this.health = ((Number) map.get("hp")).intValue();
         this.maxhp = ((Number) map.get("maxhp")).intValue();
         this.playername = (String) map.get("playername");
         this.hpRegInterval = ((Number) map.get("hpRegInterval")).intValue();
@@ -51,7 +48,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
     }
 
     public AncientRPGHP(int maxhp, String playername) {
-        this.hp = maxhp;
+        this.health = maxhp;
         this.maxhp = maxhp;
         this.playername = playername;
     }
@@ -86,7 +83,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
                     if (p.isDead()) {
                         return;
                     }
-                    hp = p.getHealth();
+                    health = p.getHealth();
                     if (p.getFoodLevel() >= DamageConverter.minFoodRegLevel) {
                         if (DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(p)) {
                             addHpByName(playername, hpReg);
@@ -131,10 +128,10 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
         } else {
             maxhp = DamageConverter.standardhp;
         }
-        if (hp > maxhp) {
-            hp = maxhp;
+        if (health > maxhp) {
+            health = maxhp;
         }
-        addMcHpByName(playername, 0);
+        addMinecraftHpByName(playername, 0);
         Player p = player;
         if (p == null) {
             return;
@@ -169,24 +166,24 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
     }
 
     public void setMinecraftHP() {
-        if (hp < 0) {
-            hp = 0;
+        if (health < 0) {
+            health = 0;
         }
-        if (hp > maxhp) {
-            hp = maxhp;
+        if (health > maxhp) {
+            health = maxhp;
         }
         Player mPlayer = player;
         if (player == null) {
             return;
         }
-        if (hp > mPlayer.getMaxHealth()) {
-            hp = mPlayer.getMaxHealth();
+        if (health > mPlayer.getMaxHealth()) {
+            health = mPlayer.getMaxHealth();
         }
         mPlayer.setHealthScaled(true);
-        if ((int) hp == 0 && hp > 0) {
+        if ((int) health == 0 && health > 0) {
             mPlayer.setHealth(1);
         } else {
-            mPlayer.setHealth((int) hp);
+            mPlayer.setHealth((int) health);
         }
     }
 
@@ -196,24 +193,24 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
             return;
         }
         AncientRPGHP hpinstance = PlayerData.getPlayerData(name).getHpsystem();
-        if (hpinstance.hp < 0) {
+        if (hpinstance.health < 0) {
             return;
         }
         Player p = AncientRPG.plugin.getServer().getPlayer(name);
-        hpinstance.hp = p.getHealth();
+        hpinstance.health = p.getHealth();
         hpinstance.setMinecraftHP();
     }
 
-    public static void addMcHpByName(String name, float hp) {
+    public static void addMinecraftHpByName(String name, float hp) {
         AncientRPGHP hpinstance = PlayerData.getPlayerData(name).getHpsystem();
-        if (hpinstance.hp < 0) {
+        if (hpinstance.health < 0) {
             return;
         }
-        hpinstance.hp += (float) hpinstance.maxhp * (hp / (float) 20);
+        hpinstance.health += (float) hpinstance.maxhp * (hp / (float) 20);
         hpinstance.setMinecraftHP();
     }
 
-    public static double getHpByMcDamage(String name, double hp) {
+    public static double getHpByMinecraftDamage(String name, double hp) {
         AncientRPGHP hpinstance = PlayerData.getPlayerData(name).getHpsystem();
         return (hpinstance.maxhp * (hp / 20));
     }

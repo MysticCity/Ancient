@@ -24,7 +24,7 @@ public class GetGuildName extends IArgument {
         Player p = ((Player[]) obj[0])[0];
         AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(p.getName());
         if (guild != null) {
-            return guild.getgName();
+            return guild.getGuildName();
         }
         return "";
     }

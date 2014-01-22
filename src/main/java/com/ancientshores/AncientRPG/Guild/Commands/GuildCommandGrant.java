@@ -48,7 +48,7 @@ public class GuildCommandGrant {
                                             + AncientRPGGuildRanks
                                             .getChatColorByRank(newrank)
                                             + ChatColor.GREEN + " is now a "
-                                            + newrank.getguildrank() + ".");
+                                            + newrank.getGuildRank() + ".");
                                 }
                                 return;
                             case CO_LEADER:
@@ -63,7 +63,7 @@ public class GuildCommandGrant {
                                             + AncientRPGGuildRanks
                                             .getChatColorByRank(newrank)
                                             + ChatColor.GREEN + " is now a "
-                                            + newrank.getguildrank() + ".");
+                                            + newrank.getGuildRank() + ".");
 
                                 } else {
                                     mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
@@ -82,7 +82,7 @@ public class GuildCommandGrant {
                                             + AncientRPGGuildRanks
                                             .getChatColorByRank(newrank)
                                             + ChatColor.GREEN + " is now a "
-                                            + newrank.getguildrank() + ".");
+                                            + newrank.getGuildRank() + ".");
                                 } else {
                                     mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
                                             + "You haven't the rights to do that.");

@@ -14,25 +14,24 @@ public class CheckCooldownCommand extends ICommand {
     private final HashMap<Player, Long> lastcdcheck = new HashMap<Player, Long>();
 
     public CheckCooldownCommand() {
-        ParameterType[] buffer = {ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.String};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof String) {
-                String name = (String) ca.params.get(0);
-                PlayerData pd = PlayerData.getPlayerData(ca.caster.getName());
+            if (ca.getParams().get(0) instanceof String) {
+                String name = (String) ca.getParams().get(0);
+                PlayerData pd = PlayerData.getPlayerData(ca.getCaster().getName());
                 if (pd.isCastReady(name)) {
                     return true;
-                } else if (ca.p.active) {
-                    if (!lastcdcheck.containsKey(ca.caster)) {
-                        lastcdcheck.put(ca.caster, System.currentTimeMillis());
-                    } else if (Math.abs(System.currentTimeMillis() - lastcdcheck.get(ca.caster)) > 1000) {
-                        ca.caster.sendMessage("This spell is not ready");
-                        ca.caster.sendMessage("Time remaining: " + ((double) pd.getRemainingTime(name) / 1000));
-                        lastcdcheck.put(ca.caster, System.currentTimeMillis());
+                } else if (ca.getSpell().active) {
+                    if (!lastcdcheck.containsKey(ca.getCaster())) {
+                        lastcdcheck.put(ca.getCaster(), System.currentTimeMillis());
+                    } else if (Math.abs(System.currentTimeMillis() - lastcdcheck.get(ca.getCaster())) > 1000) {
+                        ca.getCaster().sendMessage("This spell is not ready");
+                        ca.getCaster().sendMessage("Time remaining: " + ((double) pd.getRemainingTime(name) / 1000));
+                        lastcdcheck.put(ca.getCaster(), System.currentTimeMillis());
                     }
                 }
             }

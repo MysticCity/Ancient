@@ -14,16 +14,15 @@ public class InvisibleCommand extends ICommand {
     public static final HashSet<Player> invisiblePlayers = new HashSet<Player>();
 
     public InvisibleCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                final Player[] target = (Player[]) ca.params.get(0);
-                final int time = (int) ((Number) ca.params.get(1)).doubleValue();
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                final Player[] target = (Player[]) ca.getParams().get(0);
+                final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
 
                     @Override
@@ -61,7 +60,6 @@ public class InvisibleCommand extends ICommand {
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

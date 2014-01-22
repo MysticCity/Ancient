@@ -15,10 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AncientRPGParty {
@@ -47,7 +44,7 @@ public class AncientRPGParty {
 
     public AncientRPGParty(Player Leader) {
         leader = Leader;
-        members = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
+        members = new HashSet<Player>();
         members.add(leader);
     }
 
@@ -175,8 +172,7 @@ public class AncientRPGParty {
                     AncientRPGParty.disconnects.remove(playername);
                 }
             }, 60000);
-            disconnects.put(playername, new Timer() {
-            });
+            disconnects.put(playername, new Timer());
             mIgnoreList.remove(playerQuitEvent.getPlayer());
         }
     }
@@ -274,20 +270,18 @@ public class AncientRPGParty {
             try {
                 newfile.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        YamlConfiguration yc = new YamlConfiguration();
-        yc.set(pConfigEnabled, enabled);
-        yc.set(pConfigCantoggleff, cantoggleff);
-        yc.set(pConfigSize, maxPlayers);
-        yc.set(pConfigSplitXpEnabled, splitxp);
-        yc.set(pConfigSplitXpRange, splitxprange);
+        YamlConfiguration partyConfig = new YamlConfiguration();
+        partyConfig.set(pConfigEnabled, enabled);
+        partyConfig.set(pConfigCantoggleff, cantoggleff);
+        partyConfig.set(pConfigSize, maxPlayers);
+        partyConfig.set(pConfigSplitXpEnabled, splitxp);
+        partyConfig.set(pConfigSplitXpRange, splitxprange);
         try {
-            yc.save(newfile);
+            partyConfig.save(newfile);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -299,7 +293,6 @@ public class AncientRPGParty {
             try {
                 yc.load(newfile);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             enabled = yc.getBoolean(pConfigEnabled, enabled);

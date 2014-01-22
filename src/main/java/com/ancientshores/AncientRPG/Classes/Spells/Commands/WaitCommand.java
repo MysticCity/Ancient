@@ -8,15 +8,14 @@ public class WaitCommand extends ICommand {
             argnames = {"duration"}, name = "Wait", parameters = {ParameterType.Number})
 
     public WaitCommand() {
-        ParameterType[] buffer = {ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Number) {
-                ca.so.waittime += (int) ((Number) ca.params.get(0)).doubleValue();
+            if (ca.getParams().get(0) instanceof Number) {
+                ca.getSpellInfo().waittime += (int) ((Number) ca.getParams().get(0)).doubleValue();
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {

@@ -151,22 +151,21 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
             if (AncientRPGParty.splitxp && party) {
                 AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p);
                 if (mParty != null) {
-                    HashSet<Player> inrangeps = new HashSet<Player>();
+                    HashSet<Player> playersInRange = new HashSet<Player>();
                     Collection<Player> players = mParty.getMembers();
                     for (Player mp : players) {
                         if (mp == p) {
                             continue;
                         }
-                        if (mp.isOnline() && mp.getLocation().getWorld().getName().equals(p.getWorld().getName())
-                                && Math.abs(mp.getLocation().distance(p.getLocation())) < AncientRPGParty.splitxprange) {
-                            inrangeps.add(mp);
+                        if (mp.isOnline() && mp.getLocation().getWorld().getName().equals(p.getWorld().getName()) && Math.abs(mp.getLocation().distance(p.getLocation())) < AncientRPGParty.splitxprange) {
+                            playersInRange.add(mp);
                         }
                     }
-                    int times = inrangeps.size() + 1;
-                    int nxp = (xp / times);
-                    xp = nxp;
-                    for (Player pp : inrangeps) {
-                        PlayerData.getPlayerData(pp.getName()).getXpSystem().addXP(nxp, false);
+                    int times = playersInRange.size() + 1;
+                    int newXp = (xp / times);
+                    xp = newXp;
+                    for (Player player : playersInRange) {
+                        PlayerData.getPlayerData(player.getName()).getXpSystem().addXP(newXp, false);
                     }
                 }
             }
@@ -267,59 +266,57 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
             try {
                 newfile.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        YamlConfiguration yc = new YamlConfiguration();
-        yc.set(XPConfigEnabled, enabled);
-        if (yc.get(XPConfigWorlds) == null) {
-            yc.set(XPConfigWorlds, "");
+        YamlConfiguration xpConfig = new YamlConfiguration();
+        xpConfig.set(XPConfigEnabled, enabled);
+        if (xpConfig.get(XPConfigWorlds) == null) {
+            xpConfig.set(XPConfigWorlds, "");
         }
-        yc.set(XPConfigSpider, XPOfSpider);
-        yc.set(XPConfigSkeleton, XPOfSkeleton);
-        yc.set(XPConfigZombie, XPOfZombie);
-        yc.set(XPConfigCreeper, XPOfCreeper);
-        yc.set(XPConfigEnderman, XPOfEnderman);
-        yc.set(XPConfigPigzombie, XPOfPigzombie);
-        yc.set(XPConfigGhast, XPOfGhast);
-        yc.set(XPConfigSilverfish, XPOfSilverfish);
-        yc.set(XPConfigIronGolem, XPOfIronGolem);
-        yc.set(XPConfigSnowman, XPOfSnowman);
-        yc.set(XPConfigOcelot, XPOfOcelot);
-        yc.set(XPConfigBlaze, XPOfBlaze);
-        yc.set(XPConfigSlime, XPOfSlime);
-        yc.set(XPConfigWolf, XPOfWolf);
-        yc.set(XPConfigGiant, XPOfGiant);
-        yc.set(XPConfigEnderdragon, XPOfEnderdragon);
-        yc.set(XPConfigStone, XPOfStone);
-        yc.set(XPConfigCoal, XPOfCoal);
-        yc.set(XPConfigLapis, XPOfLapis);
-        yc.set(XPConfigIron, XPOfIron);
-        yc.set(XPConfigGold, XPOfGold);
-        yc.set(XPConfigDiamond, XPOfDiamond);
-        yc.set(XPConfigRedstone, XPOfRedstone);
-        yc.set(XPConfigGlowstone, XPOfGlowstone);
-        yc.set(XPConfigNetherrack, XPOfNetherrack);
-        yc.set(XPConfigWood, XPOfWood);
-        yc.set(XPConfigMaxLevel, MaxLevel);
-        yc.set(XPConfigPlayer, XPOfPlayer);
-        yc.set(XPConfigCaveSpider, XPOfCaveSpider);
-        yc.set(XPConfigWitch, XPOfWitch);
-        yc.set(XPConfigWither, XPOfWither);
+        xpConfig.set(XPConfigSpider, XPOfSpider);
+        xpConfig.set(XPConfigSkeleton, XPOfSkeleton);
+        xpConfig.set(XPConfigZombie, XPOfZombie);
+        xpConfig.set(XPConfigCreeper, XPOfCreeper);
+        xpConfig.set(XPConfigEnderman, XPOfEnderman);
+        xpConfig.set(XPConfigPigzombie, XPOfPigzombie);
+        xpConfig.set(XPConfigGhast, XPOfGhast);
+        xpConfig.set(XPConfigSilverfish, XPOfSilverfish);
+        xpConfig.set(XPConfigIronGolem, XPOfIronGolem);
+        xpConfig.set(XPConfigSnowman, XPOfSnowman);
+        xpConfig.set(XPConfigOcelot, XPOfOcelot);
+        xpConfig.set(XPConfigBlaze, XPOfBlaze);
+        xpConfig.set(XPConfigSlime, XPOfSlime);
+        xpConfig.set(XPConfigWolf, XPOfWolf);
+        xpConfig.set(XPConfigGiant, XPOfGiant);
+        xpConfig.set(XPConfigEnderdragon, XPOfEnderdragon);
+        xpConfig.set(XPConfigStone, XPOfStone);
+        xpConfig.set(XPConfigCoal, XPOfCoal);
+        xpConfig.set(XPConfigLapis, XPOfLapis);
+        xpConfig.set(XPConfigIron, XPOfIron);
+        xpConfig.set(XPConfigGold, XPOfGold);
+        xpConfig.set(XPConfigDiamond, XPOfDiamond);
+        xpConfig.set(XPConfigRedstone, XPOfRedstone);
+        xpConfig.set(XPConfigGlowstone, XPOfGlowstone);
+        xpConfig.set(XPConfigNetherrack, XPOfNetherrack);
+        xpConfig.set(XPConfigWood, XPOfWood);
+        xpConfig.set(XPConfigMaxLevel, MaxLevel);
+        xpConfig.set(XPConfigPlayer, XPOfPlayer);
+        xpConfig.set(XPConfigCaveSpider, XPOfCaveSpider);
+        xpConfig.set(XPConfigWitch, XPOfWitch);
+        xpConfig.set(XPConfigWither, XPOfWither);
         for (int i = 1; i <= MaxLevel; i++) {
-            if (yc.get(("XP.Experience of level " + i)) == null) {
+            if (xpConfig.get(("XP.Experience of level " + i)) == null) {
                 if (levelMap.containsKey(i)) {
-                    yc.set(("XP.Experience of level " + i), levelMap.get(i));
+                    xpConfig.set(("XP.Experience of level " + i), levelMap.get(i));
                 } else {
-                    yc.set(("XP.Experience of level " + i), 600 * (i - 1));
+                    xpConfig.set(("XP.Experience of level " + i), 600 * (i - 1));
                 }
             }
         }
         try {
-            yc.save(newfile);
+            xpConfig.save(newfile);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -370,7 +367,6 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
                     levelMap.put(i, yc.getInt(("XP.Experience of level " + i), 600 * (i - 1)));
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
@@ -424,63 +420,63 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
         if (event.getCause() == DamageCause.CUSTOM) {
             return;
         }
-        if (damager instanceof Player && !alreadyDead.contains(event.getEntity()) && event != null) {
-            if (event.getEntity() instanceof LivingEntity && ((LivingEntity) event.getEntity()).getHealth() - event.getDamage() <= 0) {
-                alreadyDead.add(event.getEntity());
+        final Entity victim = event.getEntity();
+        if (damager instanceof Player && !alreadyDead.contains(victim) && event != null) {
+            if (victim instanceof LivingEntity && ((LivingEntity) victim).getHealth() - event.getDamage() <= 0) {
+                alreadyDead.add(victim);
                 Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-
                     @Override
                     public void run() {
-                        alreadyDead.remove(event.getEntity());
+                        alreadyDead.remove(victim);
                     }
 
                 }, 500);
                 Player mPlayer = (Player) damager;
-                int xp = getXPOfEntity(event.getEntity());
+                int xp = getXPOfEntity(victim);
                 PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
                 pd.getXpSystem().addXP(xp, true);
             }
         }
     }
 
-    public static int getXPOfEntity(Entity e) {
-        if (e instanceof CaveSpider) {
+    public static int getXPOfEntity(Entity entity) {
+        if (entity instanceof CaveSpider) {
             return XPOfCaveSpider;
-        } else if (e instanceof Spider) {
+        } else if (entity instanceof Spider) {
             return XPOfSpider;
-        } else if (e instanceof Skeleton) {
+        } else if (entity instanceof Skeleton) {
             return XPOfSkeleton;
-        } else if (e instanceof Creeper) {
+        } else if (entity instanceof Creeper) {
             return XPOfCreeper;
-        } else if (e instanceof Enderman) {
+        } else if (entity instanceof Enderman) {
             return XPOfEnderman;
-        } else if (e instanceof PigZombie) {
+        } else if (entity instanceof PigZombie) {
             return XPOfPigzombie;
-        } else if (e instanceof Zombie) {
+        } else if (entity instanceof Zombie) {
             return XPOfZombie;
-        } else if (e instanceof Ghast) {
+        } else if (entity instanceof Ghast) {
             return XPOfGhast;
-        } else if (e instanceof Slime) {
+        } else if (entity instanceof Slime) {
             return XPOfSlime;
-        } else if (e instanceof Wolf) {
+        } else if (entity instanceof Wolf) {
             return XPOfWolf;
-        } else if (e instanceof Giant) {
+        } else if (entity instanceof Giant) {
             return XPOfGiant;
-        } else if (e instanceof EnderDragon) {
+        } else if (entity instanceof EnderDragon) {
             return XPOfEnderdragon;
-        } else if (e instanceof Player) {
+        } else if (entity instanceof Player) {
             return XPOfPlayer;
-        } else if (e instanceof Ocelot) {
+        } else if (entity instanceof Ocelot) {
             return XPOfOcelot;
-        } else if (e instanceof Snowman) {
+        } else if (entity instanceof Snowman) {
             return XPOfSnowman;
-        } else if (e instanceof IronGolem) {
+        } else if (entity instanceof IronGolem) {
             return XPOfIronGolem;
-        } else if (e instanceof Silverfish) {
+        } else if (entity instanceof Silverfish) {
             return XPOfSilverfish;
-        } else if (e instanceof Witch) {
+        } else if (entity instanceof Witch) {
             return XPOfWitch;
-        } else if (e instanceof Wither) {
+        } else if (entity instanceof Wither) {
             return XPOfWither;
         }
         return 0;

@@ -16,53 +16,53 @@ import java.util.logging.Level;
 public class PartyMembersParameter implements IParameter {
 
     @Override
-    public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
+    public void parseParameter(EffectArgs effectArgs, Player mPlayer, String[] subparam, ParameterType parameterType) {
         int range = 10;
 
         if (subparam != null) {
             try {
-                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                if (effectArgs.getSpell().variables.contains(subparam[0].toLowerCase())) {
+                    range = effectArgs.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + effectArgs.getCommand().commandString + " falling back to default");
             }
         }
-        if (subparam != null || ea.so.partyMembers == null) {
-            Player[] nEntity = ea.so.getPartyMembers(mPlayer, range);
-            ea.so.partyMembers = nEntity;
+        if (subparam != null || effectArgs.getSpellInfo().partyMembers == null) {
+            Player[] nEntity = effectArgs.getSpellInfo().getPartyMembers(mPlayer, range);
+            effectArgs.getSpellInfo().partyMembers = nEntity;
             if (nEntity == null) {
                 return;
             }
         }
 
-        switch (pt) {
+        switch (parameterType) {
             case Player:
-                ea.params.addLast(ea.so.partyMembers);
+                effectArgs.getParams().addLast(effectArgs.getSpellInfo().partyMembers);
                 break;
             case Entity:
-                ea.params.addLast(ea.so.partyMembers);
+                effectArgs.getParams().addLast(effectArgs.getSpellInfo().partyMembers);
                 break;
             case Location:
-                Location[] l = new Location[ea.so.partyMembers.length];
-                for (int i = 0; i < ea.so.partyMembers.length; i++) {
-                    if (ea.so.partyMembers[i] != null) {
-                        l[i] = ea.so.partyMembers[i].getLocation();
-                        ea.params.addLast(l);
+                Location[] l = new Location[effectArgs.getSpellInfo().partyMembers.length];
+                for (int i = 0; i < effectArgs.getSpellInfo().partyMembers.length; i++) {
+                    if (effectArgs.getSpellInfo().partyMembers[i] != null) {
+                        l[i] = effectArgs.getSpellInfo().partyMembers[i].getLocation();
+                        effectArgs.getParams().addLast(l);
                     }
                 }
                 break;
             case String:
                 String s = "";
-                for (Player p : ea.so.partyMembers) {
+                for (Player p : effectArgs.getSpellInfo().partyMembers) {
                     s += p.getName() + ",";
                 }
-                ea.params.addLast(s);
+                effectArgs.getParams().addLast(s);
                 break;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + effectArgs.getCommand().commandString);
         }
     }
 

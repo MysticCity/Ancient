@@ -12,19 +12,18 @@ public class RemoveItemCommand extends ICommand {
     @CommandDescription(description = "<html>Removes the amount of items from the players inventory, cancels the spell if it fails if cancelonfail is true</html>",
             argnames = {"player", "material", "amount", "cancelonfail"}, name = "RemoveItem", parameters = {ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Boolean})
     public RemoveItemCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Boolean};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Boolean};
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Material && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Boolean) {
-                final Player[] players = (Player[]) ca.params.get(0);
-                final Material mat = (Material) ca.params.get(1);
-                final int amount = (int) ((Number) ca.params.get(2)).doubleValue();
-                final boolean cancelOnFail = (Boolean) ca.params.get(3);
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Boolean) {
+                final Player[] players = (Player[]) ca.getParams().get(0);
+                final Material mat = (Material) ca.getParams().get(1);
+                final int amount = (int) ((Number) ca.getParams().get(2)).doubleValue();
+                final boolean cancelOnFail = (Boolean) ca.getParams().get(3);
                 for (Player p : players) {
                     int zaehler = 0;
                     HashMap<Integer, ? extends ItemStack> items = p.getInventory().all(mat);
@@ -32,7 +31,7 @@ public class RemoveItemCommand extends ICommand {
                         zaehler += istack.getAmount();
                     }
                     if (cancelOnFail && zaehler < amount) {
-                        ca.so.canceled = true;
+                        ca.getSpellInfo().canceled = true;
                         return false;
                     } else {
                         int anzahl = amount;

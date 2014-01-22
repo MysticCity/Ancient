@@ -9,17 +9,16 @@ public class SpawnArrowCommand extends ICommand {
     @CommandDescription(description = "<html>Spawns an arrow at the location with the velocity</html>",
             argnames = {"location", "forward", "sideward", "upward"}, name = "SpawnArrow", parameters = {ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number})
     public SpawnArrowCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 4 && ca.params.get(0) instanceof Location[] && ca.params.get(1) instanceof Number && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number) {
-            Location[] locs = (Location[]) ca.params.get(0);
-            double forward = ((Number) ca.params.get(1)).doubleValue();
-            double sideward = ((Number) ca.params.get(2)).doubleValue();
-            double upward = ((Number) ca.params.get(3)).doubleValue();
+        if (ca.getParams().size() == 4 && ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Number && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Number) {
+            Location[] locs = (Location[]) ca.getParams().get(0);
+            double forward = ((Number) ca.getParams().get(1)).doubleValue();
+            double sideward = ((Number) ca.getParams().get(2)).doubleValue();
+            double upward = ((Number) ca.getParams().get(3)).doubleValue();
             double x;
             double y = upward;
             double z;

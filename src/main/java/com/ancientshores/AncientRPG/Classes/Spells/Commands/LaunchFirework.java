@@ -14,19 +14,18 @@ public class LaunchFirework extends ICommand {
     @CommandDescription(description = "<html>Launches a firework at the location with the effect type and the color (must be specified in 'r, g, b')</html>",
             argnames = {"location", "effectname", "color", "flickering", "trail"}, name = "LaunchFirework", parameters = {ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.Boolean, ParameterType.Boolean})
     public LaunchFirework() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.Boolean, ParameterType.Boolean};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.Boolean, ParameterType.Boolean};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 5 && ca.params.get(1) instanceof String && ca.params.get(2) instanceof String && ca.params.get(3) instanceof Boolean && ca.params.get(4) instanceof Boolean
-                && ca.params.get(0) instanceof Location[]) {
-            final Location[] locs = (Location[]) ca.params.get(0);
-            final String name = (String) ca.params.get(1);
-            final String colorname = (String) ca.params.get(2);
-            final boolean flickering = (Boolean) ca.params.get(3);
-            final boolean trail = (Boolean) ca.params.get(4);
+        if (ca.getParams().size() == 5 && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof String && ca.getParams().get(3) instanceof Boolean && ca.getParams().get(4) instanceof Boolean
+                && ca.getParams().get(0) instanceof Location[]) {
+            final Location[] locs = (Location[]) ca.getParams().get(0);
+            final String name = (String) ca.getParams().get(1);
+            final String colorname = (String) ca.getParams().get(2);
+            final boolean flickering = (Boolean) ca.getParams().get(3);
+            final boolean trail = (Boolean) ca.getParams().get(4);
             Color c = getColorByString(colorname);
             FireworkEffect.Type effect = getEntityEffectByName(name);
             if (effect == null) {

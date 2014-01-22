@@ -33,7 +33,7 @@ public class GuildCommandInvite {
                                         + " to your guild.");
                                 mInvitedPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
                                         + "You were invited to the guild "
-                                        + "\"" + mGuild.gName + "\"" + " by "
+                                        + "\"" + mGuild.guildName + "\"" + " by "
                                         + mPlayer.getName() + ".");
                                 mInvitedPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
                                         + "Use /guild accept or/guild reject.");

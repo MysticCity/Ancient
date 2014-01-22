@@ -21,40 +21,40 @@ public class NearestPlayerInSightParameter implements IParameter {
         int range = 10;
         if (subparam != null) {
             try {
-                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
+                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.getCommand().commandString + " falling back to default");
             }
         }
-        if (subparam != null || ea.so.nearestPlayerInSight == null) {
-            Player nPlayer = ea.so.getNearestPlayerInSight(mPlayer, range);
-            ea.so.nearestPlayerInSight = nPlayer;
+        if (subparam != null || ea.getSpellInfo().nearestPlayerInSight == null) {
+            Player nPlayer = ea.getSpellInfo().getNearestPlayerInSight(mPlayer, range);
+            ea.getSpellInfo().nearestPlayerInSight = nPlayer;
             if (nPlayer == null) {
                 return;
             }
         }
         switch (pt) {
             case Player:
-                Player[] p = {ea.so.nearestPlayerInSight};
-                ea.params.addLast(p);
+                Player[] p = {ea.getSpellInfo().nearestPlayerInSight};
+                ea.getParams().addLast(p);
                 break;
             case Entity:
-                Entity[] e = {ea.so.nearestPlayerInSight};
-                ea.params.addLast(e);
+                Entity[] e = {ea.getSpellInfo().nearestPlayerInSight};
+                ea.getParams().addLast(e);
                 break;
             case Location:
-                Location[] l = {ea.so.nearestPlayerInSight.getLocation()};
-                ea.params.addLast(l);
+                Location[] l = {ea.getSpellInfo().nearestPlayerInSight.getLocation()};
+                ea.getParams().addLast(l);
                 break;
             case String:
-                ea.params.addLast(ea.so.nearestPlayerInSight.getName());
+                ea.getParams().addLast(ea.getSpellInfo().nearestPlayerInSight.getName());
                 break;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
     }
 

@@ -11,17 +11,16 @@ public class PotionEffectCommand extends ICommand {
     @CommandDescription(description = "<html>Adds a potioneffect with the specified effect to the entity for the specified duration</html>",
             argnames = {"entity", "name", "duration", "amplifier"}, name = "PotionEffect", parameters = {ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number})
     public PotionEffectCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.String, ParameterType.Number, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 4 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof String && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number) {
-            Entity[] players = (Entity[]) ca.params.get(0);
-            String name = (String) ca.params.get(1);
-            int time = (int) ((Number) ca.params.get(2)).doubleValue();
-            int amplifier = (int) ((Number) ca.params.get(3)).doubleValue();
+        if (ca.getParams().size() == 4 && ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Number) {
+            Entity[] players = (Entity[]) ca.getParams().get(0);
+            String name = (String) ca.getParams().get(1);
+            int time = (int) ((Number) ca.getParams().get(2)).doubleValue();
+            int amplifier = (int) ((Number) ca.getParams().get(3)).doubleValue();
             PotionEffectType pet = getTypeByName(name);
             if (pet == null) {
                 return true;

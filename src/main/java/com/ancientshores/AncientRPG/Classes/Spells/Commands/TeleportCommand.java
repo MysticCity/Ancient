@@ -9,24 +9,23 @@ public class TeleportCommand extends ICommand {
             argnames = {"location"}, name = "Teleport", parameters = {ParameterType.Location})
 
     public TeleportCommand() {
-        ParameterType[] buffer = {ParameterType.Location};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Location[]) {
-                final Location[] loc = (Location[]) ca.params.get(0);
+            if (ca.getParams().get(0) instanceof Location[]) {
+                final Location[] loc = (Location[]) ca.getParams().get(0);
                 for (Location l : loc) {
                     if (l == null) {
                         continue;
                     }
-                    Location lo = ca.caster.getLocation();
+                    Location lo = ca.getCaster().getLocation();
                     lo.setX(l.getX());
                     lo.setY(l.getY());
                     lo.setZ(l.getZ());
-                    ca.caster.teleport(lo);
+                    ca.getCaster().teleport(lo);
                 }
                 return true;
             }

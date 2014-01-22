@@ -16,20 +16,19 @@ public class ChangeAggroCommand extends ICommand {
     public static final ConcurrentHashMap<LivingEntity, LivingEntity> tauntedEntities = new ConcurrentHashMap<LivingEntity, LivingEntity>();
 
     public ChangeAggroCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Entity, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Entity, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 3) {
-            if (ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Entity[] && ca.params.get(2) instanceof Number) {
-                final Entity[] target = (Entity[]) ca.params.get(0);
-                final Entity[] newaggro = (Entity[]) ca.params.get(1);
+        if (ca.getParams().size() == 3) {
+            if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Entity[] && ca.getParams().get(2) instanceof Number) {
+                final Entity[] target = (Entity[]) ca.getParams().get(0);
+                final Entity[] newaggro = (Entity[]) ca.getParams().get(1);
                 if (newaggro.length == 0 || !(newaggro[0] instanceof Creature)) {
                     return false;
                 }
-                final int time = (int) ((Number) ca.params.get(2)).doubleValue();
+                final int time = (int) ((Number) ca.getParams().get(2)).doubleValue();
                 for (final Entity e : target) {
                     if ((e instanceof Creature)) {
                         ((Creature) e).setTarget((LivingEntity) newaggro[0]);

@@ -15,23 +15,22 @@ public class SilenceCommand extends ICommand {
             argnames = {"player", "duration"}, name = "Silence", parameters = {ParameterType.Player, ParameterType.Number})
 
     public SilenceCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2) {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                final Player[] p = (Player[]) ca.params.get(0);
-                final Integer i = (int) ((Number) ca.params.get(1)).doubleValue();
+        if (ca.getParams().size() == 2) {
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                final Player[] p = (Player[]) ca.getParams().get(0);
+                final Integer i = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                     public void run() {
                         for (Player pl : p) {
                             if (pl == null) {
                                 continue;
                             }
-                            ClassCastCommand.silencedPlayers.put(ca.so, pl);
+                            ClassCastCommand.silencedPlayers.put(ca.getSpellInfo(), pl);
                             for (Map.Entry<SpellInformationObject, Player> entry : AncientRPGClass.executedSpells.entrySet()) {
                                 if (entry.getValue() == pl) {
                                     entry.getKey().canceled = true;
@@ -44,7 +43,7 @@ public class SilenceCommand extends ICommand {
                                     if (pl == null) {
                                         continue;
                                     }
-                                    ClassCastCommand.silencedPlayers.remove(ca.so);
+                                    ClassCastCommand.silencedPlayers.remove(ca.getSpellInfo());
                                 }
                             }
                         }, Math.round(i / 50));

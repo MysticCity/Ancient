@@ -40,23 +40,6 @@ public class Parameter implements Serializable {
         }
         if (this.parameter == null) {
             this.parameter = new ArgumentParameterWrapper(IArgument.parseArgumentByString(s, c.mSpell));
-            /*
-             * String arg = s.replace("(", ""); arg = arg.replace(")", "");
-			 * String argstring = arg.split(Pattern.quote(","))[0]; for
-			 * (IArgument i : IArgument.registeredArguments) { if
-			 * (i.name.equalsIgnoreCase(argstring)) { ArgumentInformationObject
-			 * aio = new ArgumentInformationObject(); aio.argument = i;
-			 * ArrayList<String> args = new ArrayList<String>(); int start = 0;
-			 * int pos = 0; int openbraces = 0; while (pos < arg.length()) { if
-			 * (arg.charAt(pos) == ',' && openbraces == 0) {
-			 * args.add(arg.substring(start, pos).trim()); start = pos + 1; } if
-			 * (arg.charAt(pos) == '(') openbraces++; if (arg.charAt(pos) ==
-			 * ')') openbraces--; pos++; } ArgumentParameter[] params = new
-			 * ArgumentParameter[args.size()]; for (int x = 0; x <
-			 * params.length; x++) { params[x] = new
-			 * ArgumentParameter(args.get(x)); } this.parameter = new
-			 * ArgumentParameterWrapper(aio); } }
-			 */
         }
         this.mCommand = c;
         try {
@@ -109,12 +92,12 @@ public class Parameter implements Serializable {
     }
 
     public void parseParameter(EffectArgs ea, Player mPlayer) {
-        if (ea.so.variables.containsKey(s.toLowerCase())) {
-            Variable v = getVariable(ea.so, s.toLowerCase());
+        if (ea.getSpellInfo().variables.containsKey(s.toLowerCase())) {
+            Variable v = getVariable(ea.getSpellInfo(), s.toLowerCase());
             v.AutoCast(pt, ea);
             return;
         }
-        if (ea.p != null && ea.p.variables.contains(s.toLowerCase())) {
+        if (ea.getSpell() != null && ea.getSpell().variables.contains(s.toLowerCase())) {
             parseVariable(ea, mPlayer, s.toLowerCase());
             return;
         }
@@ -130,12 +113,12 @@ public class Parameter implements Serializable {
     void parseVariable(EffectArgs ea, Player mPlayer, String var) {
         switch (pt) {
             case Number:
-                int value = Variables.getParameterIntByString(ea.so.buffcaster, var, ea.p.newConfigFile);
-                ea.params.addLast(value);
+                int value = Variables.getParameterIntByString(ea.getSpellInfo().buffcaster, var, ea.getSpell().newConfigFile);
+                ea.getParams().addLast(value);
                 break;
             case String:
-                int v = Variables.getParameterIntByString(ea.so.buffcaster, var, ea.p.newConfigFile);
-                ea.params.addLast("" + v);
+                int v = Variables.getParameterIntByString(ea.getSpellInfo().buffcaster, var, ea.getSpell().newConfigFile);
+                ea.getParams().addLast("" + v);
             default:
                 break;
         }
@@ -144,12 +127,12 @@ public class Parameter implements Serializable {
     void parsePrimitive(EffectArgs ea) {
         switch (pt) {
             case String:
-                ea.params.addLast(s);
+                ea.getParams().addLast(s);
                 return;
             case Material:
                 try {
                     int t = Integer.parseInt(s);
-                    ea.params.addLast(Material.getMaterial(t));
+                    ea.getParams().addLast(Material.getMaterial(t));
                     return;
                 } catch (Exception ignored) {
                 }
@@ -157,7 +140,7 @@ public class Parameter implements Serializable {
             case Number:
                 try {
                     double t = Double.parseDouble(s);
-                    ea.params.addLast(t);
+                    ea.getParams().addLast(t);
                     return;
                 } catch (Exception ignored) {
                 }
@@ -165,7 +148,7 @@ public class Parameter implements Serializable {
             case Boolean:
                 try {
                     boolean b = Boolean.parseBoolean(s);
-                    ea.params.addLast(b);
+                    ea.getParams().addLast(b);
                 } catch (Exception ignored) {
 
                 }

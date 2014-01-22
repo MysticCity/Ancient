@@ -9,22 +9,20 @@ public class SetDamageCommand extends ICommand {
     @CommandDescription(description = "<html>Sets the damage of a damage event (attackevent/damageevent/damagebyentityevent)</html>",
             argnames = {"amount"}, name = "SetDamage", parameters = {ParameterType.Number})
     public SetDamageCommand() {
-        ParameterType[] buffer = {ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Number) {
-                final int damage = (int) ((Number) ca.params.get(0)).doubleValue();
-                if (ca.so.mEvent instanceof EntityDamageEvent) {
-                    ((EntityDamageEvent) ca.so.mEvent).setDamage(damage);
+            if (ca.getParams().get(0) instanceof Number) {
+                final int damage = (int) ((Number) ca.getParams().get(0)).doubleValue();
+                if (ca.getSpellInfo().mEvent instanceof EntityDamageEvent) {
+                    ((EntityDamageEvent) ca.getSpellInfo().mEvent).setDamage(damage);
                 }
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

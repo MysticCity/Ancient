@@ -21,21 +21,21 @@ public class PlayerParameter implements IParameter {
         switch (pt) {
             case Player:
                 Player[] p = {nPlayer};
-                ea.params.addLast(p);
+                ea.getParams().addLast(p);
                 break;
             case Entity:
                 Entity[] e = {nPlayer};
-                ea.params.addLast(e);
+                ea.getParams().addLast(e);
                 break;
             case Location:
                 Location[] l = {nPlayer.getLocation()};
-                ea.params.addLast(l);
+                ea.getParams().addLast(l);
                 break;
             case String:
-                ea.params.addLast(nPlayer.getName());
+                ea.getParams().addLast(nPlayer.getName());
                 break;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
     }
 

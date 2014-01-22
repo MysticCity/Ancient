@@ -9,17 +9,16 @@ public class SetItemNameCommand extends ICommand {
     @CommandDescription(description = "Sets the item name of the item in the players inventory",
             argnames = {"player", "slot", "name"}, name = "SetItemName", parameters = {ParameterType.Player, ParameterType.Number, ParameterType.String})
     public SetItemNameCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number && ca.params.get(2) instanceof String) {
-                final Player[] target = (Player[]) ca.params.get(0);
-                final int slot = ((Number) ca.params.get(1)).intValue();
-                final String description = (String) ca.params.get(2);
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number && ca.getParams().get(2) instanceof String) {
+                final Player[] target = (Player[]) ca.getParams().get(0);
+                final int slot = ((Number) ca.getParams().get(1)).intValue();
+                final String description = (String) ca.getParams().get(2);
                 for (final Player p : target) {
                     if (p == null) {
                         continue;

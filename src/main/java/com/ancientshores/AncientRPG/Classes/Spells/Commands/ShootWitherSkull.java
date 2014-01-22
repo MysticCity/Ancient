@@ -10,15 +10,14 @@ public class ShootWitherSkull extends ICommand {
     @CommandDescription(description = "<html>The entity shoots a witherskull</html>",
             argnames = {"shooter"}, name = "ShootWitherSkull", parameters = {ParameterType.Entity})
     public ShootWitherSkull() {
-        ParameterType[] buffer = {ParameterType.Entity};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Entity[]) {
-                final Entity[] target = (Entity[]) ca.params.get(0);
+            if (ca.getParams().get(0) instanceof Entity[]) {
+                final Entity[] target = (Entity[]) ca.getParams().get(0);
                 if (target != null && target.length > 0) {
                     for (final Entity targetPlayer : target) {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
@@ -31,7 +30,6 @@ public class ShootWitherSkull extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

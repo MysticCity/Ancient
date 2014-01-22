@@ -8,14 +8,13 @@ public class PrintToConsoleCommand extends ICommand {
     @CommandDescription(description = "<html>Logs the message to the server console</html>",
             argnames = {"message"}, name = "PrintToConsole", parameters = {ParameterType.String})
     public PrintToConsoleCommand() {
-        ParameterType[] buffer = {ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.String};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 1 && ca.params.get(0) instanceof String) {
-            String s = (String) ca.params.get(0);
+        if (ca.getParams().size() == 1 && ca.getParams().get(0) instanceof String) {
+            String s = (String) ca.getParams().get(0);
             Bukkit.getServer().getConsoleSender().sendRawMessage(s);
         }
         return true;

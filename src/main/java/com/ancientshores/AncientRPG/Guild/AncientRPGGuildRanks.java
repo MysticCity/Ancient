@@ -11,24 +11,24 @@ public enum AncientRPGGuildRanks implements Serializable {
     CO_LEADER("Co Leader", 3),
     LEADER("Leader", 4);
 
-    private final String guildrank;
+    private final String guildRank;
     private final int number;
 
     private AncientRPGGuildRanks(String newguildrank, int newnumber) {
-        this.guildrank = newguildrank;
+        this.guildRank = newguildrank;
         this.number = newnumber;
     }
 
-    public String getguildrank() {
-        return guildrank;
+    public String getGuildRank() {
+        return guildRank;
     }
 
-    public int getnumber() {
+    public int getNumber() {
         return number;
     }
 
-    public static String toString(AncientRPGGuildRanks gr) {
-        switch (gr) {
+    public static String toString(AncientRPGGuildRanks guildRank) {
+        switch (guildRank) {
             case TRIAL:
                 return "trial";
             case MEMBER:
@@ -39,8 +39,9 @@ public enum AncientRPGGuildRanks implements Serializable {
                 return "coleader";
             case LEADER:
                 return "leader";
+            default:
+                return "";
         }
-        return "";
     }
 
     public static AncientRPGGuildRanks getGuildRankByString(String s) {
@@ -62,12 +63,12 @@ public enum AncientRPGGuildRanks implements Serializable {
         return null;
     }
 
-    public static boolean hasInviteRights(AncientRPGGuildRanks gr) {
-        return gr == OFFICER || gr == CO_LEADER || gr == LEADER;
+    public static boolean hasInviteRights(AncientRPGGuildRanks guildRank) {
+        return guildRank == OFFICER || guildRank == CO_LEADER || guildRank == LEADER;
     }
 
-    public static boolean hasMotdRights(AncientRPGGuildRanks gr) {
-        return gr == CO_LEADER || gr == LEADER;
+    public static boolean hasMotdRights(AncientRPGGuildRanks guildRank) {
+        return guildRank == CO_LEADER || guildRank == LEADER;
     }
 
     public static AncientRPGGuildRanks getRankByString(String rank) {
@@ -104,5 +105,4 @@ public enum AncientRPGGuildRanks implements Serializable {
         }
         return ChatColor.GREEN;
     }
-
 }

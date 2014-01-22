@@ -17,7 +17,7 @@ public class ArgumentParameterWrapper implements IParameter {
 
     @Override
     public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
-        IArgument.AutoCast(arg.getArgument(ea.so, mPlayer), pt, ea);
+        IArgument.AutoCast(arg.getArgument(ea.getSpellInfo(), mPlayer), pt, ea);
     }
 
     @Override

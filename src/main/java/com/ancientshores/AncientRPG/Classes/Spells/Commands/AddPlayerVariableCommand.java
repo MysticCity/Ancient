@@ -16,17 +16,17 @@ public class AddPlayerVariableCommand extends ICommand {
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 2) {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof String) {
-                Player[] ps = (Player[]) ca.params.get(0);
-                String name = (String) ca.params.get(1);
+        if (ca.getParams().size() == 2) {
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof String) {
+                Player[] ps = (Player[]) ca.getParams().get(0);
+                String name = (String) ca.getParams().get(1);
                 for (Player p : ps) {
                     Variable v = new Variable(name);
                     if (!Variable.playerVars.containsKey(p.getName())) {
                         Variable.playerVars.put(p.getName(), new HashMap<String, Variable>());
                     }
                     Variable.playerVars.get(p.getName()).put(name, v);
-                    ca.so.variables.put(v.name.toLowerCase(), v);
+                    ca.getSpellInfo().variables.put(v.name.toLowerCase(), v);
                 }
                 return true;
             }

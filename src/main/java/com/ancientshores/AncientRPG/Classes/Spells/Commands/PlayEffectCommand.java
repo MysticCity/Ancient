@@ -9,15 +9,14 @@ public class PlayEffectCommand extends ICommand {
     @CommandDescription(description = "<html>Play effect at the location</html>",
             argnames = {"location", "effectname"}, name = "PlayEffect", parameters = {ParameterType.Location, ParameterType.String})
     public PlayEffectCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(1) instanceof String && ca.params.get(0) instanceof Location[]) {
-            final Location[] loc = (Location[]) ca.params.get(0);
-            final String name = (String) ca.params.get(1);
+        if (ca.getParams().size() == 2 && ca.getParams().get(1) instanceof String && ca.getParams().get(0) instanceof Location[]) {
+            final Location[] loc = (Location[]) ca.getParams().get(0);
+            final String name = (String) ca.getParams().get(1);
             Effect effect = getParticleEffectByName(name);
             if (effect == null) {
                 return false;

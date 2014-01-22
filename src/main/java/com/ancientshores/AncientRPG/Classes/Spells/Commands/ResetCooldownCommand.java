@@ -12,15 +12,14 @@ public class ResetCooldownCommand extends ICommand {
     @CommandDescription(description = "<html>Resets the cooldown with the specified name or all for all cooldowns</html>",
             argnames = {"player", "cdname"}, name = "ResetCooldown", parameters = {ParameterType.Player, ParameterType.String})
     public ResetCooldownCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof String) {
-            final Player[] players = (Player[]) ca.params.get(0);
-            final String cdname = (String) ca.params.get(1);
+        if (ca.getParams().size() == 2 && ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof String) {
+            final Player[] players = (Player[]) ca.getParams().get(0);
+            final String cdname = (String) ca.getParams().get(1);
             for (Player p : players) {
                 PlayerData pd = PlayerData.getPlayerData(p.getName());
                 try {

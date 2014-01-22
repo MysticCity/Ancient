@@ -10,15 +10,14 @@ public class TeleportPlayerCommand extends ICommand {
             argnames = {"entity", "location"}, name = "TeleportPlayer", parameters = {ParameterType.Entity, ParameterType.Location})
 
     public TeleportPlayerCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Location};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Location};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Location[]) {
-            final Entity[] en = (Entity[]) ca.params.get(0);
-            final Location[] loc = (Location[]) ca.params.get(1);
+        if (ca.getParams().size() == 2 && ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Location[]) {
+            final Entity[] en = (Entity[]) ca.getParams().get(0);
+            final Location[] loc = (Location[]) ca.getParams().get(1);
             for (Location l : loc) {
                 if (l == null) {
                     continue;

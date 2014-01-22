@@ -10,15 +10,14 @@ public class RemovePotionEffectCommand extends ICommand {
     @CommandDescription(description = "<html>Removes the specified potion effect from the player</html>",
             argnames = {"entity", "effectname"}, name = "RemovePotion", parameters = {ParameterType.Entity, ParameterType.String})
     public RemovePotionEffectCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof String) {
-            Entity[] players = (Entity[]) ca.params.get(0);
-            String name = (String) ca.params.get(1);
+        if (ca.getParams().size() == 2 && ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof String) {
+            Entity[] players = (Entity[]) ca.getParams().get(0);
+            String name = (String) ca.getParams().get(1);
             PotionEffectType pet = getTypeByName(name);
             if (pet == null) {
                 return true;

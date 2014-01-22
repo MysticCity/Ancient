@@ -11,16 +11,15 @@ public class DisarmCommand extends ICommand {
     @CommandDescription(description = "<html>Disarms the player for the specified time</html>",
             argnames = {"player", "duration"}, name = "Disarm", parameters = {ParameterType.Player, ParameterType.Number})
     public DisarmCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                final Player[] target = (Player[]) ca.params.get(0);
-                final int time = (int) ((Number) ca.params.get(1)).doubleValue();
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                final Player[] target = (Player[]) ca.getParams().get(0);
+                final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 if (target != null && target.length > 0 && target[0] instanceof Player) {
                     AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
 
@@ -33,7 +32,7 @@ public class DisarmCommand extends ICommand {
                                 if (time > 0 && !(AncientRPGSpellListener.disarmList.containsKey(p))) {
                                     final ItemStack is = p.getItemInHand();
                                     AncientRPGSpellListener.disarmList.put(p, is);
-                                    p.setItemInHand(new ItemStack(0));
+                                    p.setItemInHand(null);
                                     AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                                         @Override
                                         public void run() {
@@ -50,8 +49,8 @@ public class DisarmCommand extends ICommand {
                         }
                     });
                     return true;
-                } else if (ca.p.active) {
-                    ca.caster.sendMessage("Target not found");
+                } else if (ca.getSpell().active) {
+                    ca.getCaster().sendMessage("Target not found");
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {

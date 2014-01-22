@@ -10,22 +10,21 @@ public class ChargeCommand extends ICommand {
             argnames = {"location", "speed", "maxdistance"}, name = "Charge", parameters = {ParameterType.Location, ParameterType.Number, ParameterType.Number})
 
     public ChargeCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.size() > 0 && ca.params.get(0) instanceof Location[]) {
-                final Location[] loc = (Location[]) ca.params.get(0);
+            if (ca.getParams().size() > 0 && ca.getParams().get(0) instanceof Location[]) {
+                final Location[] loc = (Location[]) ca.getParams().get(0);
                 double bps = 10;
                 int maxdistance = -1;
-                if (ca.params.size() > 1) {
-                    bps = ((Number) ca.params.get(1)).doubleValue();
+                if (ca.getParams().size() > 1) {
+                    bps = ((Number) ca.getParams().get(1)).doubleValue();
                 }
-                if (ca.params.size() > 2) {
-                    maxdistance = (int) ((Number) ca.params.get(2)).doubleValue();
+                if (ca.getParams().size() > 2) {
+                    maxdistance = (int) ((Number) ca.getParams().get(2)).doubleValue();
                 }
                 if (loc != null && loc.length > 0 && loc[0] != null) {
                     boolean broken = false;
@@ -33,26 +32,26 @@ public class ChargeCommand extends ICommand {
                         if (l == null) {
                             continue;
                         }
-                        double distance = ca.caster.getLocation().distance(l);
+                        double distance = ca.getCaster().getLocation().distance(l);
                         int deltatime = 1;
                         double bpt = bps / 20;
                         double gestime = distance / bpt;
-                        final double xps = (l.getX() - ca.caster.getLocation().getX()) / gestime;
-                        final double yps = (l.getY() - ca.caster.getLocation().getY()) / gestime;
-                        final double zps = (l.getZ() - ca.caster.getLocation().getZ()) / gestime;
-                        Location curLocation = ca.caster.getLocation();
+                        final double xps = (l.getX() - ca.getCaster().getLocation().getX()) / gestime;
+                        final double yps = (l.getY() - ca.getCaster().getLocation().getY()) / gestime;
+                        final double zps = (l.getZ() - ca.getCaster().getLocation().getZ()) / gestime;
+                        Location curLocation = ca.getCaster().getLocation();
                         int time = 0;
                         for (double i = 0; i < gestime; i += 1) {
-                            curLocation.add(new Location(ca.caster.getWorld(), xps, yps, zps));
-                            final Location portLocation = new Location(ca.caster.getWorld(), curLocation.getX(), curLocation.getY(), curLocation.getZ());
+                            curLocation.add(new Location(ca.getCaster().getWorld(), xps, yps, zps));
+                            final Location portLocation = new Location(ca.getCaster().getWorld(), curLocation.getX(), curLocation.getY(), curLocation.getZ());
                             AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                                 @Override
                                 public void run() {
-                                    Location lo = ca.caster.getLocation();
+                                    Location lo = ca.getCaster().getLocation();
                                     lo.setX(portLocation.getX());
                                     lo.setY(portLocation.getY());
                                     lo.setZ(portLocation.getZ());
-                                    ca.caster.teleport(lo);
+                                    ca.getCaster().teleport(lo);
                                 }
                             }, time);
                             time += deltatime;
@@ -62,15 +61,15 @@ public class ChargeCommand extends ICommand {
                             }
                         }
                         if (!broken) {
-                            final Location portLocation = new Location(ca.caster.getWorld(), l.getX(), l.getY(), l.getZ());
+                            final Location portLocation = new Location(ca.getCaster().getWorld(), l.getX(), l.getY(), l.getZ());
                             AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                                 @Override
                                 public void run() {
-                                    Location lo = ca.caster.getLocation();
+                                    Location lo = ca.getCaster().getLocation();
                                     lo.setX(portLocation.getX());
                                     lo.setY(portLocation.getY());
                                     lo.setZ(portLocation.getZ());
-                                    ca.caster.teleport(lo);
+                                    ca.getCaster().teleport(lo);
                                 }
                             }, time);
                         }

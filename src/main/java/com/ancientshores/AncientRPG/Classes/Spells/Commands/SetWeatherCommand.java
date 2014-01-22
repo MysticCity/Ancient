@@ -8,17 +8,16 @@ public class SetWeatherCommand extends ICommand {
     @CommandDescription(description = "<html>Changes the weather in the world for atleast the specified time</html>",
             argnames = {"world", "duration", "raining", "thundering"}, name = "SetWeather", parameters = {ParameterType.Location, ParameterType.Number, ParameterType.Boolean, ParameterType.Boolean})
     public SetWeatherCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.Number, ParameterType.Boolean, ParameterType.Boolean};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Boolean, ParameterType.Boolean};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 4 && ca.params.get(0) instanceof Location[] && ca.params.get(1) instanceof Number && ca.params.get(2) instanceof Boolean && ca.params.get(3) instanceof Boolean) {
-            Location[] locs = (Location[]) ca.params.get(0);
-            boolean raining = (Boolean) ca.params.get(2);
-            boolean thundering = (Boolean) ca.params.get(3);
-            int time = (int) ((Number) ca.params.get(1)).doubleValue();
+        if (ca.getParams().size() == 4 && ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Number && ca.getParams().get(2) instanceof Boolean && ca.getParams().get(3) instanceof Boolean) {
+            Location[] locs = (Location[]) ca.getParams().get(0);
+            boolean raining = (Boolean) ca.getParams().get(2);
+            boolean thundering = (Boolean) ca.getParams().get(3);
+            int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
             for (Location l : locs) {
                 if (l == null) {
                     continue;

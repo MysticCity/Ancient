@@ -9,14 +9,13 @@ public class RemoveProjectileCommand extends ICommand {
     @CommandDescription(description = "<html>Removes the projectile which hit something, can only be used in ProjectileHitEvent</html>",
             argnames = {}, name = "RemoveProjectile", parameters = {})
     public RemoveProjectileCommand() {
-        ParameterType[] buffer = {ParameterType.Void};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Void};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.so.mEvent instanceof ProjectileHitEvent) {
-            ((ProjectileHitEvent) ca.so.mEvent).getEntity().remove();
+        if (ca.getSpellInfo().mEvent instanceof ProjectileHitEvent) {
+            ((ProjectileHitEvent) ca.getSpellInfo().mEvent).getEntity().remove();
             return true;
         }
         return false;

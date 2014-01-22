@@ -10,23 +10,22 @@ public class DisruptOnMoveCommand extends ICommand {
     @CommandDescription(description = "<html> Disrupts the spell if player moves in the specified time</html>",
             argnames = {"player", "duration"}, name = "DisruptOnMove", parameters = {ParameterType.Player, ParameterType.Number})
     public DisruptOnMoveCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2) {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                final Player[] players = (Player[]) ca.params.get(0);
-                final int time = (int) ((Number) ca.params.get(1)).doubleValue();
+        if (ca.getParams().size() == 2) {
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                final Player[] players = (Player[]) ca.getParams().get(0);
+                final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                     public void run() {
                         for (final Player p : players) {
-                            AncientRPGSpellListener.addDisruptCommand(p, ca.so, AncientRPGSpellListener.disruptOnMove);
+                            AncientRPGSpellListener.addDisruptCommand(p, ca.getSpellInfo(), AncientRPGSpellListener.disruptOnMove);
                             AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                                 public void run() {
-                                    AncientRPGSpellListener.removeDisruptCommand(p, ca.so, AncientRPGSpellListener.disruptOnMove);
+                                    AncientRPGSpellListener.removeDisruptCommand(p, ca.getSpellInfo(), AncientRPGSpellListener.disruptOnMove);
                                 }
                             }, Math.round(time / 50));
                         }

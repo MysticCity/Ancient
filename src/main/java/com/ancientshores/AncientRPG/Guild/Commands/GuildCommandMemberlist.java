@@ -16,7 +16,7 @@ public class GuildCommandMemberlist {
                 .getPlayersGuild(mPlayer.getName());
         if (g != null) {
             Set<String> names = g.gMember.keySet();
-            mPlayer.sendMessage(ChatColor.GREEN + g.gName + ":");
+            mPlayer.sendMessage(ChatColor.GREEN + g.guildName + ":");
             for (String s : names) {
                 mPlayer.sendMessage(AncientRPGGuildRanks
                         .getChatColorByRank(g.gMember.get(s)) + s);

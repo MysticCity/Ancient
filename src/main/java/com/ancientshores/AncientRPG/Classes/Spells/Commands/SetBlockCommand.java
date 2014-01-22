@@ -9,17 +9,15 @@ public class SetBlockCommand extends ICommand {
     @CommandDescription(description = "<html>Sets the block at the location to the specified id</html>",
             argnames = {"location", "material"}, name = "SetBlock", parameters = {ParameterType.Location, ParameterType.Material})
     public SetBlockCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.Material};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Material};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-
         try {
-            if (ca.params.get(0) instanceof Location[] && ca.params.get(1) instanceof Material) {
-                final Location loc[] = (Location[]) ca.params.get(0);
-                final Material m = (Material) ca.params.get(1);
+            if (ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Material) {
+                final Location loc[] = (Location[]) ca.getParams().get(0);
+                final Material m = (Material) ca.getParams().get(1);
                 if (loc != null && m != null) {
                     for (Location l : loc) {
                         if (l == null) {
@@ -31,7 +29,6 @@ public class SetBlockCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

@@ -11,16 +11,15 @@ public class JumpHigherCommand extends ICommand {
     @CommandDescription(description = "<html>Lets the target jump the amount of blocks higher for the specified time</html>",
             argnames = {"entity", "duration", "amplifier"}, name = "JumpHigher", parameters = {ParameterType.Entity, ParameterType.Number, ParameterType.Number})
     public JumpHigherCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Number, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 3 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Number && ca.params.get(2) instanceof Number) {
-            Entity[] players = (Entity[]) ca.params.get(0);
-            int time = (int) ((Number) ca.params.get(1)).doubleValue();
-            int amplifier = (int) ((Number) ca.params.get(2)).doubleValue();
+        if (ca.getParams().size() == 3 && ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Number && ca.getParams().get(2) instanceof Number) {
+            Entity[] players = (Entity[]) ca.getParams().get(0);
+            int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
+            int amplifier = (int) ((Number) ca.getParams().get(2)).doubleValue();
             for (Entity p : players) {
                 if (p == null || !(p instanceof LivingEntity)) {
                     continue;

@@ -22,34 +22,34 @@ public class NearestEntityParameter implements IParameter {
 
         if (subparam != null) {
             try {
-                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
+                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.getCommand().commandString + " falling back to default");
             }
         }
-        if (subparam != null || ea.so.nearestEntity == null) {
-            Entity nEntity = ea.so.getNearestEntity(mPlayer, range);
-            ea.so.nearestEntity = nEntity;
+        if (subparam != null || ea.getSpellInfo().nearestEntity == null) {
+            Entity nEntity = ea.getSpellInfo().getNearestEntity(mPlayer, range);
+            ea.getSpellInfo().nearestEntity = nEntity;
             if (nEntity == null) {
                 return;
             }
         }
         switch (pt) {
             case Entity: {
-                Entity[] e = {ea.so.nearestEntity};
-                ea.params.addLast(e);
+                Entity[] e = {ea.getSpellInfo().nearestEntity};
+                ea.getParams().addLast(e);
                 break;
             }
             case Location:
-                Location[] l = {ea.so.nearestEntity.getLocation()};
-                ea.params.addLast(l);
+                Location[] l = {ea.getSpellInfo().nearestEntity.getLocation()};
+                ea.getParams().addLast(l);
                 break;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
     }
 

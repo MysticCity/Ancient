@@ -21,30 +21,30 @@ public class AttackedEntityParameter implements IParameter {
 
     @Override
     public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
-        if (!ea.p.active && ea.so.mEvent instanceof EntityDamageEvent) {
-            EntityDamageEvent event = (EntityDamageEvent) ea.so.mEvent;
+        if (!ea.getSpell().active && ea.getSpellInfo().mEvent instanceof EntityDamageEvent) {
+            EntityDamageEvent event = (EntityDamageEvent) ea.getSpellInfo().mEvent;
             switch (pt) {
                 case Player:
                     if (event.getEntity() instanceof Player) {
                         Player[] p = new Player[1];
                         p[0] = (Player) event.getEntity();
-                        ea.params.addLast(p);
+                        ea.getParams().addLast(p);
                     }
                     return;
                 case Entity:
                     Entity[] e = new Entity[1];
                     e[0] = event.getEntity();
-                    ea.params.addLast(e);
+                    ea.getParams().addLast(e);
                     return;
                 case Location:
                     Location[] l = new Location[1];
                     l[0] = event.getEntity().getLocation();
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                     return;
                 case String:
                     if (event.getEntity() instanceof Player) {
                         Player p = (Player) event.getEntity();
-                        ea.params.addLast(p.getName());
+                        ea.getParams().addLast(p.getName());
                     }
                     return;
                 default:
@@ -52,7 +52,7 @@ public class AttackedEntityParameter implements IParameter {
             }
         } else {
             AncientRPG.plugin.getLogger().log(Level.SEVERE,
-                    "Invalid usage of attackedentity parameter in Command " + ea.mCommand.commandString + " in spell " + ea.mCommand.mSpell.name + " in line " + ea.mCommand.lineNumber);
+                    "Invalid usage of attackedentity parameter in Command " + ea.getCommand().commandString + " in spell " + ea.getCommand().mSpell.name + " in line " + ea.getCommand().lineNumber);
         }
     }
 

@@ -10,16 +10,15 @@ public class SetInvisibleCommand extends ICommand {
             argnames = {"player", "isinvisible"}, name = "SetInvisible", parameters = {ParameterType.Player, ParameterType.Boolean})
 
     public SetInvisibleCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Boolean};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Boolean};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Boolean) {
-                final Player[] target = (Player[]) ca.params.get(0);
-                final boolean b = (Boolean) ca.params.get(1);
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Boolean) {
+                final Player[] target = (Player[]) ca.getParams().get(0);
+                final boolean b = (Boolean) ca.getParams().get(1);
                 for (final Player invisP : target) {
                     if (invisP == null) {
                         continue;
@@ -41,7 +40,6 @@ public class SetInvisibleCommand extends ICommand {
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

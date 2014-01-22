@@ -75,25 +75,19 @@ public class ArgumentParameter {
             }
             return c;
         }
-        EffectArgs ea = new EffectArgs();
-        ea.caster = mPlayer;
-        ea.so = so;
-        ea.p = spell;
+        EffectArgs ea = new EffectArgs(mPlayer, spell, so, null);
         if (pt == ParameterType.Void || parameter == null) {
             Player[] p = {mPlayer};
-            ea.params.addLast(p);
+            ea.getParams().addLast(p);
             switch (pt) {
                 case Player: {
-                    Player[] players = (Player[]) ea.params.get(0);
-                    return players;
+                    return ea.getParams().get(0);
                 }
                 case Location: {
-                    Location[] locs = (Location[]) ea.params.get(0);
-                    return locs;
+                    return ea.getParams().get(0);
                 }
                 case Entity: {
-                    Entity[] locs = (Entity[]) ea.params.get(0);
-                    return locs;
+                    return ea.getParams().get(0);
                 }
                 default:
                     break;
@@ -103,18 +97,18 @@ public class ArgumentParameter {
             parameter.parseParameter(ea, mPlayer, subparam, pt);
         }
         try {
-            if (ea.params.size() == 1) {
+            if (ea.getParams().size() == 1) {
                 switch (pt) {
                     case Player: {
-                        Player[] players = (Player[]) ea.params.get(0);
+                        Player[] players = (Player[]) ea.getParams().get(0);
                         return players;
                     }
                     case Location: {
-                        Location[] locs = (Location[]) ea.params.get(0);
+                        Location[] locs = (Location[]) ea.getParams().get(0);
                         return locs;
                     }
                     case Entity: {
-                        Entity[] locs = (Entity[]) ea.params.get(0);
+                        Entity[] locs = (Entity[]) ea.getParams().get(0);
                         return locs;
                     }
                     default:

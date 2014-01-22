@@ -21,15 +21,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 public class AncientRPGGuild implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     // ==============================================
     // Membervariables
     // ==============================================
-    public String gName;
+    public String guildName;
     public String gLeader;
     public String motd;
     public String accountName;
@@ -68,19 +65,15 @@ public class AncientRPGGuild implements Serializable {
     public static boolean Iconomyenabled = true;
     public static double cost = 300;
     public static boolean spawnEnabled = false;
-    boolean hasguildhouse = false;
-
-    // GuildHouse gHouse = null;
-    // protected HashSet<GuildSafe> safes = new HashSet<GuildSafe>();
 
     // ==============================================
     // Constructor
     // ==============================================
     public AncientRPGGuild(String name, String leadername) {
-        this.gName = name;
+        this.guildName = name;
         this.motd = " ";
         if (AncientRPG.iConomyEnabled()) {
-            accountName = "[g]" + gName.replace(' ', '_');
+            accountName = "[g]" + guildName.replace(' ', '_');
             AncientRPG.economy.createBank(accountName, leadername);
         }
         gLeader = leadername;
@@ -92,14 +85,13 @@ public class AncientRPGGuild implements Serializable {
     }
 
     public AncientRPGGuild() {
-        // TODO Auto-generated constructor stub
     }
 
     // ==============================================
     // nonstatic Methods
     // ==============================================
 
-    public HashMap<String, AncientRPGGuildRanks> getgMember() {
+    public HashMap<String, AncientRPGGuildRanks> getGuildMembers() {
         return gMember;
     }
 
@@ -161,10 +153,6 @@ public class AncientRPGGuild implements Serializable {
                 return;
             }
         }
-        /*
-         * if (AncientRPG.plugin.economy != null) {
-		 * AncientRPG.economy.getAccount("g: " + this.gName).remove(); }
-		 */
         this.broadcastMessage(AncientRPG.brand2 + ChatColor.GREEN + " this guild has been disbanded because no one of the members can be a Leader.");
         if (AncientRPG.iConomyEnabled()) {
             double balance = AncientRPG.economy.bankBalance(this.accountName).amount;
@@ -175,10 +163,6 @@ public class AncientRPGGuild implements Serializable {
     }
 
     public void disband(boolean admin) {
-        /*
-         * if (AncientRPG.plugin.economy != null) {
-		 * iConomy.getAccount(this.gName).remove(); }
-		 */
         if (admin) {
             this.broadcastMessage(AncientRPG.brand2 + ChatColor.GREEN + "Your guild has been disbanded by an admin.");
             if (AncientRPG.iConomyEnabled()) {
@@ -197,7 +181,7 @@ public class AncientRPGGuild implements Serializable {
     }
 
 	/*
-	 * public GuildSafe safeAtPos(Coordinate c) { if (safes != null &&
+     * public GuildSafe safeAtPos(Coordinate c) { if (safes != null &&
 	 * safes.size() > 0) { for (GuildSafe gs : safes) { if
 	 * (gs.isPosProtected(c)) { return gs; } } } return null; }
 	 */
@@ -206,19 +190,12 @@ public class AncientRPGGuild implements Serializable {
     // static Methods
     // ==============================================
 
-	/*
-	 * public GuildHouse getgHouse() { return gHouse; }
-	 * 
-	 * public HashSet<GuildSafe> getSafe() { return safes; }
-	 */
-
-    public String getgName() {
-        return gName;
+    public String getGuildName() {
+        return guildName;
     }
 
     @SuppressWarnings("unused")
     public static void processCommand(CommandSender sender, String[] args, AncientRPG main) {
-
         if (args.length == 0) {
             GuildCommandHelp.processHelp(sender, args);
             return;
@@ -362,40 +339,7 @@ public class AncientRPGGuild implements Serializable {
         // ==============================================
         else if (args[0].equals("settag")) {
             GuildCommandSetTag.processSetTag(sender, args);
-        } /*
-		 * else if (args[0].equals("ghouse") &&
-		 * AncientRPG.classExisting("de.pylamo.rpgplugin.GuildHouse")) { Guild
-		 * mGuild = getPlayersGuild(mPlayer.getName()); if (mGuild != null) { if
-		 * (args.length >= 1) { if (mGuild.gMember.get(mPlayer.getName()) ==
-		 * GuildRanks.LEADER || mGuild.gMember.get(mPlayer.getName()) ==
-		 * GuildRanks.CO_LEADER) { GuildHouse.processCommands(mPlayer, mGuild,
-		 * args); } else { mPlayer.sendMessage(ChatColor.RED +
-		 * "You don't have the right to use that command."); } } else {
-		 * mPlayer.sendMessage(ChatColor.RED +
-		 * "Correct usage: /ghouse <create/delete>"); } } else {
-		 * mPlayer.sendMessage(ChatColor.RED + "You aren't in a guild."); } }
-		 * else if (args[0].equals("ghouse")) { Guild mGuild =
-		 * getPlayersGuild(mPlayer.getName()); if (mGuild != null) { if
-		 * (args.length >= 1) { if (mGuild.gMember.get(mPlayer.getName()) ==
-		 * GuildRanks.LEADER || mGuild.gMember.get(mPlayer.getName()) ==
-		 * GuildRanks.CO_LEADER) { GuildHouse.processCommands(mPlayer, mGuild,
-		 * args); } else { mPlayer.sendMessage(ChatColor.RED +
-		 * "You don't have the right to use that command."); } } else {
-		 * mPlayer.sendMessage(ChatColor.RED +
-		 * "Correct usage: /ghouse <create/delete>"); } } else {
-		 * mPlayer.sendMessage(ChatColor.RED + "You aren't in a guild."); } }
-		 * else if (args[0].equals("gsafe") &&
-		 * AncientRPG.classExisting("de.pylamo.rpgplugin.GuildSafe")) { Guild
-		 * mGuild = getPlayersGuild(mPlayer.getName()); if (mGuild != null) { if
-		 * (args.length >= 1) { if (mGuild.gMember.get(mPlayer.getName()) ==
-		 * GuildRanks.LEADER || mGuild.gMember.get(mPlayer.getName()) ==
-		 * GuildRanks.CO_LEADER) { GuildSafe.processCommands(mPlayer, mGuild,
-		 * args); } else { mPlayer.sendMessage(ChatColor.RED +
-		 * "You don't have the right to use that command."); } } else {
-		 * mPlayer.sendMessage(ChatColor.RED +
-		 * "Correct usage: /gsafe <create/delete>"); } } else {
-		 * mPlayer.sendMessage(ChatColor.RED + "You aren't in a guild."); } }
-		 */
+        }
 
         // ==============================================
         // Iconomy stuff
@@ -431,8 +375,7 @@ public class AncientRPGGuild implements Serializable {
         }
         AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(p.getName());
         if (mGuild != null && mGuild.tag != null && !mGuild.tag.equals("")) {
-            String tag = HelpList.replaceChatColor(mGuild.tag);
-            tag = "<" + tag + ">";
+            String tag = "<" + HelpList.replaceChatColor(mGuild.tag) + ">";
             if (!p.getDisplayName().contains(tag)) {
                 p.setDisplayName(tag + p.getDisplayName());
             }
@@ -440,15 +383,15 @@ public class AncientRPGGuild implements Serializable {
     }
 
     public static void processJoin(final PlayerJoinEvent playerJoinEvent) {
-        final AncientRPGGuild mGuild = getPlayersGuild(playerJoinEvent.getPlayer().getName());
-        if (mGuild != null) {
-            mGuild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(mGuild.getgMember().get(playerJoinEvent.getPlayer().getName()))
+        final AncientRPGGuild guild = getPlayersGuild(playerJoinEvent.getPlayer().getName());
+        if (guild != null) {
+            guild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(guild.getGuildMembers().get(playerJoinEvent.getPlayer().getName()))
                     + playerJoinEvent.getPlayer().getName() + ChatColor.GREEN + " is now online.");
-            AncientRPGGuild.writeGuild(mGuild);
+            AncientRPGGuild.writeGuild(guild);
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    playerJoinEvent.getPlayer().sendMessage(ChatColor.GREEN + "<Guild> motd: " + mGuild.motd);
+                    playerJoinEvent.getPlayer().sendMessage(ChatColor.GREEN + "<Guild> motd: " + guild.motd);
                 }
             }, 3000);
         }
@@ -457,7 +400,7 @@ public class AncientRPGGuild implements Serializable {
     public static void processQuit(PlayerQuitEvent playerQuitEvent) {
         AncientRPGGuild mGuild = getPlayersGuild(playerQuitEvent.getPlayer().getName());
         if (mGuild != null) {
-            mGuild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(mGuild.getgMember().get(playerQuitEvent.getPlayer().getName()))
+            mGuild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(mGuild.getGuildMembers().get(playerQuitEvent.getPlayer().getName()))
                     + playerQuitEvent.getPlayer().getName() + ChatColor.GREEN + " is now offline.");
             AncientRPGGuild.writeGuild(mGuild);
         }
@@ -470,94 +413,75 @@ public class AncientRPGGuild implements Serializable {
             basepath.mkdir();
         }
         for (AncientRPGGuild guild : guilds) {
-            File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + File.separator + "Guilds" + File.separator + guild.gName + ".guild");
+            File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + File.separator + "Guilds" + File.separator + guild.guildName + ".guild");
             if (f.exists()) {
                 f.renameTo(new File(f.getName() + "old"));
                 f.delete();
             }
-            YamlConfiguration yc = new YamlConfiguration();
-            yc.set("Guild.Name", guild.gName);
-            yc.set("Guild.Accountname", guild.accountName);
-            yc.set("Guild.Leader", guild.gLeader);
-            yc.set("Guild.FF", guild.friendlyFire);
-            yc.set("Guild.Motd", guild.motd);
-            yc.set("Guild.tag", guild.tag);
+            YamlConfiguration guildConfig = new YamlConfiguration();
+            guildConfig.set("Guild.Name", guild.guildName);
+            guildConfig.set("Guild.Accountname", guild.accountName);
+            guildConfig.set("Guild.Leader", guild.gLeader);
+            guildConfig.set("Guild.FF", guild.friendlyFire);
+            guildConfig.set("Guild.Motd", guild.motd);
+            guildConfig.set("Guild.tag", guild.tag);
             if (guild.spawnLocation != null) {
-                yc.set("Guild.spawnworld", guild.spawnLocation.wName);
-                yc.set("Guild.spawnx", guild.spawnLocation.x);
-                yc.set("Guild.spawny", guild.spawnLocation.y);
-                yc.set("Guild.spawnz", guild.spawnLocation.z);
+                guildConfig.set("Guild.spawnworld", guild.spawnLocation.wName);
+                guildConfig.set("Guild.spawnx", guild.spawnLocation.x);
+                guildConfig.set("Guild.spawny", guild.spawnLocation.y);
+                guildConfig.set("Guild.spawnz", guild.spawnLocation.z);
             }
             int i = 0;
             for (String member : guild.gMember.keySet()) {
-                yc.set("Guild.Members." + i, member + ":" + AncientRPGGuildRanks.toString(guild.gMember.get(member)));
+                guildConfig.set("Guild.Members." + i, member + ":" + AncientRPGGuildRanks.toString(guild.gMember.get(member)));
                 i++;
             }
             try {
-                yc.save(f);
+                guildConfig.save(f);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-		/*
-		 * File outputfile = new File("plugins" + File.separator + "AncientRPG"
-		 * + File.separator + "guilds.dat"); File oldfile = new File("plugins" +
-		 * File.separator + "AncientRPG" + File.separator + "guilds.dat.old");
-		 * if (outputfile.exists() && backup) { if (oldfile.exists()) {
-		 * oldfile.delete(); } outputfile.renameTo(oldfile); } File outputfilen
-		 * = new File("plugins" + File.separator + "AncientRPG" + File.separator
-		 * + "guilds.dat"); try { outputfilen.createNewFile(); FileOutputStream
-		 * fos = new FileOutputStream(outputfilen); ObjectOutputStream oos = new
-		 * ObjectOutputStream(fos); oos.writeObject(AncientRPGGuild.guilds);
-		 * oos.flush(); fos.close(); oos.close(); } catch (Exception e) {
-		 * AncientRPG.plugin .getServer() .getLogger() .log(Level.SEVERE,
-		 * "<PylamoRPG> Failed to save guilds, falling back to backup");
-		 * AncientRPG.plugin.getServer().getLogger() .log(Level.SEVERE,
-		 * "<AncientRPG> " + e.getMessage()); e.printStackTrace();
-		 * outputfilen.delete(); oldfile.renameTo(outputfilen); }
-		 */
     }
 
     public static void deleteGuild(AncientRPGGuild guild) {
         guilds.remove(guild);
-        File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + File.separator + "Guilds" + File.separator + guild.gName + ".guild");
+        File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + File.separator + "Guilds" + File.separator + guild.guildName + ".guild");
         if (f.exists()) {
             File deleteFolder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + File.separator + "Guilds" + File.separator + "deleted");
             deleteFolder.mkdir();
-            f.renameTo(new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Guilds" + File.separator + "deleted" + File.separator + guild.gName + ".guild"));
+            f.renameTo(new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Guilds" + File.separator + "deleted" + File.separator + guild.guildName + ".guild"));
             f.delete();
         }
     }
 
     public static void writeGuild(AncientRPGGuild guild) {
-        File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + "Guilds" + File.separator + guild.gName + ".guild");
+        File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + File.separator + "Guilds" + File.separator + guild.guildName + ".guild");
         if (f.exists()) {
             f.renameTo(new File(f.getName() + "old"));
             f.delete();
         }
-        YamlConfiguration yc = new YamlConfiguration();
-        yc.set("Guild.Name", guild.gName);
-        yc.set("Guild.Accountname", guild.accountName);
-        yc.set("Guild.Leader", guild.gLeader);
-        yc.set("Guild.FF", guild.friendlyFire);
-        yc.set("Guild.Motd", guild.motd);
-        yc.set("Guild.tag", guild.tag);
+        YamlConfiguration guildConfig = new YamlConfiguration();
+        guildConfig.set("Guild.Name", guild.guildName);
+        guildConfig.set("Guild.Accountname", guild.accountName);
+        guildConfig.set("Guild.Leader", guild.gLeader);
+        guildConfig.set("Guild.FF", guild.friendlyFire);
+        guildConfig.set("Guild.Motd", guild.motd);
+        guildConfig.set("Guild.tag", guild.tag);
         if (guild.spawnLocation != null) {
-            yc.set("Guild.spawnworld", guild.spawnLocation.wName);
-            yc.set("Guild.spawnx", guild.spawnLocation.x);
-            yc.set("Guild.spawny", guild.spawnLocation.y);
-            yc.set("Guild.spawnz", guild.spawnLocation.z);
+            guildConfig.set("Guild.spawnworld", guild.spawnLocation.wName);
+            guildConfig.set("Guild.spawnx", guild.spawnLocation.x);
+            guildConfig.set("Guild.spawny", guild.spawnLocation.y);
+            guildConfig.set("Guild.spawnz", guild.spawnLocation.z);
         }
         int i = 0;
         for (String member : guild.gMember.keySet()) {
-            yc.set("Guild.Members." + i, member + ":" + AncientRPGGuildRanks.toString(guild.gMember.get(member)));
+            guildConfig.set("Guild.Members." + i, member + ":" + AncientRPGGuildRanks.toString(guild.gMember.get(member)));
             i++;
         }
         try {
-            yc.save(f);
+            guildConfig.save(f);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -570,33 +494,29 @@ public class AncientRPGGuild implements Serializable {
         guilds = new HashSet<AncientRPGGuild>();
 
         File[] guildFiles = basepath.listFiles();
-        if (guilds == null) {
-            return;
-        }
-
         if (guildFiles != null) {
             for (File f : guildFiles) {
                 if (!f.isDirectory() && f.getName().endsWith(".guild")) {
-                    YamlConfiguration yc = new YamlConfiguration();
+                    YamlConfiguration guildConfig = new YamlConfiguration();
                     try {
                         AncientRPGGuild guild = new AncientRPGGuild();
-                        yc.load(f);
-                        guild.gName = (String) yc.get("Guild.Name");
-                        guild.accountName = (String) yc.get("Guild.Accountname");
-                        guild.gLeader = (String) yc.get("Guild.Leader");
-                        guild.motd = (String) yc.get("Guild.Motd");
-                        guild.friendlyFire = (Boolean) yc.get("Guild.FF");
-                        guild.tag = yc.getString("Guild.tag", guild.tag);
-                        if (yc.get("Guild.spawnx") != null) {
-                            guild.spawnLocation = new SerializableLocation(new Location(Bukkit.getWorld(yc.getString("Guild.spawnworld")), yc.getDouble("Guild.spawnx"), yc.getDouble("Guild.spawny"),
-                                    yc.getDouble("Guild.spawnz")));
+                        guildConfig.load(f);
+                        guild.guildName = (String) guildConfig.get("Guild.Name");
+                        guild.accountName = (String) guildConfig.get("Guild.Accountname");
+                        guild.gLeader = (String) guildConfig.get("Guild.Leader");
+                        guild.motd = (String) guildConfig.get("Guild.Motd");
+                        guild.friendlyFire = (Boolean) guildConfig.get("Guild.FF");
+                        guild.tag = guildConfig.getString("Guild.tag", guild.tag);
+                        if (guildConfig.get("Guild.spawnx") != null) {
+                            guild.spawnLocation = new SerializableLocation(new Location(Bukkit.getWorld(guildConfig.getString("Guild.spawnworld")), guildConfig.getDouble("Guild.spawnx"), guildConfig.getDouble("Guild.spawny"),
+                                    guildConfig.getDouble("Guild.spawnz")));
                         }
                         if (!canToggleff) {
                             guild.friendlyFire = true;
                         }
                         guild.gMember = new HashMap<String, AncientRPGGuildRanks>();
                         int i = 0;
-                        String s = (String) yc.get("Guild.Members." + i);
+                        String s = (String) guildConfig.get("Guild.Members." + i);
                         while (s != null && !s.equals("")) {
                             String[] regex = s.split(":");
                             if (regex.length == 2) {
@@ -605,43 +525,17 @@ public class AncientRPGGuild implements Serializable {
                                 break;
                             }
                             i++;
-                            s = (String) yc.get("Guild.Members." + i);
+                            s = (String) guildConfig.get("Guild.Members." + i);
                         }
                         guilds.add(guild);
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                         AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load guilds");
                     }
                 }
             }
         }
-		/*
-		 * File inputfile = new File("plugins" + File.separator + "AncientRPG" +
-		 * File.separator + "guilds.dat"); if (inputfile.exists()) { try {
-		 * FileInputStream fis = new FileInputStream(inputfile);
-		 * ObjectInputStream ois = new ObjectInputStream(fis); Object input =
-		 * ois.readObject(); HashSet<AncientRPGGuild> inputhashset = null; if
-		 * (input instanceof HashSet<?>) { inputhashset =
-		 * (HashSet<AncientRPGGuild>) input; } if (inputhashset != null) {
-		 * AncientRPGGuild.guilds = inputhashset; } else { AncientRPG.plugin
-		 * .getServer() .getLogger() .log(Level.WARNING,
-		 * "<AncientRPG> Unable load guilds, please try the backup file"); }
-		 * fis.close(); ois.close(); } catch (Exception e) { AncientRPG.plugin
-		 * .getServer() .getLogger() .log(Level.WARNING,
-		 * "<AncientRPG> Unable load guilds, please try the backup file");
-		 * e.printStackTrace(); }
-		 * 
-		 * } else { AncientRPG.plugin.getServer().getLogger()
-		 * .log(Level.WARNING, "<AncientRPG> No guild file detected."); }
-		 */
     }
-
-	/*
-	 * public static GuildSafe getGuildSafeAtPos(Coordinate c) { for (Guild g :
-	 * guilds) { GuildSafe s = g.safeAtPos(c); if (s != null) { return s; } }
-	 * return null; }
-	 */
 
     public static void writeConfig(AncientRPG plugin) {
         File newconfig = new File(plugin.getDataFolder().getPath() + File.separator + "guildconfig.yml");
@@ -653,18 +547,17 @@ public class AncientRPGGuild implements Serializable {
                 e.printStackTrace();
             }
         }
-        YamlConfiguration yc = new YamlConfiguration();
-        yc.set(gConfigEnabled, enabled);
-        yc.set(gConfigSize, maxPlayers);
-        yc.set(gConfigCanToggleff, canToggleff);
-        yc.set(gConfigIconomyEnabled, Iconomyenabled);
-        yc.set(gConfigCost, cost);
-        yc.set(gConfigSpawnEnabled, spawnEnabled);
-        yc.set(gConfigTagEnabled, tagenabled);
+        YamlConfiguration guildConfig = new YamlConfiguration();
+        guildConfig.set(gConfigEnabled, enabled);
+        guildConfig.set(gConfigSize, maxPlayers);
+        guildConfig.set(gConfigCanToggleff, canToggleff);
+        guildConfig.set(gConfigIconomyEnabled, Iconomyenabled);
+        guildConfig.set(gConfigCost, cost);
+        guildConfig.set(gConfigSpawnEnabled, spawnEnabled);
+        guildConfig.set(gConfigTagEnabled, tagenabled);
         try {
-            yc.save(newconfig);
+            guildConfig.save(newconfig);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -676,7 +569,6 @@ public class AncientRPGGuild implements Serializable {
             try {
                 yc.load(newconfig);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             enabled = yc.getBoolean(gConfigEnabled, enabled);
@@ -699,7 +591,7 @@ public class AncientRPGGuild implements Serializable {
 
     public static boolean guildExists(String guildname) {
         for (AncientRPGGuild g : guilds) {
-            if (g.gName.equalsIgnoreCase(guildname)) {
+            if (g.guildName.equalsIgnoreCase(guildname)) {
                 return true;
             }
         }
@@ -708,7 +600,7 @@ public class AncientRPGGuild implements Serializable {
 
     public static AncientRPGGuild getGuildByName(String guildname) {
         for (AncientRPGGuild g : guilds) {
-            if (g.gName.equalsIgnoreCase(guildname)) {
+            if (g.guildName.equalsIgnoreCase(guildname)) {
                 return g;
             }
         }
@@ -723,9 +615,4 @@ public class AncientRPGGuild implements Serializable {
         }
         return null;
     }
-	/*
-	 * public static HashSet<GuildHouse> getGuildHouses(){ HashSet<GuildHouse> s
-	 * = new HashSet<GuildHouse>(); for(Guild g: guilds){ if(g.hasguildhouse &&
-	 * g.gHouse != null){ s.add(g.gHouse); } } return s; }
-	 */
 }

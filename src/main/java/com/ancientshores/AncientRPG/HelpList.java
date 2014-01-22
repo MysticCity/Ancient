@@ -9,12 +9,12 @@ import java.util.logging.Level;
 
 public class HelpList {
     final LinkedList<String> messageList = new LinkedList<String>();
-    File f;
+    File file;
 
     public HelpList(String path, String ressourcePath) {
         createFile(path, ressourcePath);
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
+            BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             String line = bf.readLine();
             while (line != null && !line.equals("")) {
                 messageList.addLast(line);
@@ -43,67 +43,52 @@ public class HelpList {
                 out.write(ges);
                 br.close();
                 out.close();
-            } catch (FileNotFoundException e) {
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to write help file " + f.getName());
             } catch (IOException e) {
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to write help file " + f.getName());
             }
         }
-        this.f = f;
+        this.file = f;
     }
 
-    public static String replaceChatColor(String s) {
-        s = s.replace("{GREEN}", ChatColor.GREEN.toString());
-        s = s.replace("{BLACK}", ChatColor.BLACK.toString());
-        s = s.replace("{DARK_BLUE}", ChatColor.DARK_BLUE.toString());
-        s = s.replace("{DARK_GREEN}", ChatColor.DARK_GREEN.toString());
-        s = s.replace("{DARK_AQUA}", ChatColor.DARK_AQUA.toString());
-        s = s.replace("{DARK_RED}", ChatColor.DARK_RED.toString());
-        s = s.replace("{DARK_PURPLE}", ChatColor.DARK_PURPLE.toString());
-        s = s.replace("{GOLD}", ChatColor.GOLD.toString());
-        s = s.replace("{GRAY}", ChatColor.GRAY.toString());
-        s = s.replace("{GREY}", ChatColor.GRAY.toString());
-        s = s.replace("{DARK_GRAY}", ChatColor.DARK_GRAY.toString());
-        s = s.replace("{DARK_GREY}", ChatColor.DARK_GRAY.toString());
-        s = s.replace("{BLUE}", ChatColor.BLUE.toString());
-        s = s.replace("{AQUA}", ChatColor.AQUA.toString());
-        s = s.replace("{RED}", ChatColor.RED.toString());
-        s = s.replace("{LIGHT_PURPLE}", ChatColor.LIGHT_PURPLE.toString());
-        s = s.replace("{YELLOW}", ChatColor.YELLOW.toString());
-        s = s.replace("{WHITE}", ChatColor.WHITE.toString());
-        s = s.replace("{MAGIC}", ChatColor.MAGIC.toString());
-        return s;
+    public static String replaceChatColor(String message) {
+        message = message.replace("{GREEN}", ChatColor.GREEN.toString());
+        message = message.replace("{BLACK}", ChatColor.BLACK.toString());
+        message = message.replace("{DARK_BLUE}", ChatColor.DARK_BLUE.toString());
+        message = message.replace("{DARK_GREEN}", ChatColor.DARK_GREEN.toString());
+        message = message.replace("{DARK_AQUA}", ChatColor.DARK_AQUA.toString());
+        message = message.replace("{DARK_RED}", ChatColor.DARK_RED.toString());
+        message = message.replace("{DARK_PURPLE}", ChatColor.DARK_PURPLE.toString());
+        message = message.replace("{GOLD}", ChatColor.GOLD.toString());
+        message = message.replace("{GRAY}", ChatColor.GRAY.toString());
+        message = message.replace("{GREY}", ChatColor.GRAY.toString());
+        message = message.replace("{DARK_GRAY}", ChatColor.DARK_GRAY.toString());
+        message = message.replace("{DARK_GREY}", ChatColor.DARK_GRAY.toString());
+        message = message.replace("{BLUE}", ChatColor.BLUE.toString());
+        message = message.replace("{AQUA}", ChatColor.AQUA.toString());
+        message = message.replace("{RED}", ChatColor.RED.toString());
+        message = message.replace("{LIGHT_PURPLE}", ChatColor.LIGHT_PURPLE.toString());
+        message = message.replace("{YELLOW}", ChatColor.YELLOW.toString());
+        message = message.replace("{WHITE}", ChatColor.WHITE.toString());
+        message = message.replace("{MAGIC}", ChatColor.MAGIC.toString());
+        return message;
     }
 
-    public void printToPlayer(CommandSender mPlayer, int page) {
+    public void printToPlayer(CommandSender commandSender, int page) {
         int messagesperpage = 6;
         page -= 1;
         int pagecount = messageList.size() / messagesperpage + 1;
         if (page * messagesperpage >= messageList.size() || page <= -1) {
-            mPlayer.sendMessage(ChatColor.RED + "This page does not exist");
+            commandSender.sendMessage(ChatColor.RED + "This page does not exist");
             return;
         }
-        mPlayer.sendMessage(ChatColor.DARK_BLUE + "Displaying page " + (page + 1) + " of " + pagecount);
-        mPlayer.sendMessage(ChatColor.DARK_BLUE + "--------------------------------------");
+        commandSender.sendMessage(ChatColor.DARK_BLUE + "Displaying page " + (page + 1) + " of " + pagecount);
+        commandSender.sendMessage(ChatColor.DARK_BLUE + "--------------------------------------");
         for (int i = page * messagesperpage; i < page * messagesperpage + messagesperpage; i++) {
             if (i >= messageList.size()) {
                 break;
             }
-            mPlayer.sendMessage(replaceChatColor(messageList.get(i)));
+            commandSender.sendMessage(replaceChatColor(messageList.get(i)));
         }
-        mPlayer.sendMessage(ChatColor.DARK_BLUE + "--------------------------------------");
-        /*
-         * if (site * 8 > messageList.size() && site < 1)
-		 * mPlayer.sendMessage("This site does not exist"); else { int start =
-		 * (site - 1) * 8; mPlayer.sendMessage("Help:");
-		 * mPlayer.sendMessage(ChatColor.GRAY +
-		 * "--------------------------------------------"); for (int i = start;
-		 * i < start + 8; i++) { if(this.messageList.size() > i && i >= 0) {
-		 * String line = messageList.get(i); line = replaceChatColor(line);
-		 * mPlayer.sendMessage(line); } } mPlayer.sendMessage(ChatColor.GRAY +
-		 * "--------------------------------------------");
-		 * mPlayer.sendMessage(ChatColor.BLUE + "displayed site: " +
-		 * ChatColor.RED + site); }
-		 */
+        commandSender.sendMessage(ChatColor.DARK_BLUE + "--------------------------------------");
     }
 }

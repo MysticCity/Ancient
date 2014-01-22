@@ -10,19 +10,18 @@ import java.util.HashMap;
 
 public class TemporaryItemCommand extends ICommand {
     public TemporaryItemCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number, ParameterType.Number, ParameterType.Number};
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.size() >= 3 && ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number) {
-                final Player[] players = (Player[]) ca.params.get(0);
-                final int id = ((Number) ca.params.get(1)).intValue();
-                final int amount = ((Number) ca.params.get(2)).intValue();
-                int time = ((Number) ca.params.get(3)).intValue();
+            if (ca.getParams().size() >= 3 && ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Number) {
+                final Player[] players = (Player[]) ca.getParams().get(0);
+                final int id = ((Number) ca.getParams().get(1)).intValue();
+                final int amount = ((Number) ca.getParams().get(2)).intValue();
+                int time = ((Number) ca.getParams().get(3)).intValue();
                 for (final Player p : players) {
                     if (p == null) {
                         continue;

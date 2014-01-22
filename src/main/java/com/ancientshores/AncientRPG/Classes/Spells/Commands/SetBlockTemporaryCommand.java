@@ -16,17 +16,16 @@ public class SetBlockTemporaryCommand extends ICommand {
     public static int tasks;
 
     public SetBlockTemporaryCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.Material, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Material, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Location[] && ca.params.get(1) instanceof Material && ca.params.get(2) instanceof Number) {
-                final Location loc[] = (Location[]) ca.params.get(0);
-                final Material ma = (Material) ca.params.get(1);
-                final int time = ((Number) ca.params.get(2)).intValue();
+            if (ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number) {
+                final Location loc[] = (Location[]) ca.getParams().get(0);
+                final Material ma = (Material) ca.getParams().get(1);
+                final int time = ((Number) ca.getParams().get(2)).intValue();
                 final int task = tasks;
                 tasks++;
                 if (loc != null && ma != null) {
@@ -57,7 +56,6 @@ public class SetBlockTemporaryCommand extends ICommand {
                 }
             }
         } catch (Exception ignored) {
-
         }
         return false;
     }

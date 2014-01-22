@@ -4,16 +4,15 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class SkipCommand extends ICommand {
     public SkipCommand() {
-        ParameterType[] buffer = {ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Number) {
-                int number = (int) ((Number) ca.params.get(0)).doubleValue();
-                ca.p.skipCommands(ca.so, number);
+            if (ca.getParams().get(0) instanceof Number) {
+                int number = (int) ((Number) ca.getParams().get(0)).doubleValue();
+                ca.getSpell().skipCommands(ca.getSpellInfo(), number);
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {

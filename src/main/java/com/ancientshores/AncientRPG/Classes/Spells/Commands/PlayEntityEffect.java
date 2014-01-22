@@ -9,15 +9,14 @@ public class PlayEntityEffect extends ICommand {
     @CommandDescription(description = "<html>Play entity effect at the location</html>",
             argnames = {"entity", "effectname"}, name = "PlayEntityEffect", parameters = {ParameterType.Entity, ParameterType.String})
     public PlayEntityEffect() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(1) instanceof String && ca.params.get(0) instanceof Entity[]) {
-            final Entity[] e = (Entity[]) ca.params.get(0);
-            final String name = (String) ca.params.get(1);
+        if (ca.getParams().size() == 2 && ca.getParams().get(1) instanceof String && ca.getParams().get(0) instanceof Entity[]) {
+            final Entity[] e = (Entity[]) ca.getParams().get(0);
+            final String name = (String) ca.getParams().get(1);
             EntityEffect effect = getEntityEffectByName(name);
             if (effect == null) {
                 return false;

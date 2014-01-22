@@ -488,7 +488,7 @@ public class DamageConverter {
         } else if (c instanceof Skeleton) {
             return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, 0), mPlayer);
         } else {
-            return AncientRPGHP.getHpByMcDamage(mPlayer.getName(), defaultHP);
+            return AncientRPGHP.getHpByMinecraftDamage(mPlayer.getName(), defaultHP);
         }
     }
 

@@ -14,7 +14,7 @@ public class GuildCommandToggleFriendlyFire {
                 .getName());
         if (AncientRPGGuild.canToggleff) {
             if (mGuild != null) {
-                AncientRPGGuildRanks r = mGuild.getgMember().get(
+                AncientRPGGuildRanks r = mGuild.getGuildMembers().get(
                         mPlayer.getName());
                 if (r == AncientRPGGuildRanks.CO_LEADER
                         || r == AncientRPGGuildRanks.LEADER) {

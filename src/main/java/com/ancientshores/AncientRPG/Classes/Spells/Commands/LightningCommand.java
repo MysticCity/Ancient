@@ -9,15 +9,14 @@ public class LightningCommand extends ICommand {
     @CommandDescription(description = "<html>Lightning will strike at the location</html>",
             argnames = {"location"}, name = "Lightning", parameters = {ParameterType.Location})
     public LightningCommand() {
-        ParameterType[] buffer = {ParameterType.Location};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) != null && ca.params.get(0) instanceof org.bukkit.Location[] && ((org.bukkit.Location[]) ca.params.get(0)).length > 0 && ca.params.get(0) != null) {
-                final org.bukkit.Location[] loc = (org.bukkit.Location[]) ca.params.getFirst();
+            if (ca.getParams().get(0) != null && ca.getParams().get(0) instanceof org.bukkit.Location[] && ((org.bukkit.Location[]) ca.getParams().get(0)).length > 0 && ca.getParams().get(0) != null) {
+                final org.bukkit.Location[] loc = (org.bukkit.Location[]) ca.getParams().getFirst();
                 com.ancientshores.AncientRPG.AncientRPG.plugin.scheduleThreadSafeTask(com.ancientshores.AncientRPG.AncientRPG.plugin, new Runnable() {
 
                     @Override
@@ -27,13 +26,13 @@ public class LightningCommand extends ICommand {
                                 continue;
                             }
                             final List<org.bukkit.entity.Entity> entityList = l.getWorld().getEntities();
-                            ca.caster.getWorld().strikeLightning(l);
+                            ca.getCaster().getWorld().strikeLightning(l);
                             for (final org.bukkit.entity.Entity e : entityList) {
                                 if (e.getLocation().distance(l) < 3) {
-                                    if (ca.caster.equals(e)) {
+                                    if (ca.getCaster().equals(e)) {
                                         continue;
                                     }
-                                    com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener.scheduledXpList.put(e, ca.caster);
+                                    com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener.scheduledXpList.put(e, ca.getCaster());
                                     com.ancientshores.AncientRPG.AncientRPG.plugin.scheduleThreadSafeTask(com.ancientshores.AncientRPG.AncientRPG.plugin, new Runnable() {
 
                                         @Override
@@ -48,11 +47,10 @@ public class LightningCommand extends ICommand {
                     }
                 });
                 return true;
-            } else if (ca.p.active) {
-                ca.caster.sendMessage("No target in range");
+            } else if (ca.getSpell().active) {
+                ca.getCaster().sendMessage("No target in range");
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

@@ -9,31 +9,30 @@ public class EnchantCommand extends ICommand {
     @CommandDescription(description = "<html>Enchants the item in hand with the id (or all if allitems is true) with the enchantment and strength</html>",
             argnames = {"material", "name", "level", "allitems"}, name = "Enchant", parameters = {ParameterType.Number, ParameterType.String, ParameterType.Number, ParameterType.Boolean})
     public EnchantCommand() {
-        ParameterType[] buffer = {ParameterType.Number, ParameterType.String, ParameterType.Number, ParameterType.Boolean};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Number, ParameterType.String, ParameterType.Number, ParameterType.Boolean};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 4 && ca.params.get(0) instanceof Number && ca.params.get(1) instanceof String && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Boolean) {
-            int id = (int) ((Number) ca.params.get(0)).doubleValue();
-            String name = (String) ca.params.get(1);
-            int level = (int) ((Number) ca.params.get(2)).doubleValue();
-            boolean allitems = (Boolean) ca.params.get(3);
+        if (ca.getParams().size() == 4 && ca.getParams().get(0) instanceof Number && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Boolean) {
+            int id = (int) ((Number) ca.getParams().get(0)).doubleValue();
+            String name = (String) ca.getParams().get(1);
+            int level = (int) ((Number) ca.getParams().get(2)).doubleValue();
+            boolean allitems = (Boolean) ca.getParams().get(3);
             Enchantment et = getTypeByName(name);
             if (allitems) {
-                for (ItemStack is : ca.caster.getInventory().getContents()) {
+                for (ItemStack is : ca.getCaster().getInventory().getContents()) {
                     if (is != null && is.getTypeId() == id) {
                         is.addEnchantment(et, level);
                     }
                 }
-                for (ItemStack is : ca.caster.getInventory().getArmorContents()) {
+                for (ItemStack is : ca.getCaster().getInventory().getArmorContents()) {
                     if (is != null && is.getTypeId() == id) {
                         is.addEnchantment(et, level);
                     }
                 }
-            } else if (ca.caster.getItemInHand() != null && ca.caster.getItemInHand().getTypeId() == id) {
-                ca.caster.getItemInHand().addEnchantment(et, level);
+            } else if (ca.getCaster().getItemInHand() != null && ca.getCaster().getItemInHand().getTypeId() == id) {
+                ca.getCaster().getItemInHand().addEnchantment(et, level);
             }
             if (et == null) {
                 return true;

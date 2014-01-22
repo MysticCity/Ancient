@@ -9,16 +9,15 @@ public class SendMessageCommand extends ICommand {
     @CommandDescription(description = "<html>Sends the message to the specified player</html>",
             argnames = {"player", "message"}, name = "SendMessage", parameters = {ParameterType.Player, ParameterType.String})
     public SendMessageCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof String) {
-                final Player[] target = (Player[]) ca.params.get(0);
-                final String message = (String) ca.params.get(1);
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof String) {
+                final Player[] target = (Player[]) ca.getParams().get(0);
+                final String message = (String) ca.getParams().get(1);
                 for (final Player p : target) {
                     if (p == null) {
                         continue;

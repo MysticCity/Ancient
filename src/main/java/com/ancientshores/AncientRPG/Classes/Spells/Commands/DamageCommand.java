@@ -15,16 +15,15 @@ public class DamageCommand extends ICommand {
     @CommandDescription(description = "<html>Damages the targeted entity with the specified damage</html>",
             argnames = {"entity", "damage"}, name = "Damage", parameters = {ParameterType.Entity, ParameterType.Number})
     public DamageCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Number) {
-                final Entity[] target = (Entity[]) ca.params.get(0);
-                double damage = ((Number) ca.params.get(1)).floatValue();
+            if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Number) {
+                final Entity[] target = (Entity[]) ca.getParams().get(0);
+                double damage = ((Number) ca.getParams().get(1)).floatValue();
                 if (target != null && target.length > 0 && target[0] instanceof Entity) {
                     for (final Entity targetPlayer : target) {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
@@ -35,10 +34,10 @@ public class DamageCommand extends ICommand {
                         }
                         AncientRPGPlayerListener.damageignored = true;
                         AncientRPGEntityListener.ignoreNextHpEvent = true;
-                        ((LivingEntity) targetPlayer).damage(Math.round(damage), ca.caster);
+                        ((LivingEntity) targetPlayer).damage(Math.round(damage), ca.getCaster());
                         AncientRPGPlayerListener.damageignored = false;
                         AncientRPGEntityListener.ignoreNextHpEvent = false;
-                        AncientRPGEntityListener.scheduledXpList.put(targetPlayer, ca.caster);
+                        AncientRPGEntityListener.scheduledXpList.put(targetPlayer, ca.getCaster());
                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                             @Override
                             public void run() {

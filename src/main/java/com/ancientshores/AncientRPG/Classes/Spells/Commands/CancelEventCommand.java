@@ -8,14 +8,13 @@ public class CancelEventCommand extends ICommand {
     @CommandDescription(description = "<html>Cancels the event, can only be used in a passive spell</html>",
             argnames = {}, name = "CancelEvent", parameters = {})
     public CancelEventCommand() {
-        ParameterType[] buffer = {ParameterType.Void};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Void};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.so.mEvent instanceof Cancellable) {
-            ((Cancellable) ca.so.mEvent).setCancelled(true);
+        if (ca.getSpellInfo().mEvent instanceof Cancellable) {
+            ((Cancellable) ca.getSpellInfo().mEvent).setCancelled(true);
         }
         return true;
     }

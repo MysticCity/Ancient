@@ -14,17 +14,15 @@ public class RemoveBuffCommand extends ICommand {
             argnames = {"player", "buffname"}, name = "RemoveBuff", parameters = {ParameterType.Player, ParameterType.String})
 
     public RemoveBuffCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof String) {
-            final Player[] players = (Player[]) ca.params.get(0);
-            final String spellname = (String) ca.params.get(1);
-            ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> map = AncientRPGSpellListener.getAllBuffs();
-            ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> affectedSpells = map;
+        if (ca.getParams().size() == 2 && ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof String) {
+            final Player[] players = (Player[]) ca.getParams().get(0);
+            final String spellname = (String) ca.getParams().get(1);
+            ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> affectedSpells = AncientRPGSpellListener.getAllBuffs();
             boolean all = false;
             if (spellname.equalsIgnoreCase("all")) {
                 all = true;

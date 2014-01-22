@@ -19,8 +19,8 @@ public class AttackerParameter implements IParameter {
 
     @Override
     public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
-        if (!ea.p.active && ea.so.mEvent instanceof EntityDamageByEntityEvent) {
-            EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) ea.so.mEvent;
+        if (!ea.getSpell().active && ea.getSpellInfo().mEvent instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) ea.getSpellInfo().mEvent;
             Entity ent = event.getDamager();
             if (ent instanceof Projectile) {
                 ent = ((Projectile) ent).getShooter();
@@ -30,23 +30,23 @@ public class AttackerParameter implements IParameter {
                     if (ent instanceof Player) {
                         Player[] p = new Player[1];
                         p[0] = (Player) ent;
-                        ea.params.addLast(p);
+                        ea.getParams().addLast(p);
                     }
                     return;
                 case Entity:
                     Entity[] e = new Entity[1];
                     e[0] = ent;
-                    ea.params.addLast(e);
+                    ea.getParams().addLast(e);
                     return;
                 case Location:
                     Location[] l = new Location[1];
                     l[0] = ent.getLocation();
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                     return;
                 case String:
                     if (ent instanceof Player) {
                         Player p = (Player) ent;
-                        ea.params.addLast(p.getName());
+                        ea.getParams().addLast(p.getName());
                     }
                     return;
                 default:
@@ -54,7 +54,7 @@ public class AttackerParameter implements IParameter {
             }
         } else {
             AncientRPG.plugin.getLogger().log(Level.SEVERE,
-                    "Invalid usage of attacker parameter in Command " + ea.mCommand.commandString + " in spell " + ea.mCommand.mSpell.name + " in line " + ea.mCommand.lineNumber);
+                    "Invalid usage of attacker parameter in Command " + ea.getCommand().commandString + " in spell " + ea.getCommand().mSpell.name + " in line " + ea.getCommand().lineNumber);
         }
     }
 

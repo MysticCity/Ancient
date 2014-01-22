@@ -21,18 +21,18 @@ public class BlockInSightParameter implements IParameter {
 
         if (subparam != null) {
             try {
-                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
+                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.getCommand().commandString + " falling back to default");
             }
         }
-        if (subparam != null || ea.so.blockInSight == null) {
-            Location nBlock = ea.so.getBlockInSight(mPlayer, range);
-            ea.so.blockInSight = nBlock;
+        if (subparam != null || ea.getSpellInfo().blockInSight == null) {
+            Location nBlock = ea.getSpellInfo().getBlockInSight(mPlayer, range);
+            ea.getSpellInfo().blockInSight = nBlock;
             if (nBlock == null) {
                 return;
             }
@@ -40,11 +40,11 @@ public class BlockInSightParameter implements IParameter {
 
         switch (pt) {
             case Location:
-                Location[] l = {ea.so.blockInSight};
-                ea.params.addLast(l);
+                Location[] l = {ea.getSpellInfo().blockInSight};
+                ea.getParams().addLast(l);
                 return;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
     }
 

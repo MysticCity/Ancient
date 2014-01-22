@@ -180,7 +180,7 @@ public class AncientRPGPlayerListener implements Listener {
                 event.setRespawnLocation(mGuild.spawnLocation.toLocation());
             }
         }
-        pd.getHpsystem().hp = pd.getHpsystem().maxhp;
+        pd.getHpsystem().health = pd.getHpsystem().maxhp;
     }
 
     @EventHandler

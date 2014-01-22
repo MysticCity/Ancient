@@ -11,18 +11,17 @@ public class ChargeEntityToCommand extends ICommand {
             argnames = {"entity", "location", "speed", "maxdistance"}, name = "ChargeEntityTo", parameters = {ParameterType.Entity, ParameterType.Location, ParameterType.Number, ParameterType.Number})
 
     public ChargeEntityToCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Location, ParameterType.Number, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Location, ParameterType.Number, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.size() >= 4 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Location[] && ca.params.get(2) instanceof Number && ca.params.get(3) instanceof Number) {
-                final Entity[] ent = (Entity[]) ca.params.get(0);
-                final Location[] loc = (Location[]) ca.params.get(1);
-                double bps = ((Number) ca.params.get(2)).doubleValue();
-                double maxdistance = ((Number) ca.params.get(3)).doubleValue();
+            if (ca.getParams().size() >= 4 && ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Location[] && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Number) {
+                final Entity[] ent = (Entity[]) ca.getParams().get(0);
+                final Location[] loc = (Location[]) ca.getParams().get(1);
+                double bps = ((Number) ca.getParams().get(2)).doubleValue();
+                double maxdistance = ((Number) ca.getParams().get(3)).doubleValue();
                 if (loc != null && loc.length > 0 && loc[0] != null) {
                     for (final Entity e : ent) {
                         boolean broken = false;

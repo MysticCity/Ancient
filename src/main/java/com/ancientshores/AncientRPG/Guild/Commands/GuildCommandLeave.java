@@ -14,7 +14,7 @@ public class GuildCommandLeave {
                 .getName());
         if (guild != null) {
             ChatColor farbe = AncientRPGGuildRanks.getChatColorByRank(guild
-                    .getgMember().get(mPlayer.getName()));
+                    .getGuildMembers().get(mPlayer.getName()));
             guild.gMember.remove(mPlayer.getName());
             AncientRPGGuild.writeGuild(guild);
             guild.broadcastMessage(AncientRPG.brand2 + farbe + mPlayer.getName() + ChatColor.GREEN

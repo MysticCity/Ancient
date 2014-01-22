@@ -21,20 +21,19 @@ public class WaterBreathingCommand extends ICommand implements Runnable, Listene
     @CommandDescription(description = "<html>Enables water breathing for the specified amount of time</html>",
             argnames = {"entity", "duration"}, name = "WaterBreathing", parameters = {ParameterType.Entity, ParameterType.Number})
     public WaterBreathingCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Number};
         try {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(AncientRPG.plugin, this, 1, 1);
             AncientRPG.plugin.getServer().getPluginManager().registerEvents(this, AncientRPG.plugin);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 2 && ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Number) {
-            Entity[] players = (Entity[]) ca.params.get(0);
-            int time = (int) ((Number) ca.params.get(1)).doubleValue();
+        if (ca.getParams().size() == 2 && ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Number) {
+            Entity[] players = (Entity[]) ca.getParams().get(0);
+            int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
             for (Entity e : players) {
                 if (e == null || !(e instanceof LivingEntity)) {
                     continue;

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class SetXpMultiplierCommand {
-    static int taskid = 0;
+    private static int taskid = 0;
 
     public static void setXpMultiplier(CommandSender cs, String[] args) {
         if (cs instanceof Player && !AncientRPG.hasPermissions((Player) cs, AncientRPGExperience.nodeXPAdmin)) {
@@ -26,7 +26,6 @@ public class SetXpMultiplierCommand {
             Bukkit.getScheduler().cancelTask(taskid);
         }
         taskid = Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-
             @Override
             public void run() {
                 AncientRPGExperience.multiplier = 1;

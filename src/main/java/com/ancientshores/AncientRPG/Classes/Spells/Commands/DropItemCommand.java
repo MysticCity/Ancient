@@ -10,16 +10,15 @@ public class DropItemCommand extends ICommand {
     @CommandDescription(description = "<html>Drops the specified amount of items at the location</html>",
             argnames = {"location", "material", "amount"}, name = "DropItem", parameters = {ParameterType.Location, ParameterType.Material, ParameterType.Number})
     public DropItemCommand() {
-        ParameterType[] buffer = {ParameterType.Location, ParameterType.Material, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Material, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 3 && ca.params.get(0) instanceof Location[] && ca.params.get(1) instanceof Material && ca.params.get(2) instanceof Number) {
-            Location locs[] = (Location[]) ca.params.get(0);
-            Material mat = (Material) ca.params.get(1);
-            int amount = (int) ((Number) ca.params.get(2)).doubleValue();
+        if (ca.getParams().size() == 3 && ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number) {
+            Location locs[] = (Location[]) ca.getParams().get(0);
+            Material mat = (Material) ca.getParams().get(1);
+            int amount = (int) ((Number) ca.getParams().get(2)).doubleValue();
             for (Location l : locs) {
                 while (amount > 0) {
                     int remove;

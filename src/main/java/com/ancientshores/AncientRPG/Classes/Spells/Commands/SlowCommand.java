@@ -13,16 +13,15 @@ public class SlowCommand extends ICommand {
     @CommandDescription(description = "<html>Slows the target for the specified amount of time</html>",
             argnames = {"entity", "duration"}, name = "Slow", parameters = {ParameterType.Entity, ParameterType.Number})
     public SlowCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Number) {
-                final Entity[] players = (Entity[]) ca.params.get(0);
-                final int time = (int) ((Number) ca.params.get(1)).doubleValue();
+            if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Number) {
+                final Entity[] players = (Entity[]) ca.getParams().get(0);
+                final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                     @Override
                     public void run() {

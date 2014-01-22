@@ -85,8 +85,7 @@ public class AncientRPGClass implements Serializable {
     }
 
     public boolean isWorldEnabled(World w) {
-        if (worldNames.length == 0 || (worldNames.length == 1 && worldNames[0].equalsIgnoreCase(
-                "all")) || (worldNames.length == 1 && (worldNames[0] == null || worldNames[0].equals("")))) {
+        if (worldNames.length == 0 || (worldNames.length == 1 && worldNames[0].equalsIgnoreCase("all")) || (worldNames.length == 1 && (worldNames[0] == null || worldNames[0].equals("")))) {
             return true;
         }
         for (String s : worldNames) {
@@ -121,10 +120,10 @@ public class AncientRPGClass implements Serializable {
                     });
                 }
                 if (f.isDirectory()) {
-                    AncientRPGClass stance1 = new AncientRPGClass(f);
-                    stances.put(stance1.name.toLowerCase(), stance1);
-                    if (stance1.shortcut != null && !stance1.shortcut.equals("")) {
-                        stances.put(stance1.shortcut, stance1);
+                    AncientRPGClass stance = new AncientRPGClass(f);
+                    stances.put(stance.name.toLowerCase(), stance);
+                    if (stance.shortcut != null && !stance.shortcut.equals("")) {
+                        stances.put(stance.shortcut, stance);
                     }
                 }
             }
@@ -139,20 +138,14 @@ public class AncientRPGClass implements Serializable {
             try {
                 yc.save(f);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
         try {
             yc.load(f);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (InvalidConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         if (yc.get("Class.Permissionnode") == null) {
@@ -238,7 +231,6 @@ public class AncientRPGClass implements Serializable {
                                 try {
                                     yc.save(f);
                                 } catch (IOException e) {
-                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
                             } catch (Exception ignored) {
@@ -249,7 +241,6 @@ public class AncientRPGClass implements Serializable {
                 try {
                     yc.save(f);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -306,7 +297,6 @@ public class AncientRPGClass implements Serializable {
         try {
             yc.save(f);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -337,7 +327,6 @@ public class AncientRPGClass implements Serializable {
             try {
                 newconf.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -377,7 +366,6 @@ public class AncientRPGClass implements Serializable {
                 resetlevelonchange = yc.getBoolean(configResetLevels, resetlevelonchange);
                 showAllClasses = yc.getBoolean(configShowAllClasses, showAllClasses);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
@@ -404,7 +392,6 @@ public class AncientRPGClass implements Serializable {
         for (final File f : classes) {
             if (f.getName().endsWith(".spell") && f.isFile()) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-
                     @Override
                     public void run() {
                         try {
@@ -413,9 +400,7 @@ public class AncientRPGClass implements Serializable {
                         } catch (Exception ignored) {
 
                         }
-
                     }
-
                 });
             }
         }
@@ -428,7 +413,6 @@ public class AncientRPGClass implements Serializable {
             for (final File f : files) {
                 if (f.getName().endsWith(".spell") && f.isFile()) {
                     Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-
                         @Override
                         public void run() {
                             try {
@@ -438,7 +422,6 @@ public class AncientRPGClass implements Serializable {
 
                             }
                         }
-
                     });
                 }
             }
@@ -452,8 +435,7 @@ public class AncientRPGClass implements Serializable {
                 }
             }
         }
-        File f = new File(
-                AncientRPG.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
+        File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
         if (f.exists()) {
             try {
                 FileInputStream fis = new FileInputStream(f);
@@ -461,7 +443,6 @@ public class AncientRPGClass implements Serializable {
                 playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
                 ois.close();
             } catch (Exception ignored) {
-
             }
         }
     }
@@ -551,17 +532,6 @@ public class AncientRPGClass implements Serializable {
                     }
                 }
             }
-            /*
-             * return (globalSpells.containsKey(spellname.toLowerCase()) ||
-			 * (classList.containsKey(pd.className.toLowerCase()) &&
-			 * (classList.get(pd.className.toLowerCase()).spellList
-			 * .containsKey(spellname.toLowerCase()) ||
-			 * (classList.get(pd.className
-			 * .toLowerCase()).stances.containsKey(pd.stance.toLowerCase()) &&
-			 * classList.get(pd.className.toLowerCase()).stances
-			 * .get(pd.stance.toLowerCase
-			 * ()).spellList.get(spellname.toLowerCase()) != null))));
-			 */
         } catch (Exception ignored) {
         }
         return false;
@@ -592,17 +562,6 @@ public class AncientRPGClass implements Serializable {
             if (race.raceSpells.contains(p)) {
                 return true;
             }
-            /*
-             * return (globalSpells.containsKey(spellname.toLowerCase()) ||
-			 * (classList.containsKey(pd.className.toLowerCase()) &&
-			 * (classList.get(pd.className.toLowerCase()).spellList
-			 * .containsKey(spellname.toLowerCase()) ||
-			 * (classList.get(pd.className
-			 * .toLowerCase()).stances.containsKey(pd.stance.toLowerCase()) &&
-			 * classList.get(pd.className.toLowerCase()).stances
-			 * .get(pd.stance.toLowerCase
-			 * ()).spellList.get(spellname.toLowerCase()) != null))));
-			 */
         } catch (Exception ignored) {
         }
         return false;
@@ -632,27 +591,25 @@ public class AncientRPGClass implements Serializable {
         return p;
     }
 
-    public static Boolean canBind(String s, PlayerData pd, Player mPlayer) {
+    public static Boolean canBind(String s, PlayerData playerData, Player player) {
         s = s.toLowerCase();
-        Spell p = getSpell(s, pd);
-        if (p != null && !p.active) {
-            mPlayer.sendMessage("You can't bind passive spells");
+        Spell spell = getSpell(s, playerData);
+        if (spell != null && !spell.active) {
+            player.sendMessage("You can't bind passive spells");
             return false;
         }
-        return p != null;
+        return spell != null;
     }
 
     public static void removePerms() {
         for (Player p : AncientRPG.plugin.getServer().getOnlinePlayers()) {
-            AncientRPGClass mClass = AncientRPGClass.classList.get(
-                    PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
             if (p.isOnline() && mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
                 try {
                     if (AncientRPG.permissionHandler != null && !mClass.permGroup.equals("")) {
                         AncientRPG.permissionHandler.playerRemoveGroup(p, mClass.permGroup);
                     }
                 } catch (Exception ignored) {
-
                 }
             }
         }
@@ -660,15 +617,13 @@ public class AncientRPGClass implements Serializable {
 
     public static void addPerms() {
         for (Player p : AncientRPG.plugin.getServer().getOnlinePlayers()) {
-            AncientRPGClass mClass = AncientRPGClass.classList.get(
-                    PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
             if (p.isOnline() && mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
                 try {
                     if (AncientRPG.permissionHandler != null) {
                         AncientRPG.permissionHandler.playerAddGroup(p, mClass.permGroup);
                     }
                 } catch (Exception ignored) {
-
                 }
             }
         }

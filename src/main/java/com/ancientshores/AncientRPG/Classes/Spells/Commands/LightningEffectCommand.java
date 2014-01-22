@@ -9,15 +9,14 @@ public class LightningEffectCommand extends ICommand {
     @CommandDescription(description = "<html>Lightning effect will strike at the location</html>",
             argnames = {"location"}, name = "LightningEffect", parameters = {ParameterType.Location})
     public LightningEffectCommand() {
-        ParameterType[] buffer = {ParameterType.Location};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Location};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) != null && ca.params.get(0) instanceof Location[] && ((Location[]) ca.params.get(0)).length > 0 && ca.params.get(0) != null) {
-                final Location[] loc = (Location[]) ca.params.getFirst();
+            if (ca.getParams().get(0) != null && ca.getParams().get(0) instanceof Location[] && ((Location[]) ca.getParams().get(0)).length > 0 && ca.getParams().get(0) != null) {
+                final Location[] loc = (Location[]) ca.getParams().getFirst();
                 AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
 
                     @Override
@@ -26,16 +25,15 @@ public class LightningEffectCommand extends ICommand {
                             if (l == null) {
                                 continue;
                             }
-                            ca.caster.getWorld().strikeLightningEffect(l);
+                            ca.getCaster().getWorld().strikeLightningEffect(l);
                         }
                     }
                 });
                 return true;
-            } else if (ca.p.active) {
-                ca.caster.sendMessage("No target in range");
+            } else if (ca.getSpell().active) {
+                ca.getCaster().sendMessage("No target in range");
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

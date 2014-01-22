@@ -13,13 +13,13 @@ public class AddGlobalVariableCommand extends ICommand {
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 1) {
-            if (ca.params.get(0) instanceof String) {
-                String name = (String) ca.params.get(0);
+        if (ca.getParams().size() == 1) {
+            if (ca.getParams().get(0) instanceof String) {
+                String name = (String) ca.getParams().get(0);
                 if (!Variable.globVars.containsKey(name)) {
                     Variable v = new Variable(name);
                     Variable.globVars.put(name, v);
-                    ca.so.variables.put(name, v);
+                    ca.getSpellInfo().variables.put(name, v);
                 }
                 return true;
             }

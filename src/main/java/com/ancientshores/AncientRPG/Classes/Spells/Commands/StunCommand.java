@@ -13,16 +13,15 @@ public class StunCommand extends ICommand {
     @CommandDescription(description = "<html>Stuns the player for the specified amount of time</html>",
             argnames = {"entity", "duration"}, name = "Stun", parameters = {ParameterType.Entity, ParameterType.Number})
     public StunCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Number) {
-                final Entity[] target = (Entity[]) ca.params.get(0);
-                final int time = (int) ((Number) ca.params.get(1)).doubleValue();
+            if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Number) {
+                final Entity[] target = (Entity[]) ca.getParams().get(0);
+                final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 if (target != null && target.length > 0 && target[0] instanceof Entity) {
                     for (final Entity e : target) {
                         if (e == null || !(e instanceof LivingEntity)) {
@@ -49,8 +48,8 @@ public class StunCommand extends ICommand {
                         }, Math.round(time / 50));
                     }
                     return true;
-                } else if (ca.p.active) {
-                    ca.caster.sendMessage("Target not found");
+                } else if (ca.getSpell().active) {
+                    ca.getCaster().sendMessage("Target not found");
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {

@@ -11,21 +11,20 @@ public class ReviveCommand extends ICommand {
     @CommandDescription(description = "<html>Revives a player who is still in the death screen and he is teleported back to his death location when he respawns</html>",
             argnames = {"player"}, name = "Revive", parameters = {ParameterType.Player})
     public ReviveCommand() {
-        ParameterType[] buffer = {ParameterType.Player};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.params.size() == 1 && ca.params.get(0) instanceof Player[]) {
-            final Player[] players = (Player[]) ca.params.get(0);
+        if (ca.getParams().size() == 1 && ca.getParams().get(0) instanceof Player[]) {
+            final Player[] players = (Player[]) ca.getParams().get(0);
             AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                 public void run() {
                     for (Player p : players) {
                         if (p == null || !p.isDead()) {
                             return;
                         }
-                        AncientRPGSpellListener.revivePlayer.put(p, ca.caster.getLocation());
+                        AncientRPGSpellListener.revivePlayer.put(p, ca.getCaster().getLocation());
                         p.sendMessage("Press the respawn button to get revived");
                     }
                 }

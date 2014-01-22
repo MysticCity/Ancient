@@ -9,15 +9,14 @@ public class BroadcastCommand extends ICommand {
     @CommandDescription(description = "<html>Broadcasts the message</html>",
             argnames = {"message"}, name = "Broadcast", parameters = {ParameterType.String})
     public BroadcastCommand() {
-        ParameterType[] buffer = {ParameterType.String};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.String};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof String) {
-                final String message = (String) ca.params.get(0);
+            if (ca.getParams().get(0) instanceof String) {
+                final String message = (String) ca.getParams().get(0);
                 if (message != null) {
                     AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
 

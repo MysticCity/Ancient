@@ -18,22 +18,21 @@ public class HealCommand extends ICommand {
             argnames = {"entity", "amount"}, name = "Heal", parameters = {ParameterType.Entity, ParameterType.Number})
 
     public HealCommand() {
-        ParameterType[] buffer = {ParameterType.Entity, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Entity[] && ca.params.get(1) instanceof Number) {
-                final Entity[] target = (Entity[]) ca.params.get(0);
-                final double heal = ((Number) ca.params.get(1)).doubleValue();
+            if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Number) {
+                final Entity[] target = (Entity[]) ca.getParams().get(0);
+                final double heal = ((Number) ca.getParams().get(1)).doubleValue();
                 if (target != null && target.length > 0) {
                     for (final Entity targetPlayer : target) {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
                             continue;
                         }
-                        if (targetPlayer instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(ca.caster)) {
+                        if (targetPlayer instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(ca.getCaster())) {
                             Player p = (Player) targetPlayer;
                             EntityRegainHealthEvent e = new EntityRegainHealthEvent(targetPlayer, heal, RegainReason.CUSTOM);
                             Bukkit.getPluginManager().callEvent(e);

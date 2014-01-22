@@ -21,29 +21,29 @@ public class TargetInSight implements IParameter {
         int range = 10;
         if (subparam != null) {
             try {
-                if (ea.p.variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
+                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
             } catch (Exception e) {
-                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.mCommand.commandString + " falling back to default");
+                AncientRPG.plugin.getLogger().log(Level.WARNING, "Error in subparameter " + Arrays.toString(subparam) + " in command " + ea.getCommand().commandString + " falling back to default");
             }
         }
-        Entity e = ea.so.getNearestEntityInSight(mPlayer, range);
+        Entity e = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
 
         Location l;
         if (e != null) {
             l = e.getLocation();
         } else {
-            l = ea.so.getBlockInSight(mPlayer, range);
+            l = ea.getSpellInfo().getBlockInSight(mPlayer, range);
         }
         switch (pt) {
             case Location:
-                ea.params.addLast(new Location[]{l});
+                ea.getParams().addLast(new Location[]{l});
                 break;
             default:
-                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.mCommand.commandString);
+                AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
     }
 

@@ -7,13 +7,12 @@ public class CancelSpellCommand extends ICommand {
     @CommandDescription(description = "<html>Cancels the currently executing spell</html>",
             argnames = {}, name = "CancelSpell", parameters = {})
     public CancelSpellCommand() {
-        ParameterType[] buffer = {ParameterType.Void};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Void};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        ca.so.finished = true;
+        ca.getSpellInfo().finished = true;
         return false;
     }
 }

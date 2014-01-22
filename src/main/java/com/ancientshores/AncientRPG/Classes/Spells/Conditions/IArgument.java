@@ -179,23 +179,23 @@ public abstract class IArgument {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {
-                    ea.params.addLast(((Number) obj).doubleValue());
+                    ea.getParams().addLast(((Number) obj).doubleValue());
                 }
                 break;
             }
             case String: {
                 if (obj instanceof String) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 } else if (obj instanceof Integer) {
-                    ea.params.addLast("" + obj);
+                    ea.getParams().addLast("" + obj);
                 } else if (obj instanceof Float) {
-                    ea.params.addLast("" + obj);
+                    ea.getParams().addLast("" + obj);
                 }
                 break;
             }
             case Entity: {
                 if (obj instanceof Entity[]) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                     return;
                 } else if (obj instanceof Player[]) {
                     Player[] arr = (Player[]) obj;
@@ -205,31 +205,31 @@ public abstract class IArgument {
                             e[i] = arr[i];
                         }
                     }
-                    ea.params.addLast(e);
+                    ea.getParams().addLast(e);
                 }
                 break;
             }
             case Player: {
                 if (obj instanceof Player[]) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 }
                 break;
             }
             case Material: {
                 if (obj instanceof Number) {
                     Material m = Material.getMaterial((int) ((Number) obj).doubleValue());
-                    ea.params.addLast(m);
+                    ea.getParams().addLast(m);
                 }
             }
             case Boolean: {
                 if (obj instanceof Boolean) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 }
                 break;
             }
             case Location: {
                 if (obj instanceof Location[]) {
-                    ea.params.addLast(obj);
+                    ea.getParams().addLast(obj);
                 } else if (obj instanceof Entity[]) {
                     Entity[] arr = (Entity[]) obj;
                     Location[] l = new Location[arr.length];
@@ -238,7 +238,7 @@ public abstract class IArgument {
                             l[i] = arr[i].getLocation();
                         }
                     }
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                 } else if (obj instanceof Player[]) {
                     Player[] arr = (Player[]) obj;
                     Location[] l = new Location[arr.length];
@@ -247,7 +247,7 @@ public abstract class IArgument {
                             l[i] = arr[i].getLocation();
                         }
                     }
-                    ea.params.addLast(l);
+                    ea.getParams().addLast(l);
                 }
                 break;
             }

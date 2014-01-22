@@ -10,17 +10,16 @@ public class InvulnerableCommand extends ICommand {
     @CommandDescription(description = "<html>Makes the player invulnerable for the specified amount of time</html>",
             argnames = {"player", "duration"}, name = "Invulnerable", parameters = {ParameterType.Player, ParameterType.Number})
     public InvulnerableCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
         try {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                final Player[] target = (Player[]) ca.params.get(0);
-                final int time = (int) ((Number) ca.params.get(1)).doubleValue();
-                ca.so.working = true;
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                final Player[] target = (Player[]) ca.getParams().get(0);
+                final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
+                ca.getSpellInfo().working = true;
                 int t = Math.round(time / 50);
                 if (t == 0) {
                     t = Integer.MAX_VALUE;
@@ -38,7 +37,7 @@ public class InvulnerableCommand extends ICommand {
                                     AncientRPGEntityListener.setinvulnerable(p, true);
                                 }
                             }
-                            ca.so.working = false;
+                            ca.getSpellInfo().working = false;
                         }
                     });
                     AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
@@ -55,12 +54,11 @@ public class InvulnerableCommand extends ICommand {
 
                     }, t);
                     return true;
-                } else if (ca.p.active) {
-                    ca.caster.sendMessage("Target not found");
+                } else if (ca.getSpell().active) {
+                    ca.getCaster().sendMessage("Target not found");
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

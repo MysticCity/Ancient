@@ -15,10 +15,10 @@ public class AddExperienceCommand extends ICommand {
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 2) {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                Player[] players = (Player[]) ca.params.get(0);
-                int amount = (int) ((Number) ca.params.get(1)).doubleValue();
+        if (ca.getParams().size() == 2) {
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                Player[] players = (Player[]) ca.getParams().get(0);
+                int amount = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 for (Player p : players) {
                     if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(p)) {
                         PlayerData.getPlayerData(p.getName()).getXpSystem().addXP(amount, false);

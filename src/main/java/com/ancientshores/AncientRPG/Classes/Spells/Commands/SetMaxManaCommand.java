@@ -10,19 +10,18 @@ public class SetMaxManaCommand extends ICommand {
             argnames = {"player", "amount"}, name = "SetMaxMana", parameters = {ParameterType.Player, ParameterType.Number})
 
     public SetMaxManaCommand() {
-        ParameterType[] buffer = {ParameterType.Player, ParameterType.Number};
-        this.paramTypes = buffer;
+        this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 
     @Override
     public boolean playCommand(EffectArgs ca) {
-        if (ca.params.size() == 2) {
-            if (ca.params.get(0) instanceof Player[] && ca.params.get(1) instanceof Number) {
-                for (Player e : (Player[]) ca.params.get(0)) {
+        if (ca.getParams().size() == 2) {
+            if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number) {
+                for (Player e : (Player[]) ca.getParams().get(0)) {
                     if (e == null) {
                         continue;
                     }
-                    PlayerData.getPlayerData(e.getName()).getManasystem().maxmana = (int) ((Number) ca.params.get(1)).doubleValue();
+                    PlayerData.getPlayerData(e.getName()).getManasystem().maxmana = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 }
                 return true;
             }

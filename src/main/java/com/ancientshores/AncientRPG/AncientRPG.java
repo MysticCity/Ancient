@@ -374,7 +374,6 @@ public class AncientRPG extends JavaPlugin {
             try {
                 newconfig.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -398,7 +397,6 @@ public class AncientRPG extends JavaPlugin {
         try {
             yc.save(newconfig);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -410,7 +408,6 @@ public class AncientRPG extends JavaPlugin {
             try {
                 yc1.load(newconfig);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             // BRAND STUFF
