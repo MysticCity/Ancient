@@ -25,12 +25,12 @@ public class ChangeAggroCommand extends ICommand {
             if (ca.getParams().get(0) instanceof Entity[] && ca.getParams().get(1) instanceof Entity[] && ca.getParams().get(2) instanceof Number) {
                 final Entity[] target = (Entity[]) ca.getParams().get(0);
                 final Entity[] newaggro = (Entity[]) ca.getParams().get(1);
-                if (newaggro.length == 0 || !(newaggro[0] instanceof Creature)) {
+                if (newaggro.length == 0 || !(newaggro[0] instanceof LivingEntity)) {
                     return false;
                 }
                 final int time = (int) ((Number) ca.getParams().get(2)).doubleValue();
                 for (final Entity e : target) {
-                    if ((e instanceof Creature)) {
+                    if (e instanceof Creature) {
                         ((Creature) e).setTarget((LivingEntity) newaggro[0]);
                         tauntedEntities.put((LivingEntity) e, (LivingEntity) newaggro[0]);
 
