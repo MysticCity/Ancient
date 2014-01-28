@@ -5,12 +5,6 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 09.02.13
- * Time: 15:25
- */
 public class GetWorld extends IArgument {
     @ArgumentDescription(
             description = "Returns the name of the world of the specified location",
@@ -33,6 +27,6 @@ public class GetWorld extends IArgument {
             return null;
         }
         Location l = ((Location[]) obj[0])[0];
-        return l.getWorld();
+        return l.getWorld().getName();
     }
 }
