@@ -21,14 +21,12 @@ public class PlayEffectCommand extends ICommand {
             if (effect == null) {
                 return false;
             }
-            if (loc != null && loc.length > 0 && loc[0] != null) {
+            if (loc != null && loc.length > 0) {
                 for (Location l : loc) {
                     if (l == null) {
                         continue;
                     }
-                    for (int i = 0; i < 20; i++) {
-                        l.getWorld().playEffect(l, effect, 0);
-                    }
+                    l.getWorld().playEffect(l, effect, 0);
                 }
                 return true;
             }
