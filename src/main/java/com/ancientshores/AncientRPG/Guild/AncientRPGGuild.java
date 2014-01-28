@@ -407,7 +407,6 @@ public class AncientRPGGuild implements Serializable {
     }
 
     public static void writeGuilds() {
-        loadGuilds();
         File basepath = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Guilds" + File.separator);
         if (!basepath.exists()) {
             basepath.mkdir();
@@ -501,22 +500,21 @@ public class AncientRPGGuild implements Serializable {
                     try {
                         AncientRPGGuild guild = new AncientRPGGuild();
                         guildConfig.load(f);
-                        guild.guildName = (String) guildConfig.get("Guild.Name");
-                        guild.accountName = (String) guildConfig.get("Guild.Accountname");
-                        guild.gLeader = (String) guildConfig.get("Guild.Leader");
-                        guild.motd = (String) guildConfig.get("Guild.Motd");
-                        guild.friendlyFire = (Boolean) guildConfig.get("Guild.FF");
+                        guild.guildName = guildConfig.getString("Guild.Name");
+                        guild.accountName = guildConfig.getString("Guild.Accountname");
+                        guild.gLeader = guildConfig.getString("Guild.Leader");
+                        guild.motd = guildConfig.getString("Guild.Motd");
+                        guild.friendlyFire = guildConfig.getBoolean("Guild.FF");
                         guild.tag = guildConfig.getString("Guild.tag", guild.tag);
                         if (guildConfig.get("Guild.spawnx") != null) {
-                            guild.spawnLocation = new SerializableLocation(new Location(Bukkit.getWorld(guildConfig.getString("Guild.spawnworld")), guildConfig.getDouble("Guild.spawnx"), guildConfig.getDouble("Guild.spawny"),
-                                    guildConfig.getDouble("Guild.spawnz")));
+                            guild.spawnLocation = new SerializableLocation(new Location(Bukkit.getWorld(guildConfig.getString("Guild.spawnworld")), guildConfig.getDouble("Guild.spawnx"), guildConfig.getDouble("Guild.spawny"), guildConfig.getDouble("Guild.spawnz")));
                         }
                         if (!canToggleff) {
                             guild.friendlyFire = true;
                         }
                         guild.gMember = new HashMap<String, AncientRPGGuildRanks>();
                         int i = 0;
-                        String s = (String) guildConfig.get("Guild.Members." + i);
+                        String s = guildConfig.getString("Guild.Members." + i);
                         while (s != null && !s.equals("")) {
                             String[] regex = s.split(":");
                             if (regex.length == 2) {
@@ -525,7 +523,7 @@ public class AncientRPGGuild implements Serializable {
                                 break;
                             }
                             i++;
-                            s = (String) guildConfig.get("Guild.Members." + i);
+                            s = guildConfig.getString("Guild.Members." + i);
                         }
                         guilds.add(guild);
                     } catch (Exception e) {
