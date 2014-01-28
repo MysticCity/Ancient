@@ -11,7 +11,7 @@ public class GetChestplate extends IArgument {
             description = "Returns the id of the chestplate",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetChestplate() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getchestplate";
     }

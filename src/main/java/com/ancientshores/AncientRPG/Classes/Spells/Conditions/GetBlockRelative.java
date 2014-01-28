@@ -12,7 +12,7 @@ public class GetBlockRelative extends IArgument {
             description = "Returns the block relative to the player.",
             parameterdescription = {"location", "forward", "sideward", "upward"}, returntype = ParameterType.Number, rparams = {ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number})
     public GetBlockRelative() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number};
         this.name = "getBlockRelative";
     }

@@ -66,7 +66,7 @@ public class WhileSection extends ICodeSection {
             playersindexes.remove(so);
             if (parentSection != null) {
                 parentSection.executeCommand(mPlayer, so);
-            } else if (parentSection == null) {
+            } else {
                 so.finished = true;
                 AncientRPGClass.executedSpells.remove(so);
             }
@@ -99,7 +99,9 @@ public class WhileSection extends ICodeSection {
         } catch (Exception e) {
             e.printStackTrace();
             so.canceled = true;
-            parentSection.executeCommand(mPlayer, so);
+            if (parentSection != null) {
+                parentSection.executeCommand(mPlayer, so);
+            }
         }
     }
 }

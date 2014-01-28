@@ -99,9 +99,11 @@ public class AncientRPGEntityListener implements Listener {
     // ============================================================================
     @EventHandler(priority = EventPriority.HIGHEST)
     public void entityChangeTarget(EntityTargetLivingEntityEvent event) {
-        if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity()) && event.getEntity() instanceof Creature) {
-            ((Creature) event.getEntity()).setTarget(ChangeAggroCommand.tauntedEntities.get(event.getEntity()));
-            event.setCancelled(true);
+        if (event.getEntity() instanceof Creature) {
+            if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity())) {
+                ((Creature) event.getEntity()).setTarget(ChangeAggroCommand.tauntedEntities.get(event.getEntity()));
+                event.setCancelled(true);
+            }
         }
     }
 
@@ -214,11 +216,11 @@ public class AncientRPGEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void entityChangeAggro(EntityTargetEvent event) {
-        if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity())) {
-            if (event.getEntity() instanceof Creature) {
+        if (event.getEntity() instanceof Creature) {
+            if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity())) {
                 event.setTarget(ChangeAggroCommand.tauntedEntities.get(event.getEntity()));
+                event.setCancelled(true);
             }
-            event.setCancelled(true);
         }
     }
 

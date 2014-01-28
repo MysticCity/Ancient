@@ -12,7 +12,7 @@ public class FirstGapAbove extends IArgument {
             description = "Returns the first gap above the specified location with atleast the amount of free blocks",
             parameterdescription = {"location", "free blocks"}, returntype = ParameterType.Location, rparams = {ParameterType.Location, ParameterType.Number})
     public FirstGapAbove() {
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number};
         this.name = "FirstGapAbove";
     }

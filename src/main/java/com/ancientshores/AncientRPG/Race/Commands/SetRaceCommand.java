@@ -63,7 +63,6 @@ public class SetRaceCommand {
                 oos.writeObject(AncientRPGRace.playersOnCd);
                 oos.close();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {

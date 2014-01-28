@@ -4,15 +4,9 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 02.04.13
- * Time: 21:02
- */
 public class GetEntitiesAround extends IArgument {
     public GetEntitiesAround() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number};
         this.name = "getentitiesaround";
     }

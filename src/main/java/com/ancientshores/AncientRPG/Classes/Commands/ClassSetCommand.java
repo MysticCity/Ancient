@@ -203,7 +203,6 @@ public class ClassSetCommand {
                 oos.writeObject(AncientRPGClass.playersOnCd);
                 oos.close();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

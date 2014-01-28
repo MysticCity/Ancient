@@ -10,7 +10,7 @@ public class GetAmountOf extends IArgument {
             description = "Returns the amount of elements in the collection",
             parameterdescription = {"collection"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetAmountOf() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getamountof";
     }

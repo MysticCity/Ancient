@@ -6,7 +6,7 @@ public class StringArgument extends IArgument {
     final String s;
 
     public StringArgument(String value) {
-        this.pt = ParameterType.Void;
+        this.returnType = ParameterType.Void;
         this.s = value;
         this.name = "stringargument";
     }

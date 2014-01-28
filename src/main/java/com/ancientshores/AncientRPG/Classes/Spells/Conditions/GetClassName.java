@@ -11,7 +11,7 @@ public class GetClassName extends IArgument {
             description = "Returns the name of the players class",
             parameterdescription = {"player"}, returntype = ParameterType.String, rparams = {ParameterType.Player})
     public GetClassName() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getclassname";
     }

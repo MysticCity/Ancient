@@ -12,7 +12,7 @@ public class GetShooterOrAttacker extends IArgument {
             description = "Returns the damager, for example if a player hits you with an arrow the player is returned.",
             parameterdescription = {}, returntype = ParameterType.String, rparams = {})
     public GetShooterOrAttacker() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getshooterorattacker";
     }

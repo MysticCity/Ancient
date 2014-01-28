@@ -12,7 +12,7 @@ public class GetLocationAt extends IArgument {
             description = "Returns the location in the specified world with the specified coordinates",
             parameterdescription = {"worldname", "xcoord", "ycoord", "zcoord"}, returntype = ParameterType.Location, rparams = {ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number})
     public GetLocationAt() {
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number};
         this.name = "getlocationat";
     }

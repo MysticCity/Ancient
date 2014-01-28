@@ -26,7 +26,7 @@ public class ConfigCreator extends JFrame {
     public ConfigCreator(Window w) {
         this.w = w;
         count = w.m.variables.size();
-        vars = w.m.variables.toArray(new String[0]);
+        vars = w.m.variables.toArray(new String[w.m.variables.size()]);
         fields = new JTextField[w.m.maxlevel][count];
         this.setSize(640, 530);
         this.setLocation(100, 100);
@@ -140,7 +140,6 @@ public class ConfigCreator extends JFrame {
             bw.close();
             JOptionPane.showMessageDialog(w, "Spellconfig successfully saved  to: " + f.getAbsolutePath(), "Information", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -10,7 +10,7 @@ public class GetYaw extends IArgument {
             description = "Returns the yaw of a location",
             parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetYaw() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getyaw";
     }

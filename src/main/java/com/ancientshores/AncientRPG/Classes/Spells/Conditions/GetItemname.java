@@ -4,15 +4,9 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.entity.Player;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 27.03.13
- * Time: 23:17
- */
 public class GetItemname extends IArgument {
     public GetItemname() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
         this.name = "getitemname";
     }

@@ -115,7 +115,6 @@ public class MainPanel extends JLayeredPane {
             JOptionPane.showMessageDialog(w, "Spell successfully saved to: " + f.getAbsolutePath(), "Information", JOptionPane.INFORMATION_MESSAGE);
             new ConfigCreator(w);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

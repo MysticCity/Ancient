@@ -10,7 +10,7 @@ public class GetDamageCause extends IArgument {
             description = "Returns the name of the damage cause",
             parameterdescription = {}, returntype = ParameterType.String, rparams = {})
     public GetDamageCause() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getdamagecause";
     }

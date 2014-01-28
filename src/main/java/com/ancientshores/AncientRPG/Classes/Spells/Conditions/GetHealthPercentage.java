@@ -11,7 +11,7 @@ public class GetHealthPercentage extends IArgument {
             description = "Returns the health percentage of the entity",
             parameterdescription = {"entity"}, returntype = ParameterType.Number, rparams = {ParameterType.Entity})
     public GetHealthPercentage() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "gethealthpercentage";
     }

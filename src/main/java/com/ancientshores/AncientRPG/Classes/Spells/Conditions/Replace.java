@@ -9,7 +9,7 @@ public class Replace extends IArgument {
             description = "Replaces the searchstring in the source by the replacestring",
             parameterdescription = {"source", "searchstring", "replacestring"}, returntype = ParameterType.String, rparams = {ParameterType.String, ParameterType.String, ParameterType.String})
     public Replace() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.String, ParameterType.String, ParameterType.String};
         this.name = "replace";
     }

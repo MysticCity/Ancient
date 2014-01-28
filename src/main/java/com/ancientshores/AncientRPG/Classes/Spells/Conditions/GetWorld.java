@@ -10,7 +10,7 @@ public class GetWorld extends IArgument {
             description = "Returns the name of the world of the specified location",
             parameterdescription = {"location"}, returntype = ParameterType.String, rparams = {ParameterType.Location})
     public GetWorld() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getworld";
     }

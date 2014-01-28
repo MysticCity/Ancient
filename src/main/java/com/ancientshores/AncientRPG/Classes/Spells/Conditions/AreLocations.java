@@ -12,7 +12,7 @@ public class AreLocations extends IArgument {
             description = "Checks a collection of locations if all of them are locations.",
             parameterdescription = {"collection"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Location})
     public AreLocations() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "arelocations";
     }

@@ -10,7 +10,7 @@ public class GetXCoordinate extends IArgument {
             description = "Returns the x coordinate of a location",
             parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetXCoordinate() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getxcoordinate";
     }

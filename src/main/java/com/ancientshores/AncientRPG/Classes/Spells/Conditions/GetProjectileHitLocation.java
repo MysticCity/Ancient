@@ -11,7 +11,7 @@ public class GetProjectileHitLocation extends IArgument {
             description = "Returns the location the projectile hit, only usable in projectilehitevent",
             parameterdescription = {}, returntype = ParameterType.Location, rparams = {})
     public GetProjectileHitLocation() {
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getprojectilehitlocation";
     }

@@ -9,7 +9,7 @@ public class GetChatArgumentLength extends IArgument {
             description = "Returns the amount of arguments in the chat command, can only be used in chat Commands",
             parameterdescription = {}, returntype = ParameterType.Number, rparams = {})
     public GetChatArgumentLength() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getchatargumentlength";
     }

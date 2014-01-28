@@ -11,7 +11,7 @@ public class GetMaxMana extends IArgument {
             description = "Returns the maximum mana of the given player",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetMaxMana() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getmaxmana";
     }

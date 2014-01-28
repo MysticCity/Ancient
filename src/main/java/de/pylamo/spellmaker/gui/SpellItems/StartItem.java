@@ -36,19 +36,16 @@ public class StartItem extends ISpellItem implements MouseListener, MouseMotionL
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         return "";
     }
 
     @Override
     public ISpellItem getNachfolger() {
-        // TODO Auto-generated method stub
         return nachfolger;
     }
 
     @Override
     public ISpellItem getVorgaenger() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -80,22 +77,18 @@ public class StartItem extends ISpellItem implements MouseListener, MouseMotionL
 
     @Override
     public void mouseMoved(MouseEvent arg0) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override

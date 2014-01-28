@@ -10,7 +10,7 @@ public class GetBrokenBlockType extends IArgument {
             description = "Returns the id of the broken block, only usable in block break event",
             parameterdescription = {}, returntype = ParameterType.Material, rparams = {})
     public GetBrokenBlockType() {
-        this.pt = ParameterType.Material;
+        this.returnType = ParameterType.Material;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getbrokenblocktype";
     }

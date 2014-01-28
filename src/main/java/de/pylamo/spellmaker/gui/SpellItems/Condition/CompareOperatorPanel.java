@@ -11,16 +11,11 @@ import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
 
 public class CompareOperatorPanel extends IParameter {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final CompareOperator op;
 
     public IParameter clone() {
-        CompareOperatorPanel cop = new CompareOperatorPanel(op, preview);
-        return cop;
+        return new CompareOperatorPanel(op, preview);
     }
 
     public CompareOperatorPanel(CompareOperator operator, boolean preview) {
@@ -40,22 +35,18 @@ public class CompareOperatorPanel extends IParameter {
 
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -67,7 +58,6 @@ public class CompareOperatorPanel extends IParameter {
 
     @Override
     public String getString() {
-        // TODO Auto-generated method stub
         return " " + op.getToken() + " ";
     }
 

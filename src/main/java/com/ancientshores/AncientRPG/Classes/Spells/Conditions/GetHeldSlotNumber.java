@@ -10,7 +10,7 @@ public class GetHeldSlotNumber extends IArgument {
             description = "Returns the slot number of the slot the player currently holds",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetHeldSlotNumber() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getheldslotnumber";
     }

@@ -56,7 +56,6 @@ public class Menu extends JFrame {
         try {
             this.setIconImage(ImageIO.read(Window.class.getResource("arpg.png")));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -450,7 +449,6 @@ public class Menu extends JFrame {
     };
 
     private static final ComponentListener cl = new ComponentListener() {
-
         @Override
         public void componentShown(ComponentEvent e) {
             Window.opensessions++;
@@ -458,12 +456,10 @@ public class Menu extends JFrame {
 
         @Override
         public void componentResized(ComponentEvent e) {
-            // TODO Auto-generated method stub
         }
 
         @Override
         public void componentMoved(ComponentEvent e) {
-            // TODO Auto-generated method stub
         }
 
         @Override

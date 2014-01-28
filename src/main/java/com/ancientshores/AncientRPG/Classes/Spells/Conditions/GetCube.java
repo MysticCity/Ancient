@@ -13,7 +13,7 @@ public class GetCube extends IArgument {
             parameterdescription = {"location", "radius"}, returntype = ParameterType.Location, rparams = {ParameterType.Location, ParameterType.Number})
     public GetCube() {
         this.name = "getCube";
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number};
     }
 
@@ -22,7 +22,6 @@ public class GetCube extends IArgument {
         if (params.length < 2) {
             return null;
         }
-        // TODO Auto-generated method stub
         if (!(params[0] instanceof Location[])) {
             return null;
         }

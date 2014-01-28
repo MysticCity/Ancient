@@ -8,15 +8,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 23.02.13
- * Time: 21:39
- */
 public class IsBehind extends IArgument {
     public IsBehind() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Entity};
         this.name = "isbehind";
     }

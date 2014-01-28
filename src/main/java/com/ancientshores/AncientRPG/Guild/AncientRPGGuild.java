@@ -239,8 +239,8 @@ public class AncientRPGGuild implements Serializable {
         // ==============================================
         // setmotd
         // ==============================================
-        else if (args[0].equals("setmotd") && AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.Commands.GuildCommandSetmotd")) {
-            GuildCommandSetmotd.processSetmotd(sender, args);
+        else if (args[0].equals("setmotd") && AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.Commands.GuildCommandSetmMotd")) {
+            GuildCommandSetmMotd.processSetmotd(sender, args);
         }
 
         // ==============================================
@@ -543,7 +543,6 @@ public class AncientRPGGuild implements Serializable {
             try {
                 newconfig.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

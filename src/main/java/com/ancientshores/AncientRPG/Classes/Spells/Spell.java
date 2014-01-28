@@ -131,7 +131,6 @@ public class Spell implements Serializable {
             this.rightclickonly = yc1.getBoolean(name + ".rightclickonly", false);
             yc1.save(newConfigFile);
         } catch (Exception e2) {
-            // TODO Auto-generated catch block
             e2.printStackTrace();
         }
         if (configFile.exists()) {
@@ -153,7 +152,6 @@ public class Spell implements Serializable {
                 try {
                     yc.save(newConfigFile);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 configFile.delete();
@@ -386,7 +384,6 @@ public class Spell implements Serializable {
                         });
                         commandMap.register(split[1], pc);
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -440,10 +437,13 @@ public class Spell implements Serializable {
     public static void initializeServerSpells() {
         File serv = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "serverspells");
         serv.mkdir();
-        for (File f : serv.listFiles()) {
-            if (f.getName().endsWith(".spell")) {
-                Spell s = new Spell(f);
-                s.serverspell = true;
+        File[] files = serv.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.getName().endsWith(".spell")) {
+                    Spell s = new Spell(f);
+                    s.serverspell = true;
+                }
             }
         }
     }

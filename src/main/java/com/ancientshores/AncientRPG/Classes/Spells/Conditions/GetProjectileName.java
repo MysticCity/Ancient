@@ -10,7 +10,7 @@ public class GetProjectileName extends IArgument {
             description = "Returns the name of the projectile, only usable in projectilehitevent",
             parameterdescription = {}, returntype = ParameterType.String, rparams = {})
     public GetProjectileName() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getprojectilename";
     }

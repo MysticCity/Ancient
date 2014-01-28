@@ -13,7 +13,6 @@ public class RaceListCommand {
             try {
                 page = Integer.parseInt(args[1]);
             } catch (Exception ignored) {
-
             }
         }
         PageBuilder pb = new PageBuilder();

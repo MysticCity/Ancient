@@ -9,7 +9,7 @@ public class ParseNumber extends IArgument {
             description = "Parses a string and tries to convert it into a number",
             parameterdescription = {"numberasstring"}, returntype = ParameterType.Number, rparams = {ParameterType.String})
     public ParseNumber() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.String};
         this.name = "parsenumber";
     }

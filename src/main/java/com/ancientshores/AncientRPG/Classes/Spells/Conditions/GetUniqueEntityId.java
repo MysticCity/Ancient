@@ -10,7 +10,7 @@ public class GetUniqueEntityId extends IArgument {
             description = "Gets the unique entity id of the entity",
             parameterdescription = {"entity"}, returntype = ParameterType.String, rparams = {ParameterType.Entity})
     public GetUniqueEntityId() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "getentityid";
     }

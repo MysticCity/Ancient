@@ -41,7 +41,6 @@ public class Window extends JFrame {
         try {
             this.setIconImage(ImageIO.read(Window.class.getResource("arpg.png")));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         createMenu();

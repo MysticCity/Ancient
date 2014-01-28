@@ -8,7 +8,7 @@ public class NumberArgument extends IArgument {
 
     public NumberArgument(String s) {
         this.name = "number";
-        this.pt = ParameterType.Void;
+        this.returnType = ParameterType.Void;
         try {
             i = Double.parseDouble(s.trim());
         } catch (Exception e) {

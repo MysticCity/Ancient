@@ -11,7 +11,7 @@ public class GetHelmet extends IArgument {
             description = "Returns the id of the helmet the player currently wears",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetHelmet() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "gethelmet";
     }

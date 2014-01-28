@@ -71,8 +71,7 @@ public class ClassSetStanceCommand {
         if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) {
             return false;
         }
-        return !(!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase(
-                "")) && !AncientRPG.hasPermissions(p, newClass.permissionNode));
+        return !(!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !AncientRPG.hasPermissions(p, newClass.permissionNode));
     }
 
     public static void setStance(AncientRPGClass oldstance, AncientRPGClass newStance, AncientRPGClass rootclass, final Player p, Player sender) {
@@ -139,7 +138,6 @@ public class ClassSetStanceCommand {
                 oos.writeObject(AncientRPGClass.playersOnCd);
                 oos.close();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

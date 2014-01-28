@@ -10,7 +10,7 @@ public class GetYCoordinate extends IArgument {
             description = "Returns the y coordinate of a location",
             parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetYCoordinate() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getycoordinate";
     }

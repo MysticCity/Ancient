@@ -11,7 +11,7 @@ public class GetAttacker extends IArgument {
             description = "Returns the type of the attacker",
             parameterdescription = {}, returntype = ParameterType.String, rparams = {})
     public GetAttacker() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getattacker";
     }

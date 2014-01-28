@@ -12,7 +12,7 @@ public class IsInvisible extends IArgument {
             description = "true if player is invisible, false otherwise",
             parameterdescription = {"player"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Player})
     public IsInvisible() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "isinvisible";
     }

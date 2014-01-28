@@ -11,7 +11,7 @@ public class GetBoots extends IArgument {
             description = "Returns the id of the players boots",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetBoots() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getboots";
     }

@@ -11,7 +11,7 @@ public class IsSneaking extends IArgument {
             description = "Returns true if the player is sneaking, false otherwise",
             parameterdescription = {"player"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Player})
     public IsSneaking() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "issneaking";
     }

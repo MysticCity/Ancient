@@ -11,7 +11,7 @@ public class GetGuildName extends IArgument {
             description = "Returns the guild name of the player",
             parameterdescription = {"player"}, returntype = ParameterType.String, rparams = {ParameterType.Player})
     public GetGuildName() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getguildname";
     }

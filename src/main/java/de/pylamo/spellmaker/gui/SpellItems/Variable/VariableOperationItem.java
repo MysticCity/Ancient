@@ -40,9 +40,6 @@ public class VariableOperationItem extends ISpellItem {
         slots.add(p3);
         this.b = !preview;
         JPanel j = new JPanel() {
-            /**
-             *
-             */
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -72,25 +69,20 @@ public class VariableOperationItem extends ISpellItem {
             ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, sis);
             ds.addDragSourceMotionListener(sis);
             ds.addDragSourceListener(new DragSourceListener() {
-
                 @Override
                 public void dropActionChanged(DragSourceDragEvent dsde) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void dragOver(DragSourceDragEvent dsde) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void dragExit(DragSourceEvent dse) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void dragEnter(DragSourceDragEvent dsde) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override

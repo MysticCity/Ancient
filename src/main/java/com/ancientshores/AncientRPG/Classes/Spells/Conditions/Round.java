@@ -9,7 +9,7 @@ public class Round extends IArgument {
             description = "Rounds the specified number",
             parameterdescription = {"number"}, returntype = ParameterType.Number, rparams = {ParameterType.Number})
     public Round() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Number};
         this.name = "round";
     }

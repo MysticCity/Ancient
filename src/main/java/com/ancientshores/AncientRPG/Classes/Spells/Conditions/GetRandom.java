@@ -9,7 +9,7 @@ public class GetRandom extends IArgument {
             description = "Returns a random number between 0 and 100 (both inclusive)",
             parameterdescription = {}, returntype = ParameterType.Number, rparams = {})
     public GetRandom() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getrandom";
     }

@@ -343,10 +343,8 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
             oos.writeObject(this.bindings);
             oos.writeObject(this.slotbinds);
         } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         } finally {
             if (oos != null) {

@@ -24,9 +24,6 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class AncientRPGExperience implements Serializable, ConfigurationSerializable {
-    /**
-     *
-     */
     public static float multiplier = 1;
     private static final long serialVersionUID = 1L;
     public int level;

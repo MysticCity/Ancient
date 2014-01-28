@@ -11,7 +11,7 @@ public class IsCooldownReady extends IArgument {
             description = "Returns true if the cooldown with the name is ready",
             parameterdescription = {"cooldownname"}, returntype = ParameterType.Boolean, rparams = {ParameterType.String})
     public IsCooldownReady() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.String};
         this.name = "iscooldownready";
     }

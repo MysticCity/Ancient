@@ -17,7 +17,7 @@ public class GetNearbyEntities extends IArgument {
             description = "Returns the amount of entities nearby the location in the specified range",
             parameterdescription = {"location", "range", "amount"}, returntype = ParameterType.Entity, rparams = {ParameterType.Location, ParameterType.Number, ParameterType.Number})
     public GetNearbyEntities() {
-        this.pt = ParameterType.Entity;
+        this.returnType = ParameterType.Entity;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number};
         this.name = "getnearbyentities";
     }

@@ -11,7 +11,7 @@ public class IsInSameGuild extends IArgument {
             description = "Returns true if the 2 players are in the same guild, false otherwise",
             parameterdescription = {"player1", "player2"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Player, ParameterType.Player})
     public IsInSameGuild() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.Player};
         this.name = "isinsameguild";
     }

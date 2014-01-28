@@ -9,7 +9,7 @@ public class GetChatArgument extends IArgument {
             description = "<html>Returns the specified chat argument, starting with 0 <br>arguments are split by spaces in the command, can only be used in chatcommands</html>",
             parameterdescription = {"index"}, returntype = ParameterType.Number, rparams = {ParameterType.Number})
     public GetChatArgument() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Number};
         this.name = "getchatargument";
     }

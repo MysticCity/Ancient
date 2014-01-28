@@ -14,9 +14,6 @@ import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
 
 public class SpellItem extends ISpellItem {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     public final String name;
     public final ParameterSlot[] parameters;
@@ -29,7 +26,7 @@ public class SpellItem extends ISpellItem {
 
     @Override
     public ISpellItem clone() {
-        SpellItem is = null;
+        SpellItem is;
         if (preview) {
             is = new SpellItem(name, params, paramdesc, s, w);
         } else {
@@ -72,26 +69,18 @@ public class SpellItem extends ISpellItem {
 
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -133,7 +122,6 @@ public class SpellItem extends ISpellItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String s = this.name;
         for (ParameterSlot ps : parameters) {
             if (ps.content != null) {

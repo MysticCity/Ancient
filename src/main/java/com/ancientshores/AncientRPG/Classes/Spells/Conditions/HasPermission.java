@@ -11,7 +11,7 @@ public class HasPermission extends IArgument {
             description = "Returns true if the player has the specified permission, false otherwise",
             parameterdescription = {"player", "permission"}, returntype = ParameterType.Number, rparams = {ParameterType.Player, ParameterType.String})
     public HasPermission() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
         this.name = "haspermission";
     }

@@ -10,7 +10,7 @@ public class GetTime extends IArgument {
             description = "Returns the time of the world",
             parameterdescription = {"world"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetTime() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "gettime";
     }

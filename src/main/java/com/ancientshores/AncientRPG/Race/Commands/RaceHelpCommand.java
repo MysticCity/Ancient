@@ -20,7 +20,6 @@ public class RaceHelpCommand {
             try {
                 site = Integer.parseInt(args[1]);
             } catch (Exception ignored) {
-
             }
         }
         helpList.printToPlayer(mPlayer, site);

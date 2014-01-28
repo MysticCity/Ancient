@@ -14,7 +14,7 @@ public class PlayersInRange extends IArgument {
             description = "Returns the amount of players in range",
             parameterdescription = {"location", "range"}, returntype = ParameterType.Number, rparams = {ParameterType.Location, ParameterType.Number})
     public PlayersInRange() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number};
         this.name = "playersinrange";
     }

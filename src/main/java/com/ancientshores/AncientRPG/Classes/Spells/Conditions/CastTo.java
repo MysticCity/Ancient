@@ -13,7 +13,7 @@ public class CastTo extends IArgument {
             description = "casts the collection of players to the specified type.",
             parameterdescription = {"playercollection", "newtype"}, returntype = ParameterType.Void, rparams = {ParameterType.Player, ParameterType.String})
     public CastTo() {
-        this.pt = ParameterType.Void;
+        this.returnType = ParameterType.Void;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
         this.name = "castto";
     }

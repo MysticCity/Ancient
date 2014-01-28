@@ -12,7 +12,7 @@ public class BlockExistsInRange extends IArgument {
             description = "if the specified block exists in the range returns true",
             parameterdescription = {"location", "material", "range"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Location, ParameterType.Material, ParameterType.Number})
     public BlockExistsInRange() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Material, ParameterType.Number};
         this.name = "blockexistsinrange";
     }

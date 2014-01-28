@@ -10,7 +10,7 @@ public class GetLightLevel extends IArgument {
             description = "Returns the light level at the specified location",
             parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetLightLevel() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getlightlevel";
     }

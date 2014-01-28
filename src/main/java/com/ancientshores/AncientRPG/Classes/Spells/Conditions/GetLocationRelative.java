@@ -5,15 +5,9 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 23.02.13
- * Time: 23:17
- */
 public class GetLocationRelative extends IArgument {
     public GetLocationRelative() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number};
         this.name = "getrelative";
     }

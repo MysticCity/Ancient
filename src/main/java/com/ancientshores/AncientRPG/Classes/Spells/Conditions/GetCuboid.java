@@ -14,7 +14,7 @@ public class GetCuboid extends IArgument {
             parameterdescription = {"location", "foreward", "upward", "sideward"}, returntype = ParameterType.Location, rparams = {ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number})
     public GetCuboid() {
         this.name = "getCuboid";
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number};
     }
 

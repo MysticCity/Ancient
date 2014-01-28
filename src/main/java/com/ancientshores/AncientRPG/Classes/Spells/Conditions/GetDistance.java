@@ -10,7 +10,7 @@ public class GetDistance extends IArgument {
             description = "Returns the distance between two locations in the same world",
             parameterdescription = {"location1", "location2"}, returntype = ParameterType.Number, rparams = {ParameterType.Location, ParameterType.Location})
     public GetDistance() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Location};
         this.name = "getdistance";
     }

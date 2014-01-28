@@ -11,7 +11,7 @@ public class GetHealth extends IArgument {
             description = "Returns the health of the player",
             parameterdescription = {"entity"}, returntype = ParameterType.Number, rparams = {ParameterType.Entity})
     public GetHealth() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "gethealth";
     }

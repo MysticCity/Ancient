@@ -5,15 +5,9 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 23.02.13
- * Time: 23:16
- */
 public class IsLookingAt extends IArgument {
     public IsLookingAt() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Entity, ParameterType.Number};
         this.name = "islookingat";
     }

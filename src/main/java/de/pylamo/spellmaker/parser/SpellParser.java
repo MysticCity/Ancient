@@ -165,16 +165,12 @@ public class SpellParser {
             startCodeParse(bf, line, lineNumber);
             bf.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         ISpellItem si = w.mp.startItem;
-        if (si != null) {
-            revalidateAllNachfolger(si);
-        }
+        revalidateAllNachfolger(si);
     }
 
     void revalidateAllNachfolger(ISpellItem si) {
@@ -319,10 +315,8 @@ public class SpellParser {
             startCodeParse(bf, line, lineNumber);
             bf.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
     }
@@ -334,7 +328,6 @@ public class SpellParser {
                 try {
                     curline = bf.readLine();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 continue;
@@ -420,7 +413,6 @@ public class SpellParser {
             try {
                 curline = bf.readLine();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

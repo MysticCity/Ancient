@@ -10,7 +10,7 @@ public class PlayerExists extends IArgument {
             description = "Returns true if the player with the specified exists and is online on the server, false otherwise",
             parameterdescription = {"playername"}, returntype = ParameterType.Boolean, rparams = {ParameterType.String})
     public PlayerExists() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.String};
         this.name = "playerexists";
     }

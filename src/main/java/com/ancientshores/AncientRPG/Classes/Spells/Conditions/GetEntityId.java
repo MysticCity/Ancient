@@ -5,18 +5,12 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.entity.Entity;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 11.02.13
- * Time: 20:45
- */
 public class GetEntityId extends IArgument {
     @ArgumentDescription(
             description = "Gets the entity id of the entity",
             parameterdescription = {"entity"}, returntype = ParameterType.String, rparams = {ParameterType.Entity})
     public GetEntityId() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "getentityid";
     }

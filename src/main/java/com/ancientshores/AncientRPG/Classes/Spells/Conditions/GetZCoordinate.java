@@ -10,7 +10,7 @@ public class GetZCoordinate extends IArgument {
             description = "Returns the z coordinate of a location",
             parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetZCoordinate() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getzcoordinate";
     }

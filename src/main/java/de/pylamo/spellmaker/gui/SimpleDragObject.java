@@ -15,7 +15,6 @@ public class SimpleDragObject implements Serializable {
         try {
             dataFlavor = new DataFlavor("text/uri-list;class=de.pylamo.spellmaker.gui.SimpleDragObject");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

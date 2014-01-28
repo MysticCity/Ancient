@@ -34,10 +34,10 @@ public class IfItem extends ComplexItem {
         this.b = !preview;
         this.setOpaque(false);
         if (preview) {
-            istp = new ConditionStartPanel("if", preview, w);
+            istp = new ConditionStartPanel("if", true, w);
             createDragSource();
         } else {
-            istp = new ConditionStartPanel("if", preview, w);
+            istp = new ConditionStartPanel("if", false, w);
             istp.addMouseListener(this);
             istp.addMouseMotionListener(this);
             isp.addMouseListener(this);
@@ -55,7 +55,6 @@ public class IfItem extends ComplexItem {
 
     @Override
     public EndPanel getEndPanel() {
-        // TODO Auto-generated method stub
         return eip;
     }
 
@@ -83,22 +82,18 @@ public class IfItem extends ComplexItem {
 
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -111,7 +106,7 @@ public class IfItem extends ComplexItem {
     @Override
     public void revalidate() {
         int w = 0;
-        int h = 0;
+        int h;
         int height = 0;
         ISpellItem isi = firstBlockItem;
         while (isi != null) {

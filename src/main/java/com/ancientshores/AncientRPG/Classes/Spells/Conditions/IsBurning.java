@@ -11,7 +11,7 @@ public class IsBurning extends IArgument {
             description = "Returns true if the entity is buring, false otherwise",
             parameterdescription = {"entity"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Entity})
     public IsBurning() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "isburning";
     }

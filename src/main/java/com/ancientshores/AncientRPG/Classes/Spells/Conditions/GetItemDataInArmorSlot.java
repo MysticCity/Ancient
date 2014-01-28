@@ -11,7 +11,7 @@ public class GetItemDataInArmorSlot extends IArgument {
             description = "Returns the data of the item in the specified armor slot",
             parameterdescription = {"player", "slot"}, returntype = ParameterType.Number, rparams = {ParameterType.Player, ParameterType.Number})
     public GetItemDataInArmorSlot() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
         this.name = "getitemdatainarmorslot";
     }

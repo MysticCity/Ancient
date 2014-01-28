@@ -14,7 +14,7 @@ public class EntitiesInRage extends IArgument {
             description = "returns the amount of entities in the range from the location.",
             parameterdescription = {"location", "range"}, returntype = ParameterType.Number, rparams = {ParameterType.Location, ParameterType.Number})
     public EntitiesInRage() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number};
         this.name = "entitiesinrange";
     }

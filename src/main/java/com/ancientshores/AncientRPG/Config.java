@@ -35,9 +35,9 @@ public class Config {
             if (file.exists()) {
                 instance.getConfig().load(file);
             }
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        } catch (InvalidConfigurationException e) {
+        } catch (FileNotFoundException ignored) {
+        } catch (IOException ignored) {
+        } catch (InvalidConfigurationException ignored) {
         }
         instance.getConfig().set("AncientRPG.language", AncientRPG.languagecode);
         // Party Config
@@ -68,13 +68,10 @@ public class Config {
                 instance.getConfig().load(file);
             }
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (InvalidConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         AncientRPG.languagecode = instance.getConfig().getString("AncientRPG.language", AncientRPG.languagecode);
@@ -101,27 +98,5 @@ public class Config {
         if (file.exists()) {
             file.renameTo(new File(file.getPath() + ".old"));
         }
-
-		/*
-         * // Guild Config if (Main.classExisting("de.pylamo.rpgplugin.Guild"))
-		 * { Guild.maxPlayers = (int) Math.round(this
-		 * .readDouble(Guild.gConfigSize)); Guild.enabled =
-		 * this.readBoolean(Guild.gConfigEnabled); Guild.Iconomyenabled = this
-		 * .readBoolean(Guild.gConfigIconomyEnabled); Guild.cost =
-		 * this.readDouble(Guild.gConfigCost); } if
-		 * (AncientRPG.classExisting("de.pylamo.rpgplugin.Guild")) { if
-		 * (Main.classExisting("de.pylamo.rpgplugin.GuildHouse")) { //
-		 * Guildhouse config GuildHouse.GuildhouseEnabled = this
-		 * .readBoolean(GuildHouse.ghConfigEnabled); GuildHouse.costperblock =
-		 * this .readDouble(GuildHouse.ghCostperBlock); } if
-		 * (AncientRPG.classExisting("de.pylamo.rpgplugin.GuildSafe")) { //
-		 * GuildSafe config GuildSafe.guildsafeEnabled = this
-		 * .readBoolean(GuildSafe.ghConfigEnabled); GuildSafe.maxSize = (int)
-		 * Math.round(this .readDouble(GuildSafe.ghConfigMax)); GuildSafe.Cost =
-		 * this.readDouble(GuildSafe.ghConfigCosts); } }
-		 * if(AncientRPG.classExisting("de.pylamo.rpgplugin.Achievement")){
-		 * Achievement.enabled =
-		 * this.readBoolean(Achievement.aConfigAchievementEnabled); }
-		 */
     }
 }

@@ -12,7 +12,7 @@ public class GetLevel extends IArgument {
             description = "Returns the level of the player",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetLevel() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getlevel";
     }

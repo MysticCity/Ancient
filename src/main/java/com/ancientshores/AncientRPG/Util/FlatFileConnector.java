@@ -60,13 +60,10 @@ public class FlatFileConnector {
         try {
             yc.load(f);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (InvalidConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return yc.getInt(f.getName().substring(0, f.getName().lastIndexOf('.')) + ".variables." + rowName + ".level" + level);

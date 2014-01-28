@@ -11,7 +11,7 @@ public class GetAttackedEntity extends IArgument {
             description = "Returns the type of the attacked entity",
             parameterdescription = {}, returntype = ParameterType.Entity, rparams = {})
     public GetAttackedEntity() {
-        this.pt = ParameterType.Entity;
+        this.returnType = ParameterType.Entity;
         this.requiredTypes = new ParameterType[]{};
         this.name = "getattackedentity";
     }

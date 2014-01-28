@@ -11,7 +11,7 @@ public class GetMana extends IArgument {
             description = "Returns the current amount of mana of the player",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetMana() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getmana";
     }

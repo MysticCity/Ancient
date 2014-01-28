@@ -20,7 +20,6 @@ public class ToolTipItem extends JPanel implements MouseInputListener, Cloneable
         try {
             img = ImageIO.read(ToolTipItem.class.getResource("tooltip.png"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -48,31 +47,25 @@ public class ToolTipItem extends JPanel implements MouseInputListener, Cloneable
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseDragged(MouseEvent arg0) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseMoved(MouseEvent arg0) {
-        // TODO Auto-generated method stub
     }
 }

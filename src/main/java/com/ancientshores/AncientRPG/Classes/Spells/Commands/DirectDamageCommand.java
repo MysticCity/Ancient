@@ -30,7 +30,6 @@ public class DirectDamageCommand extends ICommand {
                         AncientRPGEntityListener.ignoreNextHpEvent = false;
                         AncientRPGEntityListener.scheduledXpList.put(targetPlayer, ca.getCaster());
                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
-
                             @Override
                             public void run() {
                                 AncientRPGEntityListener.scheduledXpList.remove(targetPlayer);

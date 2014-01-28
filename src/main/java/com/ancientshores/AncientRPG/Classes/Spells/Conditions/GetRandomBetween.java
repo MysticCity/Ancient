@@ -11,7 +11,7 @@ public class GetRandomBetween extends IArgument {
             description = "Returns a random number between 2 numbers",
             parameterdescription = {"number1", "number2"}, returntype = ParameterType.Number, rparams = {ParameterType.Number, ParameterType.Number})
     public GetRandomBetween() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Number, ParameterType.Number};
         this.name = "getrandombetween";
     }

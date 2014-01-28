@@ -12,7 +12,7 @@ public class TopBlockAt extends IArgument {
             description = "Returns the top block at the specified location",
             parameterdescription = {"location"}, returntype = ParameterType.Location, rparams = {ParameterType.Location})
     public TopBlockAt() {
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "topblockat";
     }

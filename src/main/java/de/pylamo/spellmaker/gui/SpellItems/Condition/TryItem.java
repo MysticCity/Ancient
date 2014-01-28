@@ -20,8 +20,7 @@ public class TryItem extends ComplexItem {
 
     @Override
     public ISpellItem clone() {
-        TryItem ti = new TryItem(!b, w);
-        return ti;
+        return new TryItem(!b, w);
     }
 
     public TryItem(boolean preview, Window w) {
@@ -51,7 +50,6 @@ public class TryItem extends ComplexItem {
 
     @Override
     public EndPanel getEndPanel() {
-        // TODO Auto-generated method stub
         return eip;
     }
 
@@ -76,25 +74,20 @@ public class TryItem extends ComplexItem {
         ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, sis);
         ds.addDragSourceMotionListener(sis);
         ds.addDragSourceListener(new DragSourceListener() {
-
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -107,7 +100,7 @@ public class TryItem extends ComplexItem {
     @Override
     public void revalidate() {
         int w = 0;
-        int h = 0;
+        int h;
         int height = 0;
         ISpellItem isi = firstBlockItem;
         while (isi != null) {
@@ -117,14 +110,12 @@ public class TryItem extends ComplexItem {
         if (height == 0) {
             height = 25;
         }
-        if (istp != null && isp != null && eip != null) {
-            isp.setSize(25, height);
-            isp.setLocation(0, istp.getPreferredSize().height);
-            istp.setSize(istp.getPreferredSize());
-            eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
-            eip.setLocation(0, isp.getY() + isp.getHeight());
-            h = this.eip.getY() + this.eip.getHeight();
-        }
+        isp.setSize(25, height);
+        isp.setLocation(0, istp.getPreferredSize().height);
+        istp.setSize(istp.getPreferredSize());
+        eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
+        eip.setLocation(0, isp.getY() + isp.getHeight());
+        h = this.eip.getY() + this.eip.getHeight();
         for (Component com : getComponents()) {
             if (com.getPreferredSize().width + com.getX() > w) {
                 w = com.getPreferredSize().width + com.getX();
@@ -199,7 +190,6 @@ public class TryItem extends ComplexItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String s = "try";
         ISpellItem isi = this.firstBlockItem;
         while (isi != null) {

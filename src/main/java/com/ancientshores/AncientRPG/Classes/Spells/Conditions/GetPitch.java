@@ -10,7 +10,7 @@ public class GetPitch extends IArgument {
             description = "Returns the pitch of the location",
             parameterdescription = {"location"}, returntype = ParameterType.Number, rparams = {ParameterType.Location})
     public GetPitch() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "getpitch";
     }

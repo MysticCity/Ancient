@@ -11,7 +11,7 @@ public class IsRightClicked extends IArgument {
             description = "Returns true if the interactevent is right clicked",
             parameterdescription = {}, returntype = ParameterType.Boolean, rparams = {})
     public IsRightClicked() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{};
         this.name = "isrightclicked";
     }

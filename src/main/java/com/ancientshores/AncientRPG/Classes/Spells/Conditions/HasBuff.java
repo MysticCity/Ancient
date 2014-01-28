@@ -15,7 +15,7 @@ public class HasBuff extends IArgument {
             description = "Returns true if the player has the specified buff activated, false otherwise",
             parameterdescription = {"player", "buffname"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Player, ParameterType.String})
     public HasBuff() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
         this.name = "hasbuff";
     }

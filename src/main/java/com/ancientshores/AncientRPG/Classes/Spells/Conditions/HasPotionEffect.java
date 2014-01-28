@@ -13,7 +13,7 @@ public class HasPotionEffect extends IArgument {
             description = "Returns if the entity has the specified potioneffect",
             parameterdescription = {"entity", "potioneffecttype"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Entity, ParameterType.String})
     public HasPotionEffect() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity, ParameterType.String};
         this.name = "haspotioneffect";
     }

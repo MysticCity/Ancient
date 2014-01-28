@@ -11,7 +11,7 @@ public class GetPlayerByName extends IArgument {
             description = "finds an online player on the server with the specified name",
             parameterdescription = {"name"}, returntype = ParameterType.Player, rparams = {ParameterType.String})
     public GetPlayerByName() {
-        this.pt = ParameterType.Player;
+        this.returnType = ParameterType.Player;
         this.requiredTypes = new ParameterType[]{ParameterType.String};
         this.name = "getplayerbyname";
     }

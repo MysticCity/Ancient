@@ -11,8 +11,7 @@ public class GuildCommandMotd {
         Player mPlayer = (Player) sender;
         AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
         if (mGuild != null) {
-            mPlayer.sendMessage(ChatColor.GREEN + "<Guild> motd: "
-                    + mGuild.motd);
+            mPlayer.sendMessage(ChatColor.GREEN + "<Guild> motd: " + mGuild.motd);
         } else {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You aren't in a guild.");
         }

@@ -10,7 +10,7 @@ public class IsInZone extends IArgument {
             description = "Returns true if the location is in a zone specified by 2 other locations",
             parameterdescription = {"target", "start", "end"}, returntype = ParameterType.Number, rparams = {ParameterType.Location, ParameterType.Location, ParameterType.Location})
     public IsInZone() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Location, ParameterType.Location};
         this.name = "isinzone";
     }

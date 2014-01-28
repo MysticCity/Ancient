@@ -591,14 +591,14 @@ public class AncientRPG extends JavaPlugin {
     }
 
     public static String convertStringArrayToString(String[] array) {
-        String rueckstring = "";
+        String returnValue = "";
         for (int i = 0; i < array.length; i++) {
-            rueckstring += array[i];
-            if (i < array.length - 1) {
-                rueckstring += " ";
+            if (!returnValue.equals("")) {
+                returnValue += " ";
             }
+            returnValue += array[i];
         }
-        return rueckstring;
+        return returnValue;
     }
 
     private boolean setupPermissions() {

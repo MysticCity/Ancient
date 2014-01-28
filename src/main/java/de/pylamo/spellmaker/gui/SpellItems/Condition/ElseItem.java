@@ -19,8 +19,7 @@ public class ElseItem extends ComplexItem {
 
     @Override
     public ISpellItem clone() {
-        ElseItem ei = new ElseItem(!b, w);
-        return ei;
+        return new ElseItem(!b, w);
     }
 
     public ElseItem(boolean preview, Window w) {
@@ -50,7 +49,6 @@ public class ElseItem extends ComplexItem {
 
     @Override
     public EndPanel getEndPanel() {
-        // TODO Auto-generated method stub
         return eip;
     }
 
@@ -75,25 +73,20 @@ public class ElseItem extends ComplexItem {
         ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, sis);
         ds.addDragSourceMotionListener(sis);
         ds.addDragSourceListener(new DragSourceListener() {
-
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -196,7 +189,6 @@ public class ElseItem extends ComplexItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String s = "else";
         ISpellItem isi = this.firstBlockItem;
         while (isi != null) {

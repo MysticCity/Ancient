@@ -12,7 +12,7 @@ public class IsInPredefinedZone extends IArgument {
             parameterdescription = {"location", "world", "x1", "y1", "z1", "x2", "y2", "z2"}, returntype = ParameterType.Number, rparams = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number,
             ParameterType.Number, ParameterType.Number})
     public IsInPredefinedZone() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number,
                 ParameterType.Number, ParameterType.Number};
         this.name = "isinpredefinedzone";

@@ -12,7 +12,7 @@ public class GetItemCount extends IArgument {
             description = "Returns the amount of items of the specified type",
             parameterdescription = {"player", "material"}, returntype = ParameterType.Number, rparams = {ParameterType.Player, ParameterType.Material})
     public GetItemCount() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.Material};
         this.name = "getitemcount";
     }

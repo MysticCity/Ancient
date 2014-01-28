@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public abstract class IArgument {
-    public ParameterType pt;
+    public ParameterType returnType;
     public ParameterType[] requiredTypes;
     public String name;
     public static HashSet<IArgument> registeredArguments = new HashSet<IArgument>();

@@ -36,7 +36,6 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
                 si.revalidate();
                 w.mp.add(si);
                 w.mp.revalidate();
-                ;
                 w.mp.repaint();
                 si.revalidate();
             }
@@ -90,7 +89,6 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
     }
 
     public ISpellItem getVorgaenger() {
-        // TODO Auto-generated method stub
         return vorgaenger;
     }
 
@@ -135,12 +133,10 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     private boolean dragEnabled = false;
@@ -269,6 +265,5 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 }

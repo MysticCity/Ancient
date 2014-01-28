@@ -11,7 +11,7 @@ public class AreEntities extends IArgument {
             description = "Checks a collection of locations if all of them are entities.",
             parameterdescription = {"collection"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Location})
     public AreEntities() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "areentities";
     }

@@ -11,7 +11,7 @@ public class IsInWater extends IArgument {
             description = "Returns true if the location is in water",
             parameterdescription = {"location"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Location})
     public IsInWater() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Location};
         this.name = "isinwater";
     }

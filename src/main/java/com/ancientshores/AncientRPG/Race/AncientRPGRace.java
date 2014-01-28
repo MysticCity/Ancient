@@ -100,7 +100,6 @@ public class AncientRPGRace {
                 }
                 description = yc.getString("Race.description", description);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -122,7 +121,6 @@ public class AncientRPGRace {
             AncientRPG.set(yc, "Race.description", description);
             yc.save(config);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -146,7 +144,6 @@ public class AncientRPGRace {
                 changeCd = yc.getInt(configCd, changeCd);
                 defaultRace = yc.getString(configDefaultRace, defaultRace);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
@@ -172,7 +169,6 @@ public class AncientRPGRace {
         try {
             yc.save(newconfig);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

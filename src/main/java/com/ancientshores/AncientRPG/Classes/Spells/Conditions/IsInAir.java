@@ -12,7 +12,7 @@ public class IsInAir extends IArgument {
             description = "Returns true if the entity is in air, false otherwise",
             parameterdescription = {"entity"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Entity})
     public IsInAir() {
-        this.pt = ParameterType.Boolean;
+        this.returnType = ParameterType.Boolean;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "isinair";
     }

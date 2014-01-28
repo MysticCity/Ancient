@@ -10,7 +10,7 @@ public class GetItemInItemSlot extends IArgument {
             description = "Returns the item type of the item in the specified slot",
             parameterdescription = {"player", "slot"}, returntype = ParameterType.Number, rparams = {ParameterType.Player, ParameterType.Number})
     public GetItemInItemSlot() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
         this.name = "getiteminitemslot";
     }

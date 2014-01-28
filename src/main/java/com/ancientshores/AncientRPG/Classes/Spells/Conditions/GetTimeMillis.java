@@ -9,7 +9,7 @@ public class GetTimeMillis extends IArgument {
             description = "Returns the system time in milliseconds",
             parameterdescription = {}, returntype = ParameterType.Number, rparams = {})
     public GetTimeMillis() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{};
         this.name = "gettimemillis";
     }

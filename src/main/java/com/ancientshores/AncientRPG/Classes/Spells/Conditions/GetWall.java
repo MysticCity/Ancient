@@ -14,7 +14,7 @@ public class GetWall extends IArgument {
             parameterdescription = {"location", "x", "y", "z"}, returntype = ParameterType.Location, rparams = {ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number})
     public GetWall() {
         this.name = "getWall";
-        this.pt = ParameterType.Location;
+        this.returnType = ParameterType.Location;
         this.requiredTypes = new ParameterType[]{ParameterType.Location, ParameterType.Number, ParameterType.Number, ParameterType.Number};
     }
 

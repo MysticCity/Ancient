@@ -11,7 +11,7 @@ public class GetItemInHands extends IArgument {
             description = "Returns the amount of items of the specified id in the players inventory",
             parameterdescription = {"player"}, returntype = ParameterType.Player, rparams = {ParameterType.Player})
     public GetItemInHands() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getiteminhands";
     }

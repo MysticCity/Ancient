@@ -128,7 +128,6 @@ public class ManaSystem implements ConfigurationSerializable {
             try {
                 yc.load(newconfig);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             defaultMana = yc.getInt("Mana.default mana", defaultMana);
@@ -143,7 +142,6 @@ public class ManaSystem implements ConfigurationSerializable {
             try {
                 newconfig.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -154,7 +152,6 @@ public class ManaSystem implements ConfigurationSerializable {
         try {
             yc.save(newconfig);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

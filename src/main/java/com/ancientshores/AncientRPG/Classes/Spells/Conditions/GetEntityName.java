@@ -11,7 +11,7 @@ public class GetEntityName extends IArgument {
             description = "Returns the name of the entity",
             parameterdescription = {"entity"}, returntype = ParameterType.String, rparams = {ParameterType.Entity})
     public GetEntityName() {
-        this.pt = ParameterType.String;
+        this.returnType = ParameterType.String;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "getentityname";
     }

@@ -61,25 +61,20 @@ public class ParameterPanel extends IParameter {
             ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, pdgl);
             ds.addDragSourceMotionListener(pdgl);
             ds.addDragSourceListener(new DragSourceListener() {
-
                 @Override
                 public void dropActionChanged(DragSourceDragEvent dsde) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void dragOver(DragSourceDragEvent dsde) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void dragExit(DragSourceEvent dse) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void dragEnter(DragSourceDragEvent dsde) {
-                    // TODO Auto-generated method stub
                 }
 
                 @Override

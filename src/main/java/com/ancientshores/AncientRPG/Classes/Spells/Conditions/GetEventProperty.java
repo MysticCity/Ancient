@@ -14,7 +14,7 @@ public class GetEventProperty extends IArgument {
             description = "Returns the class object of the event with the specified name",
             parameterdescription = {"objectname"}, returntype = ParameterType.Void, rparams = {ParameterType.String})
     public GetEventProperty() {
-        this.pt = ParameterType.Void;
+        this.returnType = ParameterType.Void;
         this.requiredTypes = new ParameterType[]{ParameterType.String};
         this.name = "geteventproperty";
     }
@@ -32,10 +32,8 @@ public class GetEventProperty extends IArgument {
                             Object returnVal = field.get(o);
                             return returnVal;
                         } catch (IllegalArgumentException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         } catch (IllegalAccessException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }

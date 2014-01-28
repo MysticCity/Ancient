@@ -20,7 +20,6 @@ public class HelpFrame extends JFrame {
         try {
             pane.setPage(HelpFrame.class.getResource(filename));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         /*try

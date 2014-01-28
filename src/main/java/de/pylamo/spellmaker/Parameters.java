@@ -1,11 +1,5 @@
 package de.pylamo.spellmaker;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Frederik Haselmeier
- * Date: 21.02.13
- * Time: 01:28
- */
 public enum Parameters {
     AttackedEntity(0, "<html>returns the attacked entity, can only be used in attack/damagebyentity events</html>",
             "Entity"),

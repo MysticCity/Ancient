@@ -16,7 +16,7 @@ public class GetMaxHealth extends IArgument {
             description = "Returns the maximum health of the given entity",
             parameterdescription = {"entity"}, returntype = ParameterType.Number, rparams = {ParameterType.Entity})
     public GetMaxHealth() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Entity};
         this.name = "getmaxhealth";
     }

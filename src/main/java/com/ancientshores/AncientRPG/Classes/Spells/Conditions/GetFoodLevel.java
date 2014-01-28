@@ -10,7 +10,7 @@ public class GetFoodLevel extends IArgument {
             description = "Returns the food level of the player",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetFoodLevel() {
-        this.pt = ParameterType.Number;
+        this.returnType = ParameterType.Number;
         this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getfoodlevel";
     }

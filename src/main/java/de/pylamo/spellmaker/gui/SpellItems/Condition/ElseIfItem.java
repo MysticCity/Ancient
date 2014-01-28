@@ -34,10 +34,10 @@ public class ElseIfItem extends ComplexItem {
         this.b = !preview;
         this.setOpaque(false);
         if (preview) {
-            istp = new ConditionStartPanel("elseif", preview, w);
+            istp = new ConditionStartPanel("elseif", true, w);
             createDragSource();
         } else {
-            istp = new ConditionStartPanel("elseif", preview, w);
+            istp = new ConditionStartPanel("elseif", false, w);
             istp.addMouseListener(this);
             istp.addMouseMotionListener(this);
             isp.addMouseListener(this);
@@ -55,7 +55,6 @@ public class ElseIfItem extends ComplexItem {
 
     @Override
     public EndPanel getEndPanel() {
-        // TODO Auto-generated method stub
         return eip;
     }
 
@@ -80,25 +79,20 @@ public class ElseIfItem extends ComplexItem {
         ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, sis);
         ds.addDragSourceMotionListener(sis);
         ds.addDragSourceListener(new DragSourceListener() {
-
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -111,7 +105,7 @@ public class ElseIfItem extends ComplexItem {
     @Override
     public void revalidate() {
         int w = 0;
-        int h = 0;
+        int h;
         int height = 0;
         ISpellItem isi = firstBlockItem;
         while (isi != null) {
@@ -201,7 +195,6 @@ public class ElseIfItem extends ComplexItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String lol = "";
         if (istp.conditionslot.content != null) {
             lol = istp.conditionslot.content.getString();

@@ -34,10 +34,10 @@ public class RepeatItem extends ComplexItem {
         this.b = !preview;
         this.setOpaque(false);
         if (preview) {
-            istp = new RepeatStartPanel(preview, w);
+            istp = new RepeatStartPanel(true, w);
             createDragSource();
         } else {
-            istp = new RepeatStartPanel(preview, w);
+            istp = new RepeatStartPanel(false, w);
             istp.addMouseListener(this);
             istp.addMouseMotionListener(this);
             isp.addMouseListener(this);
@@ -58,7 +58,6 @@ public class RepeatItem extends ComplexItem {
 
     @Override
     public EndPanel getEndPanel() {
-        // TODO Auto-generated method stub
         return eip;
     }
 
@@ -86,22 +85,18 @@ public class RepeatItem extends ComplexItem {
 
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -114,7 +109,7 @@ public class RepeatItem extends ComplexItem {
     @Override
     public void revalidate() {
         int w = 0;
-        int h = 0;
+        int h;
         int height = 0;
         ISpellItem isi = firstBlockItem;
         while (isi != null) {
@@ -204,7 +199,6 @@ public class RepeatItem extends ComplexItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String amount = "";
         if (istp.amount.content != null) {
             amount = istp.amount.content.getString();

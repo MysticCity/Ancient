@@ -256,7 +256,6 @@ public class CreatureHp {
             try {
                 newconf.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

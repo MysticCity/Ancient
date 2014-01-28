@@ -38,10 +38,10 @@ public class ForeachItem extends ComplexItem {
         this.b = !preview;
         this.setOpaque(false);
         if (preview) {
-            istp = new ForeachStartItem(preview, w);
+            istp = new ForeachStartItem(true, w);
             createDragSource();
         } else {
-            istp = new ForeachStartItem(preview, w);
+            istp = new ForeachStartItem(false, w);
             istp.addMouseListener(this);
             istp.addMouseMotionListener(this);
             isp.addMouseListener(this);
@@ -81,22 +81,18 @@ public class ForeachItem extends ComplexItem {
 
             @Override
             public void dropActionChanged(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragOver(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragExit(DragSourceEvent dse) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void dragEnter(DragSourceDragEvent dsde) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -199,7 +195,6 @@ public class ForeachItem extends ComplexItem {
 
     @Override
     public String getItem() {
-        // TODO Auto-generated method stub
         String arrname = "";
         if (this.istp.lefthand.content != null) {
             arrname = this.istp.lefthand.content.getString().trim();
@@ -248,7 +243,6 @@ public class ForeachItem extends ComplexItem {
 
     @Override
     public EndPanel getEndPanel() {
-        // TODO Auto-generated method stub
         return eip;
     }
 }
