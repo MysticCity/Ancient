@@ -404,8 +404,7 @@ public class AncientRPGPlayerListener implements Listener {
             return;
         }
         ItemStack item = event.getItem();
-        PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getName());
-        if (item.getType() == Material.POTION) {
+        if (item != null && item.getType() == Material.POTION) {
             Potion p = Potion.fromItemStack(item);
             switch (p.getType()) {
                 case INSTANT_HEAL: {
