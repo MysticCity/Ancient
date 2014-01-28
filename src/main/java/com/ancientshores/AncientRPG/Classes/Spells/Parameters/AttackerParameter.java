@@ -64,12 +64,10 @@ public class AttackerParameter implements IParameter {
     }
 
     @Override
-    public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so) {
-        if (so.mEvent instanceof EntityDamageByEntityEvent) {
-            EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) so.mEvent;
-            Entity[] e = new Entity[1];
-            e[0] = event.getDamager();
-            return e;
+    public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject informationObject) {
+        if (informationObject.mEvent != null && informationObject.mEvent instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) informationObject.mEvent;
+            return new Entity[]{event.getDamager()};
         }
         return null;
     }
