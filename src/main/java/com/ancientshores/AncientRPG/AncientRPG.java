@@ -87,7 +87,7 @@ public class AncientRPG extends JavaPlugin {
 
     HashMap<SpellInformationObject, Player> executingSpells = new HashMap<SpellInformationObject, Player>();
 
-    public final Logger log = getLogger();
+    public Logger log;
     public static String partyCommand = "party";
     public static final String partyCommandNode = "AncientRPG.Commands.party";
     public static String guildCommand = "guild";
@@ -125,6 +125,7 @@ public class AncientRPG extends JavaPlugin {
         // ==================================================================
         // initialize/log section
         // =================================================================
+        log = getLogger();
         this.bukkitThread = Thread.currentThread();
         this.getDataFolder().mkdir();
         AncientRPG.manager = ApiManager.getApiManager();
