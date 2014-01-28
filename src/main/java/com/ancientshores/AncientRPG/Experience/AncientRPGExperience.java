@@ -127,6 +127,12 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
     }
 
     public static boolean isWorldEnabled(Player p) {
+        if (p == null) {
+            return false;
+        }
+        if (p.getWorld() == null) {
+            return false;
+        }
         if (worlds.length == 0 || (worlds.length >= 1 && (worlds[0] == null || worlds[0].equals("")))) {
             return true;
         }
