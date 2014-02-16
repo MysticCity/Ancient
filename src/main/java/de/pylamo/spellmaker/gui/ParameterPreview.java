@@ -31,8 +31,7 @@ public class ParameterPreview extends JPanel {
             int amount = param.getAmount();
             String description = param.getDescription();
             parameters.add(new param(param.name(), amount, Parameter.getParameterByName(returntype)));
-            ParameterPanel pp = new ParameterPanel(param.name(), Parameter.getParameterByName(returntype), amount,
-                    true);
+            ParameterPanel pp = new ParameterPanel(param.name(), Parameter.getParameterByName(returntype), amount, true);
             this.add(pp);
             w.spellItems.put(pp.name, pp);
         }

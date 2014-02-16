@@ -20,22 +20,18 @@ public class SpellmakerScrollPanel extends JPanel {
                 float ratio = SpellmakerScrollPanel.this.getHeight() / c.getHeight();
                 jsb.setMaximum(Math.round(ratio * 60));
                 jsb.invalidate();
-                System.out.println("lolol");
             }
 
             @Override
             public void componentMoved(ComponentEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
             }
 
             @Override
             public void componentShown(ComponentEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
             }
 
             @Override
             public void componentHidden(ComponentEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
             }
         });
     }

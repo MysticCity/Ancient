@@ -179,7 +179,7 @@ public class SpellParser {
                 revalidateAllNachfolger(((ComplexItem) si).firstBlockItem);
             }
             si.revalidate();
-            si = si.getNachfolger();
+            si = si.getNext();
         }
     }
 
@@ -417,7 +417,7 @@ public class SpellParser {
             }
         }
         if (startitem != null) {
-            startitem.setNachfolgerLocation();
+            startitem.setNextLocation();
         }
         w.mp.setScrollBars();
         w.setTitle("Spellmaker - " + w.m.spellname);
@@ -478,15 +478,15 @@ public class SpellParser {
         w.mp.registeredItems.add(si);
         si.setSize(si.getPreferredSize());
         if (lastItem == null) {
-            si.setVorgaenger(this.startitem);
-            si.setLocation(si.getVorgaenger().getX(), si.getVorgaenger().getY() + si.getVorgaenger().getHeight());
-            this.startitem.setNachfolger(si);
-            this.startitem.setNachfolgerLocation();
+            si.setPrevious(this.startitem);
+            si.setLocation(si.getPrevious().getX(), si.getPrevious().getY() + si.getPrevious().getHeight());
+            this.startitem.setNext(si);
+            this.startitem.setNextLocation();
             lastItem = si;
         } else {
-            si.setVorgaenger(this.lastItem);
-            si.setLocation(si.getVorgaenger().getX(), si.getVorgaenger().getY() + si.getVorgaenger().getHeight());
-            lastItem.setNachfolger(si);
+            si.setPrevious(this.lastItem);
+            si.setLocation(si.getPrevious().getX(), si.getPrevious().getY() + si.getPrevious().getHeight());
+            lastItem.setNext(si);
             lastItem = si;
         }
     }
@@ -502,9 +502,9 @@ public class SpellParser {
             si.setLocation(p);
             lastItem = si;
         } else {
-            si.setVorgaenger(this.lastItem);
-            si.setLocation(si.getVorgaenger().getX(), si.getVorgaenger().getY() + si.getVorgaenger().getHeight());
-            lastItem.setNachfolger(si);
+            si.setPrevious(this.lastItem);
+            si.setLocation(si.getPrevious().getX(), si.getPrevious().getY() + si.getPrevious().getHeight());
+            lastItem.setNext(si);
             lastItem = si;
         }
     }

@@ -12,9 +12,6 @@ public class ImageMover {
     public static void start(final BufferedImage imga, Point p) {
         if (w == null) {
             w = new Window(new Frame()) {
-                /**
-                 *
-                 */
                 private static final long serialVersionUID = 1L;
 
                 @Override

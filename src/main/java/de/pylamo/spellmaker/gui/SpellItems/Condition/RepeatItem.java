@@ -114,7 +114,7 @@ public class RepeatItem extends ComplexItem {
         ISpellItem isi = firstBlockItem;
         while (isi != null) {
             height += isi.getHeight();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
         if (height == 0) {
             height = 25;
@@ -139,13 +139,13 @@ public class RepeatItem extends ComplexItem {
                 isi.setLocation(this.getX() + 25, this.getY() + istp.getHeight());
             }
             vo = isi;
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
         this.setSize(w, h);
         this.setPreferredSize(new Dimension(w, h));
         super.revalidate();
-        if (this.vorgaenger != null) {
-            this.vorgaenger.revalidate();
+        if (this.previous != null) {
+            this.previous.revalidate();
         }
     }
 
@@ -161,7 +161,7 @@ public class RepeatItem extends ComplexItem {
                 isi.setLocation(this.getX() + 25, this.getY() + istp.getHeight());
             }
             vo = isi;
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
         // this.revalidate();
     }
@@ -175,7 +175,7 @@ public class RepeatItem extends ComplexItem {
             ISpellItem isi = this.firstBlockItem;
             while (isi != null) {
                 ((JLayeredPane) this.getParent()).moveToFront(isi);
-                isi = isi.getNachfolger();
+                isi = isi.getNext();
             }
         }
     }
@@ -192,7 +192,7 @@ public class RepeatItem extends ComplexItem {
                 isi.setLocation(this.getX() + 25, this.getY() + istp.getHeight());
             }
             vo = isi;
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
         // this.revalidate();
     }
@@ -208,7 +208,7 @@ public class RepeatItem extends ComplexItem {
         while (isi != null) {
             s += "\n";
             s += isi.getItem();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
         s += "\nendrepeat";
         return s;

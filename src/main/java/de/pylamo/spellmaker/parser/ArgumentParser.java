@@ -122,8 +122,7 @@ class ArgumentParser {
         }
         for (String s : w.vp.vars) {
             if (s.trim().equalsIgnoreCase(curline.trim())) {
-                VariablePanel vp = new VariablePanel(s, false, w);
-                return vp;
+                return new VariablePanel(s, false, w);
             }
         }
         StringParameterPanel spp = new StringParameterPanel(false);

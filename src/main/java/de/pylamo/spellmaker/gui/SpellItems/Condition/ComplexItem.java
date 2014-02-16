@@ -20,7 +20,7 @@ public abstract class ComplexItem extends ISpellItem {
             return;
         }
         if (si == null) {
-            this.nachfolger = null;
+            this.next = null;
             this.revalidate();
             return;
         }
@@ -29,7 +29,7 @@ public abstract class ComplexItem extends ISpellItem {
                 this.firstBlockItem = si;
             }
         } else {
-            super.setNachfolger(si);
+            super.setNext(si);
         }
         this.revalidate();
     }
@@ -39,35 +39,35 @@ public abstract class ComplexItem extends ISpellItem {
     @Override
     public void revalidate() {
         if (lastheight != this.getHeight()) {
-            this.setNachfolgerLocation();
+            this.setNextLocation();
             lastheight = this.getHeight();
         }
         if (this.getEndPanel() != null) {
             this.getEndPanel().setSize(this.getEndPanel().getPreferredSize());
         }
-        this.setNachfolgerLocation();
+        this.setNextLocation();
     }
 
     @Override
     public void recalculateSize() {
         this.revalidate();
         int y = this.getHeight() + this.getY();
-        ISpellItem isi = this.nachfolger;
+        ISpellItem isi = this.next;
         while (isi != null) {
             isi.setLocation(this.getX(), y);
             y += isi.getHeight();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
     }
 
     @Override
-    public void setNachfolgerLocation() {
+    public void setNextLocation() {
         int y = this.getY() + this.getHeight();
-        ISpellItem isi = this.getNachfolger();
+        ISpellItem isi = this.getNext();
         while (isi != null) {
             isi.setLocation(this.getX(), y);
             y += isi.getHeight();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
     }
 }

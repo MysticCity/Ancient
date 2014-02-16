@@ -11,8 +11,8 @@ import java.awt.event.*;
 public abstract class ISpellItem extends JPanel implements MouseListener, MouseMotionListener {
     protected boolean b;
     private static final long serialVersionUID = 1L;
-    protected ISpellItem vorgaenger;
-    protected ISpellItem nachfolger;
+    protected ISpellItem previous;
+    protected ISpellItem next;
     private final JPopupMenu menu = new JPopupMenu();
     protected final Window w;
 
@@ -51,20 +51,20 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
             JComponent c = (JComponent) this.getParent();
             c.remove(this);
             w.mp.registeredItems.remove(this);
-            if (this.vorgaenger instanceof ComplexItem && ((ComplexItem) this.vorgaenger).firstBlockItem == this) {
-                if (((ComplexItem) this.vorgaenger).firstBlockItem == this) {
-                    ((ComplexItem) this.vorgaenger).firstBlockItem = null;
-                    this.vorgaenger.revalidate();
+            if (this.previous instanceof ComplexItem && ((ComplexItem) this.previous).firstBlockItem == this) {
+                if (((ComplexItem) this.previous).firstBlockItem == this) {
+                    ((ComplexItem) this.previous).firstBlockItem = null;
+                    this.previous.revalidate();
                 }
-            } else if (this.getVorgaenger() != null) {
-                this.getVorgaenger().setNachfolger(this.getNachfolger());
-                this.getVorgaenger().revalidate();
+            } else if (this.getPrevious() != null) {
+                this.getPrevious().setNext(this.getNext());
+                this.getPrevious().revalidate();
             }
-            if (this.getNachfolger() != null) {
-                this.getNachfolger().revalidate();
-                this.getNachfolger().setVorgaenger(this.getVorgaenger());
-                if (this.getVorgaenger() != null) {
-                    this.getVorgaenger().setNachfolgerLocation();
+            if (this.getNext() != null) {
+                this.getNext().revalidate();
+                this.getNext().setPrevious(this.getPrevious());
+                if (this.getPrevious() != null) {
+                    this.getPrevious().setNextLocation();
                 }
             }
             c.repaint();
@@ -73,50 +73,50 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
 
     public abstract String getItem();
 
-    public ISpellItem getNachfolger() {
-        return nachfolger;
+    public ISpellItem getNext() {
+        return next;
     }
 
     public void recalculateSize() {
         this.revalidate();
         int y = this.getHeight() + this.getY();
-        ISpellItem isi = this.nachfolger;
+        ISpellItem isi = this.next;
         while (isi != null) {
             isi.setLocation(this.getX(), y);
             y += isi.getHeight();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
     }
 
-    public ISpellItem getVorgaenger() {
-        return vorgaenger;
+    public ISpellItem getPrevious() {
+        return previous;
     }
 
     Point menuloc = null;
 
-    public void setNachfolger(ISpellItem is) {
+    public void setNext(ISpellItem is) {
         if (is == this) {
             return;
         }
-        this.nachfolger = is;
-        ISpellItem isi = this.vorgaenger;
+        this.next = is;
+        ISpellItem isi = this.previous;
         while (isi != null) {
             isi.revalidate();
-            isi = isi.getVorgaenger();
+            isi = isi.getPrevious();
         }
     }
 
-    public void setVorgaenger(ISpellItem is) {
+    public void setPrevious(ISpellItem is) {
         if (is == this) {
             return;
         }
-        this.vorgaenger = is;
+        this.previous = is;
     }
 
     ISpellItem getRootItem() {
         ISpellItem is = this;
-        while (is.getVorgaenger() != null) {
-            is = is.getVorgaenger();
+        while (is.getPrevious() != null) {
+            is = is.getPrevious();
         }
         return is;
     }
@@ -146,10 +146,10 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
         if (b) {
             p = e.getPoint();
             ((JLayeredPane) this.getParent()).moveToFront(this);
-            ISpellItem isi = this.nachfolger;
+            ISpellItem isi = this.next;
             while (isi != null) {
                 ((JLayeredPane) this.getParent()).moveToFront(isi);
-                isi = isi.getNachfolger();
+                isi = isi.getNext();
             }
         }
     }
@@ -161,62 +161,57 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
             ((MainPanel) this.getParent()).setScrollBars();
             ISpellItem is = w.mp.getSpellItemBeneath(this, new Point(this.getX() + e.getX(), this.getY() + e.getY()));
             if (is != null) {
-                ISpellItem n = is.getNachfolger();
+                ISpellItem n = is.getNext();
                 if (is instanceof ComplexItem) {
                     ((ComplexItem) is).setNachfolger(this, new Point(e.getX() + this.getX(), e.getY() + this.getY()));
-                    this.vorgaenger = is;
+                    this.previous = is;
                 } else {
-                    is.setNachfolger(this);
-                    this.vorgaenger = is;
-                    this.setLocation(this.vorgaenger.getX(), this.vorgaenger.getY() + this.vorgaenger.getHeight());
+                    is.setNext(this);
+                    this.previous = is;
+                    this.setLocation(this.previous.getX(), this.previous.getY() + this.previous.getHeight());
                 }
                 if (n != null && !(is instanceof ComplexItem && this == ((ComplexItem) is).firstBlockItem)) {
-                    ISpellItem isi = this.nachfolger;
-                    while (isi != null && isi.getNachfolger() != null) {
-                        isi = isi.getNachfolger();
+                    ISpellItem isi = this.next;
+                    while (isi != null && isi.getNext() != null) {
+                        isi = isi.getNext();
                     }
                     if (isi != null) {
-                        isi.setNachfolger(n);
-                        n.setVorgaenger(isi);
+                        isi.setNext(n);
+                        n.setPrevious(isi);
                     } else {
-                        this.nachfolger = n;
-                        n.setVorgaenger(this);
+                        this.next = n;
+                        n.setPrevious(this);
                     }
                 }
-                ISpellItem isi = this.vorgaenger;
+                ISpellItem isi = this.previous;
                 while (isi != null) {
                     isi.revalidate();
-                    isi = isi.getVorgaenger();
+                    isi = isi.getPrevious();
                 }
-                isi = this.nachfolger;
+                isi = this.next;
                 this.revalidate();
                 isi = this.getRootItem();
-                isi.setNachfolgerLocation();
+                isi.setNextLocation();
             }
         }
     }
 
-    public void setNachfolgerLocation() {
+    public void setNextLocation() {
         int y = this.getY() + this.getHeight();
-        ISpellItem isi = this.getNachfolger();
+        ISpellItem isi = this.getNext();
         while (isi != null) {
             isi.setLocation(this.getX(), y);
             y += isi.getHeight();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
     }
 
     @Override
     public void revalidate() {
         super.revalidate();
-        if (vorgaenger != null) {
-            vorgaenger.revalidate();
+        if (previous != null) {
+            previous.revalidate();
         }
-        /*
-         * int w = 0; int h = 0; for (Component c : this.getComponents()) { h +=
-		 * c.getPreferredSize().height; if (w < c.getPreferredSize().width) { w
-		 * = c.getPreferredSize().width; } } this.setSize(w, h + 2);
-		 */
         if (b) {
             this.setSize(this.getPreferredSize());
         }
@@ -243,22 +238,22 @@ public abstract class ISpellItem extends JPanel implements MouseListener, MouseM
             this.setLocation(x, y);
             this.getParent().invalidate();
             y = this.getHeight() + this.getY();
-            ISpellItem isi = this.nachfolger;
+            ISpellItem isi = this.next;
             while (isi != null) {
                 isi.setLocation(this.getX(), y);
                 y += isi.getHeight();
-                isi = isi.getNachfolger();
+                isi = isi.getNext();
             }
-            if (this.vorgaenger != null) {
+            if (this.previous != null) {
                 this.revalidate();
-                if (this.vorgaenger instanceof ComplexItem && ((ComplexItem) this.vorgaenger).firstBlockItem == this) {
-                    ((ComplexItem) this.vorgaenger).firstBlockItem = null;
-                    this.vorgaenger.revalidate();
-                    this.vorgaenger = null;
+                if (this.previous instanceof ComplexItem && ((ComplexItem) this.previous).firstBlockItem == this) {
+                    ((ComplexItem) this.previous).firstBlockItem = null;
+                    this.previous.revalidate();
+                    this.previous = null;
                     return;
                 }
-                this.vorgaenger.setNachfolger(null);
-                this.vorgaenger = null;
+                this.previous.setNext(null);
+                this.previous = null;
             }
         }
     }

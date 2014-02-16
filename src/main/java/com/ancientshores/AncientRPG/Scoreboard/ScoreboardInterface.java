@@ -1,7 +1,8 @@
 package com.ancientshores.AncientRPG.Scoreboard;
 
 public class ScoreboardInterface {
-    /*public static boolean scoreboardenabled = false;
+    /*
+    public static boolean scoreboardenabled = false;
     public static void showScoreboard(Player p)
 	{
 		ScoreboardAPI api = ScoreboardAPI.getInstance();
@@ -41,5 +42,6 @@ public class ScoreboardInterface {
 			}
 		}
 		return null;
-	}*/
+	}
+	*/
 }

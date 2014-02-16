@@ -19,7 +19,7 @@ public class ElseStatement extends ComplexStatement {
         ElseItem ifi = new ElseItem(false, w);
         ifi.firstBlockItem = this.middlestartitem;
         if (this.middlestartitem != null) {
-            this.middlelastitem.setVorgaenger(ifi);
+            this.middlelastitem.setPrevious(ifi);
         }
         ifi.recalculateSize();
         return ifi;

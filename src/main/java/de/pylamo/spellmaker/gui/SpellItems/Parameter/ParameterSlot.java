@@ -43,8 +43,8 @@ public class ParameterSlot extends JPanel implements Cloneable {
     @Override
     public void revalidate() {
         super.revalidate();
-        if (this.getParent() != null) {
-            this.getParent().revalidate();
+        if (this.getParent() != null && this.getParent() instanceof JComponent) {
+            ((JComponent) this.getParent()).revalidate();
         }
     }
 
@@ -57,10 +57,14 @@ public class ParameterSlot extends JPanel implements Cloneable {
     public Component add(Component c) {
         if (this.getParent() instanceof SpellItem) {
             ((ISpellItem) this.getParent()).recalculateSize();
-            this.getParent().revalidate();
+            if (getParent() != null && getParent() instanceof JComponent) {
+                ((JComponent) getParent()).revalidate();
+            }
         } else if (this.getParent().getParent() instanceof VariableOperationItem) {
             ((ISpellItem) this.getParent().getParent()).recalculateSize();
-            this.getParent().getParent().revalidate();
+            if (getParent().getParent() != null && getParent().getParent() instanceof JComponent) {
+                ((JComponent) getParent().getParent()).revalidate();
+            }
             this.getParent().getParent().doLayout();
         }
         return super.add(c);
@@ -71,16 +75,24 @@ public class ParameterSlot extends JPanel implements Cloneable {
         super.add(c, i);
         if (this.getParent() instanceof SpellItem) {
             ((ISpellItem) this.getParent()).recalculateSize();
-            this.getParent().revalidate();
+            if (getParent() != null && getParent() instanceof JComponent) {
+                ((JComponent) getParent()).revalidate();
+            }
         }
         if (this.getParent() instanceof ConditionStartPanel) {
-            this.getParent().revalidate();
+            if (getParent() != null && getParent() instanceof JComponent) {
+                ((JComponent) getParent()).revalidate();
+            }
         } else if (this.getParent() != null && this.getParent().getParent() instanceof VariableOperationItem) {
             ((ISpellItem) this.getParent().getParent()).recalculateSize();
             this.getParent().getParent().doLayout();
-            this.getParent().revalidate();
+            if (getParent() != null && getParent() instanceof JComponent) {
+                ((JComponent) getParent()).revalidate();
+            }
             this.getParent().doLayout();
-            this.getParent().getParent().revalidate();
+            if (getParent().getParent() != null && getParent().getParent() instanceof JComponent) {
+                ((JComponent) getParent().getParent()).revalidate();
+            }
         }
     }
 
@@ -116,7 +128,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[VARIABLEOPERATOR]")) {
@@ -134,7 +148,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[CONDITION]")) {
@@ -151,7 +167,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[ANDITEM]")) {
@@ -168,7 +186,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[ORITEM]")) {
@@ -185,7 +205,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[VARIABLE]")) {
@@ -203,7 +225,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[ARGUMENT]")) {
@@ -223,7 +247,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                     add(content, BorderLayout.CENTER);
                     event.dropComplete(true);
                     content.revalidate();
-                    getParent().revalidate();
+                    if (getParent() != null && getParent() instanceof JComponent) {
+                        ((JComponent) getParent()).revalidate();
+                    }
                     return;
                 }
                 if (s.startsWith("[PARAMETER]")) {
@@ -248,7 +274,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                             this.panel.remove(l);
                             content.doLayout();
                             content.revalidate();
-                            getParent().revalidate();
+                            if (getParent() != null && getParent() instanceof JComponent) {
+                                ((JComponent) getParent()).revalidate();
+                            }
                             event.dropComplete(true);
                             return;
                         }
@@ -269,7 +297,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                             this.panel.remove(l);
                             content.doLayout();
                             content.revalidate();
-                            getParent().revalidate();
+                            if (getParent() != null && getParent() instanceof JComponent) {
+                                ((JComponent) getParent()).revalidate();
+                            }
                             event.dropComplete(true);
                             return;
                         }
@@ -288,7 +318,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                             ((ISpellItem) this.panel.getParent()).recalculateSize();
                             event.dropComplete(true);
                             content.revalidate();
-                            getParent().revalidate();
+                            if (getParent() != null && getParent() instanceof JComponent) {
+                                ((JComponent) getParent()).revalidate();
+                            }
                             return;
                         }
                         if (content != null) {
@@ -311,7 +343,9 @@ public class ParameterSlot extends JPanel implements Cloneable {
                             }
                             p.revalidate();
                             content.revalidate();
-                            getParent().revalidate();
+                            if (getParent() != null && getParent() instanceof JComponent) {
+                                ((JComponent) getParent()).revalidate();
+                            }
                             event.dropComplete(true);
                             return;
                         } else {

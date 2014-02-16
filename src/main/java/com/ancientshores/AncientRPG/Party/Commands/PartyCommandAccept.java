@@ -12,28 +12,21 @@ public class PartyCommandAccept {
         if (AncientRPGParty.invites.containsKey(mPlayer)) {
             if (AncientRPGParty.invites.get(mPlayer).getMemberNumber() < AncientRPGParty.maxPlayers) {
                 AncientRPGParty inviteParty = AncientRPGParty.invites.get(mPlayer);
-                if (inviteParty != null
-                        && inviteParty.getMemberNumber() > 0) {
-                    inviteParty.sendMessage(AncientRPG.brand2 + ChatColor.GOLD
-                            + mPlayer.getName() + ChatColor.BLUE
-                            + " joined your party.");
+                if (inviteParty != null && inviteParty.getMemberNumber() > 0) {
+                    inviteParty.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " joined your party.");
                     AncientRPGParty.invites.get(mPlayer).addPlayer(mPlayer);
-                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                            + "You joined a party.");
+                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You joined a party.");
                 } else {
                     AncientRPGParty.invites.remove(mPlayer);
-                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                            + "The party you tried to join doesn't exist anymore.");
+                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "The party you tried to join doesn't exist anymore.");
                 }
             } else {
                 AncientRPGParty.invites.remove(mPlayer);
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                        + "This party is already full.");
+                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "This party is already full.");
             }
             AncientRPGParty.invites.remove(mPlayer);
         } else {
-            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                    + "You weren't invited in a party.");
+            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You weren't invited in a party.");
         }
     }
 }

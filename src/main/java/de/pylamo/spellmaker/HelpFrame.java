@@ -22,21 +22,5 @@ public class HelpFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*try
-        {
-			BufferedReader br = new BufferedReader(new InputStreamReader(HelpFrame.class.getResourceAsStream(filename)));
-			String s = "";
-			String line = br.readLine();
-			while(line != null)
-			{
-				s+= line;
-				line = br.readLine();
-			}
-			pane.setText(s);
-		}
-		catch(Exception e)
-		{
-			
-		}*/
     }
 }

@@ -26,15 +26,11 @@ public class WhileStatement extends ComplexStatement {
         WhileItem ifi = new WhileItem(false, w);
         ifi.firstBlockItem = this.middlestartitem;
         if (this.middlestartitem != null) {
-            this.middlelastitem.setVorgaenger(ifi);
+            this.middlelastitem.setPrevious(ifi);
         }
         if (panel != null) {
             ifi.istp.conditionslot.add(panel);
-        }/*
-         * if(Lefthand != null) ifi.istp.lefthand.add(Lefthand); if(middle !=
-		 * null) ifi.istp.operator.add(middle); if(Righthand != null)
-		 * ifi.istp.righthand.add(Righthand);
-		 */
+        }
         ifi.recalculateSize();
         return ifi;
     }

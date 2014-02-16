@@ -409,7 +409,7 @@ public class AncientRPGSpellListener implements Listener {
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
         Entity Damager = event.getDamager();
         if (event.getDamager() instanceof Projectile) {
-            Damager = ((Projectile) event.getDamager()).getShooter();
+            Damager = (Entity) ((Projectile) event.getDamager()).getShooter();
         }
         if (Damager instanceof Player) {
             Player mPlayer = (Player) Damager;
@@ -507,7 +507,7 @@ public class AncientRPGSpellListener implements Listener {
     public void onPlayerDamageByEntity(final EntityDamageByEntityEvent event) {
         Entity Damager = event.getEntity();
         if (event.getDamager() instanceof Arrow) {
-            Damager = ((Arrow) event.getDamager()).getShooter();
+            Damager = (Entity) ((Arrow) event.getDamager()).getShooter();
         }
         if (Damager instanceof Creature || Damager instanceof Player) {
             Player mPlayer = (Player) event.getEntity();

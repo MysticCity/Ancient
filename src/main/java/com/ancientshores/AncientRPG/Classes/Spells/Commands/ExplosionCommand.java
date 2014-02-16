@@ -65,7 +65,6 @@ public class ExplosionCommand extends ICommand {
                 ca.getCaster().sendMessage("No target in range");
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

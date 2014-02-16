@@ -21,14 +21,12 @@ public class PlayEntityEffect extends ICommand {
             if (effect == null) {
                 return false;
             }
-            if (e != null && e.length > 0 && e[0] != null) {
+            if (e != null && e.length > 0) {
                 for (Entity ent : e) {
                     if (ent == null) {
                         continue;
                     }
-                    for (int i = 0; i < 20; i++) {
-                        ent.playEffect(effect);
-                    }
+                    ent.playEffect(effect);
                 }
                 return true;
             }

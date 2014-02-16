@@ -52,11 +52,10 @@ public class ExampleSpellLoader {
 
                                 @Override
                                 public void actionPerformed(ActionEvent arg0) {
-                                    String spellfile = lol;
                                     Menu m = new Menu();
                                     Window w = new Window(m);
                                     SpellParser sp = new SpellParser(w.mp.startItem, w);
-                                    sp.parse(spellfile);
+                                    sp.parse(lol);
                                 }
                             });
                             submenu.add(jmi);

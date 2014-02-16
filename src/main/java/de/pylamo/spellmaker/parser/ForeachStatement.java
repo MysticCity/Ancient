@@ -41,7 +41,7 @@ public class ForeachStatement extends ComplexStatement {
         ForeachItem fei = new ForeachItem(false, w);
         fei.firstBlockItem = this.middlestartitem;
         if (this.middlestartitem != null) {
-            this.middlelastitem.setVorgaenger(fei);
+            this.middlelastitem.setPrevious(fei);
         }
         if (arr != null) {
             fei.istp.lefthand.add(arr);

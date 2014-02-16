@@ -25,7 +25,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.Potion;
 
 import java.util.*;
@@ -121,10 +120,12 @@ public class AncientRPGPlayerListener implements Listener {
         PlayerData.getPlayerData(event.getPlayer().getName()).getHpsystem().player = event.getPlayer();
         PlayerData.getPlayerData(event.getPlayer().getName()).getXpSystem().addXP(0, false);
         PlayerData.getPlayerData(event.getPlayer().getName()).getHpsystem().setMaxHp();
+        /*
         Plugin p = Bukkit.getServer().getPluginManager().getPlugin("ScoreboardAPI");
         if (p != null) {
-            //ScoreboardInterface.showScoreboard(event.getPlayer());
+            ScoreboardInterface.showScoreboard(event.getPlayer());
         }
+        */
     }
 
     @EventHandler

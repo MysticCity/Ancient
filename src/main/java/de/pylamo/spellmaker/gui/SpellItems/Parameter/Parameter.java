@@ -4,8 +4,20 @@ import java.awt.*;
 import java.util.HashSet;
 
 public enum Parameter {
-    All(Color.white), Player(Color.red), Condition(new Color(108, 45, 199)), CompareItem(new Color(255, 106, 0)), String(Color.PINK), Entity(Color.CYAN), Location(Color.YELLOW), Number(Color.GREEN), Material(
-            new Color(189, 22, 255)), Boolean(Color.ORANGE), Void(Color.WHITE), Variable(Color.LIGHT_GRAY), Operator(Color.MAGENTA), CompareOperator(new Color(255, 168, 236));
+    All(Color.white),
+    Player(Color.red),
+    Condition(new Color(108, 45, 199)),
+    CompareItem(new Color(255, 106, 0)),
+    String(Color.PINK),
+    Entity(Color.CYAN),
+    Location(Color.YELLOW),
+    Number(Color.GREEN),
+    Material(new Color(189, 22, 255)),
+    Boolean(Color.ORANGE),
+    Void(Color.WHITE),
+    Variable(Color.LIGHT_GRAY),
+    Operator(Color.MAGENTA),
+    CompareOperator(new Color(255, 168, 236));
 
     private final Color c;
 

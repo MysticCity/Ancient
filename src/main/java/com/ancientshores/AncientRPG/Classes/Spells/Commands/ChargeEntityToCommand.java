@@ -76,7 +76,6 @@ public class ChargeEntityToCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            return false;
         }
         return false;
     }

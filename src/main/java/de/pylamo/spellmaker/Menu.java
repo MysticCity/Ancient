@@ -32,7 +32,7 @@ public class Menu extends JFrame {
     private String chatcommand = "";
     public final HashSet<String> variables = new HashSet<String>();
     private final JButton OkayButton = new JButton("Okay");
-    private final JList<String> events = new JList<String>(new String[]{"damageevent", "damagebyentityevent", "attackevent", "changeblockevent", "joinevent", "interactevent", "regenevent", "moveevent",
+    private final JList events = new JList(new String[]{"damageevent", "damagebyentityevent", "attackevent", "changeblockevent", "joinevent", "interactevent", "regenevent", "moveevent",
             "levelupevent", "playerdeathevent", "killentityevent", "projectilehitevent", "classchangeevent", "playerbedenterevent", "playerbedleaveevent", "playerchatevent", "playerdropitemevent",
             "playereggthrowevent", "playerkickevent", "playerpickupitemevent", "playerportalevent", "playerteleportevent", "playertogglesneakevent"});
     private final JPanel chatpanel = new JPanel();
@@ -179,7 +179,7 @@ public class Menu extends JFrame {
                     return;
                 }
                 if (!active || buff) {
-                    event = Menu.this.events.getSelectedValue();
+                    event = Menu.this.events.getSelectedValue().toString();
                 }
                 spellname = nameBox.getText();
                 OkayButton.setEnabled(false);
@@ -266,8 +266,6 @@ public class Menu extends JFrame {
         createMenu();
         this.pack();
     }
-
-    private String updateLocation;
 
     void createMenu() {
         JMenuBar menubar = new JMenuBar();
@@ -376,7 +374,7 @@ public class Menu extends JFrame {
             passiver.setSelected(true);
         }
         for (int i = 0; i < events.getModel().getSize(); i++) {
-            if (events.getModel().getElementAt(i).equalsIgnoreCase(event)) {
+            if (events.getModel().getElementAt(i).toString().equalsIgnoreCase(event)) {
                 events.setSelectedIndex(i);
                 break;
             }

@@ -75,7 +75,7 @@ public class MainPanel extends JLayeredPane {
         String output = "";
         while (is != null) {
             output += is.getItem() + '\n';
-            is = is.getNachfolger();
+            is = is.getNext();
         }
         output = output.trim();
         try {
@@ -168,30 +168,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -204,30 +204,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -240,30 +240,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -276,30 +276,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -312,30 +312,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -348,30 +348,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -384,30 +384,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(ifi);
                     ISpellItem is = getSpellItemBeneath(ifi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = ifi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = ifi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                ifi.setNachfolger(n);
-                                n.setVorgaenger(ifi);
+                                ifi.setNext(n);
+                                n.setPrevious(ifi);
                             }
                         }
-                        is.setNachfolger(ifi);
-                        ifi.setVorgaenger(is);
-                        ifi.setLocation(ifi.getVorgaenger().getX(),
-                                ifi.getVorgaenger().getY() + ifi.getVorgaenger().getHeight());
+                        is.setNext(ifi);
+                        ifi.setPrevious(is);
+                        ifi.setLocation(ifi.getPrevious().getX(),
+                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
-                        ISpellItem isi = ifi.getNachfolger();
+                        ISpellItem isi = ifi.getNext();
                         while (isi != null) {
                             isi.setLocation(ifi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(ifi);
@@ -421,30 +421,30 @@ public class MainPanel extends JLayeredPane {
                     voi.setSize(voi.getPreferredSize());
                     ISpellItem is = getSpellItemBeneath(voi, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = voi.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = voi.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                voi.setNachfolger(n);
-                                n.setVorgaenger(voi);
+                                voi.setNext(n);
+                                n.setPrevious(voi);
                             }
                         }
-                        is.setNachfolger(voi);
-                        voi.setVorgaenger(is);
-                        voi.setLocation(voi.getVorgaenger().getX(),
-                                voi.getVorgaenger().getY() + voi.getVorgaenger().getHeight());
+                        is.setNext(voi);
+                        voi.setPrevious(is);
+                        voi.setLocation(voi.getPrevious().getX(),
+                                voi.getPrevious().getY() + voi.getPrevious().getHeight());
                         int y = voi.getHeight() + voi.getY();
-                        ISpellItem isi = voi.getNachfolger();
+                        ISpellItem isi = voi.getNext();
                         while (isi != null) {
                             isi.setLocation(voi.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     this.panel.add(voi);
@@ -466,30 +466,30 @@ public class MainPanel extends JLayeredPane {
                     MainPanel.this.registeredItems.add(p);
                     ISpellItem is = getSpellItemBeneath(p, event.getLocation());
                     if (is != null) {
-                        ISpellItem n = is.getNachfolger();
+                        ISpellItem n = is.getNext();
                         if (n != null) {
-                            ISpellItem isi = p.getNachfolger();
-                            while (isi != null && isi.getNachfolger() != null) {
-                                isi = isi.getNachfolger();
+                            ISpellItem isi = p.getNext();
+                            while (isi != null && isi.getNext() != null) {
+                                isi = isi.getNext();
                             }
                             if (isi != null) {
-                                isi.setNachfolger(n);
-                                n.setVorgaenger(isi);
+                                isi.setNext(n);
+                                n.setPrevious(isi);
                             } else {
-                                p.setNachfolger(n);
-                                n.setVorgaenger(p);
+                                p.setNext(n);
+                                n.setPrevious(p);
                             }
                         }
-                        is.setNachfolger(p);
-                        p.setVorgaenger(is);
-                        p.setLocation(p.getVorgaenger().getX(),
-                                p.getVorgaenger().getY() + p.getVorgaenger().getHeight());
+                        is.setNext(p);
+                        p.setPrevious(is);
+                        p.setLocation(p.getPrevious().getX(),
+                                p.getPrevious().getY() + p.getPrevious().getHeight());
                         int y = p.getHeight() + p.getY();
-                        ISpellItem isi = p.getNachfolger();
+                        ISpellItem isi = p.getNext();
                         while (isi != null) {
                             isi.setLocation(p.getX(), y);
                             y += isi.getHeight();
-                            isi = isi.getNachfolger();
+                            isi = isi.getNext();
                         }
                     }
                     event.dropComplete(true);

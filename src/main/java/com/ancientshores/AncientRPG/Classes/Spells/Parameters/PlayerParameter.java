@@ -16,23 +16,22 @@ import java.util.logging.Level;
 public class PlayerParameter implements IParameter {
 
     @Override
-    public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
-        Player nPlayer = mPlayer;
-        switch (pt) {
+    public void parseParameter(EffectArgs ea, Player player, String[] subparam, ParameterType returnType) {
+        switch (returnType) {
             case Player:
-                Player[] p = {nPlayer};
+                Player[] p = {player};
                 ea.getParams().addLast(p);
                 break;
             case Entity:
-                Entity[] e = {nPlayer};
+                Entity[] e = {player};
                 ea.getParams().addLast(e);
                 break;
             case Location:
-                Location[] l = {nPlayer.getLocation()};
+                Location[] l = {player.getLocation()};
                 ea.getParams().addLast(l);
                 break;
             case String:
-                ea.getParams().addLast(nPlayer.getName());
+                ea.getParams().addLast(player.getName());
                 break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);

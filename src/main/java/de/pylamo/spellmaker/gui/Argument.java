@@ -17,15 +17,15 @@ public class Argument {
 
     public static String getLine(String name, Parameter[] parameters, String[] paramdesc, String desc, Parameter param) {
         String line = name + " | " + param.name() + " | ";
-        for (int i = 0; i < parameters.length; i++) {
-            line += parameters[i].name() + ", ";
+        for (Parameter parameter : parameters) {
+            line += parameter.name() + ", ";
         }
         if (line.endsWith(", ")) {
             line = line.substring(0, line.length() - 2);
         }
         line += " | ";
-        for (int i = 0; i < paramdesc.length; i++) {
-            line += paramdesc[i] + ", ";
+        for (String aParamdesc : paramdesc) {
+            line += aParamdesc + ", ";
         }
         if (line.endsWith(", ")) {
             line = line.substring(0, line.length() - 2);

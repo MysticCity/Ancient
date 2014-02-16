@@ -74,7 +74,7 @@ public class Command extends ICodeSection {
         registeredCommands.put("wait", new WaitCommand());
         registeredCommands.put("stun", new StunCommand());
         registeredCommands.put("charge", new ChargeCommand());
-        registeredCommands.put("setmaxhp", new SetMaxHpCommand());
+        registeredCommands.put("setmaxhp", new SetMaxHitpointsCommand());
         registeredCommands.put("checkcooldown", new CheckCooldownCommand());
         registeredCommands.put("changeaggro", new ChangeAggroCommand());
         registeredCommands.put("lightningeffect", new LightningEffectCommand());

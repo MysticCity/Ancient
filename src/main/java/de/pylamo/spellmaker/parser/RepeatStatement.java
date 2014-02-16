@@ -28,7 +28,7 @@ public class RepeatStatement extends ComplexStatement {
         RepeatItem ri = new RepeatItem(false, w);
         ri.firstBlockItem = this.middlestartitem;
         if (this.middlestartitem != null) {
-            this.middlelastitem.setVorgaenger(ri);
+            this.middlelastitem.setPrevious(ri);
         }
         if (p != null) {
             ri.istp.amount.content = p;

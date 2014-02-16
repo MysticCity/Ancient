@@ -1,7 +1,11 @@
 package de.pylamo.spellmaker.gui.SpellItems.Variable;
 
 public enum VariableOperator {
-    Assign("=", "Assigns a value to a variable"), PlusAssign("+=", "Adds the value to the variable"), MinusAssign("-=", "Substracts the value from the variable"), MultiplyAssign("*=", "Multiplies the variable with the value"), DividedAssign("/=", "Divides the variable by the value");
+    Assign("=", "Assigns a value to a variable"),
+    PlusAssign("+=", "Adds the value to the variable"),
+    MinusAssign("-=", "Substracts the value from the variable"),
+    MultiplyAssign("*=", "Multiplies the variable with the value"),
+    DividedAssign("/=", "Divides the variable by the value");
 
     private final String token;
     private final String tooltip;

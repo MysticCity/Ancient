@@ -10,7 +10,6 @@ package de.pylamo.spellmaker;
  * visit http://www.davidflanagan.com/javaexamples2.
  */
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -176,23 +175,5 @@ class ColumnLayout implements LayoutManager2 {
 
     public float getLayoutAlignmentY(Container parent) {
         return 0.5f;
-    }
-}
-
-class ColumnLayoutPane extends JPanel {
-    private static final long serialVersionUID = 1L;
-
-    private ColumnLayoutPane() {
-        // Get rid of the default layout manager.
-        // We'll arrange the components ourselves.
-        this.setLayout(new ColumnLayout(10, ColumnLayout.RIGHT));
-
-        // Create some buttons and set their sizes and positions explicitly
-        for (int i = 0; i < 6; i++) {
-            int pointsize = 8 + i * 2;
-            JButton b = new JButton("Point size " + pointsize);
-            b.setFont(new Font("helvetica", Font.BOLD, pointsize));
-            this.add(b);
-        }
     }
 }

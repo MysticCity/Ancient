@@ -19,7 +19,7 @@ public class TryStatement extends ComplexStatement {
         TryItem ti = new TryItem(false, w);
         ti.firstBlockItem = this.middlestartitem;
         if (this.middlestartitem != null) {
-            this.middlelastitem.setVorgaenger(ti);
+            this.middlelastitem.setPrevious(ti);
         }
         ti.recalculateSize();
         return ti;

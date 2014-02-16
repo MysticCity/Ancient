@@ -23,7 +23,7 @@ public class AttackerParameter implements IParameter {
             EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) ea.getSpellInfo().mEvent;
             Entity ent = event.getDamager();
             if (ent instanceof Projectile) {
-                ent = ((Projectile) ent).getShooter();
+                ent = (Entity) ((Projectile) ent).getShooter();
             }
             switch (pt) {
                 case Player:

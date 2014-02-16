@@ -22,8 +22,8 @@ public class SimpleStartPanel extends JPanel {
     @Override
     public void revalidate() {
         super.revalidate();
-        if (this.getParent() != null) {
-            this.getParent().revalidate();
+        if (this.getParent() != null && this.getParent() instanceof JComponent) {
+            ((JComponent) this.getParent()).revalidate();
         }
     }
 }

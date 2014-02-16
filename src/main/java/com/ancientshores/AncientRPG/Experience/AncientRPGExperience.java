@@ -418,7 +418,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
     public static void processEntityDamageByEntityEvent(final EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
         if (damager instanceof Projectile) {
-            damager = ((Projectile) event.getDamager()).getShooter();
+            damager = (Entity) ((Projectile) event.getDamager()).getShooter();
         }
         if (event.getCause() == DamageCause.CUSTOM) {
             return;

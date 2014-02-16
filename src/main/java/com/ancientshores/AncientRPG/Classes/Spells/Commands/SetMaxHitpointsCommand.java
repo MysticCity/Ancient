@@ -5,10 +5,10 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.entity.Player;
 
-public class SetMaxHpCommand extends ICommand {
+public class SetMaxHitpointsCommand extends ICommand {
     @CommandDescription(description = "<html>Sets the maximumhealth of the target to the specified amount</html>",
             argnames = {"player", "amount"}, name = "SetMaxHp", parameters = {ParameterType.Player, ParameterType.Number})
-    public SetMaxHpCommand() {
+    public SetMaxHitpointsCommand() {
         this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.Number};
     }
 

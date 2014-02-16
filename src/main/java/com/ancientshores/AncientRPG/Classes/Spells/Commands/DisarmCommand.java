@@ -22,7 +22,6 @@ public class DisarmCommand extends ICommand {
                 final int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 if (target != null && target.length > 0 && target[0] instanceof Player) {
                     AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
-
                         @Override
                         public void run() {
                             for (final Player p : target) {
@@ -54,7 +53,6 @@ public class DisarmCommand extends ICommand {
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
-
         }
         return false;
     }

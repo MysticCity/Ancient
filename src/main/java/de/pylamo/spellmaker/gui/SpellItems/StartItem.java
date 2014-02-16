@@ -40,12 +40,12 @@ public class StartItem extends ISpellItem implements MouseListener, MouseMotionL
     }
 
     @Override
-    public ISpellItem getNachfolger() {
+    public ISpellItem getNext() {
         return nachfolger;
     }
 
     @Override
-    public ISpellItem getVorgaenger() {
+    public ISpellItem getPrevious() {
         return null;
     }
 
@@ -71,7 +71,7 @@ public class StartItem extends ISpellItem implements MouseListener, MouseMotionL
         while (isi != null) {
             isi.setLocation(this.getX(), y);
             y += isi.getHeight();
-            isi = isi.getNachfolger();
+            isi = isi.getNext();
         }
     }
 
@@ -103,11 +103,11 @@ public class StartItem extends ISpellItem implements MouseListener, MouseMotionL
     }
 
     @Override
-    public void setNachfolger(ISpellItem is) {
+    public void setNext(ISpellItem is) {
         this.nachfolger = is;
     }
 
     @Override
-    public void setVorgaenger(ISpellItem is) {
+    public void setPrevious(ISpellItem is) {
     }
 }

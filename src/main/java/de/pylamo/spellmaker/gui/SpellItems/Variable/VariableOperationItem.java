@@ -47,7 +47,9 @@ public class VariableOperationItem extends ISpellItem {
                 super.revalidate();
                 if (this.getParent() != null) {
                     this.getParent().repaint();
-                    this.getParent().revalidate();
+                    if (this.getParent() != null && this.getParent() instanceof JComponent) {
+                        ((JComponent) this.getParent()).revalidate();
+                    }
                 }
             }
         };

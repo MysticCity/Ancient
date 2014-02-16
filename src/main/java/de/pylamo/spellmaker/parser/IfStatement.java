@@ -26,7 +26,7 @@ public class IfStatement extends ComplexStatement {
         IfItem ifi = new IfItem(false, w);
         ifi.firstBlockItem = this.middlestartitem;
         if (this.middlestartitem != null) {
-            this.middlelastitem.setVorgaenger(ifi);
+            this.middlelastitem.setPrevious(ifi);
         }
         if (panel != null) {
             ifi.istp.conditionslot.add(panel);

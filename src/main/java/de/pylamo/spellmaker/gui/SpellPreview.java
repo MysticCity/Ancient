@@ -18,7 +18,6 @@ public class SpellPreview extends JPanel {
         this.setLayout(new WrapLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setMinimumSize(new Dimension(250, 200));
-        String line;
         for (Commands command : Commands.values()) {
             Parameter[] params = new Parameter[command.getParams().length];
             for (int i = 0; i < params.length; i++) {

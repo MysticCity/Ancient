@@ -130,8 +130,8 @@ public class ArgumentPanel extends IParameter {
     @Override
     public void revalidate() {
         this.setSize(this.getPreferredSize());
-        if (this.getParent() != null) {
-            this.getParent().revalidate();
+        if (this.getParent() != null && this.getParent() instanceof JComponent) {
+            ((JComponent) this.getParent()).revalidate();
         }
     }
 

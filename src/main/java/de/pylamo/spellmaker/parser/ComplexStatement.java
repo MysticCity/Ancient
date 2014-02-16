@@ -58,12 +58,6 @@ abstract class ComplexStatement {
             } else if (curline.toLowerCase().trim().startsWith("var")) {
                 VariableParser vp = new VariableParser(w);
                 addSpellItem(vp.getVarPanel(curline));
-            } else if (curline.toLowerCase().trim().startsWith("var")) {
-                /*
-                 * RepeatStatement rs = new RepeatStatement(); rs.parse(bf,
-				 * curline); ISpellItem spi = rs.getSpellItem();
-				 * addSpellItem(spi);
-				 */
             } else {
                 addSpellItem(sp.parseSpellItem(curline));
             }
@@ -80,9 +74,9 @@ abstract class ComplexStatement {
                 middlestartitem = si;
                 middlelastitem = si;
             } else {
-                si.setVorgaenger(middlelastitem);
-                si.setLocation(si.getVorgaenger().getX(), si.getVorgaenger().getY() + si.getVorgaenger().getHeight());
-                middlelastitem.setNachfolger(si);
+                si.setPrevious(middlelastitem);
+                si.setLocation(si.getPrevious().getX(), si.getPrevious().getY() + si.getPrevious().getHeight());
+                middlelastitem.setNext(si);
                 middlelastitem = si;
             }
         }

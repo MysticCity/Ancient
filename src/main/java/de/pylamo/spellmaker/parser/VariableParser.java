@@ -37,7 +37,7 @@ class VariableParser {
             sides = line.split(Pattern.quote(" = "));
             operator = VariableOperator.Assign;
         }
-        String varname = "";
+        String varname;
         VariablePanel vp = null;
         if (sides != null && sides.length > 0) {
             varname = sides[0].substring(3).trim();
