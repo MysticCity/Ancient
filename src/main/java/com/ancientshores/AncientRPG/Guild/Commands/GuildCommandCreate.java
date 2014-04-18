@@ -23,40 +23,30 @@ public class GuildCommandCreate {
         if (AncientRPG.hasPermissions(mPlayer, AncientRPGGuild.gNodeCreate)) {
             if (AncientRPGGuild.getPlayersGuild(mPlayer.getName()) == null) {
                 args[0] = "";
-                String name = AncientRPG.convertStringArrayToString(Arrays
-                        .copyOfRange(args, 1, args.length));
+                String name = AncientRPG.convertStringArrayToString(Arrays.copyOfRange(args, 1, args.length));
                 if (!GuildCommandCreate.isValidGuildname(name)) {
-                    sender.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                            + "The guildname has invalid characters (only A-Z) or is too long/short");
+                    sender.sendMessage(AncientRPG.brand2 + ChatColor.RED + "The guildname has invalid characters (only A-Z) or is too long/short");
                     return;
                 }
                 if (!AncientRPGGuild.guildExists(name)) {
                     if (AncientRPG.iConomyEnabled()) {
-                        if (AncientRPG.economy.has(mPlayer.getName(),
-                                AncientRPGGuild.cost)) {
-                            AncientRPG.economy.withdrawPlayer(
-                                    mPlayer.getName(), AncientRPGGuild.cost);
+                        if (AncientRPG.economy.has(mPlayer.getName(), AncientRPGGuild.cost)) {
+                            AncientRPG.economy.withdrawPlayer(mPlayer.getName(), AncientRPGGuild.cost);
                         } else {
-                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                                    + "You don't have enough money to create a guild");
+                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You don't have enough money to create a guild");
                             return;
                         }
                     }
-                    AncientRPGGuild.guilds.add(new AncientRPGGuild(name,
-                            mPlayer.getName()));
-                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
-                            + "Succesfully created a new Guild");
+                    AncientRPGGuild.guilds.add(new AncientRPGGuild(name, mPlayer.getName()));
+                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + "Succesfully created a new Guild");
                 } else {
-                    sender.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                            + "A guild with that name already exists.");
+                    sender.sendMessage(AncientRPG.brand2 + ChatColor.RED + "A guild with that name already exists.");
                 }
             } else {
-                sender.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                        + "You are already in a guild.");
+                sender.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You are already in a guild.");
             }
         } else {
-            sender.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                    + "You don't have the permissions to create a guild");
+            sender.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You don't have the permissions to create a guild");
         }
     }
 }

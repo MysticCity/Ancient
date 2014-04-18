@@ -31,10 +31,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AncientRPGPlayerListener implements Listener {
-    public static final Collection<Player> toggleguildlist = Collections.newSetFromMap(
-            new ConcurrentHashMap<Player, Boolean>());
-    public static final Collection<Player> togglepartylist = Collections.newSetFromMap(
-            new ConcurrentHashMap<Player, Boolean>());
+    public static final Collection<Player> toggleguildlist = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
+    public static final Collection<Player> togglepartylist = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
     public static final HashMap<Player, Integer> invisibleList = new HashMap<Player, Integer>();
     public static final HashMap<Entity, Player> summonedCreatures = new HashMap<Entity, Player>();
     public static EventPriority guildSpawnPriority = EventPriority.HIGHEST;
@@ -99,8 +97,7 @@ public class AncientRPGPlayerListener implements Listener {
             event.getPlayer().hidePlayer(p);
         }
         AncientRPGGuild.setTag(event.getPlayer());
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
         if (mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
             if (AncientRPG.permissionHandler != null) {
                 try {
@@ -132,8 +129,7 @@ public class AncientRPGPlayerListener implements Listener {
     public void onPlayerDisconnect(PlayerQuitEvent event) {
         setVisibleToAll(event.getPlayer());
         setAllVisible(event.getPlayer());
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
         if (mClass == null) {
             ClassResetCommand.reset(event.getPlayer(), null, PlayerData.getPlayerData(event.getPlayer().getName()));
         } else if (mClass.permGroup != null && !mClass.permGroup.equals("")) {
@@ -191,8 +187,7 @@ public class AncientRPGPlayerListener implements Listener {
         }
         if (event.getInventory().getHolder() instanceof Player) {
             Player p = (Player) event.getInventory().getHolder();
-            AncientRPGClass mClass = AncientRPGClass.classList.get(
-                    PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
             if (mClass == null) {
                 return;
             }
@@ -228,8 +223,7 @@ public class AncientRPGPlayerListener implements Listener {
             return;
         }
         Player p = (Player) event.getPlayer();
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
         if (mClass == null) {
             return;
         }
@@ -253,8 +247,7 @@ public class AncientRPGPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerPickupItem(final PlayerPickupItemEvent event) {
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(event.getPlayer().getName()).getClassName().toLowerCase());
         int free = 0;
         for (ItemStack s : event.getPlayer().getInventory().getContents()) {
             if (s == null) {
@@ -272,8 +265,7 @@ public class AncientRPGPlayerListener implements Listener {
         AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
             public void run() {
                 Player p = event.getPlayer();
-                AncientRPGClass mClass = AncientRPGClass.classList.get(
-                        PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+                AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
                 if (mClass == null) {
                     return;
                 }
@@ -302,25 +294,19 @@ public class AncientRPGPlayerListener implements Listener {
     @EventHandler
     public void onPlayerItemHeld(final PlayerItemHeldEvent event) {
         PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getName());
-        if (pd.getBindings() != null && pd.getBindings().size() >= 1 && event.getPlayer().getInventory().getItem(
-                event.getNewSlot()) != null && event.getPlayer().getInventory().getItem(
-                event.getNewSlot()).getType() != Material.AIR) {
-            if (pd.getBindings().containsKey(
-                    new BindingData(event.getPlayer().getInventory().getItem(event.getNewSlot())))) {
-                event.getPlayer().sendMessage("This item is bound to the spell: " + pd.getBindings().get(
-                        new BindingData(event.getPlayer().getInventory().getItem(event.getNewSlot()))));
+        if (pd.getBindings() != null && pd.getBindings().size() >= 1 && event.getPlayer().getInventory().getItem(event.getNewSlot()) != null && event.getPlayer().getInventory().getItem(event.getNewSlot()).getType() != Material.AIR) {
+            if (pd.getBindings().containsKey(new BindingData(event.getPlayer().getInventory().getItem(event.getNewSlot())))) {
+                event.getPlayer().sendMessage("This item is bound to the spell: " + pd.getBindings().get(new BindingData(event.getPlayer().getInventory().getItem(event.getNewSlot()))));
             }
         }
         if (pd.getSlotbinds() != null && pd.getSlotbinds().size() >= 1) {
             if (pd.getSlotbinds().containsKey(event.getNewSlot())) {
-                event.getPlayer().sendMessage(
-                        "This slot is bound to the spell: " + pd.getSlotbinds().get(event.getNewSlot()));
+                event.getPlayer().sendMessage("This slot is bound to the spell: " + pd.getSlotbinds().get(event.getNewSlot()));
             }
         }
         if (event.getPlayer() != null) {
             Player p = event.getPlayer();
-            AncientRPGClass mClass = AncientRPGClass.classList.get(
-                    PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
             if (mClass == null) {
                 return;
             }
@@ -389,8 +375,7 @@ public class AncientRPGPlayerListener implements Listener {
             if (damageevent.getDamager() instanceof Player) {
                 Player p = (Player) damageevent.getDamager();
                 PlayerData pd = PlayerData.getPlayerData(p.getName());
-                if (pd != null && !AncientRPGClass.rightClick && p.getInventory().getItemInHand() != null && pd.getBindings().containsKey(
-                        new BindingData(p.getItemInHand())) && !damageignored) {
+                if (pd != null && !AncientRPGClass.rightClick && p.getInventory().getItemInHand() != null && pd.getBindings().containsKey(new BindingData(p.getItemInHand())) && !damageignored) {
                     ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.Left);
                 }
             }
@@ -429,23 +414,17 @@ public class AncientRPGPlayerListener implements Listener {
             return;
         }
         PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getName());
-        if (pd != null && (!AncientRPGClass.rightClick || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && event.getItem() != null && pd.getBindings().containsKey(
-                new BindingData(event.getPlayer().getItemInHand()))) {
+        if (pd != null && (!AncientRPGClass.rightClick || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && event.getItem() != null && pd.getBindings().containsKey(new BindingData(event.getPlayer().getItemInHand()))) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                ClassCastCommand.processCast(pd, event.getPlayer(),
-                        pd.getBindings().get(new BindingData(event.getPlayer().getItemInHand())), ClassCastCommand.castType.Right);
+                ClassCastCommand.processCast(pd, event.getPlayer(), pd.getBindings().get(new BindingData(event.getPlayer().getItemInHand())), ClassCastCommand.castType.Right);
             } else {
-                ClassCastCommand.processCast(pd, event.getPlayer(),
-                        pd.getBindings().get(new BindingData(event.getPlayer().getItemInHand())), ClassCastCommand.castType.Left);
+                ClassCastCommand.processCast(pd, event.getPlayer(), pd.getBindings().get(new BindingData(event.getPlayer().getItemInHand())), ClassCastCommand.castType.Left);
             }
-        } else if (pd != null && (!AncientRPGClass.rightClick || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && pd.getSlotbinds().containsKey(
-                event.getPlayer().getInventory().getHeldItemSlot())) {
+        } else if (pd != null && (!AncientRPGClass.rightClick || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && pd.getSlotbinds().containsKey(event.getPlayer().getInventory().getHeldItemSlot())) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                ClassCastCommand.processCast(pd, event.getPlayer(),
-                        pd.getSlotbinds().get(event.getPlayer().getInventory().getHeldItemSlot()), ClassCastCommand.castType.Right);
+                ClassCastCommand.processCast(pd, event.getPlayer(), pd.getSlotbinds().get(event.getPlayer().getInventory().getHeldItemSlot()), ClassCastCommand.castType.Right);
             } else {
-                ClassCastCommand.processCast(pd, event.getPlayer(),
-                        pd.getSlotbinds().get(event.getPlayer().getInventory().getHeldItemSlot()), ClassCastCommand.castType.Left);
+                ClassCastCommand.processCast(pd, event.getPlayer(), pd.getSlotbinds().get(event.getPlayer().getInventory().getHeldItemSlot()), ClassCastCommand.castType.Left);
             }
         }
     }

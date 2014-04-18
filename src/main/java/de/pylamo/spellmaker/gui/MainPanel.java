@@ -184,8 +184,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -220,8 +219,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -256,8 +254,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -292,8 +289,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -328,8 +324,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -364,8 +359,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -400,8 +394,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(ifi);
                         ifi.setPrevious(is);
-                        ifi.setLocation(ifi.getPrevious().getX(),
-                                ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
+                        ifi.setLocation(ifi.getPrevious().getX(), ifi.getPrevious().getY() + ifi.getPrevious().getHeight());
                         int y = ifi.getHeight() + ifi.getY();
                         ISpellItem isi = ifi.getNext();
                         while (isi != null) {
@@ -437,8 +430,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(voi);
                         voi.setPrevious(is);
-                        voi.setLocation(voi.getPrevious().getX(),
-                                voi.getPrevious().getY() + voi.getPrevious().getHeight());
+                        voi.setLocation(voi.getPrevious().getX(), voi.getPrevious().getY() + voi.getPrevious().getHeight());
                         int y = voi.getHeight() + voi.getY();
                         ISpellItem isi = voi.getNext();
                         while (isi != null) {
@@ -482,8 +474,7 @@ public class MainPanel extends JLayeredPane {
                         }
                         is.setNext(p);
                         p.setPrevious(is);
-                        p.setLocation(p.getPrevious().getX(),
-                                p.getPrevious().getY() + p.getPrevious().getHeight());
+                        p.setLocation(p.getPrevious().getX(), p.getPrevious().getY() + p.getPrevious().getHeight());
                         int y = p.getHeight() + p.getY();
                         ISpellItem isi = p.getNext();
                         while (isi != null) {

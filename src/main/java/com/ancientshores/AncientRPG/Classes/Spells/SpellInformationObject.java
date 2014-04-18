@@ -90,8 +90,7 @@ public class SpellInformationObject {
     }
 
     public Entity[] getNearestEntities(final Location loc, final int range, int count) {
-        final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(
-                loc.getWorld().getEntities());
+        final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(loc.getWorld().getEntities());
         final Entity[] nearestEntity = new Entity[count];
         final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
         for (int i = 0; i < count; i++) {
@@ -213,9 +212,7 @@ public class SpellInformationObject {
         for (int i = 0; i < count; i++) {
             for (Entity e : entityset) {
                 if (e instanceof Player) {
-                    double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(
-                            e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(
-                            e.getLocation().getZ() - mPlayer.getLocation().getZ()));
+                    double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(e.getLocation().getZ() - mPlayer.getLocation().getZ()));
                     if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e)) {
                         curdif = dif;
                         nearestPlayer[i] = (Player) e;
@@ -230,8 +227,7 @@ public class SpellInformationObject {
 
     public Player[] getNearestHostilePlayers(final Player mPlayer, final int range, final int count) {
         final Player[] nearestPlayer = new Player[count];
-        final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(
-                mPlayer.getNearbyEntities(range, range, range));
+        final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(mPlayer.getNearbyEntities(range, range, range));
         HashSet<Entity> alreadyParsed = new HashSet<Entity>();
         double curdif = 100000;
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
@@ -242,9 +238,7 @@ public class SpellInformationObject {
         for (int i = 0; i < count; i++) {
             for (Entity e : entityset) {
                 if (e instanceof Player) {
-                    double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(
-                            e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(
-                            e.getLocation().getZ() - mPlayer.getLocation().getZ()));
+                    double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(e.getLocation().getZ() - mPlayer.getLocation().getZ()));
                     if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e) && !partyMembers.contains(e)) {
                         curdif = dif;
                         nearestPlayer[i] = (Player) e;
@@ -258,8 +252,7 @@ public class SpellInformationObject {
     }
 
     public Entity[] getNearestEntities(final Player mPlayer, final int range, final int count) {
-        final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(
-                mPlayer.getNearbyEntities(range, range, range));
+        final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(mPlayer.getNearbyEntities(range, range, range));
         final Entity[] nearestEntity = new Entity[count];
         final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
         for (int i = 0; i < count; i++) {
@@ -267,8 +260,7 @@ public class SpellInformationObject {
             for (Entity e : entityset) {
                 if (e instanceof Creature || e instanceof Player) {
                     double dif = e.getLocation().distance(mPlayer.getLocation());
-                    if (dif < curdif && e != mPlayer && !alreadyParsed.contains(
-                            e)) {
+                    if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e)) {
                         curdif = dif;
                         nearestEntity[i] = e;
                     }
@@ -294,8 +286,7 @@ public class SpellInformationObject {
             for (Entity e : entityset) {
                 if (e instanceof Creature || e instanceof Player) {
                     double dif = e.getLocation().distance(mPlayer.getLocation());
-                    if (dif < curdif && e != mPlayer && !alreadyParsed.contains(
-                            e) && !partyMembers.contains(e)) {
+                    if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e) && !partyMembers.contains(e)) {
                         curdif = dif;
                         nearestEntity[i] = e;
                     }

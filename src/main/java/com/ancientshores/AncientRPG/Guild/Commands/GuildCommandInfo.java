@@ -11,12 +11,10 @@ import java.util.Set;
 public class GuildCommandInfo {
     public static void processInfo(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer
-                .getName());
+        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
         if (guild != null) {
             mPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
-            mPlayer.sendMessage(ChatColor.GREEN
-                    + "Guild info:");
+            mPlayer.sendMessage(ChatColor.GREEN + "Guild info:");
             Set<String> guildplayers = guild.gMember.keySet();
             int online = 0;
             for (String playersg : guildplayers) {

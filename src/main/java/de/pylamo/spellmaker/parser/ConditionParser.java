@@ -93,8 +93,7 @@ class ConditionParser {
                 ccp.righthand.add(right);
             }
             if (operatorstring != null) {
-                ccp.operator.content = new CompareOperatorPanel(CompareOperator.getOperatorByToken(operatorstring),
-                        false);
+                ccp.operator.content = new CompareOperatorPanel(CompareOperator.getOperatorByToken(operatorstring), false);
                 ccp.operator.add(ccp.operator.content);
             }
             OrItem oi = new OrItem(false, w);
@@ -115,8 +114,7 @@ class ConditionParser {
             }
 
             if (operatorstring != null) {
-                ccp.operator.content = new CompareOperatorPanel(CompareOperator.getOperatorByToken(operatorstring),
-                        false);
+                ccp.operator.content = new CompareOperatorPanel(CompareOperator.getOperatorByToken(operatorstring), false);
                 ccp.operator.add(ccp.operator.content);
 
             }

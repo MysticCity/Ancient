@@ -12,32 +12,24 @@ public class GuildCommandAccept {
         Player mPlayer = (Player) sender;
         if (AncientRPGGuild.getPlayersGuild(mPlayer.getName()) == null) {
             if (AncientRPGGuild.invites.containsKey(mPlayer)) {
-                if (AncientRPGGuild.guilds.contains(AncientRPGGuild.invites
-                        .get(mPlayer))) {
+                if (AncientRPGGuild.guilds.contains(AncientRPGGuild.invites.get(mPlayer))) {
                     if (AncientRPGGuild.invites.size() < AncientRPGGuild.maxPlayers) {
                         AncientRPGGuild.invites.get(mPlayer).broadcastMessage(AncientRPG.brand2 +
-                                ChatColor.AQUA + mPlayer.getName()
-                                + ChatColor.GREEN
-                                + " joined your guild.");
-                        AncientRPGGuild.invites.get(mPlayer).addMember(
-                                mPlayer.getName(), AncientRPGGuildRanks.TRIAL);
-                        mPlayer.sendMessage(ChatColor.GREEN
-                                + "Succesfully joined the guild.");
+                                ChatColor.AQUA + mPlayer.getName() + ChatColor.GREEN + " joined your guild.");
+                        AncientRPGGuild.invites.get(mPlayer).addMember(mPlayer.getName(), AncientRPGGuildRanks.TRIAL);
+                        mPlayer.sendMessage(ChatColor.GREEN + "Succesfully joined the guild.");
                         AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer));
                         AncientRPGGuild.invites.remove(mPlayer);
                     } else {
-                        mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                                + "This guild is already full.");
+                        mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "This guild is already full.");
                         AncientRPGGuild.invites.remove(mPlayer);
                     }
                 } else {
-                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                            + "This guild doesn't exist anymore.");
+                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "This guild doesn't exist anymore.");
                     AncientRPGGuild.invites.remove(mPlayer);
                 }
             } else {
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                        + "You weren't invited to a guild.");
+                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You weren't invited to a guild.");
             }
         } else {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You are already in a guild.");

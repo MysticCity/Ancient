@@ -29,18 +29,11 @@ public class PartyCommandHelp {
 
     public static void initHelp() {
         if (helpList == null) {
-            File PartyFolder = new File(AncientRPG.plugin.getDataFolder()
-                    .getPath()
-                    + File.separator
-                    + "Party".replace('/',
-                    File.separatorChar));
+            File PartyFolder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Party".replace('/', File.separatorChar));
             if (!PartyFolder.exists()) {
                 PartyFolder.mkdir();
             }
-            helpList = new HelpList(AncientRPG.plugin.getDataFolder().getPath()
-                    + File.separator
-                    + "Party/partyhelp.txt".replace('/',
-                    File.separatorChar), "partyhelp.txt");
+            helpList = new HelpList(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Party/partyhelp.txt".replace('/', File.separatorChar), "partyhelp.txt");
         }
     }
 }

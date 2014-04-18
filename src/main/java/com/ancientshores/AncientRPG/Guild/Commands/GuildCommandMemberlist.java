@@ -12,18 +12,15 @@ import java.util.Set;
 public class GuildCommandMemberlist {
     public static void processMemberList(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        AncientRPGGuild g = AncientRPGGuild
-                .getPlayersGuild(mPlayer.getName());
+        AncientRPGGuild g = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
         if (g != null) {
             Set<String> names = g.gMember.keySet();
             mPlayer.sendMessage(ChatColor.GREEN + g.guildName + ":");
             for (String s : names) {
-                mPlayer.sendMessage(AncientRPGGuildRanks
-                        .getChatColorByRank(g.gMember.get(s)) + s);
+                mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(g.gMember.get(s)) + s);
             }
         } else {
-            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                    + "You aren't in a guild.");
+            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

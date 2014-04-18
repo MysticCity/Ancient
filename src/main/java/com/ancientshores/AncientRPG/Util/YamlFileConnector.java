@@ -29,8 +29,7 @@ public class YamlFileConnector implements FileConnector {
     }
 
     @Override
-    public boolean getBooleanOfFile(String spellName, String rowName,
-                                    File f) {
+    public boolean getBooleanOfFile(String spellName, String rowName, File f) {
         return Boolean.parseBoolean(getElementOfFile(spellName, rowName));
     }
 }

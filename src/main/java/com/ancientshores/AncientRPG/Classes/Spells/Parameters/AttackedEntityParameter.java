@@ -51,8 +51,7 @@ public class AttackedEntityParameter implements IParameter {
                     break;
             }
         } else {
-            AncientRPG.plugin.getLogger().log(Level.SEVERE,
-                    "Invalid usage of attackedentity parameter in Command " + ea.getCommand().commandString + " in spell " + ea.getCommand().mSpell.name + " in line " + ea.getCommand().lineNumber);
+            AncientRPG.plugin.getLogger().log(Level.SEVERE, "Invalid usage of attackedentity parameter in Command " + ea.getCommand().commandString + " in spell " + ea.getCommand().mSpell.name + " in line " + ea.getCommand().lineNumber);
         }
     }
 

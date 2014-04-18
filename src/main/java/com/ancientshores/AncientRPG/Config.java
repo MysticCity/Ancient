@@ -47,8 +47,7 @@ public class Config {
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild")) {
             AncientRPGGuild.writeConfig(instance);
         }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists(
-                "com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
             DamageConverter.writeConfig(instance);
         }
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {
@@ -82,8 +81,7 @@ public class Config {
             AncientRPGGuild.loadConfig(instance);
         }
 
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists(
-                "com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
             DamageConverter.loadConfig(instance);
         }
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {

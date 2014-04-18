@@ -268,8 +268,7 @@ public class AncientRPGSpellListener implements Listener {
             }
             LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
             for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                        sortedspell.getValue()[1]);
+                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
             }
         }
     }
@@ -313,8 +312,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -352,8 +350,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -399,8 +396,7 @@ public class AncientRPGSpellListener implements Listener {
                 }
                 LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
                 for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                    CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                            sortedspell.getValue()[1]);
+                    CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
                 }
             }
         }
@@ -429,8 +425,7 @@ public class AncientRPGSpellListener implements Listener {
             }
             LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
             for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                        sortedspell.getValue()[1]);
+                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
             }
         }
     }
@@ -492,8 +487,7 @@ public class AncientRPGSpellListener implements Listener {
             }
             LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
             for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                        sortedspell.getValue()[1]);
+                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
             }
             if (event instanceof EntityDamageByEntityEvent) {
                 onPlayerDamageByEntity((EntityDamageByEntityEvent) event);
@@ -527,8 +521,7 @@ public class AncientRPGSpellListener implements Listener {
             }
             LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
             for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                        sortedspell.getValue()[1]);
+                CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
             }
         }
     }
@@ -589,8 +582,7 @@ public class AncientRPGSpellListener implements Listener {
                 }
                 LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
                 for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                    CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                            sortedspell.getValue()[1]);
+                    CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
                 }
             }
         }
@@ -662,8 +654,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -698,8 +689,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -737,8 +727,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -780,8 +769,7 @@ public class AncientRPGSpellListener implements Listener {
                 }
                 LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
                 for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-                    CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                            sortedspell.getValue()[1]);
+                    CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
                 }
             }
         });
@@ -821,8 +809,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -860,8 +847,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -899,8 +885,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 
@@ -944,8 +929,7 @@ public class AncientRPGSpellListener implements Listener {
         }
         LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
         for (Entry<Spell, Player[]> sortedspell : sortedspells) {
-            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event,
-                    sortedspell.getValue()[1]);
+            CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }
 

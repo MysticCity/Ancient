@@ -138,8 +138,7 @@ public class AncientRPG extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
         }
         try {
-            versionString = Bukkit.getServer().getClass().getPackage().getName()
-                    .substring(Bukkit.getServer().getClass().getPackage().getName().lastIndexOf('.') + 1, Bukkit.getServer().getClass().getPackage().getName().length());
+            versionString = Bukkit.getServer().getClass().getPackage().getName().substring(Bukkit.getServer().getClass().getPackage().getName().lastIndexOf('.') + 1, Bukkit.getServer().getClass().getPackage().getName().length());
             final Field f = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             f.setAccessible(true);
             commandMap = (CommandMap) f.get(Bukkit.getServer());

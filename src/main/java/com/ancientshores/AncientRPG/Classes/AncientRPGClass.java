@@ -513,8 +513,7 @@ public class AncientRPGClass implements Serializable {
                     if (mClass.spellList.containsKey(spellname.toLowerCase())) {
                         return true;
                     }
-                    if (pd.getStance() != null && !pd.getStance().equals(
-                            "") && mClass.stances.containsKey(pd.getStance().toLowerCase())) {
+                    if (pd.getStance() != null && !pd.getStance().equals("") && mClass.stances.containsKey(pd.getStance().toLowerCase())) {
                         AncientRPGClass mStance = mClass.stances.get(pd.getStance().toLowerCase());
                         if (mStance != null) {
                             if (mStance.spellList.containsKey(spellname.toLowerCase())) {

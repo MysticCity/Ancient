@@ -20,27 +20,22 @@ public class GuildCommandAdmin {
 
             } else if (args.length == 3) {
                 if (args[1].equals("db")) {
-                    AncientRPGGuild g = AncientRPGGuild
-                            .getPlayersGuild(args[2]);
+                    AncientRPGGuild g = AncientRPGGuild.getPlayersGuild(args[2]);
                     if (g != null) {
                         g.disband(true);
                     } else {
-                        mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                                + "This player does not exist, please use the exact name.");
+                        mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "This player does not exist, please use the exact name.");
                     }
                 } else if (args[1].equals("list")) {
-                    AncientRPGGuild g = AncientRPGGuild
-                            .getPlayersGuild(args[2]);
+                    AncientRPGGuild g = AncientRPGGuild.getPlayersGuild(args[2]);
                     if (g != null) {
                         Set<String> names = g.gMember.keySet();
                         mPlayer.sendMessage(ChatColor.GREEN + g.guildName + ":");
                         for (String s : names) {
-                            mPlayer.sendMessage(AncientRPGGuildRanks
-                                    .getChatColorByRank(g.gMember.get(s)) + s);
+                            mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(g.gMember.get(s)) + s);
                         }
                     } else {
-                        mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED
-                                + "This player does not exist, please use the exact name.");
+                        mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "This player does not exist, please use the exact name.");
                     }
                 }
             }

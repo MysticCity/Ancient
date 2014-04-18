@@ -348,26 +348,21 @@ public class DamageConverter {
                     Zombie z = (Zombie) c;
                     if (z.isVillager()) {
                         if (z.isBaby()) {
-                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(),
-                                    (LivingEntity) c, damageOfVillagerBabyZombie);
+                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(), (LivingEntity) c, damageOfVillagerBabyZombie);
                         } else {
-                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(),
-                                    (LivingEntity) c, damageOfVillagerZombie);
+                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(), (LivingEntity) c, damageOfVillagerZombie);
                         }
                     } else {
                         if (z.isBaby()) {
-                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(),
-                                    (LivingEntity) c, damageOfBabyZombie);
+                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(), (LivingEntity) c, damageOfBabyZombie);
                         } else {
-                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(),
-                                    (LivingEntity) c, damageOfZombie);
+                            return getDamageOfItem(((Zombie) c).getEquipment().getItemInHand().getType(), (LivingEntity) c, damageOfZombie);
                         }
                     }
                 } else if (c instanceof EnderDragon) {
                     return damageOfEnderDragon;
                 } else if (c instanceof Skeleton) {
-                    return getDamageOfItem(((LivingEntity) c).getEquipment().getItemInHand().getType(),
-                            (LivingEntity) c, 0);
+                    return getDamageOfItem(((LivingEntity) c).getEquipment().getItemInHand().getType(), (LivingEntity) c, 0);
                 } else if (c instanceof Creeper) {
                     return Math.round((float) damageOfCreeper * ((float) event.getDamage() / (float) 49));
                 } else if (c instanceof Ghast) {
@@ -436,22 +431,15 @@ public class DamageConverter {
             Zombie z = (Zombie) c;
             if (z.isVillager()) {
                 if (z.isBaby()) {
-                    return reduceDamageByArmor(
-                            getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfVillagerBabyZombie),
-                            mPlayer);
+                    return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfVillagerBabyZombie), mPlayer);
                 } else {
-                    return reduceDamageByArmor(
-                            getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfVillagerZombie),
-                            mPlayer);
+                    return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfVillagerZombie), mPlayer);
                 }
             } else {
                 if (z.isBaby()) {
-                    return reduceDamageByArmor(
-                            getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfBabyZombie),
-                            mPlayer);
+                    return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfBabyZombie), mPlayer);
                 } else {
-                    return reduceDamageByArmor(
-                            getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfZombie), mPlayer);
+                    return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, damageOfZombie), mPlayer);
                 }
             }
         } else if (c instanceof EnderDragon) {
@@ -568,8 +556,7 @@ public class DamageConverter {
                     short id = damageByEntityEvent.getDamager().getType().getTypeId();
                     if (id == EntityType.ARROW.getTypeId()) {
                         if (((Arrow) damageByEntityEvent.getDamager()).getShooter() instanceof Player) {
-                            return reduceDamageByArmor(
-                                    getBowDamage((Player) ((Arrow) damageByEntityEvent.getDamager()).getShooter()), p);
+                            return reduceDamageByArmor(getBowDamage((Player) ((Arrow) damageByEntityEvent.getDamager()).getShooter()), p);
                         }
                         return reduceDamageByArmor(damageOfArrow, p);
                     } else if (id == EntityType.SNOWBALL.getTypeId()) {
@@ -773,29 +760,23 @@ public class DamageConverter {
                 damageOfDiamondAxe = yc.getInt(HpConfigDiamondAxe, damageOfDiamondAxe);
                 minTimeBetweenAttacks = yc.getInt(HpConfigMinTimeBetweenAttacks, minTimeBetweenAttacks);
                 // Diamond
-                ReductionOfDiamondHelmet = (float) yc.getDouble(ConfigReductionOfDiamondHelmet,
-                        ReductionOfDiamondHelmet);
-                ReductionOfDiamondChestplate = (float) yc.getDouble(ConfigReductionOfDiamondChestplate,
-                        ReductionOfDiamondChestplate);
-                ReductionOfDiamondLeggins = (float) yc.getDouble(ConfigReductionOfDiamondLeggins,
-                        ReductionOfDiamondLeggins);
+                ReductionOfDiamondHelmet = (float) yc.getDouble(ConfigReductionOfDiamondHelmet, ReductionOfDiamondHelmet);
+                ReductionOfDiamondChestplate = (float) yc.getDouble(ConfigReductionOfDiamondChestplate, ReductionOfDiamondChestplate);
+                ReductionOfDiamondLeggins = (float) yc.getDouble(ConfigReductionOfDiamondLeggins, ReductionOfDiamondLeggins);
                 ReductionOfDiamondBoots = (float) yc.getDouble(ConfigReductionOfDiamondBoots, ReductionOfDiamondBoots);
                 // Iron
                 ReductionOfIronHelmet = (float) yc.getDouble(ConfigReductionOfIronHelmet, ReductionOfIronHelmet);
-                ReductionOfIronChestplate = (float) yc.getDouble(ConfigReductionOfIronChestplate,
-                        ReductionOfIronChestplate);
+                ReductionOfIronChestplate = (float) yc.getDouble(ConfigReductionOfIronChestplate, ReductionOfIronChestplate);
                 ReductionOfIronLeggins = (float) yc.getDouble(ConfigReductionOfIronLeggins, ReductionOfIronLeggins);
                 ReductionOfIronBoots = (float) yc.getDouble(ConfigReductionOfIronBoots, ReductionOfIronBoots);
                 // Gold
                 ReductionOfGoldHelmet = (float) yc.getDouble(ConfigReductionOfGoldHelmet, ReductionOfGoldHelmet);
-                ReductionOfGoldChestplate = (float) yc.getDouble(ConfigReductionOfGoldChestplate,
-                        ReductionOfGoldChestplate);
+                ReductionOfGoldChestplate = (float) yc.getDouble(ConfigReductionOfGoldChestplate, ReductionOfGoldChestplate);
                 ReductionOfGoldLeggins = (float) yc.getDouble(ConfigReductionOfGoldLeggins, ReductionOfGoldLeggins);
                 ReductionOfGoldBoots = (float) yc.getDouble(ConfigReductionOfGoldBoots, ReductionOfGoldBoots);
                 // Chain
                 ReductionOfChainHelmet = (float) yc.getDouble(ConfigReductionOfChainHelmet, ReductionOfChainHelmet);
-                ReductionOfChainChestplate = (float) yc.getDouble(ConfigReductionOfChainChestplate,
-                        ReductionOfChainChestplate);
+                ReductionOfChainChestplate = (float) yc.getDouble(ConfigReductionOfChainChestplate, ReductionOfChainChestplate);
                 ReductionOfChainLeggins = (float) yc.getDouble(ConfigReductionOfChainLeggins, ReductionOfChainLeggins);
                 ReductionOfChainBoots = (float) yc.getDouble(ConfigReductionOfChainBoots, ReductionOfChainBoots);
                 // Leather
@@ -819,8 +800,7 @@ public class DamageConverter {
             standardhp = plugin.getConfig().getInt(HpConfigStandardHP, standardhp);
             damageOfZombie = plugin.getConfig().getInt(HpConfigZombie, damageOfZombie);
             damageOfBabyZombie = plugin.getConfig().getInt(HpConfigBabyZombie, damageOfBabyZombie);
-            damageOfVillagerBabyZombie = plugin.getConfig().getInt(HpConfigVillagerBabyZombie,
-                    damageOfVillagerBabyZombie);
+            damageOfVillagerBabyZombie = plugin.getConfig().getInt(HpConfigVillagerBabyZombie, damageOfVillagerBabyZombie);
             damageOfVillagerZombie = plugin.getConfig().getInt(HpConfigVillagerZombie, damageOfVillagerZombie);
             damageOfFireball = plugin.getConfig().getInt(HpConfigFireball, damageOfFireball);
             damageOfSmallFireball = plugin.getConfig().getInt(HpConfigSmallFireball, damageOfSmallFireball);
@@ -863,8 +843,7 @@ public class DamageConverter {
             damageOfWoodSword = plugin.getConfig().getInt(HpConfigWoodSword, damageOfWoodSword);
             sharpnessExtraDamage = plugin.getConfig().getInt(HpConfigSharpness, sharpnessExtraDamage);
             bowExtraDamage = plugin.getConfig().getInt(HpConfigBowDamage, bowExtraDamage);
-            strenghtPotionExtraDamage = plugin.getConfig().getInt(HpConfigStrenghtExtraDamage,
-                    strenghtPotionExtraDamage);
+            strenghtPotionExtraDamage = plugin.getConfig().getInt(HpConfigStrenghtExtraDamage, strenghtPotionExtraDamage);
             weakenPotionLessDamage = plugin.getConfig().getInt(HpConfigWeakenLessDamage, weakenPotionLessDamage);
             regenPotionHp = plugin.getConfig().getInt(HpConfigRegenPotion, regenPotionHp);
             healPotionHp = plugin.getConfig().getInt(HpConfigHealPotion, healPotionHp);
@@ -878,50 +857,30 @@ public class DamageConverter {
             damageOfDiamondAxe = plugin.getConfig().getInt(HpConfigDiamondAxe, damageOfDiamondAxe);
             minTimeBetweenAttacks = plugin.getConfig().getInt(HpConfigMinTimeBetweenAttacks, minTimeBetweenAttacks);
             // Diamond
-            ReductionOfDiamondHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondHelmet,
-                    ReductionOfDiamondHelmet);
-            ReductionOfDiamondChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondChestplate,
-                    ReductionOfDiamondChestplate);
-            ReductionOfDiamondLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondLeggins,
-                    ReductionOfDiamondLeggins);
-            ReductionOfDiamondBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondBoots,
-                    ReductionOfDiamondBoots);
+            ReductionOfDiamondHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondHelmet, ReductionOfDiamondHelmet);
+            ReductionOfDiamondChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondChestplate, ReductionOfDiamondChestplate);
+            ReductionOfDiamondLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondLeggins, ReductionOfDiamondLeggins);
+            ReductionOfDiamondBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfDiamondBoots, ReductionOfDiamondBoots);
             // Iron
-            ReductionOfIronHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfIronHelmet,
-                    ReductionOfIronHelmet);
-            ReductionOfIronChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfIronChestplate,
-                    ReductionOfIronChestplate);
-            ReductionOfIronLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfIronLeggins,
-                    ReductionOfIronLeggins);
-            ReductionOfIronBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfIronBoots,
-                    ReductionOfIronBoots);
+            ReductionOfIronHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfIronHelmet, ReductionOfIronHelmet);
+            ReductionOfIronChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfIronChestplate, ReductionOfIronChestplate);
+            ReductionOfIronLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfIronLeggins, ReductionOfIronLeggins);
+            ReductionOfIronBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfIronBoots, ReductionOfIronBoots);
             // Gold
-            ReductionOfGoldHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldHelmet,
-                    ReductionOfGoldHelmet);
-            ReductionOfGoldChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldChestplate,
-                    ReductionOfGoldChestplate);
-            ReductionOfGoldLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldLeggins,
-                    ReductionOfGoldLeggins);
-            ReductionOfGoldBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldBoots,
-                    ReductionOfGoldBoots);
+            ReductionOfGoldHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldHelmet, ReductionOfGoldHelmet);
+            ReductionOfGoldChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldChestplate, ReductionOfGoldChestplate);
+            ReductionOfGoldLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldLeggins, ReductionOfGoldLeggins);
+            ReductionOfGoldBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfGoldBoots, ReductionOfGoldBoots);
             // Chain
-            ReductionOfChainHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfChainHelmet,
-                    ReductionOfChainHelmet);
-            ReductionOfChainChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfChainChestplate,
-                    ReductionOfChainChestplate);
-            ReductionOfChainLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfChainLeggins,
-                    ReductionOfChainLeggins);
-            ReductionOfChainBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfChainBoots,
-                    ReductionOfChainBoots);
+            ReductionOfChainHelmet = (float) plugin.getConfig().getDouble(ConfigReductionOfChainHelmet, ReductionOfChainHelmet);
+            ReductionOfChainChestplate = (float) plugin.getConfig().getDouble(ConfigReductionOfChainChestplate, ReductionOfChainChestplate);
+            ReductionOfChainLeggins = (float) plugin.getConfig().getDouble(ConfigReductionOfChainLeggins, ReductionOfChainLeggins);
+            ReductionOfChainBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfChainBoots, ReductionOfChainBoots);
             // Leather
-            ReductionOfLeatherCap = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherCap,
-                    ReductionOfLeatherCap);
-            ReductionOfLeatherTunic = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherTunic,
-                    ReductionOfLeatherTunic);
-            ReductionOfLeatherPants = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherPants,
-                    ReductionOfLeatherPants);
-            ReductionOfLeatherBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherBoots,
-                    ReductionOfLeatherBoots);
+            ReductionOfLeatherCap = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherCap, ReductionOfLeatherCap);
+            ReductionOfLeatherTunic = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherTunic, ReductionOfLeatherTunic);
+            ReductionOfLeatherPants = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherPants, ReductionOfLeatherPants);
+            ReductionOfLeatherBoots = (float) plugin.getConfig().getDouble(ConfigReductionOfLeatherBoots, ReductionOfLeatherBoots);
             hpRegInterval = (int) plugin.getConfig().getDouble(HpConfigInterval, hpRegInterval);
             hpReg = plugin.getConfig().getInt(HpConfigReg, hpReg);
             for (PlayerData pd : PlayerData.playerData) {
@@ -1148,28 +1107,21 @@ public class DamageConverter {
     public static double getPlayerDamageOfItem(Player attackedEntity, Material iteminhand, LivingEntity attacker, int basedamage) {
         switch (iteminhand) {
             case IRON_SWORD:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfIronSword),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfIronSword), attackedEntity);
             case STONE_SWORD:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfStoneSword),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfStoneSword), attackedEntity);
             case DIAMOND_SWORD:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfDiamondSword),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfDiamondSword), attackedEntity);
             case GOLD_SWORD:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfGoldSword),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfGoldSword), attackedEntity);
             case WOOD_SWORD:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfWoodSword),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfWoodSword), attackedEntity);
             case IRON_AXE:
                 return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfIronAxe), attackedEntity);
             case STONE_AXE:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfStoneAxe),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfStoneAxe), attackedEntity);
             case DIAMOND_AXE:
-                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfDiamondAxe),
-                        attackedEntity);
+                return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfDiamondAxe), attackedEntity);
             case GOLD_AXE:
                 return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, damageOfGoldAxe), attackedEntity);
             case WOOD_AXE:

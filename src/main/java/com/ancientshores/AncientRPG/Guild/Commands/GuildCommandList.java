@@ -12,9 +12,7 @@ public class GuildCommandList {
         if (args[0].equalsIgnoreCase("list")) {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + "List of guilds:");
             for (AncientRPGGuild g : AncientRPGGuild.guilds) {
-                mPlayer.sendMessage(ChatColor.GREEN + g.guildName + " "
-                        + ChatColor.DARK_RED + g.gLeader + ChatColor.GREEN
-                        + " (" + g.gMember.size() + ")");
+                mPlayer.sendMessage(ChatColor.GREEN + g.guildName + " " + ChatColor.DARK_RED + g.gLeader + ChatColor.GREEN + " (" + g.gMember.size() + ")");
             }
         }
     }

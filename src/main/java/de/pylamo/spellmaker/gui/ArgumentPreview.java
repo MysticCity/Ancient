@@ -40,15 +40,12 @@ public class ArgumentPreview extends JPanel {
                 rparams[i] = rparam;
             }
             try {
-                Argument a = new Argument(Argument.getLine(argument.getName(), rparams, argument.getArgnames(), argument.getDescription(),
-                        Parameter.getParameterByName(returntype.name())));
+                Argument a = new Argument(Argument.getLine(argument.getName(), rparams, argument.getArgnames(), argument.getDescription(), Parameter.getParameterByName(returntype.name())));
                 arguments.add(a);
             } catch (Exception e) {
                 System.out.println(argument.getName());
             }
-            ArgumentPanel si = new ArgumentPanel(argument.getName(), param, argument.getDescription(), rparams, argument.getArgnames(),
-                    Argument.getLine(argument.getName(), rparams, argument.getArgnames(), argument.getName(),
-                            Parameter.getParameterByName(returntype.name())), w);
+            ArgumentPanel si = new ArgumentPanel(argument.getName(), param, argument.getDescription(), rparams, argument.getArgnames(), Argument.getLine(argument.getName(), rparams, argument.getArgnames(), argument.getName(), Parameter.getParameterByName(returntype.name())), w);
             this.add(si);
             w.spellItems.put(si.name, si);
         }

@@ -116,8 +116,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		 * achievements = new HashSet<Achievement>(); } data = new int[100];
 		 * level = new Experience();
 		 */
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && AncientRPG.classExists(
-                "com.ancientshores.AncientRPG.HP.DamageConverter")) {
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter")) {
             hpsystem = new AncientRPGHP(DamageConverter.standardhp, playername);
         }
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.Classes.AncientRPGClass")) {
@@ -156,21 +155,18 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
     }
 
     public void createMissingObjects() {
-        if (AncientRPG.classExists(
-                "com.ancientshores.AncientRPG.Classes.AncientRPGClass") && (className == null || className.equals(""))) {
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Classes.AncientRPGClass") && (className == null || className.equals(""))) {
             className = AncientRPGClass.standardclassName.toLowerCase();
             cooldownTimer = new HashSet<CooldownTimer>();
         }
         if (classLevels == null) {
             classLevels = new HashMap<String, Integer>();
         }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && AncientRPG.classExists(
-                "com.ancientshores.AncientRPG.HP.DamageConverter") && hpsystem == null) {
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && hpsystem == null) {
             hpsystem = new AncientRPGHP(DamageConverter.standardhp, this.player);
         }
 
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Classes.AncientRPGClass") && AncientRPG.classExists(
-                "com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
+        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Classes.AncientRPGClass") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
             AncientRPGClass mClass = AncientRPGClass.classList.get(className.toLowerCase());
             if (mClass != null) {
                 hpsystem.maxhp = mClass.hp;
@@ -291,8 +287,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
         File f = new File(folder.getPath() + File.separator + name + ".yml");
         if (f.exists()) {
             YamlConfiguration yc = new YamlConfiguration();
-            File input = new File(
-                    folder.getPath() + File.separator + f.getName().substring(0, f.getName().length() - 4) + ".dat");
+            File input = new File(folder.getPath() + File.separator + f.getName().substring(0, f.getName().length() - 4) + ".dat");
             try {
                 yc.load(f);
                 PlayerData pd = (PlayerData) yc.get("PlayerData");

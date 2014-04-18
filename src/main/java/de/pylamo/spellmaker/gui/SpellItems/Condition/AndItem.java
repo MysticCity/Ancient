@@ -45,8 +45,7 @@ public class AndItem extends IParameter {
         righthand = new ParameterSlot(Parameter.Condition, "righthand", preview, w);
         this.add(righthand);
         ToolTipItem tti = new ToolTipItem();
-        tti.setToolTipText(
-                "<html>This is an if item, if the specified condition <br> is fulfilled, the following block will be executed</html>");
+        tti.setToolTipText("<html>This is an if item, if the specified condition <br> is fulfilled, the following block will be executed</html>");
         this.add(tti);
         this.setBackground(new Color(108, 45, 199));
         this.setBorder(BorderFactory.createLineBorder(Color.black));

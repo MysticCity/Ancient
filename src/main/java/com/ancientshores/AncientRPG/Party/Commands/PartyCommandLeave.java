@@ -13,10 +13,8 @@ public class PartyCommandLeave {
             AncientRPGParty mPlayersParty = AncientRPGParty.getPlayersParty(mPlayer);
             mPlayersParty.removePlayer(mPlayer);
             mPlayersParty.giveNextLeader();
-            mPlayersParty.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + mPlayer.getName()
-                    + ChatColor.BLUE + " left your party.");
-            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                    + "Successfully left the party.");
+            mPlayersParty.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " left your party.");
+            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Successfully left the party.");
             if (mPlayersParty.getMemberNumber() == 0) {
                 AncientRPGParty.partys.remove(mPlayersParty);
             }

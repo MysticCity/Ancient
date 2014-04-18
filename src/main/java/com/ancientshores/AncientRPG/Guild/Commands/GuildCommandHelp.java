@@ -29,14 +29,12 @@ public class GuildCommandHelp {
 
     public static void initHelp() {
         if (helpList == null) {
-            File PartyFolder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Guilds".replace('/',
-                    File.separatorChar));
+            File PartyFolder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Guilds".replace('/', File.separatorChar));
             if (!PartyFolder.exists()) {
                 PartyFolder.mkdir();
             }
             helpList = new HelpList(AncientRPG.plugin.getDataFolder().getPath() + File.separator +
-                    "Guilds/guildhelp.txt".replace('/',
-                            File.separatorChar), "guildhelp.txt");
+                    "Guilds/guildhelp.txt".replace('/', File.separatorChar), "guildhelp.txt");
         }
     }
 }

@@ -25,8 +25,7 @@ public class SpellPreview extends JPanel {
             }
             String description = command.getDescription();
             commands.add(new Command(Command.getLine(command.getName(), params, command.getArgnames(), description)));
-            SpellItem si = new SpellItem(command.getName(), params, command.getArgnames(),
-                    Command.getLine(command.getName(), params, command.getArgnames(), description), w);
+            SpellItem si = new SpellItem(command.getName(), params, command.getArgnames(), Command.getLine(command.getName(), params, command.getArgnames(), description), w);
             si.ti.setDescription(description.trim());
             w.spellItems.put(si.name, si);
             this.add(si);

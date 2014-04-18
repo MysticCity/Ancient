@@ -19,8 +19,7 @@ public class LaunchFirework extends ICommand {
 
     @Override
     public boolean playCommand(final EffectArgs ca) {
-        if (ca.getParams().size() == 5 && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof String && ca.getParams().get(3) instanceof Boolean && ca.getParams().get(4) instanceof Boolean
-                && ca.getParams().get(0) instanceof Location[]) {
+        if (ca.getParams().size() == 5 && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof String && ca.getParams().get(3) instanceof Boolean && ca.getParams().get(4) instanceof Boolean && ca.getParams().get(0) instanceof Location[]) {
             final Location[] locs = (Location[]) ca.getParams().get(0);
             final String name = (String) ca.getParams().get(1);
             final String colorname = (String) ca.getParams().get(2);

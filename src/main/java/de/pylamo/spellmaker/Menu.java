@@ -32,9 +32,7 @@ public class Menu extends JFrame {
     private String chatcommand = "";
     public final HashSet<String> variables = new HashSet<String>();
     private final JButton OkayButton = new JButton("Okay");
-    private final JList events = new JList(new String[]{"damageevent", "damagebyentityevent", "attackevent", "changeblockevent", "joinevent", "interactevent", "regenevent", "moveevent",
-            "levelupevent", "playerdeathevent", "killentityevent", "projectilehitevent", "classchangeevent", "playerbedenterevent", "playerbedleaveevent", "playerchatevent", "playerdropitemevent",
-            "playereggthrowevent", "playerkickevent", "playerpickupitemevent", "playerportalevent", "playerteleportevent", "playertogglesneakevent"});
+    private final JList events = new JList(new String[]{"damageevent", "damagebyentityevent", "attackevent", "changeblockevent", "joinevent", "interactevent", "regenevent", "moveevent", "levelupevent", "playerdeathevent", "killentityevent", "projectilehitevent", "classchangeevent", "playerbedenterevent", "playerbedleaveevent", "playerchatevent", "playerdropitemevent", "playereggthrowevent", "playerkickevent", "playerpickupitemevent", "playerportalevent", "playerteleportevent", "playertogglesneakevent"});
     private final JPanel chatpanel = new JPanel();
     private final JPanel repetitivepanel = new JPanel();
     private final JPanel eventPanel = new JPanel();
@@ -173,8 +171,7 @@ public class Menu extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (nameBox.getText().equals("") || nameBox.getText().equals("name") || nameBox.getText().equals(
-                        "must be a valid name")) {
+                if (nameBox.getText().equals("") || nameBox.getText().equals("name") || nameBox.getText().equals("must be a valid name")) {
                     nameBox.setText("must be a valid name");
                     return;
                 }

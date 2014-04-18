@@ -15,12 +15,9 @@ public class PartyCommandToggleFriendlyFire {
             if (mParty != null) {
                 if (mParty.getLeader().equals(mPlayer)) {
                     mParty.setFriendlyFireEnabled(!mParty.isFriendlyFireEnabled());
-                    mParty.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                            + "Friendly fire is now: " + ChatColor.GREEN
-                            + (mParty.isFriendlyFireEnabled() ? "off" : "on"));
+                    mParty.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Friendly fire is now: " + ChatColor.GREEN + (mParty.isFriendlyFireEnabled() ? "off" : "on"));
                 } else {
-                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                            + "You don't have permission to toggle friendly fire");
+                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You don't have permission to toggle friendly fire");
                 }
             } else {
                 mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You aren't in a party!");

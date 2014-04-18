@@ -15,8 +15,7 @@ public class PartyCommandDisband {
                 mParty.removeAll();
                 AncientRPGParty.partys.remove(mParty);
             } else {
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                        + "You aren't the leader of this party.");
+                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You aren't the leader of this party.");
             }
         } else {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You aren't in a party.");

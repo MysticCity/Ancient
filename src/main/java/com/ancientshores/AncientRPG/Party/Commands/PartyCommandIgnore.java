@@ -12,12 +12,10 @@ public class PartyCommandIgnore {
         if (args.length == 0) {
             if (!AncientRPGParty.mIgnoreList.contains(mPlayer)) {
                 AncientRPGParty.mIgnoreList.add(mPlayer);
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                        + "You are ignoring all invitations now.");
+                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You are ignoring all invitations now.");
             } else {
                 AncientRPGParty.mIgnoreList.remove(mPlayer);
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                        + "You aren't ignoring invitations anymore.");
+                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You aren't ignoring invitations anymore.");
             }
         } else {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Correct usage: /pignore");

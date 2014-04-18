@@ -95,8 +95,7 @@ public class AncientRPGRace {
                 yc.load(config);
                 permission = yc.getString(permissionNode, permission);
                 if (yc.get("Race.spawnx") != null) {
-                    spawnLoc = new SerializableLocation(new Location(Bukkit.getWorld(yc.getString("Race.spawnworld")), yc.getDouble("Race.spawnx"), yc.getDouble("Race.spawny"),
-                            yc.getDouble("Race.spawnz")));
+                    spawnLoc = new SerializableLocation(new Location(Bukkit.getWorld(yc.getString("Race.spawnworld")), yc.getDouble("Race.spawnx"), yc.getDouble("Race.spawny"), yc.getDouble("Race.spawnz")));
                 }
                 description = yc.getString("Race.description", description);
             } catch (Exception e) {

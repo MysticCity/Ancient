@@ -16,15 +16,8 @@ public class PartyCommandGrant {
                     if (main.getServer().getPlayer(args[1]) != null) {
                         if (AncientRPG.hasPermissions(main.getServer().getPlayer(args[1]), AncientRPGParty.pNodeCreate)) {
                             mParty.setLeader(main.getServer().getPlayer(args[1]));
-                            mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN
-                                    + mParty.getLeader().getName()
-                                    + ChatColor.BLUE
-                                    + " is the new leader of the party.");
-                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                                    + "Succesfully granted "
-                                    + ChatColor.GOLD
-                                    + mParty.getLeader().getName()
-                                    + ChatColor.BLUE + " leader rights.");
+                            mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + mParty.getLeader().getName() + ChatColor.BLUE + " is the new leader of the party.");
+                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Succesfully granted " + ChatColor.GOLD + mParty.getLeader().getName() + ChatColor.BLUE + " leader rights.");
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "The player you chose doesn't have the permissions to lead a party.");
                         }

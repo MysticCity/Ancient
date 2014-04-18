@@ -385,8 +385,7 @@ public class AncientRPGGuild implements Serializable {
     public static void processJoin(final PlayerJoinEvent playerJoinEvent) {
         final AncientRPGGuild guild = getPlayersGuild(playerJoinEvent.getPlayer().getName());
         if (guild != null) {
-            guild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(guild.getGuildMembers().get(playerJoinEvent.getPlayer().getName()))
-                    + playerJoinEvent.getPlayer().getName() + ChatColor.GREEN + " is now online.");
+            guild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(guild.getGuildMembers().get(playerJoinEvent.getPlayer().getName())) + playerJoinEvent.getPlayer().getName() + ChatColor.GREEN + " is now online.");
             AncientRPGGuild.writeGuild(guild);
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -400,8 +399,7 @@ public class AncientRPGGuild implements Serializable {
     public static void processQuit(PlayerQuitEvent playerQuitEvent) {
         AncientRPGGuild mGuild = getPlayersGuild(playerQuitEvent.getPlayer().getName());
         if (mGuild != null) {
-            mGuild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(mGuild.getGuildMembers().get(playerQuitEvent.getPlayer().getName()))
-                    + playerQuitEvent.getPlayer().getName() + ChatColor.GREEN + " is now offline.");
+            mGuild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(mGuild.getGuildMembers().get(playerQuitEvent.getPlayer().getName())) + playerQuitEvent.getPlayer().getName() + ChatColor.GREEN + " is now offline.");
             AncientRPGGuild.writeGuild(mGuild);
         }
     }

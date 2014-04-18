@@ -60,8 +60,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
         if (!DamageConverter.isEnabled()) {
             return;
         }
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(playername).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(playername).getClassName().toLowerCase());
         if (mClass != null) {
             if (DamageConverter.isEnabled()) {
                 hpReg = mClass.hpreglevel.get(PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
@@ -106,15 +105,11 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
                 return;
             }
         }
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(playername).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(playername).getClassName().toLowerCase());
         if (mClass != null) {
             if (AncientRPGExperience.isEnabled()) {
-                if (PlayerData.getPlayerData(playername).getStance() != null && mClass.stances.containsKey(
-                        PlayerData.getPlayerData(playername).getStance().toLowerCase())) {
-                    maxhp = mClass.stances.get(
-                            PlayerData.getPlayerData(playername).getStance().toLowerCase()).hplevel.get(
-                            PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
+                if (PlayerData.getPlayerData(playername).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playername).getStance().toLowerCase())) {
+                    maxhp = mClass.stances.get(PlayerData.getPlayerData(playername).getStance().toLowerCase()).hplevel.get(PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
                 } else {
                     maxhp = mClass.hplevel.get(PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
                 }
@@ -140,21 +135,16 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
     }
 
     public void setHpRegen() {
-        AncientRPGClass mClass = AncientRPGClass.classList.get(
-                PlayerData.getPlayerData(playername).getClassName().toLowerCase());
+        AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(playername).getClassName().toLowerCase());
         if (mClass != null) {
             if (AncientRPGExperience.isEnabled()) {
-                if (PlayerData.getPlayerData(playername).getStance() != null && mClass.stances.containsKey(
-                        PlayerData.getPlayerData(playername).getStance().toLowerCase())) {
-                    hpReg = mClass.stances.get(
-                            PlayerData.getPlayerData(playername).getStance().toLowerCase()).hpreglevel.get(
-                            PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
+                if (PlayerData.getPlayerData(playername).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playername).getStance().toLowerCase())) {
+                    hpReg = mClass.stances.get(PlayerData.getPlayerData(playername).getStance().toLowerCase()).hpreglevel.get(PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
                 } else {
                     hpReg = mClass.hpreglevel.get(PlayerData.getPlayerData(playername).getXpSystem().level).intValue();
                 }
             } else {
-                if (PlayerData.getPlayerData(playername).getStance() != null && mClass.stances.containsKey(
-                        PlayerData.getPlayerData(playername).getStance().toLowerCase())) {
+                if (PlayerData.getPlayerData(playername).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playername).getStance().toLowerCase())) {
                     hpReg = mClass.stances.get(PlayerData.getPlayerData(playername).getStance().toLowerCase()).hpreg;
                 } else {
                     hpReg = mClass.hpreg;

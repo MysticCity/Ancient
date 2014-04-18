@@ -11,12 +11,10 @@ public class PartyCommandReject {
         Player mPlayer = (Player) sender;
         if (AncientRPGParty.invites.containsKey(mPlayer)) {
             AncientRPGParty.invites.get(mPlayer).sendMessage(AncientRPG.brand2 +
-                    ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE
-                    + " rejected your invite.");
+                    ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " rejected your invite.");
             AncientRPGParty.invites.remove(mPlayer);
         } else {
-            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE
-                    + "You weren't invited in a party.");
+            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You weren't invited in a party.");
         }
     }
 }
