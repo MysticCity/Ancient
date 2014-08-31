@@ -22,6 +22,6 @@ public class GetMana extends IArgument {
             return 0;
         }
         Player e = ((Player[]) obj[0])[0];
-        return PlayerData.getPlayerData(e.getName()).getManasystem().getCurmana();
+        return PlayerData.getPlayerData(e.getUniqueId()).getManasystem().getCurmana();
     }
 }

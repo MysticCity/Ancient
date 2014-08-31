@@ -22,7 +22,7 @@ public class CheckCooldownCommand extends ICommand {
         try {
             if (ca.getParams().get(0) instanceof String) {
                 String name = (String) ca.getParams().get(0);
-                PlayerData pd = PlayerData.getPlayerData(ca.getCaster().getName());
+                PlayerData pd = PlayerData.getPlayerData(ca.getCaster().getUniqueId());
                 if (pd.isCastReady(name)) {
                     return true;
                 } else if (ca.getSpell().active) {

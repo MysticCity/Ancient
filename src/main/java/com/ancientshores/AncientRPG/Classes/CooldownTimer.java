@@ -1,6 +1,7 @@
 package com.ancientshores.AncientRPG.Classes;
 
 import com.ancientshores.AncientRPG.AncientRPG;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -8,12 +9,13 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class CooldownTimer implements Serializable, Runnable, ConfigurationSerializable {
     private static final long serialVersionUID = 1L;
     public boolean ready;
     public long time;
-    public final String name;
+    public final UUID uuid;
     public long oldtime = 0;
     public boolean enabled = false;
     public int id = 0;
@@ -24,17 +26,17 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
     }
 
 
-    public CooldownTimer(int time, String name) {
+    public CooldownTimer(int time, UUID uuid) {
         this.ready = true;
         this.time = time;
-        this.name = name;
+        this.uuid = uuid;
         oldtime = System.currentTimeMillis();
     }
 
     public CooldownTimer(Map<String, Object> map) {
         this.ready = (Boolean) map.get("ready");
         this.time = (Long) map.get("time");
-        this.name = (String) map.get("name");
+        this.uuid = (UUID) map.get("uuid");
         this.oldtime = (Long) map.get("oldtime");
         this.enabled = (Boolean) map.get("enabled");
         this.id = (Integer) map.get("id");
@@ -64,7 +66,7 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
     public boolean equals(Object obj) {
         try {
             CooldownTimer c = (CooldownTimer) obj;
-            return name.equals(c.name);
+            return (uuid.compareTo(c.uuid) == 0);
         } catch (Exception e) {
             return false;
         }
@@ -72,7 +74,7 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return uuid.hashCode();
     }
 
     @Override
@@ -80,7 +82,7 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("ready", ready);
         map.put("time", time);
-        map.put("name", name);
+        map.put("uuid", uuid);
         map.put("oldtime", oldtime);
         map.put("enabled", enabled);
         map.put("id", id);

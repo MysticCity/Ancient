@@ -18,7 +18,7 @@ public class CooldownCommand extends ICommand {
             if (ca.getParams().get(0) instanceof String && ca.getParams().get(1) instanceof Number) {
                 String name = (String) ca.getParams().get(0);
                 int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
-                PlayerData pd = PlayerData.getPlayerData(ca.getCaster().getName());
+                PlayerData pd = PlayerData.getPlayerData(ca.getCaster().getUniqueId());
                 pd.addTimer(name, time);
                 pd.startTimer(name);
                 return true;

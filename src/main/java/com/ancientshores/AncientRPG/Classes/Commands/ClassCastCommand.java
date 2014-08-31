@@ -25,7 +25,7 @@ public class ClassCastCommand {
             return false;
         }
         if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(mPlayer)) {
-            if (PlayerData.getPlayerData(mPlayer.getName()).getXpSystem().level < p.minlevel) {
+            if (PlayerData.getPlayerData(mPlayer.getUniqueId()).getXpSystem().level < p.minlevel) {
                 return false;
             }
         }

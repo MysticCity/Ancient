@@ -22,7 +22,7 @@ public class GetClassName extends IArgument {
             return null;
         }
         Player mPlayer = ((Player[]) obj[0])[0];
-        PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+        PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
         String classname = pd.getClassName();
         return classname;
     }

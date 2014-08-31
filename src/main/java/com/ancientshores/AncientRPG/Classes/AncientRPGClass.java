@@ -461,7 +461,7 @@ public class AncientRPGClass implements Serializable {
         if (sender instanceof Player) {
             Player mPlayer = (Player) sender;
             if (args.length == 0) {
-                PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+                PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
                 mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "Your class is: " + ChatColor.BLUE + pd.getClassName());
                 AncientRPGClass mClass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
                 if (mClass != null && mClass.description != null && !mClass.description.equals("")) {
@@ -495,7 +495,7 @@ public class AncientRPGClass implements Serializable {
                 ClassUnbindCommand.unbindCommand(args, mPlayer);
             } else {
                 if (AncientRPG.hasPermissions(mPlayer, cNodeChatCast)) {
-                    PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+                    PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
                     ClassCastCommand.processCast(pd, mPlayer, args[0], ClassCastCommand.castType.Command);
                 }
             }
@@ -602,7 +602,7 @@ public class AncientRPGClass implements Serializable {
 
     public static void removePerms() {
         for (Player p : AncientRPG.plugin.getServer().getOnlinePlayers()) {
-            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
             if (p.isOnline() && mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
                 try {
                     if (AncientRPG.permissionHandler != null && !mClass.permGroup.equals("")) {
@@ -616,7 +616,7 @@ public class AncientRPGClass implements Serializable {
 
     public static void addPerms() {
         for (Player p : AncientRPG.plugin.getServer().getOnlinePlayers()) {
-            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
+            AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
             if (p.isOnline() && mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
                 try {
                     if (AncientRPG.permissionHandler != null) {

@@ -2,6 +2,7 @@ package com.ancientshores.AncientRPG.HP;
 
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.PlayerData;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 public class DamageConverter {
     public static int standardhp = 600;
@@ -420,7 +422,7 @@ public class DamageConverter {
     }
 
     public static double convertDamageByCreature(LivingEntity c, Player mPlayer, double defaultHP, EntityDamageEvent e) {
-        PlayerData.getPlayerData(mPlayer.getName()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
+        PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
         if (c instanceof CaveSpider) {
             return reduceDamageByArmor(damageOfCaveSpider, mPlayer);
         } else if (c instanceof Spider) {
@@ -476,7 +478,7 @@ public class DamageConverter {
         } else if (c instanceof Skeleton) {
             return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, 0), mPlayer);
         } else {
-            return AncientRPGHP.getHpByMinecraftDamage(mPlayer.getName(), defaultHP);
+            return AncientRPGHP.getHpByMinecraftDamage(mPlayer.getUniqueId(), defaultHP);
         }
     }
 
@@ -493,7 +495,7 @@ public class DamageConverter {
     }
 
     public static double convertDamageByCause(DamageCause c, Player p, double damage, EntityDamageEvent event) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         switch (c) {
             case FIRE_TICK:
                 if (Math.abs(pd.lastFireDamage - System.currentTimeMillis()) >= 1000) {
@@ -1071,8 +1073,8 @@ public class DamageConverter {
         return reduction;
     }
 
-    public static double getHpByMcDamage(String name, double hp) {
-        AncientRPGHP hpinstance = PlayerData.getPlayerData(name).getHpsystem();
+    public static double getHpByMcDamage(UUID uuid, double hp) {
+        AncientRPGHP hpinstance = PlayerData.getPlayerData(uuid).getHpsystem();
         return (hpinstance.maxhp * (hp / 20));
     }
 

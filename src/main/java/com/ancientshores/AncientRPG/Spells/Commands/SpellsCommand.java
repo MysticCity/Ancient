@@ -27,7 +27,7 @@ public class SpellsCommand {
     }
 
     public static void showSpellList(Player p, int page) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         PageBuilder pb = new PageBuilder();
         if (AncientRPGClass.classList.containsKey(pd.getClassName().toLowerCase())) {
             pb.addMessage(AncientRPG.brand2 + "Class spells:");

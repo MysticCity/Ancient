@@ -26,7 +26,7 @@ public class BuffForTimeCommand extends ICommand {
                 AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                     public void run() {
                         for (final Player p : pla) {
-                            final Spell s = AncientRPGClass.getSpell(name, PlayerData.getPlayerData(p.getName()));
+                            final Spell s = AncientRPGClass.getSpell(name, PlayerData.getPlayerData(p.getUniqueId()));
                             if (s != null) {
                                 final int i = s.attachToEventAsBuff(p, ca.getCaster());
                                 AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {

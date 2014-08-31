@@ -10,7 +10,7 @@ public class RaceSpawnCommand {
         if (!AncientRPG.hasPermissions(p, AncientRPGRace.teleportToSpawnPermission)) {
             p.sendMessage(AncientRPG.brand2 + "You don't have permission to teleport to the spawn of your race");
         } else {
-            String racename = PlayerData.getPlayerData(p.getName()).getRacename();
+            String racename = PlayerData.getPlayerData(p.getUniqueId()).getRacename();
             for (AncientRPGRace r : AncientRPGRace.races) {
                 if (r.name.equalsIgnoreCase(racename)) {
                     if (r.spawnLoc == null) {

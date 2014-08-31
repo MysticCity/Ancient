@@ -25,7 +25,7 @@ public class ExecuteCommand extends ICommand {
                 AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
                     public void run() {
                         for (Player p : pl) {
-                            Spell s = AncientRPGClass.getSpell(spellName, PlayerData.getPlayerData(p.getName()));
+                            Spell s = AncientRPGClass.getSpell(spellName, PlayerData.getPlayerData(p.getUniqueId()));
                             CommandPlayer.scheduleSpell(s, p);
                         }
                     }

@@ -22,7 +22,7 @@ public class SetMaxHitpointsCommand extends ICommand {
                     if (p == null) {
                         continue;
                     }
-                    PlayerData pd = PlayerData.getPlayerData(p.getName());
+                    PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
                     double ratio = pd.getHpsystem().health / pd.getHpsystem().maxhp;
                     pd.getHpsystem().maxhp = hp;
                     pd.getHpsystem().health = Math.round(pd.getHpsystem().maxhp * ratio);

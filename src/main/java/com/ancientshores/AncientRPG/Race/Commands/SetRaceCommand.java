@@ -71,6 +71,6 @@ public class SetRaceCommand {
     }
 
     public static void setRace(Player p, AncientRPGRace race) {
-        PlayerData.getPlayerData(p.getName()).setRacename(race.name.toLowerCase());
+        PlayerData.getPlayerData(p.getUniqueId()).setRacename(race.name.toLowerCase());
     }
 }

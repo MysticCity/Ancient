@@ -375,7 +375,7 @@ public class Spell implements Serializable {
                                             return true;
                                         }
                                     }
-                                    if (AncientRPGClass.spellAvailable(mSpell.name, PlayerData.getPlayerData(p.getName()))) {
+                                    if (AncientRPGClass.spellAvailable(mSpell.name, PlayerData.getPlayerData(p.getUniqueId()))) {
                                         mSpell.execute(p, p, null, arg3);
                                     }
                                 }
@@ -410,7 +410,7 @@ public class Spell implements Serializable {
                             Spell.this.executeServerSpell();
                         } else {
                             for (Player p : Bukkit.getOnlinePlayers()) {
-                                if (AncientRPGClass.spellAvailable(Spell.this.name, PlayerData.getPlayerData(p.getName()))) {
+                                if (AncientRPGClass.spellAvailable(Spell.this.name, PlayerData.getPlayerData(p.getUniqueId()))) {
                                     for (Entry<String, SerializableZone> sz : AddSpellFreeZoneCommand.spellfreezones.entrySet()) {
                                         if (sz.getValue().isInZone(p.getLocation()) && !AncientRPG.hasPermissions(p, AddSpellFreeZoneCommand.ignorespellfreezones)) {
                                             return;
@@ -568,7 +568,7 @@ public class Spell implements Serializable {
             return;
         }
         if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(buffcaster)) {
-            if (PlayerData.getPlayerData(buffcaster.getName()).getXpSystem().level < minlevel) {
+            if (PlayerData.getPlayerData(buffcaster.getUniqueId()).getXpSystem().level < minlevel) {
                 if (active) {
                     buffcaster.sendMessage("You need to be atleast level " + minlevel + " to cast this spell");
                 }
@@ -611,7 +611,7 @@ public class Spell implements Serializable {
             return;
         }
         if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(buffcaster)) {
-            if (PlayerData.getPlayerData(buffcaster.getName()).getXpSystem().level < minlevel) {
+            if (PlayerData.getPlayerData(buffcaster.getUniqueId()).getXpSystem().level < minlevel) {
                 if (active) {
                     buffcaster.sendMessage("You need to be atleast level " + minlevel + " to cast this spell");
                 }

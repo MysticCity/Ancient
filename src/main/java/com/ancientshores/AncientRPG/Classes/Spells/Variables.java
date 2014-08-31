@@ -11,7 +11,7 @@ public class Variables {
     static final FlatFileConnector ffc = new FlatFileConnector(AncientRPG.plugin);
 
     public static int getParameterIntByString(Player mPlayer, String name, File f) {
-        PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+        PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
         int level = 1;
         if (pd.getXpSystem() != null) {
             level = pd.getXpSystem().level;

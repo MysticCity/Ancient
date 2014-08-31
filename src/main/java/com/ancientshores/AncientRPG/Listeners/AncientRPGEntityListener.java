@@ -152,7 +152,7 @@ public class AncientRPGEntityListener implements Listener {
                 Player p = (Player) e;
                 PotionEffect pe = getPotionEffectByType(PotionEffectType.HEAL, event.getPotion().getEffects());
                 if (pe != null) {
-                    AncientRPGHP.addHpByName(p.getName(), DamageConverter.healPotionHp * (pe.getAmplifier() + 1));
+                    AncientRPGHP.addHpByUUID(p.getUniqueId(), DamageConverter.healPotionHp * (pe.getAmplifier() + 1));
                 }
             }
         }
@@ -201,7 +201,7 @@ public class AncientRPGEntityListener implements Listener {
         }
         Player p = scheduledXpList.get(ea);
         scheduledXpList.remove(ea);
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         CommandPlayer.alreadyDead.add(event.getEntity());
         AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
             @Override
@@ -269,7 +269,7 @@ public class AncientRPGEntityListener implements Listener {
 
     private void processHpSystem(EntityDamageEvent event) {
         double damage = event.getDamage();
-        PlayerData.getPlayerData(((Player) event.getEntity()).getName());
+        PlayerData.getPlayerData(((Player) event.getEntity()).getUniqueId());
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && DamageConverter.isEnabled()) {
             if (event.getDamage() < 0.0 || event.isCancelled()) {
                 return;
@@ -310,12 +310,12 @@ public class AncientRPGEntityListener implements Listener {
                         EntityDamageByEntityEvent damagerevent = ((EntityDamageByEntityEvent) event);
                         if (damagerevent.getDamager() instanceof Player) {
                             Player attackingPlayer = (Player) damagerevent.getDamager();
-                            if (Math.abs(PlayerData.getPlayerData(mPlayer.getName()).getHpsystem().lastAttackDamage - System.currentTimeMillis()) < DamageConverter.minTimeBetweenAttacks) {
+                            if (Math.abs(PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage - System.currentTimeMillis()) < DamageConverter.minTimeBetweenAttacks) {
                                 damage = 0;
                             } else {
                                 damage = DamageConverter.getPlayerDamageOfItem(mPlayer, attackingPlayer.getItemInHand().getType(), attackingPlayer, DamageConverter.damageOfFists);
                             }
-                            PlayerData.getPlayerData(mPlayer.getName()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
+                            PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
                         } else if (damagerevent.getDamager() instanceof LivingEntity) {
                             LivingEntity c = (LivingEntity) damagerevent.getDamager();
                             damage = DamageConverter.convertDamageByCreature(c, mPlayer, event.getDamage(), event);

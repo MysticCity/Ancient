@@ -87,6 +87,7 @@ public abstract class IArgument {
     }
 
     public static void addDefaults() {
+    	// verschiedene Klassen zum herausfinden verschiedener Dinge werden registriert ??? --- kann man nicht einfach aufrufen
         registeredArguments.add(new GetLeggings());
         registeredArguments.add(new GetBoots());
         registeredArguments.add(new GetChestplate());

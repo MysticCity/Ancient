@@ -21,7 +21,7 @@ import java.util.logging.Level;
 public class ReloadCommand {
     public static void reload() {
         Bukkit.getServer().getLogger().log(Level.INFO, "AncientRPG: reloading...");
-        Config mConfig = AncientRPG.plugin.mConfig;
+        Config mConfig = AncientRPG.plugin.config;
         if (mConfig == null) {
             mConfig = new Config(AncientRPG.plugin);
         }
@@ -42,7 +42,7 @@ public class ReloadCommand {
         PlayerData.playerData = new HashSet<PlayerData>();
         AncientRPG.plugin.reloadConfig();
         for (Player p : Bukkit.getOnlinePlayers()) {
-            PlayerData pd = PlayerData.getPlayerData(p.getName());
+            PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             pd.getHpsystem().stopRegenTimer();
             if (DamageConverter.isEnabled() && DamageConverter.isEnabled(p.getWorld())) {
                 pd.getHpsystem().setMaxHp();
@@ -53,7 +53,7 @@ public class ReloadCommand {
             if (AncientRPGExperience.isEnabled()) {
                 pd.getXpSystem().addXP(0, false);
             }
-            pd.getHpsystem().player = p;
+            pd.getHpsystem().playerUUID = p.getUniqueId();
             pd.getHpsystem().startRegenTimer();
         }
         AncientRPGSpellListener.clearAll();

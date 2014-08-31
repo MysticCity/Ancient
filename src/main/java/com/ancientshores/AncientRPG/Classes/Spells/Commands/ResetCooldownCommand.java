@@ -21,14 +21,14 @@ public class ResetCooldownCommand extends ICommand {
             final Player[] players = (Player[]) ca.getParams().get(0);
             final String cdname = (String) ca.getParams().get(1);
             for (Player p : players) {
-                PlayerData pd = PlayerData.getPlayerData(p.getName());
+                PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
                 try {
                     if (cdname.equalsIgnoreCase("all")) {
                         pd.setCooldownTimer(new HashSet<CooldownTimer>());
                     } else {
                         HashSet<CooldownTimer> removetimer = new HashSet<CooldownTimer>();
                         for (CooldownTimer cd : pd.getCooldownTimer()) {
-                            if (cd.name.equalsIgnoreCase(cdname)) {
+                            if (cd.uuid.equalsIgnoreCase(cdname)) {
                                 removetimer.add(cd);
                             }
                         }

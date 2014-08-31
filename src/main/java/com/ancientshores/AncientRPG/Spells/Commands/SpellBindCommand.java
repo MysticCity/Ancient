@@ -51,7 +51,7 @@ public class SpellBindCommand {
     }
 
     public static void bindSlot(Player p, String spell, int slot) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         if (AncientRPGClass.canBind(spell, pd, p)) {
             pd.getSlotbinds().put(slot, spell.toLowerCase());
             p.sendMessage(AncientRPG.brand2 + "Successfully bound " + spell + " to the slot");
@@ -61,7 +61,7 @@ public class SpellBindCommand {
     }
 
     public static void bind(Player p, String spell, BindingData bd) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         if (AncientRPGClass.canBind(spell, pd, p)) {
             pd.getBindings().put(bd, spell.toLowerCase());
             p.sendMessage(AncientRPG.brand2 + "Successfully bound " + spell + " to " + Material.getMaterial(bd.id) + ".");

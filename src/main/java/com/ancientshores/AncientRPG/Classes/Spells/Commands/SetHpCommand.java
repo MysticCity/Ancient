@@ -25,8 +25,8 @@ public class SetHpCommand extends ICommand {
                         continue;
                     }
                     if (e instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled((Player) e)) {
-                        PlayerData.getPlayerData(((Player) e).getName()).getHpsystem().health = (int) ((Number) ca.getParams().get(1)).doubleValue();
-                        PlayerData.getPlayerData(((Player) e).getName()).getHpsystem().setMinecraftHP();
+                        PlayerData.getPlayerData(((Player) e).getUniqueId()).getHpsystem().health = (int) ((Number) ca.getParams().get(1)).doubleValue();
+                        PlayerData.getPlayerData(((Player) e).getUniqueId()).getHpsystem().setMinecraftHP();
                     } else {
                         ((LivingEntity) e).setHealth((Integer) ca.getParams().get(1));
                     }

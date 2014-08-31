@@ -8,6 +8,7 @@ import com.ancientshores.AncientRPG.HP.AncientRPGHP;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class PlayerData implements Serializable, ConfigurationSerializable {
@@ -39,7 +41,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
         ConfigurationSerialization.registerClass(AncientRPGExperience.class);
     }
 
-    private String player;
+    private UUID player;
     public int[] data;
     private AncientRPGHP hpsystem;
     private String className;
@@ -82,7 +84,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 
     @SuppressWarnings("unchecked")
     public PlayerData(Map<String, Object> map) {
-        player = (String) map.get("player");
+        player = (UUID) map.get("player");
         hpsystem = (AncientRPGHP) map.get("hpsystem");
         className = (String) map.get("className");
         xpSystem = (AncientRPGExperience) map.get("xpsystem");
@@ -104,20 +106,20 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
     // public Experience level;
 
     /**
-     * creates a new object by the name of the Player
+     * creates a new object by the uuid of the Player
      *
-     * @param playername the name of the player for which the playerdata is created
+     * @param playeruuid the UUID of the player for which the playerdata is created
      */
-    public PlayerData(String playername) {
+    public PlayerData(UUID playeruuid) {
         classLevels = new HashMap<String, Integer>();
-        this.player = playername;
+        this.player = playeruuid;
         /*
          * if (AncientRPG.classExisting("de.pylamo.rpgplugin.Achievement")) {
 		 * achievements = new HashSet<Achievement>(); } data = new int[100];
 		 * level = new Experience();
 		 */
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter")) {
-            hpsystem = new AncientRPGHP(DamageConverter.standardhp, playername);
+            hpsystem = new AncientRPGHP(DamageConverter.standardhp, playeruuid);
         }
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.Classes.AncientRPGClass")) {
             className = AncientRPGClass.standardclassName;
@@ -125,9 +127,9 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
         }
 
         if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {
-            xpSystem = new AncientRPGExperience(playername);
+            xpSystem = new AncientRPGExperience(playeruuid);
         }
-        manasystem = new ManaSystem(playername, ManaSystem.defaultMana);
+        manasystem = new ManaSystem(playeruuid, ManaSystem.defaultMana);
         racename = AncientRPGRace.defaultRace;
     }
 
@@ -205,7 +207,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 
     public boolean isCastReady(String k) {
         for (CooldownTimer ct : cooldownTimer) {
-            if (ct.name.equals(k)) {
+            if (ct.uuid.equals(k)) {
                 return ct.ready;
             }
         }
@@ -214,7 +216,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 
     public void startTimer(String k) {
         for (CooldownTimer ct : cooldownTimer) {
-            if (ct.name.equals(k)) {
+            if (ct.uuid.equals(k)) {
                 ct.startTimer();
                 return;
             }
@@ -231,7 +233,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 
     public long getRemainingTime(String k) {
         for (CooldownTimer ct : cooldownTimer) {
-            if (ct.name.equals(k)) {
+            if (ct.uuid.equals(k)) {
                 return ct.time;
             }
         }
@@ -240,7 +242,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 
     public boolean containsTimer(String k) {
         for (CooldownTimer ct : cooldownTimer) {
-            if (ct.name.equals(k)) {
+            if (ct.uuid.equals(k)) {
                 return true;
             }
         }
@@ -250,41 +252,41 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
     /**
      * @return the name of the player for which this object stands for
      */
-    public String getPlayer() {
+    public UUID getPlayer() {
         return player;
     }
 
     /**
-     * if no playerdata exists for the playername given, it will create a new
+     * if no playerdata exists for the playeruuid given, it will create a new
      * one
      *
-     * @param name the playername for which the object will be created
+     * @param uuid the playeruuid for which the object will be created
      * @return the newly created object or the existing object
      */
-    public static PlayerData getPlayerData(String name) {
-        PlayerData pd = playerHasPlayerData(name);
+    public static PlayerData getPlayerData(UUID uuid) {
+        PlayerData pd = playerHasPlayerData(uuid);
         if (pd != null) {
             return pd;
         }
-        pd = new PlayerData(name);
+        pd = new PlayerData(uuid);
         playerData.add(pd);
         pd.initialize();
         return pd;
     }
 
     /**
-     * @param name the name of the player for which you want to check if he has
+     * @param uuid the uuid of the player for which you want to check if he has
      *             already a playerdata
-     * @return the PlayerData of the givenname
+     * @return the PlayerData of the given uuid
      */
-    public static PlayerData playerHasPlayerData(String name) {
+    public static PlayerData playerHasPlayerData(UUID uuid) {
         for (PlayerData pd : playerData) {
-            if (pd.player != null && pd.player.equalsIgnoreCase(name)) {
+            if (pd.player != null && pd.player.compareTo(uuid) == 0) {
                 return pd;
             }
         }
         File folder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "players");
-        File f = new File(folder.getPath() + File.separator + name + ".yml");
+        File f = new File(folder.getPath() + File.separator + uuid + ".yml");
         if (f.exists()) {
             YamlConfiguration yc = new YamlConfiguration();
             File input = new File(folder.getPath() + File.separator + f.getName().substring(0, f.getName().length() - 4) + ".dat");
@@ -318,7 +320,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
                 return pd;
             } catch (Exception e) {
                 e.printStackTrace();
-                Bukkit.getLogger().log(Level.SEVERE, "Error in playerdata of player: " + name);
+                Bukkit.getLogger().log(Level.SEVERE, "Error in playerdata of player: " + uuid);
             }
         }
         return null;
@@ -473,7 +475,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
         save();
     }
 
-    public void setPlayer(String player) {
+    public void setPlayer(UUID player) {
         this.player = player;
         save();
     }

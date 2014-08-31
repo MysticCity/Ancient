@@ -67,6 +67,7 @@ public class Command extends ICodeSection {
     }
 
     public synchronized static void putDefaults() {
+    	//registriert die verschiedenen kommandos, die es gibt
         registeredCommands.put("lightning", new LightningCommand());
         registeredCommands.put("cancelspell", new CancelSpellCommand());
         registeredCommands.put("explosion", new ExplosionCommand());

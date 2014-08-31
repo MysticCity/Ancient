@@ -61,23 +61,24 @@ public class AncientRPGRace {
     public static void processCommand(CommandSender cs, String[] command) {
         if (command.length >= 1) {
             if (cs instanceof Player) {
-                Player sender = (Player) cs;
+                Player p = (Player) cs;
                 if (command[0].equalsIgnoreCase("set")) {
-                    SetRaceCommand.setRaceCommand(sender, command);
+                    SetRaceCommand.setRaceCommand(p, command);
                 }
                 if (command[0].equalsIgnoreCase("help")) {
-                    RaceHelpCommand.processHelp(sender, command);
+                    RaceHelpCommand.processHelp(p, command);
                 } else if (command[0].equalsIgnoreCase("list")) {
-                    RaceListCommand.showRaces(sender, command);
+                    RaceListCommand.showRaces(p, command);
                 } else if (command[0].equalsIgnoreCase("setspawn") && command.length == 2) {
-                    SetRaceSpawnCommand.setRaceSpawn(sender, command[1]);
+                    SetRaceSpawnCommand.setRaceSpawn(p, command[1]);
                 } else if (command[0].equalsIgnoreCase("spawn")) {
-                    RaceSpawnCommand.raceSpawnCommand(sender);
+                    RaceSpawnCommand.raceSpawnCommand(p);
                 }
             }
         } else {
             if (cs instanceof Player) {
-                AncientRPGRace race = AncientRPGRace.getRaceByName(PlayerData.getPlayerData(cs.getName()).getRacename());
+                Player p = (Player) cs;
+            	AncientRPGRace race = AncientRPGRace.getRaceByName(PlayerData.getPlayerData(p.getUniqueId()).getRacename());
                 if (race != null) {
                     cs.sendMessage("Your race is " + race.name);
                 } else {

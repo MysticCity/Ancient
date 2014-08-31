@@ -22,9 +22,9 @@ public class IsCooldownReady extends IArgument {
             return null;
         }
         String s = (String) obj[0];
-        PlayerData pd = PlayerData.getPlayerData(so.buffcaster.getPlayerListName());
+        PlayerData pd = PlayerData.getPlayerData(so.buffcaster.getUniqueId());
         for (CooldownTimer cd : pd.getCooldownTimer()) {
-            if (cd.name.equalsIgnoreCase(s)) {
+            if (cd.uuid.equalsIgnoreCase(s)) {
                 return cd.ready;
             }
         }

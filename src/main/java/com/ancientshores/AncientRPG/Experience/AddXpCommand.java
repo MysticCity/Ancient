@@ -35,7 +35,7 @@ public class AddXpCommand {
             cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Expected Integer, recieved string");
             return;
         }
-        PlayerData pd = PlayerData.playerHasPlayerData(playername);
+        PlayerData pd = PlayerData.playerHasPlayerData(((Player) cs).getUniqueId());
         if (pd == null) {
             cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Player not found");
         }

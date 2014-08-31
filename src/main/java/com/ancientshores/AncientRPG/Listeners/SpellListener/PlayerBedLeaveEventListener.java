@@ -43,7 +43,7 @@ public class PlayerBedLeaveEventListener extends ISpellListener {
             }, 20);
         }
         Player mPlayer = event.getPlayer();
-        PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+        PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
         HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
         for (Spell p : eventSpells) {
             if (AncientRPGClass.spellAvailable(p, pd)) {

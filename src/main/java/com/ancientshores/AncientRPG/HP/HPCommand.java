@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class HPCommand {
     public static void showHP(Player p) {
         if (DamageConverter.isWorldEnabled(p) && DamageConverter.isEnabled()) {
-            PlayerData pd = PlayerData.getPlayerData(p.getName());
+            PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
             p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (((float) hp) / DamageConverter.displayDivider) + "/" + (((float) maxhp) / DamageConverter.displayDivider) + " hp");

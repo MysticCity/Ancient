@@ -21,7 +21,7 @@ public class SetManaCommand extends ICommand {
                     if (e == null) {
                         continue;
                     }
-                    ManaSystem.setManaByName(e.getName(), (int) ((Number) ca.getParams().get(1)).doubleValue());
+                    ManaSystem.setManaByUUID(e.getUniqueId(), (int) ((Number) ca.getParams().get(1)).doubleValue());
                 }
                 return true;
             }

@@ -22,10 +22,10 @@ public class RemoveManaCommand extends ICommand {
                     if (e == null) {
                         continue;
                     }
-                    if (PlayerData.getPlayerData(e.getName()).getManasystem().getCurmana() - (int) ((Number) ca.getParams().get(1)).doubleValue() < 0 && (Boolean) ca.getParams().get(2)) {
+                    if (PlayerData.getPlayerData(e.getUniqueId()).getManasystem().getCurmana() - (int) ((Number) ca.getParams().get(1)).doubleValue() < 0 && (Boolean) ca.getParams().get(2)) {
                         return false;
                     }
-                    ManaSystem.removeManaByName(e.getName(), ((Number) ca.getParams().get(1)).intValue());
+                    ManaSystem.removeManaByUUID(e.getUniqueId(), ((Number) ca.getParams().get(1)).intValue());
                 }
                 return true;
             }

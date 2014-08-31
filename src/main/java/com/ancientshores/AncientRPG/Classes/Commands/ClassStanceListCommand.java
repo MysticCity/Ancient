@@ -18,7 +18,7 @@ public class ClassStanceListCommand {
             }
         }
         PageBuilder pb = new PageBuilder();
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         AncientRPGClass c = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
         if (c != null) {
             pb.addMessage(AncientRPG.brand2 + "Class-stances:");

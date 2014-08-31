@@ -21,7 +21,7 @@ public class SetMaxManaCommand extends ICommand {
                     if (e == null) {
                         continue;
                     }
-                    PlayerData.getPlayerData(e.getName()).getManasystem().maxmana = (int) ((Number) ca.getParams().get(1)).doubleValue();
+                    PlayerData.getPlayerData(e.getUniqueId()).getManasystem().maxmana = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 }
                 return true;
             }

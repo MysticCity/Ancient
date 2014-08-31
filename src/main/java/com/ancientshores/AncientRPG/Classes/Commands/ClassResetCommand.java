@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ClassResetCommand {
     public static void resetCommand(Player p) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         AncientRPGClass oldClass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
         reset(p, oldClass, pd);
         p.sendMessage(AncientRPG.brand2 + "Successfully reset your class");

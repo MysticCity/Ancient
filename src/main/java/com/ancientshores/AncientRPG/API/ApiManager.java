@@ -25,7 +25,7 @@ public class ApiManager {
     }
 
     public PlayerData getPlayerData(Player mPlayer) {
-        return PlayerData.getPlayerData(mPlayer.getName());
+        return PlayerData.getPlayerData(mPlayer.getUniqueId());
     }
 
     public AncientRPGClass getPlayerClass(PlayerData pd) {

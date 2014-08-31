@@ -16,85 +16,87 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Config {
-    final AncientRPG instance;
+	final AncientRPG plugin; // ??? kann vielleicht private
+	public final String directory; // ??? kann vielleicht private
+	final File file; // ??? kann vielleicht private
 
-    public Config(AncientRPG instance) {
-        this.instance = instance;
-        this.directory = AncientRPG.plugin.getDataFolder().getPath();
-        this.file = new File(directory + File.separator + "config.yml");
-    }
+	public Config(AncientRPG instance) {
+		this.plugin = instance; // das Plugin speichern
+		this.directory = plugin.getDataFolder().getPath(); // den Pfad mit den Dateien speichern
+		this.file = new File(directory + File.separator + "config.yml"); // die Config-Datei laden
+	}
 
-    public final String directory;
-    final File file;
+	public void configCheck() { // --- was soll hier passieren
+   
+	}
 
-    public void configCheck() {
-    }
+	public void addDefaults() {
+		try {
+			if (file.exists()) {
+				plugin.getConfig().load(file); // wenn die datei existiert die plugin-config durch diese datei ersetzen
+			}
+		} catch (FileNotFoundException ex) { // nichts bei Fehlern
+		} catch (IOException ex) {
+		} catch (InvalidConfigurationException ex) {
+		}
+		
+		plugin.getConfig().set("AncientRPG.language", AncientRPG.languagecode); // in der Config die verwendete Sprache auf die Angegebene setzten. --- solange bis dies auch was anderes als en sein kann
+		
+		// Party Config
+		AncientRPGParty.writeConfig(plugin); // ???
+		
+		
+		// Gilden Config
+		AncientRPGGuild.writeConfig(plugin); // ???
+		
+		// HP Config
+		DamageConverter.writeConfig(plugin); // ???
+	   
+		// XP Config
+		AncientRPGExperience.writeConfig(plugin); // ???
+		
+		// ??? warum kommt hier nicht die Überprüfung
+		CreatureHp.writeConfig(plugin); // ???
+		AncientRPGClass.writeConfig(plugin); // ???
+		AncientRPGRace.writeRacesConfig(plugin); // ???
+		ManaSystem.writeConfig(plugin); // ???
+		Spell.writeConfig(plugin.getConfig()); // ??? wird hier die gleiche config wie die des plugins verwendet?
+		plugin.saveConfig(); // die configuration wird gespeichert
+	}
 
-    public void addDefaults() {
-        try {
-            if (file.exists()) {
-                instance.getConfig().load(file);
-            }
-        } catch (FileNotFoundException ignored) {
-        } catch (IOException ignored) {
-        } catch (InvalidConfigurationException ignored) {
-        }
-        instance.getConfig().set("AncientRPG.language", AncientRPG.languagecode);
-        // Party Config
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty")) {
-            AncientRPGParty.writeConfig(instance);
-        }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild")) {
-            AncientRPGGuild.writeConfig(instance);
-        }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
-            DamageConverter.writeConfig(instance);
-        }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {
-            AncientRPGExperience.writeConfig(instance);
-        }
-        CreatureHp.writeConfig(instance);
-        AncientRPGClass.writeConfig(instance);
-        AncientRPGRace.writeRacesConfig(instance);
-        ManaSystem.writeConfig(instance);
-        Spell.writeConfig(instance.getConfig());
-        instance.saveConfig();
-    }
-
-    public void loadkeys() {
-        try {
-            if (file.exists()) {
-                instance.getConfig().load(file);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-        AncientRPG.languagecode = instance.getConfig().getString("AncientRPG.language", AncientRPG.languagecode);
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty")) {
-            AncientRPGParty.loadConfig(instance);
-        }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild")) {
-            AncientRPGGuild.loadConfig(instance);
-        }
-
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.HP.DamageConverter") && AncientRPG.classExists("com.ancientshores.AncientRPG.HP.AncientRPGHP")) {
-            DamageConverter.loadConfig(instance);
-        }
-        if (AncientRPG.classExists("com.ancientshores.AncientRPG.Experience.AncientRPGExperience")) {
-            AncientRPGExperience.loadConfig(instance);
-        }
-        CreatureHp.loadConfig(instance);
-        AncientRPGClass.loadConfig(instance);
-        AncientRPGRace.loadRacesConfig(instance);
-        ManaSystem.loadConfig(instance);
-        Spell.loadConfig(instance.getConfig());
-        instance.loadConfig(instance.getConfig());
-        if (file.exists()) {
-            file.renameTo(new File(file.getPath() + ".old"));
-        }
-    }
+	public void loadkeys() {
+		try {
+			if (file.exists()) { // wenn die Datei existiert
+				plugin.getConfig().load(file); // Configuration aus der angegebenen Datei laden
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
+		
+		AncientRPG.languagecode = plugin.getConfig().getString("AncientRPG.language", AncientRPG.languagecode); // die Sprache setzen
+		
+		AncientRPGParty.loadConfig(plugin); // Party config laden ???
+		
+		AncientRPGGuild.loadConfig(plugin); // Guilden config laden ???
+		
+		DamageConverter.loadConfig(plugin); // converter config laden ???
+		
+		AncientRPGExperience.loadConfig(plugin); // xp config laden ???
+		
+		CreatureHp.loadConfig(plugin); // creaturen hp config laden ???
+		AncientRPGClass.loadConfig(plugin); // klassen config laden ???
+		AncientRPGRace.loadRacesConfig(plugin); // rassen config laden ???
+		ManaSystem.loadConfig(plugin); // mana config laden ???
+		Spell.loadConfig(plugin.getConfig()); // srüche config laden ???
+		
+		plugin.loadConfig(plugin.getConfig()); // plugin config laden
+		
+		if (file.exists()) { // wenn die datei existiert
+			file.renameTo(new File(file.getPath() + ".old")); // Datei umbenennen damit sie überschrieben wird
+		}
+	}
 }

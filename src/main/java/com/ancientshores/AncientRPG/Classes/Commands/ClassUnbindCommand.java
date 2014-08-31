@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class ClassUnbindCommand {
     public static void unbindCommand(String[] args, Player p) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         Material mat = null;
         byte b = 0;
         if (args.length == 1) {

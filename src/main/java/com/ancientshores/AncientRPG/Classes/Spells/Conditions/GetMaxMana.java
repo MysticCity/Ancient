@@ -22,6 +22,6 @@ public class GetMaxMana extends IArgument {
             return 0;
         }
         Player e = ((Player[]) obj[0])[0];
-        return PlayerData.getPlayerData(e.getName()).getManasystem().getMaxmana();
+        return PlayerData.getPlayerData(e.getUniqueId()).getManasystem().getMaxmana();
     }
 }
