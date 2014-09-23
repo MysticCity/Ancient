@@ -1,15 +1,16 @@
 package com.ancientshores.AncientRPG.API;
 
+import java.util.UUID;
+
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.Spells.Command;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.ICommand;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.Parameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.ICommand;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class ApiManager {
     private static ApiManager instance;
@@ -24,8 +25,8 @@ public class ApiManager {
         return instance;
     }
 
-    public PlayerData getPlayerData(Player mPlayer) {
-        return PlayerData.getPlayerData(mPlayer.getUniqueId());
+    public PlayerData getPlayerData(UUID uuid) {
+        return PlayerData.getPlayerData(uuid);
     }
 
     public AncientRPGClass getPlayerClass(PlayerData pd) {
@@ -33,13 +34,13 @@ public class ApiManager {
         return playerClass;
     }
 
-    public AncientRPGParty getPlayerParty(Player p) {
-        AncientRPGParty party = AncientRPGParty.getPlayersParty(p);
+    public AncientRPGParty getPlayerParty(UUID uuid) {
+        AncientRPGParty party = AncientRPGParty.getPlayersParty(uuid);
         return party;
     }
 
-    public AncientRPGGuild getPlayerGuild(String playername) {
-        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(playername);
+    public AncientRPGGuild getPlayerGuild(UUID uuid) {
+        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(uuid);
         return guild;
     }
 

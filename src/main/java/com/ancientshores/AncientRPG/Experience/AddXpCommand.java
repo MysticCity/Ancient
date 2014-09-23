@@ -1,16 +1,16 @@
 package com.ancientshores.AncientRPG.Experience;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 
 public class AddXpCommand {
     public static void addXp(CommandSender cs, String[] args) {
         String playername = "";
-        if (cs instanceof Player && !AncientRPG.hasPermissions((Player) cs, AncientRPGExperience.nodeXPAdmin)) {
+        if (cs instanceof Player && !cs.hasPermission(AncientRPGExperience.nodeXPAdmin)) {
             cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You don't have the permission to use this command");
             return;
         }

@@ -1,17 +1,19 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import com.ancientshores.AncientRPG.Util.GlobalMethods;
+import java.util.HashSet;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.List;
+import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Util.GlobalMethods;
 
+// TODO durchlesen
 public class GetNearbyEntities extends IArgument {
     @ArgumentDescription(
             description = "Returns the amount of entities nearby the location in the specified range",

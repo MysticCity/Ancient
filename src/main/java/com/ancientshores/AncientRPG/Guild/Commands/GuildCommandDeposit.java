@@ -1,16 +1,17 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 
 public class GuildCommandDeposit {
     public static void processDeposit(CommandSender sender, String[] args) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
-            AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+            AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
             if (mGuild != null) {
                 Double value;
                 try {

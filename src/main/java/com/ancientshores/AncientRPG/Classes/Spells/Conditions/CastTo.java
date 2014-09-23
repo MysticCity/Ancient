@@ -1,17 +1,19 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+
+// TODO genauer analysieren. Muss allgemeiner werden. für alle arten von collection
 public class CastTo extends IArgument {
     @ArgumentDescription(
-            description = "casts the collection of players to the specified type.",
-            parameterdescription = {"playercollection", "newtype"}, returntype = ParameterType.Void, rparams = {ParameterType.Player, ParameterType.String})
+            description = "Casts the collection of players to the specified type.",
+            parameterdescription = {"collection", "newtype"}, returntype = ParameterType.Void, rparams = {ParameterType.Player, ParameterType.String})
     public CastTo() {
         this.returnType = ParameterType.Void;
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};

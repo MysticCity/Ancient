@@ -1,18 +1,34 @@
 package de.pylamo.spellmaker.gui.SpellItems.Variable;
 
-import de.pylamo.spellmaker.gui.SimpleDragObject;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterSlot;
-import de.pylamo.spellmaker.gui.SpellItems.TopInformation;
-import de.pylamo.spellmaker.gui.Window;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.dnd.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+import java.awt.dnd.DragSourceMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+import de.pylamo.spellmaker.gui.SimpleDragObject;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
+import de.pylamo.spellmaker.gui.SpellItems.TopInformation;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterSlot;
 
 public class VariableOperationItem extends ISpellItem {
     private static final long serialVersionUID = 1L;

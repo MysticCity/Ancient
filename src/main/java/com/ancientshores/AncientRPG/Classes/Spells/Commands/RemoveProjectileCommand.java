@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.event.entity.ProjectileHitEvent;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class RemoveProjectileCommand extends ICommand {
 

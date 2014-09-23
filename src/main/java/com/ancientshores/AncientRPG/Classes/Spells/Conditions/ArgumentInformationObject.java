@@ -1,8 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+
+// ??? was bewirkt das
 public class ArgumentInformationObject {
     public ArgumentParameter[] parameters;
     public IArgument argument;

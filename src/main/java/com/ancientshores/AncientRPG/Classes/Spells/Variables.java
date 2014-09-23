@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
+import java.io.File;
+
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Util.FlatFileConnector;
-import org.bukkit.entity.Player;
-
-import java.io.File;
 
 public class Variables {
     static final FlatFileConnector ffc = new FlatFileConnector(AncientRPG.plugin);
@@ -18,6 +19,7 @@ public class Variables {
         }
         return ffc.getIntOfFile("" + level, name, f);
     }
+    
     /*public static String getParameterStringByString(Player mPlayer, String name, File f)
     {
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());

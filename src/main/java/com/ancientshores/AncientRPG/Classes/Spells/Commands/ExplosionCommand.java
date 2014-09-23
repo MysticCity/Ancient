@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.TNTPrimed;
 
-import java.util.List;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
 
 public class ExplosionCommand extends ICommand {
     @CommandDescription(description = "<html>Creates an explosion with the specified strength at the location</html>",
@@ -46,12 +47,12 @@ public class ExplosionCommand extends ICommand {
                                         if (ca.getCaster().equals(e)) {
                                             continue;
                                         }
-                                        AncientRPGEntityListener.scheduledXpList.put(e, ca.getCaster());
+                                        AncientRPGEntityListener.scheduledXpList.put(e.getUniqueId(), ca.getCaster().getUniqueId());
                                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
 
                                             @Override
                                             public void run() {
-                                                AncientRPGEntityListener.scheduledXpList.remove(e);
+                                                AncientRPGEntityListener.scheduledXpList.remove(e.getUniqueId());
                                             }
                                         }, Math.round(1000 / 50));
                                     }

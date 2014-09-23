@@ -1,29 +1,30 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.Arrays;
+import java.util.logging.Level;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 @ParameterDescription(amount = 1, description = "<html>returns the nearest entity of the caster<br> Textfield: range of parameter</html>", returntype = "Entity", name = "NearestEntity")
 public class NearestEntityParameter implements IParameter {
 
     @Override
-    public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
+    public void parseParameter(EffectArgs ea, Player p, String[] subparam, ParameterType pt) {
         int range = 10;
 
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(p, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -32,7 +33,7 @@ public class NearestEntityParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestEntity == null) {
-            Entity nEntity = ea.getSpellInfo().getNearestEntity(mPlayer, range);
+            Entity nEntity = ea.getSpellInfo().getNearestEntity(p, range);
             ea.getSpellInfo().nearestEntity = nEntity;
             if (nEntity == null) {
                 return;
@@ -59,13 +60,13 @@ public class NearestEntityParameter implements IParameter {
     }
 
     @Override
-    public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so) {
+    public Object parseParameter(Player p, String[] subparam, SpellInformationObject so) {
         int range = 10;
 
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(p, subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -73,7 +74,7 @@ public class NearestEntityParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntity == null) {
-            Entity nEntity = so.getNearestEntity(mPlayer, range);
+            Entity nEntity = so.getNearestEntity(p, range);
             so.nearestEntity = nEntity;
             if (nEntity == null) {
                 return null;

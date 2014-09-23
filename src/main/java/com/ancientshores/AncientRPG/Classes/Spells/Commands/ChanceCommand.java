@@ -1,8 +1,8 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-
 import java.util.Random;
+
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class ChanceCommand extends ICommand {
     static final Random r = new Random();

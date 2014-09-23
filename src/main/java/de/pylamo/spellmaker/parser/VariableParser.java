@@ -1,14 +1,14 @@
 package de.pylamo.spellmaker.parser;
 
+import java.util.regex.Pattern;
+
+import de.pylamo.spellmaker.gui.Window;
 import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperationItem;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperator;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperatorPanel;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariablePanel;
-import de.pylamo.spellmaker.gui.Window;
-
-import java.util.regex.Pattern;
 
 class VariableParser {
     private final Window w;

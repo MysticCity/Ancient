@@ -1,16 +1,20 @@
 package de.pylamo.spellmaker.parser;
 
+import java.util.LinkedList;
+import java.util.regex.Pattern;
+
 import de.pylamo.spellmaker.gui.Argument;
 import de.pylamo.spellmaker.gui.ArgumentPreview;
 import de.pylamo.spellmaker.gui.ParameterPreview;
 import de.pylamo.spellmaker.gui.ParameterPreview.param;
-import de.pylamo.spellmaker.gui.SpellItems.Arguments.ArgumentPanel;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.*;
-import de.pylamo.spellmaker.gui.SpellItems.Variable.VariablePanel;
 import de.pylamo.spellmaker.gui.Window;
-
-import java.util.LinkedList;
-import java.util.regex.Pattern;
+import de.pylamo.spellmaker.gui.SpellItems.Arguments.ArgumentPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.BooleanParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.NumberParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.StringParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Variable.VariablePanel;
 
 class ArgumentParser {
     private LinkedList<String> args;

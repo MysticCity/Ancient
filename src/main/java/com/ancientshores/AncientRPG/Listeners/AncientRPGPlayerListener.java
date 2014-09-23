@@ -1,18 +1,17 @@
 package com.ancientshores.AncientRPG.Listeners;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Classes.BindingData;
-import com.ancientshores.AncientRPG.Classes.Commands.ClassCastCommand;
-import com.ancientshores.AncientRPG.Classes.Commands.ClassResetCommand;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import com.ancientshores.AncientRPG.HP.DamageConverter;
-import com.ancientshores.AncientRPG.Party.AncientRPGParty;
-import com.ancientshores.AncientRPG.PlayerData;
-import com.ancientshores.AncientRPG.Race.AncientRPGRace;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,18 +22,38 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Classes.BindingData;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassCastCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassResetCommand;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import com.ancientshores.AncientRPG.HP.DamageConverter;
+import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 
 public class AncientRPGPlayerListener implements Listener {
-	public static final Collection<Player> toggleguildlist = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
-	public static final Collection<Player> togglepartylist = Collections.newSetFromMap(new ConcurrentHashMap<Player, Boolean>());
-	public static final HashMap<Player, Integer> invisibleList = new HashMap<Player, Integer>();
-	public static final HashMap<Entity, Player> summonedCreatures = new HashMap<Entity, Player>();
+
+	public static final Collection<UUID> toggleguildlist = Collections.newSetFromMap(new ConcurrentHashMap<UUID, Boolean>());
+	public static final Collection<UUID> togglepartylist = Collections.newSetFromMap(new ConcurrentHashMap<UUID, Boolean>());
+	public static LinkedHashMap<UUID, Integer> healpotions = new LinkedHashMap<UUID, Integer>();
+	public static final HashMap<UUID, Integer> invisibleList = new HashMap<UUID, Integer>();
+	public static final HashMap<UUID, UUID> summonedCreatures = new HashMap<UUID, UUID>();
+
 	public static EventPriority guildSpawnPriority = EventPriority.HIGHEST;
 	public static EventPriority raceSpawnPriority = EventPriority.HIGHEST;
 	public static AncientRPG plugin;
@@ -46,7 +65,7 @@ public class AncientRPGPlayerListener implements Listener {
 	}
 
 	public static int addInvis(Player p) {
-		invisibleList.put(p, invisId);
+		invisibleList.put(p.getUniqueId(), invisId);
 		int oldinvisid = invisId;
 		invisId++;
 		if (invisId > Integer.MAX_VALUE / 2) {
@@ -56,20 +75,20 @@ public class AncientRPGPlayerListener implements Listener {
 	}
 
 	public static void setAllVisible(Player p) {
-		for (Player pa : invisibleList.keySet()) {
-			p.showPlayer(pa);
+		for (UUID uuid : invisibleList.keySet()) {
+			p.showPlayer(Bukkit.getPlayer(uuid));
 		}
 	}
 
 	public static void setVisibleToAll(Player p) {
-		for (Player pa : AncientRPG.plugin.getServer().getOnlinePlayers()) {
-			pa.showPlayer(p);
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			pl.showPlayer(p);
 		}
 	}
 
 	public static boolean removeInvis(Player p, int id) {
-		if (invisibleList.get(p) != null && invisibleList.get(p) == id) {
-			invisibleList.remove(p);
+		if (invisibleList.containsKey(p.getUniqueId()) && invisibleList.get(p.getUniqueId()) == id) {
+			invisibleList.remove(p.getUniqueId());
 			return true;
 		}
 		return false;
@@ -95,8 +114,8 @@ public class AncientRPGPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerConnect(PlayerJoinEvent event) {
 		Player p = event.getPlayer();
-		for (Player pl : invisibleList.keySet()) {
-			p.hidePlayer(pl);
+		for (UUID uuid : invisibleList.keySet()) {
+			p.hidePlayer(Bukkit.getPlayer(uuid));
 		}
 		AncientRPGGuild.setTag(p);
 		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
@@ -147,15 +166,21 @@ public class AncientRPGPlayerListener implements Listener {
 			}
 		}
 		if (summonedCreatures.containsValue(p)) {
-			HashSet<Entity> removeentity = new HashSet<Entity>();
-			for (Entity e : summonedCreatures.keySet()) {
-				if (summonedCreatures.get(e).equals(p)) {
-					e.remove();
-					removeentity.add(e);
+			HashSet<UUID> removeentity = new HashSet<UUID>();
+			for (UUID uuid : summonedCreatures.keySet()) {
+				if (summonedCreatures.get(uuid).compareTo(p.getUniqueId()) == 0) {
+					for (World w : Bukkit.getWorlds()) {
+						for (Entity e : w.getEntities()) {
+							if (e.getUniqueId().compareTo(uuid) == 0) {
+								e.remove();
+							}
+						}
+					}
+					removeentity.add(uuid);
 				}
 			}
-			for (Entity e : removeentity) {
-				summonedCreatures.remove(e);
+			for (UUID uuid : removeentity) {
+				summonedCreatures.remove(uuid);
 			}
 		}
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
@@ -174,7 +199,7 @@ public class AncientRPGPlayerListener implements Listener {
 				event.setRespawnLocation(mRace.spawnLoc.toLocation());
 			}
 		}
-		AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(event.getPlayer().getName());
+		AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(event.getPlayer().getUniqueId());
 		if (mGuild != null) {
 			if (AncientRPGGuild.spawnEnabled && mGuild.spawnLocation != null) {
 				event.setRespawnLocation(mGuild.spawnLocation.toLocation());
@@ -185,9 +210,6 @@ public class AncientRPGPlayerListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClose(final InventoryCloseEvent event) {
-		if (!(event.getPlayer() instanceof Player)) {
-			return;
-		}
 		if (event.getInventory().getHolder() instanceof Player) {
 			Player p = (Player) event.getInventory().getHolder();
 			AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
@@ -234,31 +256,32 @@ public class AncientRPGPlayerListener implements Listener {
 			return;
 		}
 		if (mClass.blacklistedMats.contains(m)) {
-			ItemStack oldStack = event.getPlayer().getInventory().getItemInHand();
-			int fslot = event.getPlayer().getInventory().firstEmpty();
+			ItemStack oldStack = p.getInventory().getItemInHand();
+			int fslot = p.getInventory().firstEmpty();
 			if (fslot == -1) {
-				event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), oldStack);
+				p.getWorld().dropItem(event.getPlayer().getLocation(), oldStack);
 			} else {
-				event.getPlayer().getInventory().setItem(fslot, oldStack);
+				p.getInventory().setItem(fslot, oldStack);
 			}
 			if (newslot != -1) {
-				event.getPlayer().getInventory().clear(newslot);
+				p.getInventory().clear(newslot);
 			}
-			((CommandSender) event.getPlayer()).sendMessage("Your class can't use this item");
+			p.sendMessage("Your class can't use this item");
 		}
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerPickupItem(final PlayerPickupItemEvent event) {
-		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(event.getPlayer().getUniqueId()).getClassName().toLowerCase());
+		final Player p = event.getPlayer();
+		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
 		int free = 0;
-		for (ItemStack s : event.getPlayer().getInventory().getContents()) {
+		for (ItemStack s : p.getInventory().getContents()) {
 			if (s == null) {
 				free++;
 			}
 		}
 		if (free < 2) {
-			if (mClass != null && mClass.isWorldEnabled(event.getPlayer())) {
+			if (mClass != null && mClass.isWorldEnabled(p)) {
 				if (mClass.blacklistedMats.contains(event.getItem().getItemStack().getType())) {
 					event.setCancelled(true);
 				}
@@ -267,7 +290,6 @@ public class AncientRPGPlayerListener implements Listener {
 		}
 		AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 			public void run() {
-				Player p = event.getPlayer();
 				AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
 				if (mClass == null) {
 					return;
@@ -276,19 +298,19 @@ public class AncientRPGPlayerListener implements Listener {
 					return;
 				}
 				Material m;
-				int newslot = event.getPlayer().getInventory().getHeldItemSlot();
+				int newslot = p.getInventory().getHeldItemSlot();
 				try {
-					m = event.getPlayer().getInventory().getItemInHand().getType();
+					m = p.getInventory().getItemInHand().getType();
 				} catch (Exception e) {
 					return;
 				}
 				if (mClass.blacklistedMats.contains(m)) {
-					ItemStack oldStack = event.getPlayer().getInventory().getItemInHand();
-					event.getPlayer().getInventory().setItem(event.getPlayer().getInventory().firstEmpty(), oldStack);
+					ItemStack oldStack = p.getInventory().getItemInHand();
+					p.getInventory().setItem(p.getInventory().firstEmpty(), oldStack);
 					if (newslot != -1) {
-						event.getPlayer().getInventory().clear(newslot);
+						p.getInventory().clear(newslot);
 					}
-					event.getPlayer().sendMessage("Your class can't equip use item");
+					p.sendMessage("Your class can't equip use item");
 				}
 			}
 		});
@@ -338,20 +360,20 @@ public class AncientRPGPlayerListener implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerChat(final AsyncPlayerChatEvent event) {
+	public void onPlayerChat(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
 		if (!event.getMessage().startsWith("/")) {
-			if (toggleguildlist.contains(p)) {
-				AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(p.getName());
+			if (toggleguildlist.contains(p.getUniqueId())) {
+				AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(p.getUniqueId());
 				if (mGuild != null) {
 					mGuild.sendMessage(event.getMessage(), p);
 					event.setCancelled(true);
 				}
 			}
-			if (togglepartylist.contains(p)) {
-				AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p);
+			if (togglepartylist.contains(p.getUniqueId())) {
+				AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p.getUniqueId());
 				if (mParty != null) {
-					String[] s = {event.getMessage()};
+					String[] s = {event.getMessage()}; // wozu ???
 					mParty.sendMessage(s, p);
 					event.setCancelled(true);
 				}
@@ -361,7 +383,7 @@ public class AncientRPGPlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		if (AncientRPGEntityListener.StunList.contains(event.getPlayer())) {
+		if (AncientRPGEntityListener.StunList.contains(event.getPlayer().getUniqueId())) {
 			event.setCancelled(true);
 		}
 	}
@@ -379,30 +401,29 @@ public class AncientRPGPlayerListener implements Listener {
 				Player p = (Player) damageevent.getDamager();
 				PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 				if (pd != null && !AncientRPGClass.rightClick && p.getInventory().getItemInHand() != null && pd.getBindings().containsKey(new BindingData(p.getItemInHand())) && !damageignored) {
-					ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.Left);
+					ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.LEFT);
 				}
 			}
 		}
 	}
 
-	public static LinkedHashMap<Player, Integer> healpotions = new LinkedHashMap<Player, Integer>();
-
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerItemConsume(final PlayerItemConsumeEvent event) {
-		final Player p = event.getPlayer();
+	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) {
 			return;
 		}
+		final Player p = event.getPlayer();
+
 		ItemStack item = event.getItem();
 		if (item != null && item.getType() == Material.POTION) {
 			Potion potion = Potion.fromItemStack(item);
 			switch (potion.getType()) {
 				case INSTANT_HEAL: {
-					healpotions.put(p, DamageConverter.healPotionHp * (potion.getLevel() + 1));
+					healpotions.put(p.getUniqueId(), DamageConverter.healPotionHp * (potion.getLevel() + 1));
 					Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 						@Override
 						public void run() {
-							healpotions.remove(p);
+							healpotions.remove(p.getUniqueId());
 						}
 					});
 					break;
@@ -416,22 +437,22 @@ public class AncientRPGPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
-		if (AncientRPGEntityListener.StunList.contains(p)) {
+		if (AncientRPGEntityListener.StunList.contains(p.getUniqueId())) {
 			event.setCancelled(true);
 			return;
 		}
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		if (pd != null && (!AncientRPGClass.rightClick || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && event.getItem() != null && pd.getBindings().containsKey(new BindingData(p.getItemInHand()))) {
 			if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-				ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.Right);
+				ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.RIGHT);
 			} else {
-				ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.Left);
+				ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.LEFT);
 			}
 		} else if (pd != null && (!AncientRPGClass.rightClick || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && pd.getSlotbinds().containsKey(p.getInventory().getHeldItemSlot())) {
 			if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-				ClassCastCommand.processCast(pd, p, pd.getSlotbinds().get(p.getInventory().getHeldItemSlot()), ClassCastCommand.castType.Right);
+				ClassCastCommand.processCast(pd, p, pd.getSlotbinds().get(p.getInventory().getHeldItemSlot()), ClassCastCommand.castType.RIGHT);
 			} else {
-				ClassCastCommand.processCast(pd, p, pd.getSlotbinds().get(p.getInventory().getHeldItemSlot()), ClassCastCommand.castType.Left);
+				ClassCastCommand.processCast(pd, p, pd.getSlotbinds().get(p.getInventory().getHeldItemSlot()), ClassCastCommand.castType.LEFT);
 			}
 		}
 	}

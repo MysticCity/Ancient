@@ -1,9 +1,21 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.BindingData;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
+
+
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.entity.Player;
@@ -21,20 +33,29 @@ public class ClassSetStanceCommand {
 			p.sendMessage(AncientRPG.brand2 + "Not enough arguments");
 			return;
 		}
-		if (AncientRPGClass.playersOnCd.containsKey(p.getName())) {
+
+		if (AncientRPGClass.playersOnCd.containsKey(p.getUniqueId())) {
 			long t = System.currentTimeMillis();
-			long div = t - AncientRPGClass.playersOnCd.get(p.getName());
+			long div = t - AncientRPGClass.playersOnCd.get(p.getUniqueId());
 			if (div < (AncientRPGClass.changeCd * 1000)) {
 				p.sendMessage(AncientRPG.brand2 + "The class change cooldown hasn't expired yet");
-				long timeleft = AncientRPGClass.playersOnCd.get(p.getName()) + (AncientRPGClass.changeCd * 1000) - System.currentTimeMillis();
+				long timeleft = AncientRPGClass.playersOnCd.get(p.getUniqueId()) + (AncientRPGClass.changeCd * 1000) - System.currentTimeMillis();
 				int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
-				p.sendMessage("You have to wait another " + minutes + " minutes.");
+				if (minutes == 1) {
+					p.sendMessage("You have to wait another minute.");
+				}
+				else {
+					p.sendMessage("You have to wait another " + minutes + " minutes.");
+				}
+
 				return;
 			}
 		}
+		
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		Player csender = p;
-		if (args.length == 3 && AncientRPG.hasPermissions(csender, "AncientRPG.classes.admin")) {
+
+		if (args.length == 3 && csender.hasPermission("AncientRPG.classes.admin")) {
 			Player pl = AncientRPG.plugin.getServer().getPlayer((UUID) args[1]);
 			if (pl != null) {
 				pd = PlayerData.getPlayerData(p.getUniqueId());
@@ -72,7 +93,8 @@ public class ClassSetStanceCommand {
 		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) {
 			return false;
 		}
-		return !(!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !AncientRPG.hasPermissions(p, newClass.permissionNode));
+
+		return !(!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !p.hasPermission(newClass.permissionNode));
 	}
 
 	public static void setStance(AncientRPGClass oldstance, AncientRPGClass newStance, AncientRPGClass rootclass, final Player p, Player sender) {
@@ -88,7 +110,8 @@ public class ClassSetStanceCommand {
 				p.sendMessage(AncientRPG.brand2 + "This stance cannot be used in this world");
 				return;
 			}
-			if (sender == p && !(newStance.permissionNode == null || newStance.permissionNode.equalsIgnoreCase("")) && !AncientRPG.hasPermissions(sender, newStance.permissionNode)) {
+
+			if (sender == p && !(newStance.permissionNode == null || newStance.permissionNode.equalsIgnoreCase("")) && !sender.hasPermission(newStance.permissionNode)) {
 				p.sendMessage(AncientRPG.brand2 + "You don't have permissions to set join stance");
 				return;
 			}
@@ -130,14 +153,20 @@ public class ClassSetStanceCommand {
 			for (Map.Entry<BindingData, String> bind : newStance.bindings.entrySet()) {
 				pd.getBindings().put(bind.getKey(), bind.getValue());
 			}
-			AncientRPGClass.playersOnCd.put(p.getName(), System.currentTimeMillis());
+
+			AncientRPGClass.playersOnCd.put(p.getUniqueId(), System.currentTimeMillis());
 			File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
-			FileOutputStream fos;
 			try {
-				fos = new FileOutputStream(f);
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(AncientRPGClass.playersOnCd);
-				oos.close();
+				FileWriter fw = new FileWriter(f);
+				BufferedWriter bw = new BufferedWriter(fw);
+//				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				for (UUID uuid :AncientRPGClass.playersOnCd.keySet()) {
+					bw.write(uuid + ";" + AncientRPGClass.playersOnCd.get(uuid)); //.writeObject(AncientRPGClass.playersOnCd);
+					bw.newLine();
+				}
+				bw.close();
+				fw.close();
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

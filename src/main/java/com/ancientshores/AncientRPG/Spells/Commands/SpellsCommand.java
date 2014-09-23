@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Spells.Commands;
 
+import java.util.Map.Entry;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.Commands.ClassCastCommand;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 import com.ancientshores.AncientRPG.Util.PageBuilder;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
-import java.util.Map.Entry;
 
 public class SpellsCommand {
     public static void spellListCommand(String[] args, Player p) {

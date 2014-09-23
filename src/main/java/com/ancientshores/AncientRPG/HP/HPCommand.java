@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.HP;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 
 public class HPCommand {
     public static void showHP(Player p) {

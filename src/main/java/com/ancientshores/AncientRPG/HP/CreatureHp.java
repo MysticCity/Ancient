@@ -1,21 +1,28 @@
 package com.ancientshores.AncientRPG.HP;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.*;
-import org.bukkit.entity.Skeleton.SkeletonType;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.MagmaCube;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Skeleton.SkeletonType;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+
 public class CreatureHp {
-    // ===============================================================
+    // 
     // static fields
-    // ===============================================================
+    // 
     private static int hpOfChicken = 50;
     private static final String configHpChicken = "CreatureHp.hp of a chicken";
     private static int hpOfCow = 200;
@@ -100,9 +107,9 @@ public class CreatureHp {
     private static final String HpConfigMinTimeBetweenAttacks = "CreatureHp.minimum time between each attack on a creature in milliseconds";
 
     static final HashSet<CreatureHp> registeredMonsters = new HashSet<CreatureHp>();
-    // ===============================================================
+    // 
     // object fields
-    // ===============================================================
+    // 
     LivingEntity ent;
     public long lastFireDamage;
     public long lastCactusDamage;

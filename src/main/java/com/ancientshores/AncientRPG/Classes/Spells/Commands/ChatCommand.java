@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.HelpList;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.HelpList;
-import org.bukkit.entity.Player;
 
 public class ChatCommand extends ICommand {
     @CommandDescription(description = "<html>The player says the specified message in the chat</html>",
@@ -20,11 +21,11 @@ public class ChatCommand extends ICommand {
                 final Player[] target = (Player[]) ca.getParams().get(0);
                 final String message = (String) ca.getParams().get(1);
                 if (target != null && target.length > 0 && target[0] instanceof Player && message != null) {
-                    AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
+                    AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() { // ??? wozu der scheduled task
 
                         @Override
                         public void run() {
-                            for (final Player p : target) {
+                            for (Player p : target) {
                                 if (p == null) {
                                     continue;
                                 }

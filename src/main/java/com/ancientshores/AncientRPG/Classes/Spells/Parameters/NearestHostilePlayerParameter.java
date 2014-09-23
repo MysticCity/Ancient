@@ -1,15 +1,16 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.Arrays;
+import java.util.logging.Level;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 public class NearestHostilePlayerParameter implements IParameter {
 
@@ -28,9 +29,9 @@ public class NearestHostilePlayerParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().hostilePlayers == null || ea.getSpellInfo().hostilePlayers[0] == null) {
-            Player[] nEntity = ea.getSpellInfo().getNearestHostilePlayers(mPlayer, range, 3);
-            ea.getSpellInfo().hostilePlayers = nEntity;
-            if (nEntity == null) {
+            Player[] players = ea.getSpellInfo().getNearestHostilePlayers(mPlayer, range, 3);
+            ea.getSpellInfo().hostilePlayers = players;
+            if (players == null) {
                 return;
             }
         }

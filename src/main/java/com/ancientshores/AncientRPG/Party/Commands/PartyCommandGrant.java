@@ -1,23 +1,25 @@
 package com.ancientshores.AncientRPG.Party.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
 public class PartyCommandGrant {
     public static void processGrant(CommandSender sender, String[] args, AncientRPG main) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
-            AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
+            AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
             if (mParty != null) {
-                if (mParty.getLeader() == mPlayer) {
-                    if (main.getServer().getPlayer(args[1]) != null) {
-                        if (AncientRPG.hasPermissions(main.getServer().getPlayer(args[1]), AncientRPGParty.pNodeCreate)) {
-                            mParty.setLeader(main.getServer().getPlayer(args[1]));
-                            mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + mParty.getLeader().getName() + ChatColor.BLUE + " is the new leader of the party.");
-                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Succesfully granted " + ChatColor.GOLD + mParty.getLeader().getName() + ChatColor.BLUE + " leader rights.");
+                if (mParty.getLeader().compareTo(mPlayer.getUniqueId()) == 0) {
+                    if (Bukkit.getPlayer(args[1]) != null) {
+                        if (Bukkit.getPlayer(args[1]).hasPermission(AncientRPGParty.pNodeCreate)) {
+                            mParty.setLeader(Bukkit.getPlayer(args[1]).getUniqueId());
+                            mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + Bukkit.getPlayer(mParty.getLeader()).getName() + ChatColor.BLUE + " is the new leader of the party.");
+                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Succesfully granted " + ChatColor.GOLD + Bukkit.getPlayer(mParty.getLeader()).getName() + ChatColor.BLUE + " leader rights.");
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "The player you chose doesn't have the permissions to lead a party.");
                         }

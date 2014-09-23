@@ -1,15 +1,15 @@
 package com.ancientshores.AncientRPG.Classes;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class CooldownTimer implements Serializable, Runnable, ConfigurationSerializable {
     private static final long serialVersionUID = 1L;

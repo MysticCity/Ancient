@@ -1,7 +1,10 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 public class SidePanel extends JPanel {
     private static final long serialVersionUID = 1L;

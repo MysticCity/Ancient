@@ -1,22 +1,35 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-import de.pylamo.spellmaker.gui.SimpleDragObject;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
-import de.pylamo.spellmaker.gui.Window;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.dnd.*;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+import java.awt.dnd.DragSourceMotionListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JLayeredPane;
+
+import de.pylamo.spellmaker.gui.SimpleDragObject;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
 
 public class WhileItem extends ComplexItem {
     private static final long serialVersionUID = 1L;
 
-    public final ConditionStartPanel istp;
-    private final SidePanel isp = new SidePanel();
-    private final EndPanel eip = new EndPanel("endwhile");
+    public ConditionStartPanel istp;
+    private SidePanel isp = new SidePanel();
+    private EndPanel eip = new EndPanel("endwhile");
 
     @Override
     public ISpellItem clone() {
@@ -115,6 +128,15 @@ public class WhileItem extends ComplexItem {
         }
         if (height == 0) {
             height = 25;
+        }
+        if (isp == null) {
+        	isp = new SidePanel();
+        }
+        if (istp == null) {
+        	istp = new ConditionStartPanel("while", true, this.w);
+        }
+        if (eip == null) {
+        	eip = new EndPanel("endwhile");
         }
         isp.setSize(25, height);
         isp.setLocation(0, istp.getPreferredSize().height);

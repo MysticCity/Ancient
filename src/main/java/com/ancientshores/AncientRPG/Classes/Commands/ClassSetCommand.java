@@ -1,5 +1,14 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
+
 import com.ancientshores.AncientRPG.API.AncientRPGClassChangeEvent;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
@@ -14,13 +23,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.logging.Level;
+
 
 public class ClassSetCommand {
 	public static void setCommand(Object[] args, CommandSender sender) {
@@ -106,6 +111,7 @@ public class ClassSetCommand {
 		if (newClass.requiredraces.size() >= 0 && (race != null && !newClass.requiredraces.contains(race.name.toLowerCase()))) {
 			return false;
 		}
+		
 		if (!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !AncientRPG.hasPermissions(p, newClass.permissionNode)) {
 			return false;
 		}
@@ -132,7 +138,8 @@ public class ClassSetCommand {
 					return;
 				}
 			}
-			if (!senderHasPermissions(sender, AncientRPGClass.cNodeClass)) {
+
+			if (!sender.hasPermission(AncientRPGClass.cNodeClass)) {
 				sender.sendMessage(AncientRPG.brand2 + "You don't have the required permissions to become this class");
 				return;
 			}
@@ -145,11 +152,12 @@ public class ClassSetCommand {
 				p.sendMessage(AncientRPG.brand2 + "Your race can't use this class");
 				return;
 			}
-			if (sender == null || !(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !senderHasPermissions(sender, newClass.permissionNode)) {
+
+			if (sender == null || !(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !sender.hasPermission(newClass.permissionNode)) {
 				p.sendMessage(AncientRPG.brand2 + "You don't have permissions to use this class");
 				return;
 			}
-			AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p, oldClass, newClass);
+			AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p.getUniqueId(), oldClass, newClass);
 			Bukkit.getPluginManager().callEvent(classevent);
 			if (classevent.isCancelled()) {
 				return;
@@ -195,14 +203,19 @@ public class ClassSetCommand {
 			for (Map.Entry<BindingData, String> bind : newClass.bindings.entrySet()) {
 				pd.getBindings().put(bind.getKey(), bind.getValue());
 			}
-			AncientRPGClass.playersOnCd.put(p.getName(), System.currentTimeMillis());
+
+			AncientRPGClass.playersOnCd.put(p.getUniqueId(), System.currentTimeMillis());
 			File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
-			FileOutputStream fos;
 			try {
-				fos = new FileOutputStream(f);
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(AncientRPGClass.playersOnCd);
-				oos.close();
+				FileWriter fw = new FileWriter(f);
+				BufferedWriter bw = new BufferedWriter(fw);
+//				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				for (UUID uuid : AncientRPGClass.playersOnCd.keySet()) {
+					bw.write(uuid.toString() + ";" + AncientRPGClass.playersOnCd.get(uuid)); //.writeObject(AncientRPGClass.playersOnCd);
+					bw.newLine();
+				}
+				bw.close();
+				fw.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

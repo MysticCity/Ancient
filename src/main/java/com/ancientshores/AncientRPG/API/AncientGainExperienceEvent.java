@@ -1,24 +1,26 @@
 package com.ancientshores.AncientRPG.API;
 
-import org.bukkit.entity.Player;
+import java.util.UUID;
+
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class AncientGainExperienceEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    public final Player p;
+    public final UUID uuid;
     public final int playeroldxp;
     public int gainedxp;
     public boolean cancelled;
 
-    public AncientGainExperienceEvent(int playeroldxp, Player p, int gainedxp) {
+    public AncientGainExperienceEvent(int playeroldxp, UUID uuid, int gainedxp) {
         this.playeroldxp = playeroldxp;
         this.gainedxp = gainedxp;
-        this.p = p;
+        this.uuid = uuid;
     }
 
-    public HandlerList getHandlers() {
+    @Override
+	public HandlerList getHandlers() {
         return handlers;
     }
 

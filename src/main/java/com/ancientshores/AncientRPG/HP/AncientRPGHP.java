@@ -1,5 +1,11 @@
 package com.ancientshores.AncientRPG.HP;
 
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
@@ -9,11 +15,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 	private static final long serialVersionUID = 1L;
@@ -33,18 +34,20 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("maxhp", maxhp);
 		map.put("hpReg", hpReg);
 		map.put("hpRegInterval", hpRegInterval);
 		map.put("hp", health);
-		map.put("playeruuid", playerUUID);
+		map.put("uuid", playerUUID.toString());
+
 		return map;
 	}
 
 	public AncientRPGHP(Map<String, Object> map) {
 		this.health = ((Number) map.get("hp")).intValue();
 		this.maxhp = ((Number) map.get("maxhp")).intValue();
-		this.playerUUID = (UUID) map.get("playeruuid");
+		this.playerUUID = UUID.fromString((String) map.get("uuid"));
 		this.hpRegInterval = ((Number) map.get("hpRegInterval")).intValue();
 		this.hpReg = ((Number) map.get("hpReg")).intValue();
 	}
@@ -186,7 +189,8 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 		if (hpinstance.health < 0) {
 			return;
 		}
-		Player p = AncientRPG.plugin.getServer().getPlayer(uuid);
+		Player p = Bukkit.getPlayer(uuid);
+		
 		hpinstance.health = p.getHealth();
 		hpinstance.setMinecraftHP();
 	}
@@ -206,7 +210,8 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 	}
 
 	public static void addNormalHp(UUID uuid, double hp) {
-		Player p = AncientRPG.plugin.getServer().getPlayer(uuid);
+		Player p = Bukkit.getPlayer(uuid);
+
 		if (p.getHealth() > 0) {
 			if (p.getHealth() + hp > p.getMaxHealth()) {
 				p.setHealth(p.getMaxHealth());

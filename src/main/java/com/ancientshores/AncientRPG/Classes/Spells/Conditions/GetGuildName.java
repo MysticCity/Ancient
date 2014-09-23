@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import org.bukkit.entity.Player;
 
 public class GetGuildName extends IArgument {
     @ArgumentDescription(
@@ -22,7 +23,7 @@ public class GetGuildName extends IArgument {
             return 0;
         }
         Player p = ((Player[]) obj[0])[0];
-        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(p.getName());
+        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(p.getUniqueId());
         if (guild != null) {
             return guild.getGuildName();
         }

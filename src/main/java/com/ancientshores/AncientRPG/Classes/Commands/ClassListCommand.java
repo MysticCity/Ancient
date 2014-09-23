@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Util.PageBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Util.PageBuilder;
+
 public class ClassListCommand {
 
-    public static void showHelp(CommandSender p, String args[]) {
+    public static void showHelp(CommandSender sender, String args[]) {
         int page = 1;
         if (args.length == 2) {
             try {
@@ -20,7 +21,7 @@ public class ClassListCommand {
         PageBuilder pb = new PageBuilder();
         for (String s : AncientRPGClass.classList.keySet()) {
             AncientRPGClass mClass = AncientRPGClass.classList.get(s);
-            if (p instanceof Player && ClassSetCommand.canSetClass(AncientRPGClass.classList.get(s), (Player) p)) {
+            if (sender instanceof Player && ClassSetCommand.canSetClass(AncientRPGClass.classList.get(s), (Player) sender)) {
                 if (!mClass.hidden) {
                     String message = ChatColor.GREEN + s;
                     if (mClass.description != null && mClass.description.length() > 0) {
@@ -38,6 +39,6 @@ public class ClassListCommand {
                 }
             }
         }
-        pb.printPage(p, page, 7);
+        pb.printPage(sender, page, 7);
     }
 }

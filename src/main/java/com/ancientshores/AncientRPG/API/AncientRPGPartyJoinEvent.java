@@ -1,20 +1,22 @@
 package com.ancientshores.AncientRPG.API;
 
-import com.ancientshores.AncientRPG.Party.AncientRPGParty;
-import org.bukkit.entity.Player;
+import java.util.UUID;
+
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+
 public class AncientRPGPartyJoinEvent extends Event implements Cancellable {
     final HandlerList hl = new HandlerList();
     boolean cancelled;
-    private Player mPlayer;
+    private UUID uuid;
     private AncientRPGParty mParty;
 
-    public AncientRPGPartyJoinEvent(Player mPlayer, AncientRPGParty mParty) {
+    public AncientRPGPartyJoinEvent(UUID uuidPlayerJoining, AncientRPGParty mParty) {
         this.mParty = mParty;
-        this.mPlayer = mPlayer;
+        this.uuid = uuidPlayerJoining;
     }
 
     @Override
@@ -32,8 +34,8 @@ public class AncientRPGPartyJoinEvent extends Event implements Cancellable {
         cancelled = arg0;
     }
 
-    public Player getPlayer() {
-        return mPlayer;
+    public UUID getUUID() {
+        return uuid;
     }
 
     public AncientRPGParty getParty() {

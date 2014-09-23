@@ -1,17 +1,17 @@
 package com.ancientshores.AncientRPG.Classes;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Commands.*;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
-import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.HP.DamageConverter;
-import com.ancientshores.AncientRPG.Mana.ManaSystem;
-import com.ancientshores.AncientRPG.PlayerData;
-import com.ancientshores.AncientRPG.Race.AncientRPGRace;
-import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
-import com.ancientshores.AncientRPG.Util.LinkedStringHashMap;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,20 +21,34 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassCastCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassInteractiveCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassListCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassResetCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassSetCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassSetStanceCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassSpelllistCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassStanceListCommand;
+import com.ancientshores.AncientRPG.Classes.Commands.ClassUnbindCommand;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
+import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
+import com.ancientshores.AncientRPG.HP.DamageConverter;
+import com.ancientshores.AncientRPG.Mana.ManaSystem;
+import com.ancientshores.AncientRPG.Race.AncientRPGRace;
+import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
+import com.ancientshores.AncientRPG.Util.LinkedStringHashMap;
 
 public class AncientRPGClass implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final boolean enabled = true;
     public int level = 1;
-    // ==============================================
+    // ====
     // Permissionnodes
-    // ==============================================
+    // ====
     public static final String configStandardClassName = "Class.StandardClassName";
     public static String standardclassName = "standardclass";
     public static final String configCd = "Class.change cooldown in seconds";
@@ -52,8 +66,8 @@ public class AncientRPGClass implements Serializable {
     public static LinkedStringHashMap<AncientRPGClass> classList = new LinkedStringHashMap<AncientRPGClass>();
     public static LinkedStringHashMap<Spell> globalSpells = new LinkedStringHashMap<Spell>();
     public static CommandPlayer cp = new CommandPlayer();
-    public static ConcurrentHashMap<String, Long> playersOnCd = new ConcurrentHashMap<String, Long>();
-    public static HashMap<SpellInformationObject, Player> executedSpells = new HashMap<SpellInformationObject, Player>();
+    public static ConcurrentHashMap<UUID, Long> playersOnCd = new ConcurrentHashMap<UUID, Long>();
+    public static HashMap<SpellInformationObject, UUID> executedSpells = new HashMap<SpellInformationObject, UUID>();
     public final String name;
     public boolean hidden = false;
     public String worldNames[] = new String[0];
@@ -377,7 +391,6 @@ public class AncientRPGClass implements Serializable {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static void loadClasses() {
         classList = new LinkedStringHashMap<AncientRPGClass>();
         globalSpells = new LinkedStringHashMap<Spell>();
@@ -438,10 +451,16 @@ public class AncientRPGClass implements Serializable {
         File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
         if (f.exists()) {
             try {
-                FileInputStream fis = new FileInputStream(f);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
-                ois.close();
+                FileReader fr = new FileReader(f);
+                BufferedReader br = new BufferedReader(fr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                	playersOnCd.put(UUID.fromString(line.split(";")[0]), Long.getLong(line.split(";")[1]));
+                }
+//                playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
+//                ois.close();
+                br.close();
+                fr.close();
             } catch (Exception ignored) {
             }
         }
@@ -459,30 +478,31 @@ public class AncientRPGClass implements Serializable {
             return;
         }
         if (sender instanceof Player) {
-            Player mPlayer = (Player) sender;
+            Player p = (Player) sender;
             if (args.length == 0) {
-                PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "Your class is: " + ChatColor.BLUE + pd.getClassName());
+                PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
+                p.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "Your class is: " + ChatColor.BLUE + pd.getClassName());
+
                 AncientRPGClass mClass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
                 if (mClass != null && mClass.description != null && !mClass.description.equals("")) {
-                    mPlayer.sendMessage(mClass.description);
+                    p.sendMessage(mClass.description);
                 }
                 if (pd.getStance() != null && !pd.getStance().trim().equals("") && !pd.getStance().trim().equals("")) {
-                    mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "Your stance is " + ChatColor.BLUE + pd.getStance());
+                    p.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "Your stance is " + ChatColor.BLUE + pd.getStance());
                 }
-                mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "To see a list of all Commands type: " + ChatColor.AQUA + "/class help");
+                p.sendMessage(AncientRPG.brand2 + ChatColor.YELLOW + "To see a list of all Commands type: " + ChatColor.AQUA + "/class help");
             } else if (args[0].equalsIgnoreCase("bind")) {
-                SpellBindCommand.bindCommand(args, mPlayer);
+                SpellBindCommand.bindCommand(args, p);
             } else if (args[0].equalsIgnoreCase("bindslot")) {
-                SpellBindCommand.bindSlotCommand(args, mPlayer);
+                SpellBindCommand.bindSlotCommand(args, p);
             } else if (args[0].equalsIgnoreCase("stancelist")) {
-                ClassStanceListCommand.showStances(mPlayer, args);
+                ClassStanceListCommand.showStances(p, args);
             } else if (args[0].equalsIgnoreCase("spelllist")) {
-                ClassSpelllistCommand.spellListCommand(args, mPlayer);
+                ClassSpelllistCommand.spellListCommand(args, p);
             } else if (args[0].equalsIgnoreCase("setstance")) {
-                ClassSetStanceCommand.setStanceCommand(args, mPlayer);
+                ClassSetStanceCommand.setStanceCommand(args, p);
             } else if (args[0].equalsIgnoreCase("reset")) {
-                ClassResetCommand.resetCommand(mPlayer);
+                ClassResetCommand.resetCommand(p);
             } else if (args[0].equalsIgnoreCase("interactive")) {
                 String line = "";
                 for (int i = 1; i < args.length; i++) {
@@ -490,13 +510,14 @@ public class AncientRPGClass implements Serializable {
                     line += " ";
                 }
                 line = line.trim();
-                ClassInteractiveCommand.interactiveCommand(mPlayer, line);
+                ClassInteractiveCommand.interactiveCommand(p, line);
             } else if (args[0].equalsIgnoreCase("unbind")) {
-                ClassUnbindCommand.unbindCommand(args, mPlayer);
+                ClassUnbindCommand.unbindCommand(args, p);
             } else {
-                if (AncientRPG.hasPermissions(mPlayer, cNodeChatCast)) {
-                    PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-                    ClassCastCommand.processCast(pd, mPlayer, args[0], ClassCastCommand.castType.Command);
+
+                if (p.hasPermission(cNodeChatCast)) {
+                    PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
+                    ClassCastCommand.processCast(pd, p, args[0], ClassCastCommand.castType.COMMAND);
                 }
             }
         }

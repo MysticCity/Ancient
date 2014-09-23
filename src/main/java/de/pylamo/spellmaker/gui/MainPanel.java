@@ -1,20 +1,41 @@
 package de.pylamo.spellmaker.gui;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.HashSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+
 import de.pylamo.spellmaker.ConfigCreator;
-import de.pylamo.spellmaker.gui.SpellItems.Commands.Command;
-import de.pylamo.spellmaker.gui.SpellItems.Commands.SpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.Condition.*;
 import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
 import de.pylamo.spellmaker.gui.SpellItems.StartItem;
+import de.pylamo.spellmaker.gui.SpellItems.Commands.Command;
+import de.pylamo.spellmaker.gui.SpellItems.Commands.SpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ElseIfItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ElseItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ForeachItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.IfItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.RepeatItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.TryItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.WhileItem;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperationItem;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.Transferable;
-import java.awt.dnd.*;
-import java.io.*;
-import java.util.HashSet;
 
 public class MainPanel extends JLayeredPane {
     private static final long serialVersionUID = 1L;

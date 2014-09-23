@@ -1,10 +1,15 @@
 package de.pylamo.spellmaker.gui;
 
-import de.pylamo.spellmaker.Parameters;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.*;
-
-import javax.swing.*;
 import java.util.HashSet;
+
+import javax.swing.JPanel;
+
+import de.pylamo.spellmaker.Parameters;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.BooleanParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.NumberParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.StringParameterPanel;
 
 public class ParameterPreview extends JPanel {
     private static final long serialVersionUID = 1L;

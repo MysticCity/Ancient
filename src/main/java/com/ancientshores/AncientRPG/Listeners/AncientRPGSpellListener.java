@@ -1,73 +1,92 @@
 package com.ancientshores.AncientRPG.Listeners;
 
-import com.ancientshores.AncientRPG.API.AncientLevelupEvent;
-import com.ancientshores.AncientRPG.API.AncientRPGClassChangeEvent;
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
-import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.HP.CreatureHp;
-import com.ancientshores.AncientRPG.PlayerData;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.player.*;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.API.AncientLevelupEvent;
+import com.ancientshores.AncientRPG.API.AncientRPGClassChangeEvent;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
+import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
+import com.ancientshores.AncientRPG.HP.CreatureHp;
 
 public class AncientRPGSpellListener implements Listener {
 	public static AncientRPG plugin;
 	public static final HashSet<Spell> damageEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> damageEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> damageEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> attackEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> attackEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> attackEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> damageByEntityEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> damageByEntityEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> damageByEntityEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> ChangeBlockEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> ChangeBlockEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> ChangeBlockEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> joinEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> joinEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> joinEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> interactEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> interactEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> interactEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> chatEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> chatEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> chatEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> regenEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> regenEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> regenEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> moveEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> moveEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> moveEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> playerDeathSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> playerDeathBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> playerDeathBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> LevelupEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> LevelupEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> LevelupEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> ProjectileHitEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> ProjectileHitEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> ProjectileHitEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> UseBedEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> UseBedEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> UseBedEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> killEntityEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> killEntityEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> killEntityEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
 	public static final HashSet<Spell> classChangeEventSpells = new HashSet<Spell>();
-	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> classChangeEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
-	public static final ConcurrentHashMap<Player, ItemStack> disarmList = new ConcurrentHashMap<Player, ItemStack>();
+	public static final ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> classChangeEventBuffs = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
+	public static final ConcurrentHashMap<UUID, ItemStack> disarmList = new ConcurrentHashMap<UUID, ItemStack>();
 	public static int buffId = 0;
 
-	public static final HashSet<Player> deadPlayer = new HashSet<Player>();
-	public static final ConcurrentHashMap<Player, Location> revivePlayer = new ConcurrentHashMap<Player, Location>();
-	public static final ConcurrentHashMap<Player, HashSet<SpellInformationObject>> disruptOnMove = new ConcurrentHashMap<Player, HashSet<SpellInformationObject>>();
-	public static final ConcurrentHashMap<Player, HashSet<SpellInformationObject>> disruptOnDeath = new ConcurrentHashMap<Player, HashSet<SpellInformationObject>>();
+	public static final HashSet<UUID> deadPlayer = new HashSet<UUID>();
+	public static final ConcurrentHashMap<UUID, Location> revivePlayer = new ConcurrentHashMap<UUID, Location>();
+	public static final ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> disruptOnMove = new ConcurrentHashMap<UUID, HashSet<SpellInformationObject>>();
+	public static final ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> disruptOnDeath = new ConcurrentHashMap<UUID, HashSet<SpellInformationObject>>();
+
 	public static final HashSet<Event> ignoredEvents = new HashSet<Event>();
 
 	public static void clearAll() {
@@ -106,8 +125,9 @@ public class AncientRPGSpellListener implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
-	public static ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> getAllBuffs() {
-		ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> map = new ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>>();
+	public static ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> getAllBuffs() {
+		ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> map = new ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>>();
+
 		map.putAll(damageEventBuffs);
 		map.putAll(attackEventBuffs);
 		map.putAll(damageByEntityEventBuffs);
@@ -121,31 +141,33 @@ public class AncientRPGSpellListener implements Listener {
 		map.putAll(LevelupEventBuffs);
 		map.putAll(ProjectileHitEventBuffs);
 		map.putAll(classChangeEventBuffs);
+	
 		return map;
 	}
 
-	public static void addDisruptCommand(Player p, SpellInformationObject spell, ConcurrentHashMap<Player, HashSet<SpellInformationObject>> map) {
+	public static void addDisruptCommand(Player p, SpellInformationObject spell, ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> map) {
 		if (spell == null) {
 			return;
 		}
 		if (!map.containsKey(p)) {
-			map.put(p, new HashSet<SpellInformationObject>());
+			map.put(p.getUniqueId(), new HashSet<SpellInformationObject>());
 		}
-		map.get(p).add(spell);
+		map.get(p.getUniqueId()).add(spell);
 	}
 
-	public static void removeDisruptCommand(Player p, SpellInformationObject spell, ConcurrentHashMap<Player, HashSet<SpellInformationObject>> map) {
+	public static void removeDisruptCommand(Player p, SpellInformationObject spell, ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> map) {
 		map.get(p).remove(spell);
 	}
 
-	public static int attachBuffToEvent(Spell s, ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> map, Player[] p) {
+	public static int attachBuffToEvent(Spell s, ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> map, Player[] p) {
 		if (s == null) {
 			return Integer.MAX_VALUE;
 		}
 		if (!map.containsKey(s)) {
-			map.put(s, new ConcurrentHashMap<Player[], Integer>());
+			map.put(s, new ConcurrentHashMap<UUID[], Integer>());
 		}
-		map.get(s).put(p, buffId);
+		map.get(s).put(new UUID[]{p[0].getUniqueId(), p[1].getUniqueId()}, buffId);
+
 		int oldbuffId = buffId;
 		buffId++;
 		if (buffId > Integer.MAX_VALUE / 2) {
@@ -154,23 +176,24 @@ public class AncientRPGSpellListener implements Listener {
 		return oldbuffId;
 	}
 
-	public static void detachBuffToEvent(Spell s, ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> map, Player[] p, int id) {
+	public static void detachBuffToEvent(Spell s, ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> map, Player[] p, int id) {
 		if (!map.containsKey(s)) {
 			return;
 		}
-		ConcurrentHashMap<Player[], Integer> innerMap = map.get(s);
-		HashSet<Player[]> removeBuffs = new HashSet<Player[]>();
+		ConcurrentHashMap<UUID[], Integer> innerMap = map.get(s);
+		HashSet<UUID[]> removeBuffs = new HashSet<UUID[]>();
 		if (innerMap == null) {
 			return;
 		}
-		for (Player[] players : innerMap.keySet()) {
-			if (players.length == 2 && players[0] == p[0] && players[1] == p[1]) {
+		for (UUID[] players : innerMap.keySet()) {
+			if (players.length == 2 && (players[0].compareTo(p[0].getUniqueId()) == 0 || players[1].compareTo(p[1].getUniqueId()) == 0)) {
 				if (innerMap.get(players) != null && innerMap.get(players) == id) {
 					removeBuffs.add(players);
 				}
 			}
 		}
-		for (Player[] pl : removeBuffs) {
+
+		for (UUID[] pl : removeBuffs) {
 			innerMap.remove(pl);
 		}
 	}
@@ -179,7 +202,9 @@ public class AncientRPGSpellListener implements Listener {
 		if (buffEvent == null) {
 			return;
 		}
-		ConcurrentHashMap<Spell, ConcurrentHashMap<Player[], Integer>> buffs = null;
+
+		ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> buffs = null;
+
 		if (buffEvent.equalsIgnoreCase("damageevent")) {
 			buffs = AncientRPGSpellListener.damageEventBuffs;
 		} else if (buffEvent.equalsIgnoreCase("damagebyentityevent")) {
@@ -216,19 +241,21 @@ public class AncientRPGSpellListener implements Listener {
 				return;
 			}
 		}
-		ConcurrentHashMap<Player[], Integer> innerMap = buffs.get(sp);
-		HashSet<Player[]> removeBuffs = new HashSet<Player[]>();
+
+		ConcurrentHashMap<UUID[], Integer> innerMap = buffs.get(sp);
+		HashSet<UUID[]> removeBuffs = new HashSet<UUID[]>();
 		if (innerMap == null) {
 			return;
 		}
-		for (Player[] players : innerMap.keySet()) {
-			if (players.length == 2 && (players[0] == p || players[1] == p)) {
+		for (UUID[] players : innerMap.keySet()) {
+			if (players.length == 2 && (players[0].compareTo(p.getUniqueId()) == 0 || players[1].compareTo(p.getUniqueId()) == 0)) {
 				if (innerMap.get(players) != null) {
 					removeBuffs.add(players);
 				}
 			}
 		}
-		for (Player[] pl : removeBuffs) {
+
+		for (UUID[] pl : removeBuffs) {
 			innerMap.remove(pl);
 		}
 	}
@@ -253,21 +280,22 @@ public class AncientRPGSpellListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player mPlayer = (Player) event.getEntity();
 			PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-			HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+			HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 			for (Spell p : regenEventSpells) {
 				if (AncientRPGClass.spellAvailable(p, pd)) {
-					spells.put(p, new Player[]{mPlayer, mPlayer});
+					spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 				}
 			}
-			for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : regenEventBuffs.entrySet()) {
-				for (Player p[] : e.getValue().keySet()) {
+			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : regenEventBuffs.entrySet()) {
+				for (UUID p[] : e.getValue().keySet()) {
 					if (p[0].equals(mPlayer)) {
 						spells.put(e.getKey(), p);
 					}
 				}
 			}
-			LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-			for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+			LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+			for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 				CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 			}
 		}
@@ -297,21 +325,23 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		Player mPlayer = event.getEntity();
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : playerDeathSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : playerDeathBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : playerDeathBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
 				if (p[0].equals(event.getEntity())) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -335,21 +365,23 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		PlayerData pd = PlayerData.getPlayerData(((Player) event.getEntity().getShooter()).getUniqueId());
 		Player mPlayer = (Player) event.getEntity().getShooter();
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+		
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : ProjectileHitEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : ProjectileHitEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : ProjectileHitEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
 				if (p[0].equals(mPlayer)) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -359,7 +391,7 @@ public class AncientRPGSpellListener implements Listener {
 	// ===========================================================================
 	// Damage Events
 	// ===========================================================================
-
+	
 	public void onPlayerKill(final EntityDamageByEntityEvent event) {
 		Entity damager = event.getDamager();
 		if (alreadyDead.contains(event.getEntity())) {
@@ -381,21 +413,23 @@ public class AncientRPGSpellListener implements Listener {
 				 */
 				Player mPlayer = (Player) damager;
 				PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-				HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+				HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 				for (Spell p : killEntityEventSpells) {
 					if (AncientRPGClass.spellAvailable(p, pd)) {
-						spells.put(p, new Player[]{mPlayer, mPlayer});
+						spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 					}
 				}
-				for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : killEntityEventBuffs.entrySet()) {
-					for (Player p[] : e.getValue().keySet()) {
+				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : killEntityEventBuffs.entrySet()) {
+					for (UUID p[] : e.getValue().keySet()) {
 						if (p[0].equals(mPlayer)) {
 							spells.put(e.getKey(), p);
 						}
 					}
 				}
-				LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-				for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+				LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+				for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 					CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 				}
 			}
@@ -410,21 +444,23 @@ public class AncientRPGSpellListener implements Listener {
 		if (Damager instanceof Player) {
 			Player mPlayer = (Player) Damager;
 			PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-			HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+			HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 			for (Spell p : attackEventSpells) {
 				if (AncientRPGClass.spellAvailable(p, pd)) {
-					spells.put(p, new Player[]{mPlayer, mPlayer});
+					spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 				}
 			}
-			for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : attackEventBuffs.entrySet()) {
-				for (Player p[] : e.getValue().keySet()) {
+			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : attackEventBuffs.entrySet()) {
+				for (UUID p[] : e.getValue().keySet()) {
 					if (p[0].equals(Damager)) {
 						spells.put(e.getKey(), p);
 					}
 				}
 			}
-			LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-			for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+			LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+			for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 				CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 			}
 		}
@@ -472,21 +508,23 @@ public class AncientRPGSpellListener implements Listener {
 				}
 				pd.lastCactusDamageSpell = System.currentTimeMillis();
 			}
-			HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+			HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 			for (Spell p : damageEventSpells) {
 				if (AncientRPGClass.spellAvailable(p, pd)) {
-					spells.put(p, new Player[]{mPlayer, mPlayer});
+					spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 				}
 			}
-			for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : damageEventBuffs.entrySet()) {
-				for (Player p[] : e.getValue().keySet()) {
+			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : damageEventBuffs.entrySet()) {
+				for (UUID p[] : e.getValue().keySet()) {
 					if (p[0].equals(event.getEntity())) {
 						spells.put(e.getKey(), p);
 					}
 				}
 			}
-			LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-			for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+			LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+			for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 				CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 			}
 			if (event instanceof EntityDamageByEntityEvent) {
@@ -506,21 +544,23 @@ public class AncientRPGSpellListener implements Listener {
 		if (Damager instanceof Creature || Damager instanceof Player) {
 			Player mPlayer = (Player) event.getEntity();
 			PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-			HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+			HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 			for (Spell p : damageByEntityEventSpells) {
 				if (AncientRPGClass.spellAvailable(p, pd)) {
-					spells.put(p, new Player[]{mPlayer, mPlayer});
+					spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 				}
 			}
-			for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : damageByEntityEventBuffs.entrySet()) {
-				for (Player p[] : e.getValue().keySet()) {
+			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : damageByEntityEventBuffs.entrySet()) {
+				for (UUID p[] : e.getValue().keySet()) {
 					if (p[0].equals(event.getEntity())) {
 						spells.put(e.getKey(), p);
 					}
 				}
 			}
-			LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-			for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+			LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+			for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 				CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 			}
 		}
@@ -560,28 +600,30 @@ public class AncientRPGSpellListener implements Listener {
 			for (SpellInformationObject so : soobs) {
 				removeDisruptCommand(event.getPlayer(), so, disruptOnMove);
 			}
-			if (!lastMoved.containsKey(event.getPlayer())) {
-				lastMoved.put(event.getPlayer(), 0L);
+
+			if (!lastMoved.containsKey(event.getPlayer().getUniqueId())) {
+				lastMoved.put(event.getPlayer().getUniqueId(), 0L);
 			}
-			if (Math.abs(lastMoved.get(event.getPlayer()) - System.currentTimeMillis()) >= 1000) {
-				lastMoved.put(event.getPlayer(), System.currentTimeMillis());
+			if (Math.abs(lastMoved.get(event.getPlayer().getUniqueId()) - System.currentTimeMillis()) >= 1000) {
+				lastMoved.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
 				Player mPlayer = event.getPlayer();
 				PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-				HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+				HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 				for (Spell p : moveEventSpells) {
 					if (AncientRPGClass.spellAvailable(p, pd)) {
-						spells.put(p, new Player[]{mPlayer, mPlayer});
+						spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 					}
 				}
-				for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : moveEventBuffs.entrySet()) {
-					for (Player p[] : e.getValue().keySet()) {
+				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : moveEventBuffs.entrySet()) {
+					for (UUID p[] : e.getValue().keySet()) {
 						if (p[0].equals(event.getPlayer())) {
 							spells.put(e.getKey(), p);
 						}
 					}
 				}
-				LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-				for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+				LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+				for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 					CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 				}
 			}
@@ -614,8 +656,10 @@ public class AncientRPGSpellListener implements Listener {
 				public void run() {
 					event.getPlayer().teleport(l);
 				}
+				
 			}, 1);
 		}
+		
 		deadPlayer.remove(event.getPlayer());
 		revivePlayer.remove(event.getPlayer());
 	}
@@ -639,21 +683,22 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		Player mPlayer = event.getPlayer();
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : ChangeBlockEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : ChangeBlockEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : ChangeBlockEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
 				if (p[0].equals(event.getPlayer())) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -674,21 +719,23 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		Player mPlayer = event.getPlayer();
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : joinEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : joinEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : joinEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
 				if (p[0].equals(event.getPlayer())) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -712,21 +759,24 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		Player mPlayer = event.getPlayer();
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : interactEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : interactEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : interactEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
+
 				if (p[0].equals(event.getPlayer())) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -754,21 +804,22 @@ public class AncientRPGSpellListener implements Listener {
 				}
 				Player mPlayer = event.getPlayer();
 				PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-				HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+				HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 				for (Spell p : chatEventSpells) {
 					if (AncientRPGClass.spellAvailable(p, pd)) {
-						spells.put(p, new Player[]{mPlayer, mPlayer});
+						spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 					}
 				}
-				for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : chatEventBuffs.entrySet()) {
-					for (Player p[] : e.getValue().keySet()) {
+				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : chatEventBuffs.entrySet()) {
+					for (UUID p[] : e.getValue().keySet()) {
 						if (p[0].equals(event.getPlayer())) {
 							spells.put(e.getKey(), p);
 						}
 					}
 				}
-				LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-				for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+				LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+				for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 					CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 				}
 			}
@@ -792,23 +843,24 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}, 20);
 		}
-		Player mPlayer = event.p;
-		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		UUID uuid = event.uuid;
+		PlayerData pd = PlayerData.getPlayerData(uuid);
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : LevelupEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{uuid, uuid});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : LevelupEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.p)) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : LevelupEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
+				if (p[0].compareTo(uuid) == 0) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -830,23 +882,24 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}, 20);
 		}
-		Player mPlayer = event.p;
-		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		UUID uuid = event.uuid;
+		PlayerData pd = PlayerData.getPlayerData(uuid);
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : classChangeEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{uuid, uuid});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : classChangeEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.p)) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : classChangeEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
+				if (p[0].compareTo(uuid) == 0) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -870,21 +923,23 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		Player mPlayer = event.getPlayer();
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : UseBedEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : UseBedEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : UseBedEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
 				if (p[0].equals(event.getPlayer())) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -903,32 +958,35 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}, 20);
 		}
-		Entity ea = null;
-		for (Entity e : AncientRPGEntityListener.scheduledXpList.keySet()) {
-			if (e.equals(event.getEntity())) {
-				ea = e;
+
+		UUID entityUUID = null;
+		for (UUID uuid : AncientRPGEntityListener.scheduledXpList.keySet()) {
+			if (uuid.compareTo(event.getEntity().getUniqueId()) == 0) {
+				entityUUID = uuid;			
+				break;
 			}
 		}
-		if (ea == null) {
+		if (entityUUID == null) {
 			return;
 		}
-		Player mPlayer = AncientRPGEntityListener.scheduledXpList.get(ea);
+		Player mPlayer = Bukkit.getServer().getPlayer(AncientRPGEntityListener.scheduledXpList.get(entityUUID));
 		PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-		HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+		HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
 		for (Spell p : killEntityEventSpells) {
 			if (AncientRPGClass.spellAvailable(p, pd)) {
-				spells.put(p, new Player[]{mPlayer, mPlayer});
+				spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
 			}
 		}
-		for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : killEntityEventBuffs.entrySet()) {
-			for (Player p[] : e.getValue().keySet()) {
+		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : killEntityEventBuffs.entrySet()) {
+			for (UUID p[] : e.getValue().keySet()) {
 				if (p[0].equals(event.getEntity())) {
 					spells.put(e.getKey(), p);
 				}
 			}
 		}
-		LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-		for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+
+		LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+		for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
 			CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
 		}
 	}
@@ -944,9 +1002,9 @@ public class AncientRPGSpellListener implements Listener {
 		}, 20);
 	}
 
-	public LinkedList<Entry<Spell, Player[]>> getSortedList(HashMap<Spell, Player[]> collection) {
-		LinkedList<Entry<Spell, Player[]>> sortedlist = new LinkedList<Entry<Spell, Player[]>>();
-		for (Entry<Spell, Player[]> entry : collection.entrySet()) {
+	public LinkedList<Entry<Spell, UUID[]>> getSortedList(HashMap<Spell, UUID[]> collection) {
+		LinkedList<Entry<Spell, UUID[]>> sortedlist = new LinkedList<Entry<Spell, UUID[]>>();
+		for (Entry<Spell, UUID[]> entry : collection.entrySet()) {
 			if (sortedlist.size() == 0) {
 				sortedlist.addLast(entry);
 				continue;
@@ -966,5 +1024,5 @@ public class AncientRPGSpellListener implements Listener {
 		return sortedlist;
 	}
 
-	public static final ConcurrentHashMap<Player, Long> lastMoved = new ConcurrentHashMap<Player, Long>();
+	public static final ConcurrentHashMap<UUID, Long> lastMoved = new ConcurrentHashMap<UUID, Long>();
 }

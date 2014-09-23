@@ -1,22 +1,28 @@
 package com.ancientshores.AncientRPG.Race;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.PlayerData;
-import com.ancientshores.AncientRPG.Race.Commands.*;
-import com.ancientshores.AncientRPG.Util.SerializableLocation;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Race.Commands.RaceHelpCommand;
+import com.ancientshores.AncientRPG.Race.Commands.RaceListCommand;
+import com.ancientshores.AncientRPG.Race.Commands.RaceSpawnCommand;
+import com.ancientshores.AncientRPG.Race.Commands.SetRaceCommand;
+import com.ancientshores.AncientRPG.Race.Commands.SetRaceSpawnCommand;
+import com.ancientshores.AncientRPG.Util.SerializableLocation;
 
 public class AncientRPGRace {
     public final String name;
@@ -31,7 +37,7 @@ public class AncientRPGRace {
     public static final String configDefaultRace = "Race.default race";
     public static String defaultRace = "";
     public static HashSet<AncientRPGRace> races = new HashSet<AncientRPGRace>();
-    public static ConcurrentHashMap<String, Long> playersOnCd = new ConcurrentHashMap<String, Long>();
+    public static ConcurrentHashMap<UUID, Long> playersOnCd = new ConcurrentHashMap<UUID, Long>();
     public String permission = "";
     public String description = "";
     public final String permissionNode = "Race.permission";
@@ -173,7 +179,6 @@ public class AncientRPGRace {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static void loadRaces() {
         File raceFolder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "Races");
         if (!raceFolder.exists()) {
@@ -190,12 +195,17 @@ public class AncientRPGRace {
         File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Races" + File.separator + "changecds.dat");
         if (f.exists()) {
             try {
-                FileInputStream fis = new FileInputStream(f);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
-                ois.close();
+                FileReader fr = new FileReader(f);
+                BufferedReader br = new BufferedReader(fr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                	playersOnCd.put(UUID.fromString(line.split(";")[0]), Long.getLong(line.split(";")[1]));
+                }
+//                playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
+//                ois.close();
+                br.close();
+                fr.close();
             } catch (Exception ignored) {
-
             }
         }
     }

@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.API;
 
-import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
 public class AncientRPGPartyDisbandedEvent extends Event implements Cancellable {
     final HandlerList hl = new HandlerList();

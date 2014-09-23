@@ -1,17 +1,31 @@
 package de.pylamo.spellmaker.gui.SpellItems.Commands;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+import java.awt.dnd.DragSourceMotionListener;
+import java.awt.image.BufferedImage;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+
 import de.pylamo.spellmaker.gui.SimpleDragObject;
+import de.pylamo.spellmaker.gui.Window;
 import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
+import de.pylamo.spellmaker.gui.SpellItems.TopInformation;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterSlot;
-import de.pylamo.spellmaker.gui.SpellItems.TopInformation;
-import de.pylamo.spellmaker.gui.Window;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.dnd.*;
-import java.awt.image.BufferedImage;
 
 public class SpellItem extends ISpellItem {
     private static final long serialVersionUID = 1L;

@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 
 public class DirectDamageCommand extends ICommand {
     public DirectDamageCommand() {
@@ -28,11 +29,11 @@ public class DirectDamageCommand extends ICommand {
                         ((LivingEntity) targetPlayer).damage(Math.round(damage), ca.getCaster());
                         AncientRPGPlayerListener.damageignored = false;
                         AncientRPGEntityListener.ignoreNextHpEvent = false;
-                        AncientRPGEntityListener.scheduledXpList.put(targetPlayer, ca.getCaster());
+                        AncientRPGEntityListener.scheduledXpList.put(targetPlayer.getUniqueId(), ca.getCaster().getUniqueId());
                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                             @Override
                             public void run() {
-                                AncientRPGEntityListener.scheduledXpList.remove(targetPlayer);
+                                AncientRPGEntityListener.scheduledXpList.remove(targetPlayer.getUniqueId());
                             }
                         }, Math.round(1000 / 50));
                     }

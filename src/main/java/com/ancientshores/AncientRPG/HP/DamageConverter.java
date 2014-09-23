@@ -1,5 +1,11 @@
 package com.ancientshores.AncientRPG.HP;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.UUID;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.PlayerData;
 
@@ -8,7 +14,33 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentWrapper;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.CaveSpider;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Egg;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Enderman;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fireball;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.Giant;
+import org.bukkit.entity.IronGolem;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.MagmaCube;
+import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.PigZombie;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Silverfish;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.SmallFireball;
+import org.bukkit.entity.Snowman;
+import org.bukkit.entity.Spider;
+import org.bukkit.entity.ThrownPotion;
+import org.bukkit.entity.WitherSkull;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -16,17 +48,12 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Map.Entry;
-import java.util.UUID;
-
 public class DamageConverter {
     public static int standardhp = 600;
 
-    // =======================================================================================
+    // ===
     // Damage config
-    // =======================================================================================
+    // ===
 
     private static final String HpConfigEnabled = "HP.HPsystem enabled";
     private static boolean enabled = true;
@@ -155,9 +182,9 @@ public class DamageConverter {
     public static int minTimeBetweenAttacks = 500;
     private static final String HpConfigMinTimeBetweenAttacks = "HP.minimum time between each attack on a player in milliseconds";
 
-    // =======================================================================================
+    // ===
     // Armor config
-    // =======================================================================================
+    // ===
 
     // Diamond
     private static float ReductionOfDiamondHelmet = 12;
@@ -205,9 +232,9 @@ public class DamageConverter {
     private static float ReductionOfChainBoots = 4;
     private static final String ConfigReductionOfChainBoots = "Armor.Chain.Damage reduction of chain boots in percentage points";
 
-    // =======================================================================================
+    // ===
     // Methods
-    // =======================================================================================
+    // ===
 
     public static double convertDamageByEventForCreatures(EntityDamageEvent event) {
         CreatureHp hps = CreatureHp.getCreatureHpByEntity((LivingEntity) event.getEntity());

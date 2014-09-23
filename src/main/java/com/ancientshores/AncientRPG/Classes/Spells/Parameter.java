@@ -1,17 +1,36 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.ICommand;
-import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
-import com.ancientshores.AncientRPG.Classes.Spells.Parameters.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.ICommand;
+import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.ArgumentParameterWrapper;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.AttackedEntityParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.AttackerParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.BlockInSightParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.ChangedBlockParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestEntitiesParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestEntityInSightParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestEntityParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestHostileEntitiesParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestHostileEntityInSight;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestHostileEntityParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestHostilePlayerParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestHostilePlayersParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestPlayerInSightParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestPlayerParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.NearestPlayersParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.PartyMembersParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.PlayerParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.TargetInSight;
 
 public class Parameter implements Serializable {
 	private static final long serialVersionUID = 1L;

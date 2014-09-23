@@ -1,15 +1,16 @@
 package com.ancientshores.AncientRPG.Experience;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+
 public class SetXpCommand {
     public static void setXp(CommandSender cs, String[] args) {
         String playername = "";
-        if (cs instanceof Player && !AncientRPG.hasPermissions((Player) cs, AncientRPGExperience.nodeXPAdmin)) {
+        if (cs instanceof Player && !cs.hasPermission(AncientRPGExperience.nodeXPAdmin)) {
             cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You don't have the permission to use this command");
             return;
         }
@@ -40,8 +41,8 @@ public class SetXpCommand {
         }
         if (pd != null) {
             pd.getXpSystem().xp = amount;
-            cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Successfully set the experience of the player " + playername + " to  " + amount);
             pd.getXpSystem().addXP(0, false);
+            cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Successfully set the experience of the player " + playername + " to  " + amount);
         }
     }
 }

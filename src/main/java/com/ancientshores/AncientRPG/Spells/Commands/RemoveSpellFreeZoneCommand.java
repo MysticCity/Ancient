@@ -1,13 +1,14 @@
 package com.ancientshores.AncientRPG.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Util.SerializableZone;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Util.SerializableZone;
 
 public class RemoveSpellFreeZoneCommand {
     public static void onCommand(CommandSender sender, String[] args) {

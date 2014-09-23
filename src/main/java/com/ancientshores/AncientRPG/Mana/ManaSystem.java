@@ -1,5 +1,12 @@
 package com.ancientshores.AncientRPG.Mana;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
@@ -14,12 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class ManaSystem implements ConfigurationSerializable {
     static {
@@ -46,7 +47,7 @@ public class ManaSystem implements ConfigurationSerializable {
     public ManaSystem(Map<String, Object> map) {
         this.curmana = (Integer) map.get("mana");
         this.maxmana = (Integer) map.get("maxmana");
-        this.playeruuid = (UUID) map.get("playername");
+        this.playeruuid = UUID.fromString((String) map.get("uuid"));
         double d = (Double) map.get("manareginterval");
         this.manareginterval = (float) d;
         this.manareg = (Integer) map.get("manareg");
@@ -59,7 +60,8 @@ public class ManaSystem implements ConfigurationSerializable {
         map.put("manareg", manareg);
         map.put("manareginterval", manareginterval);
         map.put("mana", curmana);
-        map.put("playername", playeruuid);
+        map.put("uuid", playeruuid.toString());
+        
         return map;
     }
 
@@ -85,7 +87,7 @@ public class ManaSystem implements ConfigurationSerializable {
         return maxmana;
     }
 
-    public int getCurmana() {
+    public int getCurrentMana() {
         return curmana;
     }
 
@@ -97,8 +99,8 @@ public class ManaSystem implements ConfigurationSerializable {
         return manareg;
     }
 
-    public UUID getPlayername() {
-        return playeruuid;
+    public UUID getPlayerUUID() {
+    	return playeruuid;
     }
 
     public static void addManaByUUID(UUID uuid, int amount) {

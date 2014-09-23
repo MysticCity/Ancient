@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
-import com.ancientshores.AncientRPG.API.AncientRPGClassChangeEvent;
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.PlayerData;
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.API.AncientRPGClassChangeEvent;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 
 public class ClassResetCommand {
     public static void resetCommand(Player p) {
@@ -19,7 +20,7 @@ public class ClassResetCommand {
     }
 
     public static void reset(Player p, AncientRPGClass oldClass, PlayerData pd) {
-        AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p, oldClass, null);
+        AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p.getUniqueId(), oldClass, null);
         Bukkit.getPluginManager().callEvent(classevent);
         if (classevent.isCancelled()) {
             return;

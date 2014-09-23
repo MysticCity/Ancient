@@ -1,6 +1,7 @@
 package com.ancientshores.AncientRPG.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -9,7 +10,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.util.concurrent.ConcurrentHashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
 
 public class SpellFreeZoneListener implements Listener {
     public static final String selectspellfreezoneperm = "AncientRPG.spells.selectspellfreezone";
@@ -25,13 +26,13 @@ public class SpellFreeZoneListener implements Listener {
     @EventHandler
     public void playerInteract(PlayerInteractEvent event) {
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-            if (AncientRPG.hasPermissions(event.getPlayer(), selectspellfreezoneperm) && event.getItem() != null && event.getItem().getTypeId() == selectionid) {
+            if (event.getPlayer().hasPermission(selectspellfreezoneperm) && event.getItem() != null && event.getItem().getTypeId() == selectionid) {
                 leftlocs.put(event.getPlayer().getName(), event.getClickedBlock().getLocation());
                 event.getPlayer().sendMessage(AncientRPG.brand2 + "Defined first point for a spell free zone");
             }
         }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (AncientRPG.hasPermissions(event.getPlayer(), selectspellfreezoneperm) && event.getItem() != null && event.getItem().getTypeId() == selectionid) {
+            if (event.getPlayer().hasPermission(selectspellfreezoneperm) && event.getItem() != null && event.getItem().getTypeId() == selectionid) {
                 rightlocs.put(event.getPlayer().getName(), event.getClickedBlock().getLocation());
                 event.getPlayer().sendMessage(AncientRPG.brand2 + "Defined second point for a spell free zone");
             }

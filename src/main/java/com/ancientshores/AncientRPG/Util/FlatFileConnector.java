@@ -1,12 +1,17 @@
 package com.ancientshores.AncientRPG.Util;
 
-import com.ancientshores.AncientRPG.AncientRPG;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
 
 public class FlatFileConnector {
     final AncientRPG plugin;

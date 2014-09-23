@@ -1,5 +1,11 @@
 package com.ancientshores.AncientRPG;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.bukkit.configuration.InvalidConfigurationException;
+
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
@@ -9,11 +15,6 @@ import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
-import org.bukkit.configuration.InvalidConfigurationException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Config {
 	final AncientRPG plugin; // ??? kann vielleicht private

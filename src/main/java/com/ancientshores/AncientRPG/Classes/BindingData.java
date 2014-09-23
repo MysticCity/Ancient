@@ -1,12 +1,12 @@
 package com.ancientshores.AncientRPG.Classes;
 
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.inventory.ItemStack;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.inventory.ItemStack;
 
 public class BindingData implements Serializable, ConfigurationSerializable {
     private static final long serialVersionUID = 1L;
@@ -48,7 +48,7 @@ public class BindingData implements Serializable, ConfigurationSerializable {
     @Override
     public boolean equals(Object c) {
         if (c instanceof BindingData) {
-            BindingData bd = ((BindingData) c);
+            BindingData bd = (BindingData) c;
             if (bd.id == this.id && bd.data == this.data) {
                 return true;
             }

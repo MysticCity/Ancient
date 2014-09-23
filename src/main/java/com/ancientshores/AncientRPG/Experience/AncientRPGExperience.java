@@ -1,5 +1,15 @@
 package com.ancientshores.AncientRPG.Experience;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
+
 import com.ancientshores.AncientRPG.API.AncientGainExperienceEvent;
 import com.ancientshores.AncientRPG.API.AncientLevelupEvent;
 import com.ancientshores.AncientRPG.AncientRPG;
@@ -12,18 +22,30 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.entity.*;
+import org.bukkit.entity.CaveSpider;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Enderman;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.Giant;
+import org.bukkit.entity.IronGolem;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.PigZombie;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Silverfish;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Snowman;
+import org.bukkit.entity.Spider;
+import org.bukkit.entity.Witch;
+import org.bukkit.entity.Wither;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.UUID;
 
 public class AncientRPGExperience implements Serializable, ConfigurationSerializable {
 	public static float multiplier = 1;
@@ -122,7 +144,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	public AncientRPGExperience(Map<String, Object> map) {
 		this.level = (Integer) map.get("level");
 		this.xp = (Integer) map.get("xp");
-		this.uuid = (UUID) map.get("xpname");
+		this.uuid = UUID.fromString((String) map.get("uuid"));
 	}
 
 	public static boolean isWorldEnabled(Player p) {
@@ -154,30 +176,32 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 		}
 		try {
 			if (AncientRPGParty.splitxp && party) {
-				AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p);
+
+				AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p.getUniqueId());
 				if (mParty != null) {
-					HashSet<Player> playersInRange = new HashSet<Player>();
-					Collection<Player> players = mParty.getMembers();
-					for (Player mp : players) {
-						if (mp == p) {
+					HashSet<UUID> playersInRange = new HashSet<UUID>();
+					Collection<UUID> uuids = mParty.getMembers();
+					for (UUID uuid : uuids) {
+						if (uuid.compareTo(p.getUniqueId()) == 0) {
 							continue;
 						}
-						if (mp.isOnline() && mp.getLocation().getWorld().getName().equals(p.getWorld().getName()) && Math.abs(mp.getLocation().distance(p.getLocation())) < AncientRPGParty.splitxprange) {
-							playersInRange.add(mp);
+						if (Bukkit.getPlayer(uuid).isOnline() && Bukkit.getPlayer(uuid).getLocation().getWorld().getName().equals(p.getWorld().getName()) && Math.abs(Bukkit.getPlayer(uuid).getLocation().distance(p.getLocation())) < AncientRPGParty.splitxprange) {
+							playersInRange.add(uuid);
 						}
 					}
 					int times = playersInRange.size() + 1;
 					int newXp = (xp / times);
 					xp = newXp;
-					for (Player player : playersInRange) {
-						PlayerData.getPlayerData(player.getUniqueId()).getXpSystem().addXP(newXp, false);
+
+					for (UUID uuid : playersInRange) {
+						PlayerData.getPlayerData(uuid).getXpSystem().addXP(newXp, false);
 					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		AncientGainExperienceEvent gainevent = new AncientGainExperienceEvent(this.xp, p, xp);
+		AncientGainExperienceEvent gainevent = new AncientGainExperienceEvent(this.xp, p.getUniqueId(), xp);
 		Bukkit.getServer().getPluginManager().callEvent(gainevent);
 		if (gainevent.cancelled) {
 			return;
@@ -193,7 +217,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			}
 		}
 		if (level != oldlevel) {
-			AncientLevelupEvent event = new AncientLevelupEvent(this.level, p, this.xp, xp);
+			AncientLevelupEvent event = new AncientLevelupEvent(this.level, p.getUniqueId(), this.xp, xp);
 			Bukkit.getServer().getPluginManager().callEvent(event);
 			if (event.cancelled) {
 				this.level = oldlevel;
@@ -492,9 +516,11 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("level", level);
 		map.put("xp", xp);
-		map.put("xpname", uuid);
+		map.put("uuid", uuid.toString());
+
 		return map;
 	}
 

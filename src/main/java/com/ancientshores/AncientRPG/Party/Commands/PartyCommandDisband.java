@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Party.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+
 public class PartyCommandDisband {
     public static void processDisband(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
+        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
         if (mParty != null) {
-            if (mParty.getLeader() == mPlayer) {
+            if (mParty.getLeader().compareTo(mPlayer.getUniqueId()) == 0) {
                 mParty.removeAll();
                 AncientRPGParty.partys.remove(mParty);
             } else {

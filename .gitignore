@@ -16,7 +16,7 @@
 .*.sw[a-p]
 
 # Mac
-/.DS_Store
+*.DS_Store
 
 # Ant
 build.number
@@ -24,3 +24,11 @@ build.number
 # Maven
 /target
 /bin/
+
+# Documentation
+/doc/
+/documentation/
+
+# Stuff
+/stuff/*
+/src/main/resources/laf/*

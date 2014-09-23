@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.Arrays;
+import java.util.logging.Level;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 @ParameterDescription(amount = 1, description = "<html>returns the nearest players in sight of the caster<br> Textfield: range of parameter</html>", returntype = "Player", name = "NearestPlayerInSight")
 public class NearestPlayerInSightParameter implements IParameter {
@@ -31,9 +32,9 @@ public class NearestPlayerInSightParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestPlayerInSight == null) {
-            Player nPlayer = ea.getSpellInfo().getNearestPlayerInSight(mPlayer, range);
-            ea.getSpellInfo().nearestPlayerInSight = nPlayer;
-            if (nPlayer == null) {
+            Player playerInSight = ea.getSpellInfo().getNearestPlayerInSight(mPlayer, range);
+            ea.getSpellInfo().nearestPlayerInSight = playerInSight;
+            if (playerInSight == null) {
                 return;
             }
         }

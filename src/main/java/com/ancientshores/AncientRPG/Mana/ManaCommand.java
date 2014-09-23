@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Mana;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 
 public class ManaCommand {
     public static void processManaCommand(CommandSender sender) {

@@ -1,30 +1,32 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandKick {
     public static void processKick(CommandSender sender, String[] args) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
-            AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+            AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
             if (guild != null) {
-                AncientRPGGuildRanks rank = guild.gMember.get(mPlayer.getName());
+                AncientRPGGuildRanks rank = guild.gMember.get(mPlayer.getUniqueId());
                 if (guild.gMember.containsKey(args[1])) {
                     if (rank == AncientRPGGuildRanks.LEADER) {
                         if (!(guild.gMember.get(args[1]) == AncientRPGGuildRanks.LEADER)) {
-                            guild.kickMember(args[1]);
+                            guild.kickMember(Bukkit.getPlayer(args[1]).getUniqueId());
                             AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer));
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You cannot kick yourself as a Leader.");
                         }
                     } else if (rank == AncientRPGGuildRanks.CO_LEADER) {
                         if (!(guild.gMember.get(args[1]) == AncientRPGGuildRanks.LEADER) && !(guild.gMember.get(args[1]) == AncientRPGGuildRanks.CO_LEADER)) {
-                            guild.kickMember(args[1]);
+                            guild.kickMember(Bukkit.getPlayer(args[1]).getUniqueId());
                             AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer));
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You are not allowed to kick this player.");

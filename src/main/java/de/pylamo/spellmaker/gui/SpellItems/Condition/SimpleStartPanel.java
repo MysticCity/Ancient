@@ -1,9 +1,14 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-import de.pylamo.spellmaker.gui.SpellItems.ToolTipItem;
+import java.awt.Color;
+import java.awt.FlowLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import de.pylamo.spellmaker.gui.SpellItems.ToolTipItem;
 
 public class SimpleStartPanel extends JPanel {
     private static final long serialVersionUID = 1L;

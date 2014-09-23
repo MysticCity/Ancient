@@ -1,8 +1,8 @@
 package com.ancientshores.AncientRPG.Classes;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-
 import java.io.Serializable;
+
+import com.ancientshores.AncientRPG.AncientRPG;
 
 public enum ClassType implements Serializable {
     Warrior(1000), Engineer(700), Standard(600);

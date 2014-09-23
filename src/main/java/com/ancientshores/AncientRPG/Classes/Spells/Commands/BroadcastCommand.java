@@ -1,9 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.HelpList;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.HelpList;
 
 public class BroadcastCommand extends ICommand {
     @CommandDescription(description = "<html>Broadcasts the message</html>",

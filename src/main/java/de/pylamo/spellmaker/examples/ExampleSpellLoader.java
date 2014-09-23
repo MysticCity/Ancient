@@ -1,10 +1,5 @@
 package de.pylamo.spellmaker.examples;
 
-import de.pylamo.spellmaker.Menu;
-import de.pylamo.spellmaker.gui.Window;
-import de.pylamo.spellmaker.parser.SpellParser;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -13,6 +8,13 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+import de.pylamo.spellmaker.Menu;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.parser.SpellParser;
 
 public class ExampleSpellLoader {
     public static JMenu addMenu() {

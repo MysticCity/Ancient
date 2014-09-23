@@ -1,8 +1,8 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.ElseItem;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ElseItem;
 
 public class ElseStatement extends ComplexStatement {
 

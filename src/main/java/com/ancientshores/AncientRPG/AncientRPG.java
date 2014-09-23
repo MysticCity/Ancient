@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,8 +43,10 @@ import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
 import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
+import com.ancientshores.AncientRPG.Commands.AncientRPGCommand;
 import com.ancientshores.AncientRPG.Commands.HelpCommand;
 import com.ancientshores.AncientRPG.Commands.ReloadCommand;
+
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 import com.ancientshores.AncientRPG.Experience.SetXpCommand;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
@@ -66,6 +69,7 @@ import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellsCommandExecutor;
+import com.ancientshores.AncientRPG.UUID.Converter.AncientRPGUUIDConverter;
 import com.ancientshores.AncientRPG.Util.FlatFileConnector;
 import com.ancientshores.AncientRPG.Util.SerializableZone;
 
@@ -75,7 +79,7 @@ public class AncientRPG extends JavaPlugin {
 	public static Permission permissionHandler; // Vaults permission handler
 	public static AncientRPG plugin; // ein Objekt dieser Klasse, auf die wahrscheinlich andere Klassen zugreifen ???
 	public static Economy economy; // Vaults economy unterstützung
-	public static final String AdminPermission = "AncientRPG.admin"; // eine Konstnte zum Speichern der permission für admins
+	public static final String AdminPermission = "AncientRPG.admin"; // eine Konstante zum Speichern der permission für admins
 	public static CommandMap commandMap; //wird benutzt um Kommandos zu registrieren USE bei mir verwenden
 	static ApiManager manager;  // ???
 	public final FlatFileConnector fc = new FlatFileConnector(this); // ???
@@ -84,7 +88,7 @@ public class AncientRPG extends JavaPlugin {
 	public static String languagecode; // für die Sprache wird aus Config geladen in mconfig.loadkeys();
 	// ClassListeners
 	
-	HashMap<SpellInformationObject, Player> executingSpells = new HashMap<SpellInformationObject, Player>(); // ??? Hashmap für die Zauber
+	HashMap<SpellInformationObject, UUID> executingSpells = new HashMap<SpellInformationObject, UUID>(); // ??? Hashmap für die Zauber
 
 	public Logger log; // zum Aufzeichnen und Ausgeben der Fehler und anderer Meldungen ???
 	public static String partyCommand = "party"; // das Kommando, welches zum Ausführen des party codes genommen werden soll
@@ -119,11 +123,12 @@ public class AncientRPG extends JavaPlugin {
 	static Locale currentLocale; // speichert die position des servers NNN
 	public static String brand = "ARPG"; // ??? NNN
 	public static String brand2 = ""; // ??? NNN
+	static ResourceBundle messages; // die Texte in der jeweiligen Sprache
 
 	public void onEnable() { // beim aktivieren des Plugins
-		// ==================================================================
+		// ===
 		// initialize/log section
-		// =================================================================
+		// ==
 		log = getLogger(); // setzt log auf den vom Server verwendeten Logger, damit die Meldungen auch ausgegeben werden
 		this.bukkitThread = Thread.currentThread(); // speichert den Thread des Servers
 		this.getDataFolder().mkdir(); // erstellt den Ordner für die Dateien des Plugins
@@ -146,7 +151,7 @@ public class AncientRPG extends JavaPlugin {
 			f = Bukkit.getServer().getClass().getDeclaredField("commandMap");  // lädt die variable commandMap des Servers
 			f.setAccessible(true); // macht sie zugänglich
 			commandMap = (CommandMap) f.get(Bukkit.getServer()); // lädt die CommandMap dieses Servers und speichert sie in commandMap
-		} catch (final Exception ex) { // --- wozu final?
+		} catch (Exception ex) {
 		
 		}
 	
@@ -157,17 +162,22 @@ public class AncientRPG extends JavaPlugin {
 			
 		}
 		
-		// ==================================================================
+		// ===
+		// uuid converter section
+		// ==
+		AncientRPGUUIDConverter.runConverter();
+		
+		// ===
 		// event section
-		// =================================================================
+		// ==
 		setupPermissions(); // setzt die permissions für die einzelnen commands fest ???
 		
 		config = new Config(this);
 		config.configCheck(); // --- leer. dadrin passiert nichts
 		
-		// ============================================
+		// ==
 		// load section
-		// ============================================
+		// ==
 		new AncientRPGPlayerListener(this); // ???
 		new AncientRPGBlockListener(this); // ???
 		new AncientRPGEntityListener(this); // ???
@@ -179,55 +189,9 @@ public class AncientRPG extends JavaPlugin {
 		IArgument.addDefaults(); // registriert getter einzelner abfragen ???
 		com.ancientshores.AncientRPG.Classes.Spells.Command.putDefaults(); //registriert die verschiedenen kommandos EDIT Klasse Command umbennenen zu Commands o.ä.
 		
+		registerCommands();
 		// ??? warum wird hier nochmal registriert, weil es nicht zu den sprüchen gehört?
-		try { // registrieren der Kommandos EDIT einzelne Strings löschen, und statt dessen map, list oder array nehmen und iterieren
-			Constructor<?> c = Class.forName("org.bukkit.command.PluginCommand").getDeclaredConstructors()[0];
-			c.setAccessible(true);
-			PluginCommand pc = (PluginCommand) c.newInstance(partyCommand, AncientRPG.plugin);
-			pc.setExecutor(this);
-			commandMap.register(partyCommand, pc);
-			PluginCommand pc1 = (PluginCommand) c.newInstance(guildCommand, AncientRPG.plugin);
-			pc1.setExecutor(this);
-			commandMap.register(guildCommand, pc1);
-			PluginCommand pc2 = (PluginCommand) c.newInstance(classCommand, AncientRPG.plugin);
-			pc2.setExecutor(this);
-			commandMap.register(classCommand, pc2);
-			PluginCommand pc3 = (PluginCommand) c.newInstance(levelCommand, AncientRPG.plugin);
-			pc3.setExecutor(this);
-			commandMap.register(levelCommand, pc3);
-			PluginCommand pc4 = (PluginCommand) c.newInstance(hpCommand, AncientRPG.plugin);
-			pc4.setExecutor(this);
-			commandMap.register(hpCommand, pc4);
-			PluginCommand pc5 = (PluginCommand) c.newInstance(spellsCommand, AncientRPG.plugin);
-			pc5.setExecutor(new SpellsCommandExecutor());
-			commandMap.register(spellsCommand, pc5);
-			PluginCommand pc6 = (PluginCommand) c.newInstance(manaCommand, AncientRPG.plugin);
-			pc6.setExecutor(this);
-			commandMap.register(manaCommand, pc6);
-			PluginCommand pc7 = (PluginCommand) c.newInstance(arCommand, AncientRPG.plugin);
-			pc7.setExecutor(this);
-			commandMap.register(arCommand, pc7);
-			PluginCommand pc8 = (PluginCommand) c.newInstance(raceCommand, AncientRPG.plugin);
-			pc8.setExecutor(this);
-			commandMap.register(raceCommand, pc8);
-			PluginCommand pc9 = (PluginCommand) c.newInstance(gcCommand, AncientRPG.plugin);
-			pc9.setExecutor(this);
-			commandMap.register(gcCommand, pc9);
-			PluginCommand pc10 = (PluginCommand) c.newInstance(pcCommand, AncientRPG.plugin);
-			pc10.setExecutor(this);
-			commandMap.register(pcCommand, pc10);
-			PluginCommand pc11 = (PluginCommand) c.newInstance(bindCommand, AncientRPG.plugin);
-			pc11.setExecutor(this);
-			commandMap.register(bindCommand, pc11);
-			PluginCommand pc12 = (PluginCommand) c.newInstance(unbindCommand, AncientRPG.plugin);
-			pc12.setExecutor(this);
-			commandMap.register(unbindCommand, pc12);
-			PluginCommand pc13 = (PluginCommand) c.newInstance(ancientrpgCommand, AncientRPG.plugin);
-			pc13.setExecutor(this);
-			commandMap.register(ancientrpgCommand, pc13);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		try {
 			Locale l = new Locale(languagecode); // neues Locale für das setzen der Sprache
 			messages = ResourceBundle.getBundle("AncientRPGMessages", l); // die Resourcen laden, d.h. die Sprache speichern
@@ -244,7 +208,6 @@ public class AncientRPG extends JavaPlugin {
 		AncientRPGClass.loadClasses(); // ??? Klassen laden
 		AncientRPGRace.loadRaces(); // ??? Rassen laden
 		
-		if (classExists("com.ancientshores.AncientRPG.Experiece.AncientRPGExperience")) {  // ??? --- WTF?!? man muss doch wissen, welche Klassen man geschrieben hat
 			if (!new File(this.getDataFolder().getPath() + "/level").exists()) { // wenn der Levelordner nicht existiert wird er erstellt
 				new File(this.getDataFolder().getPath() + "/level").mkdir();
 			}
@@ -264,7 +227,6 @@ public class AncientRPG extends JavaPlugin {
 					AncientRPG.plugin.getLogger().log(Level.SEVERE, "AncientRPG: unable to create spell config file " + configFile.getName()); // ??? ich denke es ist eine level datei. wenn ich locales habe sollte ich die auch benutzen...
 				}
 			}
-		}
 		
 		try {
 			File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "spellfreezones"); // ??? OMG warum frage ich hier nach seperator aber nicht 10 zeilen darüber WTF und warum nehme ich davor this und jetzt klasse.plugin | soll wahrscheinlich den ordner für spruchfreie zonen speichern. interessant...
@@ -324,6 +286,74 @@ public class AncientRPG extends JavaPlugin {
 
 	}
 	
+	private void registerCommands() {
+		try { // registrieren der Kommandos EDIT einzelne Strings löschen, und statt dessen map, list oder array nehmen und iterieren
+			Constructor<?> c = Class.forName("org.bukkit.command.PluginCommand").getDeclaredConstructors()[0];
+			c.setAccessible(true);
+			
+			PluginCommand pc = (PluginCommand) c.newInstance(partyCommand, AncientRPG.plugin);
+			pc.setExecutor(this);
+			commandMap.register(partyCommand, pc);
+			
+			PluginCommand gc = (PluginCommand) c.newInstance(guildCommand, AncientRPG.plugin);
+			gc.setExecutor(this);
+			commandMap.register(guildCommand, gc);
+			
+			PluginCommand cc = (PluginCommand) c.newInstance(classCommand, AncientRPG.plugin);
+			cc.setExecutor(this);
+			commandMap.register(classCommand, cc);
+			
+			PluginCommand lc = (PluginCommand) c.newInstance(levelCommand, AncientRPG.plugin);
+			lc.setExecutor(this);
+			commandMap.register(levelCommand, lc);
+			
+			PluginCommand hc = (PluginCommand) c.newInstance(hpCommand, AncientRPG.plugin);
+			hc.setExecutor(this);
+			commandMap.register(hpCommand, hc);
+			
+			PluginCommand sc = (PluginCommand) c.newInstance(spellsCommand, AncientRPG.plugin);
+			sc.setExecutor(new SpellsCommandExecutor());
+			commandMap.register(spellsCommand, sc);
+			
+			PluginCommand mc = (PluginCommand) c.newInstance(manaCommand, AncientRPG.plugin);
+			mc.setExecutor(this);
+			commandMap.register(manaCommand, mc);
+			
+			PluginCommand arc = (PluginCommand) c.newInstance(arCommand, AncientRPG.plugin);
+			arc.setExecutor(this);
+			commandMap.register(arCommand, arc);
+			
+			PluginCommand rc = (PluginCommand) c.newInstance(raceCommand, AncientRPG.plugin);
+			rc.setExecutor(this);
+			commandMap.register(raceCommand, rc);
+			
+			PluginCommand gcc = (PluginCommand) c.newInstance(gcCommand, AncientRPG.plugin);
+			gcc.setExecutor(this);
+			commandMap.register(gcCommand, gcc);
+			
+			PluginCommand pcc = (PluginCommand) c.newInstance(pcCommand, AncientRPG.plugin);
+			pcc.setExecutor(this);
+			commandMap.register(pcCommand, pcc);
+			
+			PluginCommand bc = (PluginCommand) c.newInstance(bindCommand, AncientRPG.plugin);
+			bc.setExecutor(this);
+			commandMap.register(bindCommand, bc);
+			
+			PluginCommand uc = (PluginCommand) c.newInstance(unbindCommand, AncientRPG.plugin);
+			uc.setExecutor(this);
+			commandMap.register(unbindCommand, uc);
+			
+			PluginCommand ac = (PluginCommand) c.newInstance(ancientrpgCommand, AncientRPG.plugin);
+			ac.setExecutor(new AncientRPGCommand());
+			commandMap.register(ancientrpgCommand, ac);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+	}
+
 	public void onDisable() {
 		this.reloadConfig();
 		config.loadkeys();
@@ -331,11 +361,12 @@ public class AncientRPG extends JavaPlugin {
 		this.saveConfig();
 		PlayerData.writePlayerData();
 		log.info("AncientRPG disabled.");
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild") && AncientRPGGuild.enabled) {
-			AncientRPGGuild.writeGuilds();
-		}
+		
+		AncientRPGGuild.writeGuilds();
+		
 		if (AncientRPGClass.enabled) {
-			for (Player p : AncientRPGSpellListener.disarmList.keySet()) {
+			for (UUID uuid : AncientRPGSpellListener.disarmList.keySet()) {
+				Player p = Bukkit.getPlayer(uuid);
 				if (p.getItemInHand() == null) {
 					p.setItemInHand(AncientRPGSpellListener.disarmList.get(p));
 				} else {
@@ -343,7 +374,7 @@ public class AncientRPG extends JavaPlugin {
 				}
 			}
 		}
-		for (Player p : this.getServer().getOnlinePlayers()) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
 			AncientRPGPlayerListener.setVisibleToAll(p);
 			AncientRPGPlayerListener.setAllVisible(p);
 		}
@@ -474,15 +505,9 @@ public class AncientRPG extends JavaPlugin {
 	}
 
 	public void initializeHelpFiles() {
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.Commands.PartyCommandHelp")) {
-			PartyCommandHelp.initHelp();
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.Commands.GuildCommandHelp")) {
-			GuildCommandHelp.initHelp();
-		}
-		if (AncientRPG.classExists("com.ancientshores.AncientRPG.Classes.AncientRPGClassHelp")) {
-			AncientRPGClassHelp.initHelp();
-		}
+		PartyCommandHelp.initHelp();
+		GuildCommandHelp.initHelp();
+		AncientRPGClassHelp.initHelp();
 	}
 
 	@Override
@@ -498,16 +523,6 @@ public class AncientRPG extends JavaPlugin {
 			commandName = nargs[0];
 			nargs = buffer;
 		}
-		if (commandName.equalsIgnoreCase("ancientrpg")) {
-			if (args.length != 0 && args[0].equalsIgnoreCase("reload") && (!(sender instanceof Player) || (hasPermissions((Player) sender, AdminPermission)))) {
-				ReloadCommand.reload();
-				sender.sendMessage("AncientRPG reload complete!");
-			}
-			if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-				HelpCommand.processHelp(sender, nargs);
-			}
-			return true;
-		}
 		if (commandName.equalsIgnoreCase(levelCommand) && args.length > 1 && args[0].equals("setxp")) {
 			SetXpCommand.setXp(sender, args);
 			return true;
@@ -517,13 +532,13 @@ public class AncientRPG extends JavaPlugin {
 			return true;
 		}
 		if (commandName.equalsIgnoreCase(guildCommand) && args.length > 1 && args[0].equals("setplayersguild")) {
-			if (sender instanceof Player && !AncientRPG.hasPermissions((Player) sender, AncientRPGGuild.gNodeAdmin)) {
+			if (sender instanceof Player && !sender.hasPermission(AncientRPGGuild.gNodeAdmin)) {
 				return false;
 			}
 			Player p = Bukkit.getPlayer(args[1]);
 			AncientRPGGuild mGuild = AncientRPGGuild.getGuildByName(args[2]);
 			if (p != null && mGuild != null) {
-				mGuild.addMember(p.getName(), AncientRPGGuildRanks.TRIAL);
+				mGuild.addMember(p.getUniqueId(), AncientRPGGuildRanks.TRIAL);
 			} else {
 				sender.sendMessage("Player or guild not found");
 			}
@@ -538,29 +553,28 @@ public class AncientRPG extends JavaPlugin {
 			return true;
 		}
 		if (sender instanceof Player) {
-			if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty") && AncientRPGParty.enabled && commandName.equals(partyCommand)) {
+			if (AncientRPGParty.enabled && commandName.equals(partyCommand)) {
 				AncientRPGParty.processCommand(sender, nargs, this);
 				return true;
 			}
-			if (AncientRPG.classExists("com.ancientshores.AncientRPG.Party.AncientRPGParty") && AncientRPGParty.enabled && commandName.equals(pcCommand) && args != null) {
+			if (AncientRPGParty.enabled && commandName.equals(pcCommand) && args != null) {
 				nargs = new String[args.length + 1];
 				System.arraycopy(args, 0, nargs, 1, args.length);
 				nargs[0] = "";
 				PartyCommandChat.processChat(sender, nargs);
 				return true;
 			}
-			if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild") && commandName.equals(guildCommand) && AncientRPGGuild.enabled) {
+			if (commandName.equals(guildCommand) && AncientRPGGuild.enabled) {
 				AncientRPGGuild.processCommand(sender, nargs, this);
 				return true;
 			}
-			if (AncientRPG.classExists("com.ancientshores.AncientRPG.Guild.AncientRPGGuild") && commandName.equals(gcCommand) && AncientRPGGuild.enabled && args != null) {
+			if (commandName.equals(gcCommand) && AncientRPGGuild.enabled && args != null) {
 				nargs = new String[args.length + 1];
 				System.arraycopy(args, 0, nargs, 1, args.length);
 				nargs[0] = "";
 				GuildCommandChat.processChat(sender, nargs);
 				return true;
 			}
-
 			if (commandName.equals(bindCommand)) {
 				if (args != null) {
 					if (args.length == 2) {
@@ -606,6 +620,15 @@ public class AncientRPG extends JavaPlugin {
 		return false;
 	}
 
+//	public static boolean classExists(String c) {
+//		try {
+//			Class.forName(c);
+//			return true;
+//		} catch (ClassNotFoundException e) {
+//			return false;
+//		}
+//	}
+
 	public static boolean classExists(String c) {
 		try {
 			Class.forName(c);
@@ -644,8 +667,6 @@ public class AncientRPG extends JavaPlugin {
 		return a.hasPermission(b) || a.isOp();
 	}
 
-	static ResourceBundle messages; // EDIT nach oben zu anderen variablen schieben
-
 	public static String getLocalizedString(String code) {
 		return messages.getString(code);
 	}
@@ -655,8 +676,8 @@ public class AncientRPG extends JavaPlugin {
 	}
 
 	public static boolean iConomyEnabled() {
-		return AncientRPGGuild.Iconomyenabled && AncientRPG.economy != null;
-	}
+		return AncientRPGGuild.economyenabled && AncientRPG.economy != null;	
+		}
 
 	@SuppressWarnings("unused")
 	private Boolean setupTowny() {

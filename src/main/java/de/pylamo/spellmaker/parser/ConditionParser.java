@@ -1,8 +1,12 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.*;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.AndItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.CompareOperator;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.CompareOperatorPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ConditionComparePanel;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.OrItem;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 
 class ConditionParser {
     private final int end = 0;

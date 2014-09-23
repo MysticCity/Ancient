@@ -1,16 +1,17 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
+import java.util.Arrays;
+import java.util.logging.Level;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 @ParameterDescription(amount = 2, description = "<html>returns members of the party<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "PartyMembers")
 public class PartyMembersParameter implements IParameter {

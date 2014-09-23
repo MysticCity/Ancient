@@ -1,31 +1,34 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import java.util.Set;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 
 public class GuildCommandInfo {
     public static void processInfo(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+        AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
         if (guild != null) {
             mPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
             mPlayer.sendMessage(ChatColor.GREEN + "Guild info:");
-            Set<String> guildplayers = guild.gMember.keySet();
+            Set<UUID> guildplayers = guild.gMember.keySet();
             int online = 0;
-            for (String playersg : guildplayers) {
-                Player p = AncientRPG.plugin.getServer().getPlayer(playersg);
+            for (UUID uuid : guildplayers) {
+                Player p = Bukkit.getPlayer(uuid);
                 if (p != null && p.isOnline()) {
                     online++;
                 }
             }
             mPlayer.sendMessage("Members in your guild: " + guild.gMember.size());
             mPlayer.sendMessage("Currently online: " + online);
-            if (AncientRPGGuild.Iconomyenabled && AncientRPG.economy != null) {
+            if (AncientRPGGuild.economyenabled && AncientRPG.economy != null) {
                 mPlayer.sendMessage("Money of your guild: " + AncientRPG.economy.getBalance(guild.accountName));
             }
             mPlayer.sendMessage("To see a list of all players online type /guild online");

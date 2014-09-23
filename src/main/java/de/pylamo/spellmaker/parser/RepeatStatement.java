@@ -1,11 +1,11 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.RepeatItem;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
-import de.pylamo.spellmaker.gui.Window;
-
 import java.util.regex.Pattern;
+
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.RepeatItem;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 
 public class RepeatStatement extends ComplexStatement {
     private IParameter p;

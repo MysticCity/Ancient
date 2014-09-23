@@ -1,16 +1,28 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
+import org.bukkit.event.Event;
+
 import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.AncientRPG.Util.GlobalMethods;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.*;
-import org.bukkit.event.Event;
-
-import java.util.*;
 
 public class SpellInformationObject {
     public Player nearestPlayer;
@@ -230,8 +242,8 @@ public class SpellInformationObject {
         final Collection<Entity> entityset = removeEntitiesInSpellfreeZone(mPlayer.getNearbyEntities(range, range, range));
         HashSet<Entity> alreadyParsed = new HashSet<Entity>();
         double curdif = 100000;
-        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
-        HashSet<Player> partyMembers = new HashSet<Player>();
+        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
+        HashSet<UUID> partyMembers = new HashSet<UUID>();
         if (mParty != null) {
             partyMembers.addAll(mParty.getMembers());
         }
@@ -273,14 +285,14 @@ public class SpellInformationObject {
 
     public Entity[] getNearestHostileEntities(final Player mPlayer, final int range, final int count) {
         final List<Entity> entityset = mPlayer.getNearbyEntities(range, range, range);
-        final Entity[] nearestEntity = new Entity[count];
-        final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
-        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
-        HashSet<Entity> partyMembers = new HashSet<Entity>();
+        final UUID[] nearestEntity = new UUID[count];
+        final HashSet<UUID> alreadyParsed = new HashSet<UUID>();
+        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
+        HashSet<UUID> partyMembers = new HashSet<UUID>();
         if (mParty != null) {
             partyMembers.addAll(mParty.getMembers());
         }
-        partyMembers = (HashSet<Entity>) removeEntitiesInSpellfreeZone(partyMembers);
+        partyMembers = (HashSet<UUID>) removeEntitiesInSpellfreeZone(partyMembers);
         for (int i = 0; i < count; i++) {
             double curdif = 100000;
             for (Entity e : entityset) {
@@ -288,7 +300,7 @@ public class SpellInformationObject {
                     double dif = e.getLocation().distance(mPlayer.getLocation());
                     if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e) && !partyMembers.contains(e)) {
                         curdif = dif;
-                        nearestEntity[i] = e;
+                        nearestEntity[i] = e.getUniqueId();
                     }
                 }
             }
@@ -299,14 +311,14 @@ public class SpellInformationObject {
 
 
     public Player[] getPartyMembers(final Player mPlayer, final int range) {
-        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
+        AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
         if (mParty == null) {
             return new Player[0];
         } else {
-            Collection<Player> partyMembers = new HashSet<Player>(mParty.getMembers());
-            for (Iterator<Player> iterator = partyMembers.iterator(); iterator.hasNext(); ) {
-                Player p = iterator.next();
-                if (p == null || p.getLocation().distance(mPlayer.getLocation()) > range) {
+            Collection<UUID> partyMembers = new HashSet<UUID>(mParty.getMembers());
+            for (Iterator<UUID> iterator = partyMembers.iterator(); iterator.hasNext(); ) {
+                UUID uuid = iterator.next();
+                if (uuid == null || Bukkit.getPlayer(uuid).getLocation().distance(mPlayer.getLocation()) > range) {
                     iterator.remove();
                 }
             }

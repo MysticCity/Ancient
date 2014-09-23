@@ -1,6 +1,7 @@
 package com.ancientshores.AncientRPG.API;
 
-import org.bukkit.entity.Player;
+import java.util.UUID;
+
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -8,14 +9,14 @@ import org.bukkit.event.HandlerList;
 public class AncientLevelupEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     public int newlevel;
-    public final Player p;
+    public final UUID uuid;
     public int xp;
     public int addedxp;
     public boolean cancelled;
 
-    public AncientLevelupEvent(int newlevel, Player p, int xp, int addedxp) {
+    public AncientLevelupEvent(int newlevel, UUID uuid, int xp, int addedxp) {
         this.newlevel = newlevel;
-        this.p = p;
+        this.uuid = uuid;
         this.xp = xp;
         this.addedxp = addedxp;
     }

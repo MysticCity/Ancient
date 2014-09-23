@@ -1,13 +1,16 @@
 package de.pylamo.spellmaker.gui.SpellItems;
 
-import de.pylamo.spellmaker.gui.MainPanel;
-import de.pylamo.spellmaker.gui.Window;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+
+import de.pylamo.spellmaker.gui.MainPanel;
+import de.pylamo.spellmaker.gui.Window;
 
 public class StartItem extends ISpellItem implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;

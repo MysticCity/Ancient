@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class GetMana extends IArgument {
     @ArgumentDescription(
-            description = "Returns the current amount of mana of the player",
+            description = "Returns the current amount of mana the player has.",
             parameterdescription = {"player"}, returntype = ParameterType.Number, rparams = {ParameterType.Player})
     public GetMana() {
         this.returnType = ParameterType.Number;
@@ -22,6 +23,6 @@ public class GetMana extends IArgument {
             return 0;
         }
         Player e = ((Player[]) obj[0])[0];
-        return PlayerData.getPlayerData(e.getUniqueId()).getManasystem().getCurmana();
+        return PlayerData.getPlayerData(e.getUniqueId()).getManasystem().getCurrentMana();
     }
 }

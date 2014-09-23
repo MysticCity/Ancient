@@ -1,14 +1,17 @@
 package com.ancientshores.AncientRPG.Race.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.PlayerData;
-import com.ancientshores.AncientRPG.Race.AncientRPGRace;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 
 public class SetRaceCommand {
     public static void setRaceCommand(Player sender, String[] command) {
@@ -26,7 +29,7 @@ public class SetRaceCommand {
                 }
             }
             if (command.length == 3) {
-                if (!AncientRPG.hasPermissions(p, AncientRPGRace.adminRacePermission)) {
+                if (!p.hasPermission(AncientRPGRace.adminRacePermission)) {
                     sender.sendMessage(AncientRPG.brand2 + "You don't have the permission to change another persons race");
                     return;
                 }
@@ -41,11 +44,11 @@ public class SetRaceCommand {
                 sender.sendMessage(AncientRPG.brand2 + "This race does not exist!");
                 return;
             }
-            if (race.permission != null && !race.permission.equals("") && !AncientRPG.hasPermissions(sender, race.permission)) {
+            if (race.permission != null && !race.permission.equals("") && !sender.hasPermission(race.permission)) {
                 sender.sendMessage(AncientRPG.brand2 + "You don't have the permission to set your race to this race");
                 return;
             }
-            if (!AncientRPG.hasPermissions(sender, AncientRPGRace.setRacePermission)) {
+            if (!sender.hasPermission(AncientRPGRace.setRacePermission)) {
                 sender.sendMessage(AncientRPG.brand2 + "You don't have the permission to use this command");
                 return;
             }
@@ -54,17 +57,21 @@ public class SetRaceCommand {
             if (p != sender) {
                 sender.sendMessage(AncientRPG.brand2 + "Successfully changed the race of " + command[2]);
             }
-            AncientRPGRace.playersOnCd.put(sender.getName(), System.currentTimeMillis());
+            AncientRPGRace.playersOnCd.put(sender.getUniqueId(), System.currentTimeMillis());
             File f = new File(AncientRPG.plugin.getDataFolder() + File.separator + "Races" + File.separator + "changecds.dat");
-            FileOutputStream fos;
             try {
-                fos = new FileOutputStream(f);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(AncientRPGRace.playersOnCd);
-                oos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+				FileWriter fw = new FileWriter(f);
+				BufferedWriter bw = new BufferedWriter(fw);
+//				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				for (UUID uuid :AncientRPGClass.playersOnCd.keySet()) {
+					bw.write(uuid.toString() + ";" + AncientRPGClass.playersOnCd.get(uuid)); //.writeObject(AncientRPGClass.playersOnCd);
+					bw.newLine();
+				}
+				bw.close();
+				fw.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         } else {
             sender.sendMessage(AncientRPG.brand2 + "Incorrect usage of setrace");
         }

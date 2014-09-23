@@ -1,9 +1,20 @@
 package de.pylamo.spellmaker.gui;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.*;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.BooleanParameterPanel;
+import javax.swing.JPanel;
 
-import javax.swing.*;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.AndItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.CompareOperator;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.CompareOperatorPanel;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ConditionComparePanel;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ElseIfItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ElseItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ForeachItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.IfItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.OrItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.RepeatItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.TryItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.WhileItem;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.BooleanParameterPanel;
 
 public class ConditionPreview extends JPanel {
     private static final long serialVersionUID = 1L;

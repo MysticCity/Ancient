@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
-import org.bukkit.entity.Player;
 
 public class DisruptOnDeathCommand extends ICommand {
     @CommandDescription(description = "<html> Disrupts the spell if player dies in the specified time</html>",

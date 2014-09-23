@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 
 public class ChargeEntityToCommand extends ICommand {
     @CommandDescription(description = "<html>Charges the entity to the location with the speed in blocks/s stops after maxdistance</html>",

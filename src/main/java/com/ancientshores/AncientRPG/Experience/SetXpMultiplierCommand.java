@@ -1,16 +1,17 @@
 package com.ancientshores.AncientRPG.Experience;
 
-import com.ancientshores.AncientRPG.AncientRPG;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.AncientRPG;
+
 public class SetXpMultiplierCommand {
     private static int taskid = 0;
 
     public static void setXpMultiplier(CommandSender cs, String[] args) {
-        if (cs instanceof Player && !AncientRPG.hasPermissions((Player) cs, AncientRPGExperience.nodeXPAdmin)) {
+        if (cs instanceof Player && !cs.hasPermission(AncientRPGExperience.nodeXPAdmin)) {
             cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You don't have the permission to use this command");
             return;
         }

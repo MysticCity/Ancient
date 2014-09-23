@@ -1,15 +1,16 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
+import java.util.logging.Level;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Tameable;
 
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
 
 public class SummonCommand extends ICommand {
     @CommandDescription(description = "<html>Summons the amount of creatures at the specified location for the specified amount of time</html>",
@@ -42,7 +43,7 @@ public class SummonCommand extends ICommand {
                                             ((Tameable) mob).setOwner(ca.getCaster());
                                         }
                                         if (time > 0) {
-                                            AncientRPGPlayerListener.summonedCreatures.put(mob, ca.getCaster());
+                                            AncientRPGPlayerListener.summonedCreatures.put(mob.getUniqueId(), ca.getCaster().getUniqueId());
                                             AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
                                                 public void run() {
                                                     mob.remove();

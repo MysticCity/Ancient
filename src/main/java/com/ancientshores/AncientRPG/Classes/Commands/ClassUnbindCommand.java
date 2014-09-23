@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.BindingData;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.BindingData;
 
 public class ClassUnbindCommand {
     public static void unbindCommand(String[] args, Player p) {

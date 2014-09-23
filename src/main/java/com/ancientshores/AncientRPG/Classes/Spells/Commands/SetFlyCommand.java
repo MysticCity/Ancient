@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.entity.Player;
 
 public class SetFlyCommand extends ICommand {
     @CommandDescription(description = "<html>Sets if the player can fly or not</html>",

@@ -1,12 +1,22 @@
 package de.pylamo.spellmaker.gui.SpellItems;
 
-import de.pylamo.spellmaker.gui.MainPanel;
-import de.pylamo.spellmaker.gui.SpellItems.Condition.ComplexItem;
-import de.pylamo.spellmaker.gui.Window;
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JComponent;
+import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
+import de.pylamo.spellmaker.gui.MainPanel;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ComplexItem;
 
 public abstract class ISpellItem extends JPanel implements MouseListener, MouseMotionListener {
     protected boolean b;

@@ -1,18 +1,19 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.logging.Level;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 @ParameterDescription(amount = 0,
         description = "<html>returns the attacked entity, can only be used in attack/damagebyentity events</html>",
@@ -26,9 +27,8 @@ public class AttackedEntityParameter implements IParameter {
             switch (pt) {
                 case Player:
                     if (event.getEntity() instanceof Player) {
-                        Player[] p = new Player[1];
-                        p[0] = (Player) event.getEntity();
-                        ea.getParams().addLast(p);
+                        Player p = (Player) event.getEntity();
+                        ea.getParams().addLast(p.getUniqueId());
                     }
                     return;
                 case Entity:
@@ -44,7 +44,7 @@ public class AttackedEntityParameter implements IParameter {
                 case String:
                     if (event.getEntity() instanceof Player) {
                         Player p = (Player) event.getEntity();
-                        ea.getParams().addLast(p.getName());
+                        ea.getParams().addLast(p.getUniqueId());
                     }
                     return;
                 default:

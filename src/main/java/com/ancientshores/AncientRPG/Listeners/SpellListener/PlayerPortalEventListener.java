@@ -1,21 +1,23 @@
 package com.ancientshores.AncientRPG.Listeners.SpellListener;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
-import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
-import com.ancientshores.AncientRPG.PlayerData;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerPortalEvent;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
+import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
 
 public class PlayerPortalEventListener extends ISpellListener {
     public PlayerPortalEventListener(AncientRPG instance) {
@@ -43,21 +45,23 @@ public class PlayerPortalEventListener extends ISpellListener {
         }
         Player mPlayer = event.getPlayer();
         PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
-        HashMap<Spell, Player[]> spells = new HashMap<Spell, Player[]>();
+
+        HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
+
         for (Spell p : eventSpells) {
             if (AncientRPGClass.spellAvailable(p, pd)) {
-                spells.put(p, new Player[]{mPlayer, mPlayer});
+                spells.put(p, new UUID[]{mPlayer.getUniqueId(), mPlayer.getUniqueId()});
             }
         }
-        for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : eventBuffs.entrySet()) {
-            for (Player p[] : e.getValue().keySet()) {
-                if (p[0].equals(event.getPlayer())) {
-                    spells.put(e.getKey(), p);
+        for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : eventBuffs.entrySet()) {
+            for (UUID uuids[] : e.getValue().keySet()) {
+                if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+                    spells.put(e.getKey(), uuids);
                 }
             }
         }
-        LinkedList<Entry<Spell, Player[]>> sortedspells = getSortedList(spells);
-        for (Entry<Spell, Player[]> sortedspell : sortedspells) {
+        LinkedList<Entry<Spell, UUID[]>> sortedspells = getSortedList(spells);
+        for (Entry<Spell, UUID[]> sortedspell : sortedspells) {
             CommandPlayer.scheduleSpell(sortedspell.getKey(), sortedspell.getValue()[0], event, sortedspell.getValue()[1]);
         }
     }

@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class RemoveManaCommand extends ICommand {
 
@@ -18,14 +19,15 @@ public class RemoveManaCommand extends ICommand {
     public boolean playCommand(EffectArgs ca) {
         if (ca.getParams().size() == 3) {
             if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Number && ca.getParams().get(2) instanceof Boolean) {
-                for (Player e : (Player[]) ca.getParams().get(0)) {
-                    if (e == null) {
+                for (Player p : (Player[]) ca.getParams().get(0)) {
+                    if (p == null) {
                         continue;
                     }
-                    if (PlayerData.getPlayerData(e.getUniqueId()).getManasystem().getCurmana() - (int) ((Number) ca.getParams().get(1)).doubleValue() < 0 && (Boolean) ca.getParams().get(2)) {
+
+                    if (PlayerData.getPlayerData(p.getUniqueId()).getManasystem().getCurrentMana() - (int) ((Number) ca.getParams().get(1)).doubleValue() < 0 && (Boolean) ca.getParams().get(2)) {
                         return false;
                     }
-                    ManaSystem.removeManaByUUID(e.getUniqueId(), ((Number) ca.getParams().get(1)).intValue());
+                    ManaSystem.removeManaByUUID(p.getUniqueId(), ((Number) ca.getParams().get(1)).intValue());
                 }
                 return true;
             }

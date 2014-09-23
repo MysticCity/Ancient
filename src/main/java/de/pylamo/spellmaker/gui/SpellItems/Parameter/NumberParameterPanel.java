@@ -1,6 +1,6 @@
 package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
-import java.awt.*;
+import java.awt.Dimension;
 
 public class NumberParameterPanel extends ParameterPanel {
     private static final long serialVersionUID = 1L;

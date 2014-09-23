@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.HelpList;
+import java.io.File;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.File;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.HelpList;
 
 public class GuildCommandHelp {
     public static HelpList helpList;

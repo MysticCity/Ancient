@@ -1,22 +1,23 @@
 package com.ancientshores.AncientRPG.Commands;
 
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Config;
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.Config;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
-import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 import com.ancientshores.AncientRPG.Util.LinkedStringHashMap;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
-import java.util.HashSet;
-import java.util.Map.Entry;
-import java.util.logging.Level;
 
 public class ReloadCommand {
     public static void reload() {

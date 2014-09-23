@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.Bukkit;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.Bukkit;
 
 public class ConsoleCommandCommand extends ICommand {
     @CommandDescription(description = "<html>Executes the command in the server console</html>",

@@ -1,18 +1,24 @@
 package de.pylamo.spellmaker.parser;
 
+import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.regex.Pattern;
+
+import de.pylamo.spellmaker.gui.SpellPreview;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.StartItem;
 import de.pylamo.spellmaker.gui.SpellItems.Commands.Command;
 import de.pylamo.spellmaker.gui.SpellItems.Commands.SpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.Condition.ComplexItem;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
-import de.pylamo.spellmaker.gui.SpellItems.StartItem;
-import de.pylamo.spellmaker.gui.SpellPreview;
-import de.pylamo.spellmaker.gui.Window;
-
-import java.awt.*;
-import java.io.*;
-import java.util.LinkedList;
-import java.util.regex.Pattern;
 
 public class SpellParser {
     private StartItem startitem;
