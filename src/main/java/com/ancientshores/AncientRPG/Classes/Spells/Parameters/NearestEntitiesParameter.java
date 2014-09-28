@@ -1,9 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -25,7 +28,7 @@ public class NearestEntitiesParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(p, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -34,7 +37,7 @@ public class NearestEntitiesParameter implements IParameter {
             }
             try {
                 if (ea.getSpell().variables.contains(subparam[1].toLowerCase())) {
-                    count = ea.getSpellInfo().parseVariable(p, subparam[1].toLowerCase());
+                    count = ea.getSpellInfo().parseVariable(p.getUniqueId(), subparam[1].toLowerCase());
                 } else {
                     count = Integer.parseInt(subparam[1]);
                 }
@@ -43,7 +46,7 @@ public class NearestEntitiesParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestEntities == null || ea.getSpellInfo().nearestEntities[0] == null) {
-            Entity[] nEntities = ea.getSpellInfo().getNearestEntities(p, range, count);
+            UUID[] nEntities = ea.getSpellInfo().getNearestEntities(p, range, count);
             ea.getSpellInfo().nearestEntities = nEntities;
             if (nEntities == null) {
                 return;
@@ -51,14 +54,21 @@ public class NearestEntitiesParameter implements IParameter {
         }
         switch (pt) {
             case Entity:
-                Entity[] e = ea.getSpellInfo().nearestEntities;
-                ea.getParams().addLast(e);
+                UUID[] uuid = ea.getSpellInfo().nearestEntities;
+                ea.getParams().addLast(uuid);
                 break;
             case Location:
                 Location[] l = new Location[ea.getSpellInfo().nearestEntities.length];
                 for (int i = 0; i < ea.getSpellInfo().nearestEntities.length; i++) {
                     if (ea.getSpellInfo().nearestEntities[i] != null) {
-                        l[i] = ea.getSpellInfo().nearestEntities[i].getLocation();
+                    	for (World w : Bukkit.getWorlds()) {
+                    		for (Entity e : w.getEntities()) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntities[i]) != 0) {
+                    				continue;
+                    			}
+                    			l[i] = e.getLocation();
+                    		}
+                    	}
                     }
                 }
                 ea.getParams().addLast(l);
@@ -81,7 +91,7 @@ public class NearestEntitiesParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(p, subparam[0].toLowerCase());
+                    range = so.parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -89,7 +99,7 @@ public class NearestEntitiesParameter implements IParameter {
             }
             try {
                 if (so.mSpell.variables.contains(subparam[1].toLowerCase())) {
-                    count = so.parseVariable(p, subparam[1].toLowerCase());
+                    count = so.parseVariable(p.getUniqueId(), subparam[1].toLowerCase());
                 } else {
                     count = Integer.parseInt(subparam[1]);
                 }
@@ -97,7 +107,7 @@ public class NearestEntitiesParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntities == null || so.nearestEntities[0] == null) {
-            Entity[] nEntities = so.getNearestEntities(p, range, count);
+            UUID[] nEntities = so.getNearestEntities(p, range, count);
             so.nearestEntities = nEntities;
             if (nEntities == null) {
                 return null;

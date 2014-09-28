@@ -18,7 +18,8 @@ public class TopBlockAt extends IArgument {
         this.name = "topblockat";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length == 1 && obj[0] instanceof Location[]) {
             Location l = null;

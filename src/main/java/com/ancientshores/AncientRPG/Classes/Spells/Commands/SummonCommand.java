@@ -47,7 +47,7 @@ public class SummonCommand extends ICommand {
                                             AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
                                                 public void run() {
                                                     mob.remove();
-                                                    AncientRPGPlayerListener.summonedCreatures.remove(mob);
+                                                    AncientRPGPlayerListener.summonedCreatures.remove(mob.getUniqueId());
                                                 }
                                             }, Math.round(time / 50));
                                         }

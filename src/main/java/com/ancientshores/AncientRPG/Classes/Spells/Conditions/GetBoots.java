@@ -17,7 +17,8 @@ public class GetBoots extends IArgument {
         this.name = "getboots";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (!(obj[0] instanceof Entity[])) {
             return null;

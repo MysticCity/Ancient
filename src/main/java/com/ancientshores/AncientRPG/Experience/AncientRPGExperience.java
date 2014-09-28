@@ -53,7 +53,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	public int level;
 	public int xp;
 	public final UUID uuid;
-	public static final HashSet<Entity> alreadyDead = new HashSet<Entity>();
+	public static final HashSet<UUID> alreadyDead = new HashSet<UUID>();
 
 	static {
 		ConfigurationSerialization.registerClass(AncientRPGExperience.class);
@@ -452,13 +452,13 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			return;
 		}
 		final Entity victim = event.getEntity();
-		if (damager instanceof Player && !alreadyDead.contains(victim) && event != null) {
+		if (damager instanceof Player && !alreadyDead.contains(victim.getUniqueId()) && event != null) {
 			if (victim instanceof LivingEntity && ((LivingEntity) victim).getHealth() - event.getDamage() <= 0) {
-				alreadyDead.add(victim);
+				alreadyDead.add(victim.getUniqueId());
 				Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 					@Override
 					public void run() {
-						alreadyDead.remove(victim);
+						alreadyDead.remove(victim.getUniqueId());
 					}
 
 				}, 500);

@@ -61,7 +61,8 @@ public class SpellBindCommand {
         }
     }
 
-    public static void bind(Player p, String spell, BindingData bd) {
+    @SuppressWarnings("deprecation")
+	public static void bind(Player p, String spell, BindingData bd) {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         if (AncientRPGClass.canBind(spell, pd, p)) {
             pd.getBindings().put(bd, spell.toLowerCase());

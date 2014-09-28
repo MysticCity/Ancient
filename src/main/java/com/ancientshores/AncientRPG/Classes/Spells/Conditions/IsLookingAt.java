@@ -1,5 +1,7 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
@@ -20,7 +22,14 @@ public class IsLookingAt extends IArgument {
             Entity ent2 = ((Entity[]) obj[1])[0];
             int range = ((Number) obj[2]).intValue();
             if (ent1 != null && ent2 != null && ent1 instanceof LivingEntity && ent2 instanceof LivingEntity) {
-                Entity ent = so.getNearestEntityInSight((LivingEntity) ent1, range);
+                Entity ent = null;
+                for (World w : Bukkit.getWorlds()) {
+        			for (Entity e : w.getEntities()) {
+        				if (e.getUniqueId().compareTo(so.getNearestEntityInSight((LivingEntity) ent1, range)) == 0) {
+        					ent = e;
+        				}
+        			}
+        		}
                 if (ent == ent2) {
                     return true;
                 }

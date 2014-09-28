@@ -23,7 +23,7 @@ public class BlockInSightParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(p, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -61,7 +61,7 @@ public class BlockInSightParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(p, subparam[0].toLowerCase());
+                    range = so.parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }

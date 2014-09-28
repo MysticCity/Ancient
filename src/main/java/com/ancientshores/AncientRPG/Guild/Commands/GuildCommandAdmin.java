@@ -13,7 +13,8 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandAdmin {
-    public static void processAdmin(CommandSender sender, String[] args) {
+    @SuppressWarnings("deprecation")
+	public static void processAdmin(CommandSender sender, String[] args) {
         Player mPlayer = (Player) sender;
         if (mPlayer.hasPermission(AncientRPGGuild.gNodeAdmin)) {
             if (args.length == 2) {

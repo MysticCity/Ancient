@@ -236,7 +236,8 @@ public class DamageConverter {
     // Methods
     // ===
 
-    public static double convertDamageByEventForCreatures(EntityDamageEvent event) {
+    @SuppressWarnings("deprecation")
+	public static double convertDamageByEventForCreatures(EntityDamageEvent event) {
         CreatureHp hps = CreatureHp.getCreatureHpByEntity((LivingEntity) event.getEntity());
         switch (event.getCause()) {
             case FIRE_TICK:
@@ -521,7 +522,8 @@ public class DamageConverter {
         return false;
     }
 
-    public static double convertDamageByCause(DamageCause c, Player p, double damage, EntityDamageEvent event) {
+    @SuppressWarnings("deprecation")
+	public static double convertDamageByCause(DamageCause c, Player p, double damage, EntityDamageEvent event) {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         switch (c) {
             case FIRE_TICK:
@@ -922,7 +924,8 @@ public class DamageConverter {
         return basedamage;//(float) basedamage * (1 - getArmorReduction(attackedEntity) / 100);
     }
 
-    private static float getArmorReduction(LivingEntity attackedEntity) {
+    @SuppressWarnings("unused")
+	private static float getArmorReduction(LivingEntity attackedEntity) {
         float reduction = 0;
         if (attackedEntity.getEquipment().getHelmet() != null) {
             switch (attackedEntity.getEquipment().getHelmet().getType()) {
@@ -1011,7 +1014,8 @@ public class DamageConverter {
         return reduction;
     }
 
-    private static float getArmorReduction(Player attackedEntity) {
+    @SuppressWarnings("unused")
+	private static float getArmorReduction(Player attackedEntity) {
         float reduction = 0;
         if (attackedEntity.getInventory().getHelmet() != null) {
             switch (attackedEntity.getInventory().getHelmet().getType()) {
@@ -1181,7 +1185,8 @@ public class DamageConverter {
         return basedamage;
     }
 
-    public static float getDamageOfEnchantementAndPotion(LivingEntity attacker, float basedamage) {
+    @SuppressWarnings("deprecation")
+	public static float getDamageOfEnchantementAndPotion(LivingEntity attacker, float basedamage) {
         for (PotionEffect pe : attacker.getActivePotionEffects()) {
             if (pe.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
                 basedamage += strenghtPotionExtraDamage * pe.getAmplifier();

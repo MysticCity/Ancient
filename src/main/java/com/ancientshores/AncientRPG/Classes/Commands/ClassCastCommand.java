@@ -50,7 +50,7 @@ public class ClassCastCommand {
             return;
         }
         for (Map.Entry<SpellInformationObject, UUID> entry : silencedPlayers.entrySet()) {
-            if (entry.getValue().equals(mPlayer)) {
+            if (entry.getValue().compareTo(mPlayer.getUniqueId()) == 0) {
                 mPlayer.sendMessage(AncientRPG.brand2 + "You are silenced and can't cast a spell");
                 return;
             }

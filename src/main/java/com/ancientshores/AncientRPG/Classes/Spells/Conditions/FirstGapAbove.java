@@ -18,7 +18,8 @@ public class FirstGapAbove extends IArgument {
         this.name = "FirstGapAbove";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length == 2 && obj[0] instanceof Location[] && obj[1] instanceof Number) {
             Location l = null;

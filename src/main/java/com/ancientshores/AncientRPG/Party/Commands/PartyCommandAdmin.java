@@ -11,7 +11,8 @@ import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
 public class PartyCommandAdmin {
-    public static void processAdmin(CommandSender sender, String[] args, AncientRPG main) {
+    @SuppressWarnings("deprecation")
+	public static void processAdmin(CommandSender sender, String[] args, AncientRPG main) {
         Player mPlayer = (Player) sender;
         if (mPlayer.hasPermission(AncientRPGParty.pNodeAdmin)) {
             if (args.length == 2) {

@@ -18,7 +18,8 @@ public class BlockExistsInRange extends IArgument {
         this.name = "blockexistsinrange";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length == 3 && obj[0] instanceof Location[] && obj[1] instanceof Number && obj[2] instanceof Number) {
             Location l = ((Location[]) obj[0])[0];

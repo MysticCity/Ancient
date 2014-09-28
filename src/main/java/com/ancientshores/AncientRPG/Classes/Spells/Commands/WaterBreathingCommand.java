@@ -1,6 +1,7 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
 import java.util.HashSet;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
@@ -17,7 +18,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class WaterBreathingCommand extends ICommand implements Runnable, Listener {
-    public static final ConcurrentHashMap<Entity, Integer> waterbreathingPlayers = new ConcurrentHashMap<Entity, Integer>();
+    public static final ConcurrentHashMap<UUID, Integer> waterbreathingPlayers = new ConcurrentHashMap<UUID, Integer>();
 
     @CommandDescription(description = "<html>Enables water breathing for the specified amount of time</html>",
             argnames = {"entity", "duration"}, name = "WaterBreathing", parameters = {ParameterType.Entity, ParameterType.Number})
@@ -43,12 +44,12 @@ public class WaterBreathingCommand extends ICommand implements Runnable, Listene
                 if (t == 0) {
                     t = Integer.MAX_VALUE;
                 }
-                if (waterbreathingPlayers.contains(e)) {
-                    if (waterbreathingPlayers.get(e) > time) {
+                if (waterbreathingPlayers.contains(e.getUniqueId())) {
+                    if (waterbreathingPlayers.get(e.getUniqueId()) > time) {
                         return true;
                     }
                 }
-                waterbreathingPlayers.put(e, t);
+                waterbreathingPlayers.put(e.getUniqueId(), t);
             }
             return true;
         }
@@ -57,22 +58,22 @@ public class WaterBreathingCommand extends ICommand implements Runnable, Listene
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onWaterDamage(EntityDamageEvent event) {
-        if (event.getCause().equals(DamageCause.DROWNING) && waterbreathingPlayers.containsKey(event.getEntity())) {
+        if (event.getCause().equals(DamageCause.DROWNING) && waterbreathingPlayers.containsKey(event.getEntity().getUniqueId())) {
             event.setCancelled(true);
         }
     }
 
     public void run() {
-        HashSet<Entity> removeplayers = new HashSet<Entity>();
-        for (Entity p : waterbreathingPlayers.keySet()) {
-            int newamount = waterbreathingPlayers.get(p) - 1;
-            waterbreathingPlayers.put(p, newamount);
+        HashSet<UUID> removeplayers = new HashSet<UUID>();
+        for (UUID uuid : waterbreathingPlayers.keySet()) {
+            int newamount = waterbreathingPlayers.get(uuid) - 1;
+            waterbreathingPlayers.put(uuid, newamount);
             if (newamount <= 0) {
-                removeplayers.add(p);
+                removeplayers.add(uuid);
             }
         }
-        for (Entity p : removeplayers) {
-            waterbreathingPlayers.remove(p);
+        for (UUID uuid : removeplayers) {
+            waterbreathingPlayers.remove(uuid);
         }
     }
 }

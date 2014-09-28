@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -26,7 +28,7 @@ public class NearestHostileEntityInSight implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -39,18 +41,18 @@ public class NearestHostileEntityInSight implements IParameter {
         if (mParty != null) {
             partyMembers.addAll(mParty.getMembers());
         }
-        Entity en = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
-        if (partyMembers.contains(en.getUniqueId())) {
-            en = null;
+        UUID playerParty = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
+        if (partyMembers.contains(playerParty)) {
+            playerParty = null;
         }
         switch (pt) {
             case Entity:
-                Entity[] e = {en};
+                Entity[] e = {Bukkit.getPlayer(playerParty)};
                 ea.getParams().addLast(e);
                 break;
             case Location:
-                if (en != null) {
-                    Location[] l = {en.getLocation()};
+                if (playerParty != null) {
+                    Location[] l = {Bukkit.getPlayer(playerParty).getLocation()};
                     ea.getParams().addLast(l);
                 }
                 break;
@@ -71,7 +73,7 @@ public class NearestHostileEntityInSight implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -83,7 +85,15 @@ public class NearestHostileEntityInSight implements IParameter {
         if (mParty != null) {
             partyMembers.addAll(mParty.getMembers());
         }
-        Entity en = so.getNearestEntityInSight(mPlayer, range);
+        Entity en = null;
+        for (World w : Bukkit.getWorlds()) {
+			for (Entity e : w.getEntities()) {
+				if (e.getUniqueId().compareTo(so.getNearestEntityInSight(mPlayer, range)) == 0) {
+					en = e;
+				}
+			}
+		}
+        
         if (partyMembers.contains(en.getUniqueId())) {
             en = null;
         }

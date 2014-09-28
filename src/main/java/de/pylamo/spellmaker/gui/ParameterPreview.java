@@ -30,11 +30,11 @@ public class ParameterPreview extends JPanel {
 
     public ParameterPreview(Window w) {
         this.setLayout(new WrapLayout());
-        String line;
+//        String line;
         for (Parameters param : Parameters.values()) {
             String returntype = param.getReturntype();
             int amount = param.getAmount();
-            String description = param.getDescription();
+//            String description = param.getDescription();
             parameters.add(new param(param.name(), amount, Parameter.getParameterByName(returntype)));
             ParameterPanel pp = new ParameterPanel(param.name(), Parameter.getParameterByName(returntype), amount, true);
             this.add(pp);

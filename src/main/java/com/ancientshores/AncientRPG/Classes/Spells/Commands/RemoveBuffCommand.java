@@ -36,7 +36,7 @@ public class RemoveBuffCommand extends ICommand {
 				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> entry : affectedSpells.entrySet()) {
 					ConcurrentHashMap<UUID[], Integer> maps = new ConcurrentHashMap<UUID[], Integer>();
 					for (Entry<UUID[], Integer> entry1 : entry.getValue().entrySet()) {
-						if (entry1.getKey()[0].equals(p) && (all || entry.getKey().name.equalsIgnoreCase(spellname))) {
+						if (entry1.getKey()[0].compareTo(p.getUniqueId()) == 0 && (all || entry.getKey().name.equalsIgnoreCase(spellname))) {
 							AncientRPGSpellListener.detachBuffOfEvent(entry.getKey().buffEvent, entry.getKey(), p);
 						}
 					}

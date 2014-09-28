@@ -18,7 +18,7 @@ public class CooldownCommand extends ICommand {
     public boolean playCommand(EffectArgs ca) {
         try {
             if (ca.getParams().get(0) instanceof String && ca.getParams().get(1) instanceof Number) {
-                UUID uuid = (UUID) ca.getParams().get(0);
+                UUID uuid = UUID.fromString((String) ca.getParams().get(0));
                 int time = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 PlayerData pd = PlayerData.getPlayerData(ca.getCaster().getUniqueId());
 

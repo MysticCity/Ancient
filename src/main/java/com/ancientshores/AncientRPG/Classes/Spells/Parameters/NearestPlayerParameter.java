@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.ancientshores.AncientRPG.AncientRPG;
@@ -23,7 +24,7 @@ public class NearestPlayerParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -32,7 +33,7 @@ public class NearestPlayerParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestPlayer == null) {
-            Player nearestPlayer = ea.getSpellInfo().getNearestPlayer(mPlayer, range);
+            UUID nearestPlayer = ea.getSpellInfo().getNearestPlayer(mPlayer, range);
             ea.getSpellInfo().nearestPlayer = nearestPlayer;
             if (nearestPlayer == null) {
                 return;
@@ -40,19 +41,19 @@ public class NearestPlayerParameter implements IParameter {
         }
         switch (pt) {
             case Player:
-                Player[] p = {ea.getSpellInfo().nearestPlayer};
+                UUID[] p = {ea.getSpellInfo().nearestPlayer};
                 ea.getParams().addLast(p);
                 break;
             case Entity:
-                Entity[] e = {ea.getSpellInfo().nearestPlayer};
+                UUID[] e = {ea.getSpellInfo().nearestPlayer};
                 ea.getParams().addLast(e);
                 break;
             case Location:
-                Location[] l = {ea.getSpellInfo().nearestPlayer.getLocation()};
+                Location[] l = {Bukkit.getPlayer(ea.getSpellInfo().nearestPlayer).getLocation()};
                 ea.getParams().addLast(l);
                 break;
             case String:
-                ea.getParams().addLast(ea.getSpellInfo().nearestPlayer.getName());
+                ea.getParams().addLast(Bukkit.getPlayer(ea.getSpellInfo().nearestPlayer).getName());
                 break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
@@ -70,7 +71,7 @@ public class NearestPlayerParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }

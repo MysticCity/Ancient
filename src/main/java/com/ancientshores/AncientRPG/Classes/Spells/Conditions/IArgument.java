@@ -178,7 +178,8 @@ public abstract class IArgument {
         registeredArguments.add(new GetItemname());
     }
 
-    public static void AutoCast(Object obj, ParameterType pt, EffectArgs ea) {
+    @SuppressWarnings("deprecation")
+	public static void AutoCast(Object obj, ParameterType pt, EffectArgs ea) {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {

@@ -16,7 +16,8 @@ public class GetProjectileName extends IArgument {
         this.name = "getprojectilename";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (so.mEvent instanceof ProjectileHitEvent) {
             ProjectileHitEvent pEvent = (ProjectileHitEvent) so.mEvent;

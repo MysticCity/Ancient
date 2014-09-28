@@ -5,13 +5,12 @@ import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 
 public class CommandPlayer extends Thread {
-    public static final HashSet<Entity> alreadyDead = new HashSet<Entity>();
+    public static final HashSet<UUID> alreadyDead = new HashSet<UUID>();
     static Lock lockVar = new ReentrantLock();
 
     public CommandPlayer() {

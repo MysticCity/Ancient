@@ -1,4 +1,4 @@
-package com.ancientshores.AncientRPG.UUID.Converter;
+package com.ancientshores.AncientRPG.Util;
 
 import java.io.File;
 import java.io.IOException;

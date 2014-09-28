@@ -24,8 +24,8 @@ public class AddSpellFreeZoneCommand {
                 p.sendMessage(AncientRPG.brand2 + "You don't have the permission to create spell-free zones");
                 return;
             }
-            if (SpellFreeZoneListener.leftlocs.containsKey(p.getName()) && SpellFreeZoneListener.rightlocs.containsKey(p.getName()) && args.length == 2) {
-                SerializableZone sz = new SerializableZone(SpellFreeZoneListener.leftlocs.get(p.getName()), SpellFreeZoneListener.rightlocs.get(p.getName()));
+            if (SpellFreeZoneListener.leftlocs.containsKey(p.getUniqueId()) && SpellFreeZoneListener.rightlocs.containsKey(p.getUniqueId()) && args.length == 2) {
+                SerializableZone sz = new SerializableZone(SpellFreeZoneListener.leftlocs.get(p.getUniqueId()), SpellFreeZoneListener.rightlocs.get(p.getUniqueId()));
                 spellfreezones.put(args[1], sz);
                 sender.sendMessage(AncientRPG.brand2 + "Successfully created spell-free zone");
                 File f = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "spellfreezones");

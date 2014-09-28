@@ -119,7 +119,8 @@ public class AncientRPGClass implements Serializable {
         return c instanceof AncientRPGClass && ((AncientRPGClass) c).name.equals(c);
     }
 
-    public AncientRPGClass(final File base) {
+    @SuppressWarnings("deprecation")
+	public AncientRPGClass(final File base) {
         name = base.getName();
         File[] spells = base.listFiles();
         if (spells != null) {

@@ -13,7 +13,7 @@ public class GuildCommandToggle {
             AncientRPGPlayerListener.toggleguildlist.add(mPlayer.getUniqueId());
             mPlayer.sendMessage(AncientRPG.brand2 + "Guild chat activated");
         } else {
-            AncientRPGPlayerListener.toggleguildlist.remove(mPlayer);
+            AncientRPGPlayerListener.toggleguildlist.remove(mPlayer.getUniqueId());
             mPlayer.sendMessage(AncientRPG.brand2 + "Guild chat deactivated");
         }
     }

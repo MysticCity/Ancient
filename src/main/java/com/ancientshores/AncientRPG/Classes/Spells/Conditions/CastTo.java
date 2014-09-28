@@ -36,7 +36,8 @@ public class CastTo extends IArgument {
         return null;
     }
 
-    public Object AutoCast(ParameterType pt, Object obj) {
+    @SuppressWarnings("deprecation")
+	public Object AutoCast(ParameterType pt, Object obj) {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {

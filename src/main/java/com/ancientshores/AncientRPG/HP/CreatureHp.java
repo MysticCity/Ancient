@@ -132,7 +132,7 @@ public class CreatureHp {
 
     public static CreatureHp getCreatureHpByEntity(LivingEntity e) {
         for (CreatureHp hp : registeredMonsters) {
-            if (e.equals(hp.ent)) {
+            if (e.getUniqueId().compareTo(hp.ent.getUniqueId()) == 0) {
                 return hp;
             }
         }

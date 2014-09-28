@@ -10,14 +10,15 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandInvite {
-    public static void processInvite(CommandSender sender, String[] args) {
+    @SuppressWarnings("deprecation")
+	public static void processInvite(CommandSender sender, String[] args) {
         Player player = (Player) sender;
         if (args.length == 2) {
             AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(player.getUniqueId());
             if (guild != null) {
                 if (AncientRPGGuildRanks.hasInviteRights(guild.gMember.get(player.getUniqueId()))) {
                     Player invitedPlayer = Bukkit.getPlayer(args[1]);
-                    if (invitedPlayer != null && AncientRPGGuild.getPlayersGuild(invitedPlayer.getUniqueId()) == null && !AncientRPGGuild.invites.containsKey(invitedPlayer)) {
+                    if (invitedPlayer != null && AncientRPGGuild.getPlayersGuild(invitedPlayer.getUniqueId()) == null && !AncientRPGGuild.invites.containsKey(invitedPlayer.getUniqueId())) {
                         if (invitedPlayer.hasPermission(AncientRPGGuild.gNodeJoin)) {
                             if (AncientRPGGuild.invites.size() < AncientRPGGuild.maxPlayers) {
                                 AncientRPGGuild.invites.put(invitedPlayer.getUniqueId(), guild);

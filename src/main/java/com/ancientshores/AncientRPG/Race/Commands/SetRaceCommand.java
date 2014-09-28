@@ -14,15 +14,16 @@ import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 
 public class SetRaceCommand {
-    public static void setRaceCommand(Player sender, String[] command) {
+    @SuppressWarnings("deprecation")
+	public static void setRaceCommand(Player sender, String[] command) {
         if (command.length >= 2) {
             Player p = sender;
-            if (AncientRPGRace.playersOnCd.containsKey(sender.getName())) {
+            if (AncientRPGRace.playersOnCd.containsKey(p.getUniqueId())) {
                 long t = System.currentTimeMillis();
-                long div = t - AncientRPGRace.playersOnCd.get(sender.getName());
+                long div = t - AncientRPGRace.playersOnCd.get(p.getUniqueId());
                 if (div < (AncientRPGRace.changeCd * 1000)) {
                     sender.sendMessage(AncientRPG.brand2 + "The race change cooldown hasn't expired yet");
-                    long timeleft = AncientRPGRace.playersOnCd.get(sender.getName()) + (AncientRPGRace.changeCd * 1000) - System.currentTimeMillis();
+                    long timeleft = AncientRPGRace.playersOnCd.get(p.getUniqueId()) + (AncientRPGRace.changeCd * 1000) - System.currentTimeMillis();
                     int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
                     sender.sendMessage("You have to wait another " + minutes + " minutes.");
                     return;

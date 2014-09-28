@@ -17,7 +17,8 @@ public class GetLeggings extends IArgument {
         this.name = "getleggings";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (!(obj[0] instanceof Entity[])) {
             return null;

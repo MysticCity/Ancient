@@ -8,7 +8,8 @@ import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
 public class PartyCommandInvite {
-    public static void processInvite(CommandSender sender, String[] args, AncientRPG main) {
+    @SuppressWarnings("deprecation")
+	public static void processInvite(CommandSender sender, String[] args, AncientRPG main) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
             if (mPlayer.hasPermission(AncientRPGParty.pNodeCreate)) {

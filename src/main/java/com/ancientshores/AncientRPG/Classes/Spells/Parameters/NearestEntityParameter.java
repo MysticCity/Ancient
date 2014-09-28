@@ -1,9 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -24,7 +27,7 @@ public class NearestEntityParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(p, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -33,7 +36,7 @@ public class NearestEntityParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestEntity == null) {
-            Entity nEntity = ea.getSpellInfo().getNearestEntity(p, range);
+            UUID nEntity = ea.getSpellInfo().getNearestEntity(p, range);
             ea.getSpellInfo().nearestEntity = nEntity;
             if (nEntity == null) {
                 return;
@@ -41,13 +44,20 @@ public class NearestEntityParameter implements IParameter {
         }
         switch (pt) {
             case Entity: {
-                Entity[] e = {ea.getSpellInfo().nearestEntity};
-                ea.getParams().addLast(e);
+                UUID[] uuid = {ea.getSpellInfo().nearestEntity};
+                ea.getParams().addLast(uuid);
                 break;
             }
             case Location:
-                Location[] l = {ea.getSpellInfo().nearestEntity.getLocation()};
-                ea.getParams().addLast(l);
+            	for (World w : Bukkit.getWorlds()) {
+            		for (Entity e : w.getEntities()) {
+            			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntity) != 0) {
+            				continue;
+            			}
+            			Location[] l = {e.getLocation()};
+            			ea.getParams().addLast(l);
+            		}
+            	}
                 break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
@@ -66,7 +76,7 @@ public class NearestEntityParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(p, subparam[0].toLowerCase());
+                    range = so.parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -74,7 +84,7 @@ public class NearestEntityParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntity == null) {
-            Entity nEntity = so.getNearestEntity(p, range);
+            UUID nEntity = so.getNearestEntity(p, range);
             so.nearestEntity = nEntity;
             if (nEntity == null) {
                 return null;

@@ -25,7 +25,7 @@ public class ChangedBlockParameter implements IParameter {
             if (subparam != null) {
                 try {
                     if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                        add = ea.getSpellInfo().parseVariable(p, subparam[0].toLowerCase());
+                        add = ea.getSpellInfo().parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                     } else {
                         add = Integer.parseInt(subparam[0]);
                     }

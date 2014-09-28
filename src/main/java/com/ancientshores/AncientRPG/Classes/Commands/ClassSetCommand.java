@@ -23,26 +23,11 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-
-
 public class ClassSetCommand {
 	public static void setCommand(Object[] args, CommandSender sender) {
 		if (args.length == 1) {
 			sender.sendMessage(AncientRPG.brand2 + "Not enough arguments");
 			return;
-		}
-		if (AncientRPGClass.playersOnCd.containsKey(sender.getName())) {
-			long t = System.currentTimeMillis();
-			long div = t - AncientRPGClass.playersOnCd.get(sender.getName());
-			if (div < (AncientRPGClass.changeCd * 1000)) {
-				sender.sendMessage(AncientRPG.brand2 + "The class change cooldown hasn't expired yet");
-				long timeleft = AncientRPGClass.playersOnCd.get(sender.getName()) + (AncientRPGClass.changeCd * 1000) - System.currentTimeMillis();
-				int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
-				sender.sendMessage("You have to wait another " + minutes + " minutes.");
-				return;
-			}
 		}
 		
 		if (!(sender instanceof Player)) {
@@ -50,9 +35,22 @@ public class ClassSetCommand {
 		}
 		Player player = (Player) sender;
 		
+		if (AncientRPGClass.playersOnCd.containsKey(player.getUniqueId())) {
+			long t = System.currentTimeMillis();
+			long div = t - AncientRPGClass.playersOnCd.get(player.getUniqueId());
+			if (div < (AncientRPGClass.changeCd * 1000)) {
+				sender.sendMessage(AncientRPG.brand2 + "The class change cooldown hasn't expired yet");
+				long timeleft = AncientRPGClass.playersOnCd.get(player.getUniqueId()) + (AncientRPGClass.changeCd * 1000) - System.currentTimeMillis();
+				int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
+				sender.sendMessage("You have to wait another " + minutes + " minutes.");
+				return;
+			}
+		}
+		
+		
 		PlayerData pd = PlayerData.getPlayerData(player.getUniqueId());
 		if (args.length == 3 && senderHasAdminPermissions(sender)) {
-			Player pl = AncientRPG.plugin.getServer().getPlayer((UUID) args[1]);
+			Player pl = AncientRPG.plugin.getServer().getPlayer(UUID.fromString((String) args[1]));
 			if (pl != null) {
 				pd = PlayerData.getPlayerData(player.getUniqueId());
 				player = pl;
@@ -77,7 +75,7 @@ public class ClassSetCommand {
 
 	public static void setCommandConsole(Object[] args) {
 		PlayerData pd;
-		Player player = AncientRPG.plugin.getServer().getPlayer((UUID) args[1]);
+		Player player = AncientRPG.plugin.getServer().getPlayer(UUID.fromString((String) args[1]));
 		if (player != null) {
 			pd = PlayerData.getPlayerData(player.getUniqueId());
 		} else {

@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
@@ -115,8 +116,16 @@ public class AncientRPGEntityListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void entityChangeTarget(EntityTargetLivingEntityEvent event) {
 		if (event.getEntity() instanceof Creature) {
-			if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity())) {
-				((Creature) event.getEntity()).setTarget(ChangeAggroCommand.tauntedEntities.get(event.getEntity()));
+			if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity().getUniqueId())) {
+				Entity entity = null;
+				for (World w : Bukkit.getWorlds()) {
+					for (Entity e : w.getEntities()) {
+						if (e.getUniqueId().compareTo(ChangeAggroCommand.tauntedEntities.get(event.getEntity().getUniqueId())) == 0) {
+							entity = e;
+						}
+					}
+				}
+				((Creature) event.getEntity()).setTarget((LivingEntity) entity);
 				event.setCancelled(true);
 			}
 		}
@@ -149,8 +158,8 @@ public class AncientRPGEntityListener implements Listener {
 						}
 					}
 				} else if (event.getRegainReason() == RegainReason.MAGIC) {
-					if (AncientRPGPlayerListener.healpotions.containsKey(event.getEntity())) {
-						amount = AncientRPGPlayerListener.healpotions.get(event.getEntity());
+					if (AncientRPGPlayerListener.healpotions.containsKey(event.getEntity().getUniqueId())) {
+						amount = AncientRPGPlayerListener.healpotions.get(event.getEntity().getUniqueId());
 					}
 				}
 			}
@@ -161,9 +170,9 @@ public class AncientRPGEntityListener implements Listener {
 
 	@EventHandler
 	public void onPotionSplash(PotionSplashEvent event) {
-		HashSet<Entity> affe = new HashSet<Entity>();
-		affe.addAll(event.getAffectedEntities());
-		for (Entity e : affe) {
+		HashSet<Entity> entities = new HashSet<Entity>();
+		entities.addAll(event.getAffectedEntities());
+		for (Entity e : entities) {
 			if (e instanceof Player) {
 				Player p = (Player) e;
 				PotionEffect pe = getPotionEffectByType(PotionEffectType.HEAL, event.getPotion().getEffects());
@@ -219,11 +228,11 @@ public class AncientRPGEntityListener implements Listener {
 		Player p = Bukkit.getServer().getPlayer(scheduledXpList.get(deathEntity.getUniqueId()));
 		scheduledXpList.remove(deathEntity.getUniqueId());
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-		CommandPlayer.alreadyDead.add(event.getEntity());
+		CommandPlayer.alreadyDead.add(event.getEntity().getUniqueId());
 		AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 			@Override
 			public void run() {
-				CommandPlayer.alreadyDead.remove(event.getEntity());
+				CommandPlayer.alreadyDead.remove(event.getEntity().getUniqueId());
 			}
 		}, 250);
 		if (pd.getXpSystem() != null) {
@@ -234,8 +243,16 @@ public class AncientRPGEntityListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void entityChangeAggro(EntityTargetEvent event) {
 		if (event.getEntity() instanceof Creature) {
-			if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity())) {
-				event.setTarget(ChangeAggroCommand.tauntedEntities.get(event.getEntity()));
+			if (ChangeAggroCommand.tauntedEntities.containsKey(event.getEntity().getUniqueId())) {
+				Entity entity = null;
+				for (World w : Bukkit.getWorlds()) {
+					for (Entity e : w.getEntities()) {
+						if (e.getUniqueId().compareTo(ChangeAggroCommand.tauntedEntities.get(event.getEntity().getUniqueId())) == 0) {
+							entity = e;
+						}
+					}
+				}
+				event.setTarget(entity);
 				event.setCancelled(true);
 			}
 		}
@@ -269,7 +286,7 @@ public class AncientRPGEntityListener implements Listener {
 					return;
 				}
 			}
-			if (StunList.contains(damager)) {
+			if (StunList.contains(damager.getUniqueId())) {
 				event.setCancelled(true);
 				return;
 			}

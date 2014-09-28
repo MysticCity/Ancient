@@ -18,14 +18,14 @@ public class PartyCommandAccept {
                     AncientRPGParty.invites.get(mPlayer.getUniqueId()).addPlayer(mPlayer.getUniqueId());
                     mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You joined a party.");
                 } else {
-                    AncientRPGParty.invites.remove(mPlayer);
+                    AncientRPGParty.invites.remove(mPlayer.getUniqueId());
                     mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "The party you tried to join doesn't exist anymore.");
                 }
             } else {
-                AncientRPGParty.invites.remove(mPlayer);
+                AncientRPGParty.invites.remove(mPlayer.getUniqueId());
                 mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "This party is already full.");
             }
-            AncientRPGParty.invites.remove(mPlayer);
+            AncientRPGParty.invites.remove(mPlayer.getUniqueId());
         } else {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "You weren't invited in a party.");
         }

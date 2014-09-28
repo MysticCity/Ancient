@@ -17,7 +17,8 @@ public class GetItemDataInArmorSlot extends IArgument {
         this.name = "getitemdatainarmorslot";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length == 2 && obj[0] instanceof Entity[] && obj[1] instanceof Number) {
             final Entity[] ents = (Entity[]) obj[0];

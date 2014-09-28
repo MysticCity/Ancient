@@ -613,7 +613,7 @@ public class Spell implements Serializable {
             so.mEvent = e;
         }
         AncientRPGClass.executedSpells.put(so, p.getUniqueId());
-        so.buffcaster = buffcaster;
+        so.buffcaster = buffcaster.getUniqueId();
         so.mSpell = this;
         if (mainsection != null) {
             mainsection.executeCommand(p, so);
@@ -662,7 +662,7 @@ public class Spell implements Serializable {
             so.mEvent = e;
         }
         AncientRPGClass.executedSpells.put(so, p.getUniqueId());
-        so.buffcaster = buffcaster;
+        so.buffcaster = buffcaster.getUniqueId();
         so.mSpell = this;
         if (mainsection != null) {
             mainsection.executeCommand(p, so);

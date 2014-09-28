@@ -29,7 +29,8 @@ public class BindingData implements Serializable, ConfigurationSerializable {
         }
     }
 
-    public BindingData(ItemStack is) {
+    @SuppressWarnings("deprecation")
+	public BindingData(ItemStack is) {
         id = is.getTypeId();
         data = is.getData().getData();
         if (isBreakable(id)) {

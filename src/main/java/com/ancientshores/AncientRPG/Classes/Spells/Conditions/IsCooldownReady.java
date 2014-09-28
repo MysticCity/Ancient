@@ -20,14 +20,15 @@ public class IsCooldownReady extends IArgument {
         this.name = "iscooldownready";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length < 1 || !(obj[0] instanceof String)) {
             return null;
         }
 
         UUID uuid = Bukkit.getServer().getPlayer((String) obj[0]).getUniqueId();
-        PlayerData pd = PlayerData.getPlayerData(so.buffcaster.getUniqueId());
+        PlayerData pd = PlayerData.getPlayerData(so.buffcaster);
         for (CooldownTimer cd : pd.getCooldownTimer()) {
             if (cd.uuid.compareTo(uuid) == 0) {
             	return cd.ready;

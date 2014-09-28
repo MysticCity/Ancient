@@ -29,7 +29,7 @@ public class DisarmCommand extends ICommand {
                                 if (p == null) {
                                     continue;
                                 }
-                                if (time > 0 && !(AncientRPGSpellListener.disarmList.containsKey(p))) {
+                                if (time > 0 && !(AncientRPGSpellListener.disarmList.containsKey(p.getUniqueId()))) {
                                     final ItemStack is = p.getItemInHand();
                                     AncientRPGSpellListener.disarmList.put(p.getUniqueId(), is);
                                     p.setItemInHand(null);
@@ -41,7 +41,7 @@ public class DisarmCommand extends ICommand {
                                             } else {
                                                 p.getInventory().addItem(is);
                                             }
-                                            AncientRPGSpellListener.disarmList.remove(p);
+                                            AncientRPGSpellListener.disarmList.remove(p.getUniqueId());
                                         }
                                     }, Math.round(time / 50));
                                 }

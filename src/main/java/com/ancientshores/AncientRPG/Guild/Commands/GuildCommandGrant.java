@@ -10,7 +10,8 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandGrant {
-    public static void processGrant(CommandSender sender, String[] args) {
+    @SuppressWarnings("deprecation")
+	public static void processGrant(CommandSender sender, String[] args) {
         Player mPlayer = (Player) sender;
         if (args.length == 3) {
             AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());

@@ -17,6 +17,7 @@ public class GetPlayerByName extends IArgument {
 		this.name = "getplayerbyname";
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Object getArgument(Object obj[], SpellInformationObject so) {
 		if (!(obj[0] instanceof String)) {

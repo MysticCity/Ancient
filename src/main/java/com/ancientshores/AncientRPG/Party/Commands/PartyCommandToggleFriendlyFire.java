@@ -14,7 +14,7 @@ public class PartyCommandToggleFriendlyFire {
         AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
         if (AncientRPGGuild.canToggleff) {
             if (mParty != null) {
-                if (mParty.getLeader().equals(mPlayer)) {
+                if (mParty.getLeader().compareTo(mPlayer.getUniqueId()) == 0) {
                     mParty.setFriendlyFireEnabled(!mParty.isFriendlyFireEnabled());
                     mParty.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Friendly fire is now: " + ChatColor.GREEN + (mParty.isFriendlyFireEnabled() ? "off" : "on"));
                 } else {

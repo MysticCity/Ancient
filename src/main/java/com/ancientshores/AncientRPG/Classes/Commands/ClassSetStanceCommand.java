@@ -15,18 +15,6 @@ import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.BindingData;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 
-
-import com.ancientshores.AncientRPG.PlayerData;
-
-import org.bukkit.entity.Player;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 public class ClassSetStanceCommand {
 	public static void setStanceCommand(Object[] args, Player p) {
 		if (args.length == 1) {
@@ -56,7 +44,7 @@ public class ClassSetStanceCommand {
 		Player csender = p;
 
 		if (args.length == 3 && csender.hasPermission("AncientRPG.classes.admin")) {
-			Player pl = AncientRPG.plugin.getServer().getPlayer((UUID) args[1]);
+			Player pl = AncientRPG.plugin.getServer().getPlayer(UUID.fromString((String) args[1]));
 			if (pl != null) {
 				pd = PlayerData.getPlayerData(p.getUniqueId());
 				p = pl;

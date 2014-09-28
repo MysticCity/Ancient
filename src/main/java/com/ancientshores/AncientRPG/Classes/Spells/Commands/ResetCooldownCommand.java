@@ -18,7 +18,8 @@ public class ResetCooldownCommand extends ICommand {
         this.paramTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean playCommand(final EffectArgs ca) {
         if (ca.getParams().size() == 2 && ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof String) {
             final Player[] players = (Player[]) ca.getParams().get(0);

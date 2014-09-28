@@ -12,8 +12,8 @@ public class VariableArgument extends IArgument {
 
     @Override
     public Object getArgument(Object[] params, SpellInformationObject so) {
-        if (Variable.playerVars.containsKey(so.buffcaster.getName()) && Variable.playerVars.get(so.buffcaster.getName()).containsKey(name.toLowerCase())) {
-            return Variable.playerVars.get(so.buffcaster.getName()).get(name.toLowerCase()).getVariableObject();
+        if (Variable.playerVars.containsKey(so.buffcaster) && Variable.playerVars.get(so.buffcaster).containsKey(name.toLowerCase())) {
+            return Variable.playerVars.get(so.buffcaster).get(name.toLowerCase()).getVariableObject();
         }
         if (so.variables.containsKey(name.toLowerCase())) {
             return so.variables.get(name.toLowerCase()).getVariableObject();

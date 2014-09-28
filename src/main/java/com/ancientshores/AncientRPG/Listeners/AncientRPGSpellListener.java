@@ -149,14 +149,14 @@ public class AncientRPGSpellListener implements Listener {
 		if (spell == null) {
 			return;
 		}
-		if (!map.containsKey(p)) {
+		if (!map.containsKey(p.getUniqueId())) {
 			map.put(p.getUniqueId(), new HashSet<SpellInformationObject>());
 		}
 		map.get(p.getUniqueId()).add(spell);
 	}
 
 	public static void removeDisruptCommand(Player p, SpellInformationObject spell, ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> map) {
-		map.get(p).remove(spell);
+		map.get(p.getUniqueId()).remove(spell);
 	}
 
 	public static int attachBuffToEvent(Spell s, ConcurrentHashMap<Spell, ConcurrentHashMap<UUID[], Integer>> map, Player[] p) {
@@ -185,16 +185,16 @@ public class AncientRPGSpellListener implements Listener {
 		if (innerMap == null) {
 			return;
 		}
-		for (UUID[] players : innerMap.keySet()) {
-			if (players.length == 2 && (players[0].compareTo(p[0].getUniqueId()) == 0 || players[1].compareTo(p[1].getUniqueId()) == 0)) {
-				if (innerMap.get(players) != null && innerMap.get(players) == id) {
-					removeBuffs.add(players);
+		for (UUID[] uuids : innerMap.keySet()) {
+			if (uuids.length == 2 && (uuids[0].compareTo(p[0].getUniqueId()) == 0 || uuids[1].compareTo(p[1].getUniqueId()) == 0)) {
+				if (innerMap.get(uuids) != null && innerMap.get(uuids) == id) {
+					removeBuffs.add(uuids);
 				}
 			}
 		}
 
-		for (UUID[] pl : removeBuffs) {
-			innerMap.remove(pl);
+		for (UUID[] uuids : removeBuffs) {
+			innerMap.remove(uuids);
 		}
 	}
 
@@ -247,16 +247,16 @@ public class AncientRPGSpellListener implements Listener {
 		if (innerMap == null) {
 			return;
 		}
-		for (UUID[] players : innerMap.keySet()) {
-			if (players.length == 2 && (players[0].compareTo(p.getUniqueId()) == 0 || players[1].compareTo(p.getUniqueId()) == 0)) {
-				if (innerMap.get(players) != null) {
-					removeBuffs.add(players);
+		for (UUID[] uuids : innerMap.keySet()) {
+			if (uuids.length == 2 && (uuids[0].compareTo(p.getUniqueId()) == 0 || uuids[1].compareTo(p.getUniqueId()) == 0)) {
+				if (innerMap.get(uuids) != null) {
+					removeBuffs.add(uuids);
 				}
 			}
 		}
 
-		for (UUID[] pl : removeBuffs) {
-			innerMap.remove(pl);
+		for (UUID[] uuids : removeBuffs) {
+			innerMap.remove(uuids);
 		}
 	}
 
@@ -287,9 +287,9 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}
 			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : regenEventBuffs.entrySet()) {
-				for (UUID p[] : e.getValue().keySet()) {
-					if (p[0].equals(mPlayer)) {
-						spells.put(e.getKey(), p);
+				for (UUID uuids[] : e.getValue().keySet()) {
+					if (uuids[0].compareTo(mPlayer.getUniqueId()) == 0) {
+						spells.put(e.getKey(), uuids);
 					}
 				}
 			}
@@ -303,8 +303,8 @@ public class AncientRPGSpellListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerDeath(final PlayerDeathEvent event) {
-		if (disruptOnDeath.containsKey(event.getEntity()) && disruptOnDeath.get(event.getEntity()) != null) {
-			for (SpellInformationObject sp : disruptOnDeath.get(event.getEntity())) {
+		if (disruptOnDeath.containsKey(event.getEntity().getUniqueId()) && disruptOnDeath.get(event.getEntity().getUniqueId()) != null) {
+			for (SpellInformationObject sp : disruptOnDeath.get(event.getEntity().getUniqueId())) {
 				sp.canceled = true;
 				sp.finished = true;
 				event.getEntity().sendMessage("Spell cancelled");
@@ -333,9 +333,9 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : playerDeathBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.getEntity())) {
-					spells.put(e.getKey(), p);
+			for (UUID uuids[] : e.getValue().keySet()) {
+				if (uuids[0].compareTo(event.getEntity().getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}
@@ -373,9 +373,9 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : ProjectileHitEventBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
-				if (p[0].equals(mPlayer)) {
-					spells.put(e.getKey(), p);
+			for (UUID uuids[] : e.getValue().keySet()) {
+				if (uuids[0].compareTo(mPlayer.getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}
@@ -386,7 +386,7 @@ public class AncientRPGSpellListener implements Listener {
 		}
 	}
 
-	public static final HashSet<Entity> alreadyDead = new HashSet<Entity>();
+	public static final HashSet<UUID> alreadyDead = new HashSet<UUID>();
 
 	// ===========================================================================
 	// Damage Events
@@ -394,7 +394,7 @@ public class AncientRPGSpellListener implements Listener {
 	
 	public void onPlayerKill(final EntityDamageByEntityEvent event) {
 		Entity damager = event.getDamager();
-		if (alreadyDead.contains(event.getEntity())) {
+		if (alreadyDead.contains(event.getEntity().getUniqueId())) {
 			return;
 		}
 		if (event.getEntity() instanceof Player) {
@@ -403,9 +403,9 @@ public class AncientRPGSpellListener implements Listener {
 				return;
 			}
 		}
-		if (damager instanceof Player && !AncientRPGExperience.alreadyDead.contains(event.getEntity())) {
+		if (damager instanceof Player && !AncientRPGExperience.alreadyDead.contains(event.getEntity().getUniqueId())) {
 			if (event.getEntity() instanceof LivingEntity && ((LivingEntity) event.getEntity()).getHealth() - event.getDamage() <= 0) {
-				alreadyDead.add(event.getEntity());
+				alreadyDead.add(event.getEntity().getUniqueId());
 				/*
 				 * Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin
 				 * , new Runnable() { public void run() {
@@ -421,9 +421,9 @@ public class AncientRPGSpellListener implements Listener {
 					}
 				}
 				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : killEntityEventBuffs.entrySet()) {
-					for (UUID p[] : e.getValue().keySet()) {
-						if (p[0].equals(mPlayer)) {
-							spells.put(e.getKey(), p);
+					for (UUID uuids[] : e.getValue().keySet()) {
+						if (uuids[0].compareTo(mPlayer.getUniqueId()) == 0) {
+							spells.put(e.getKey(), uuids);
 						}
 					}
 				}
@@ -437,12 +437,12 @@ public class AncientRPGSpellListener implements Listener {
 	}
 
 	public void onPlayerAttack(EntityDamageByEntityEvent event) {
-		Entity Damager = event.getDamager();
+		Entity damager = event.getDamager();
 		if (event.getDamager() instanceof Projectile) {
-			Damager = (Entity) ((Projectile) event.getDamager()).getShooter();
+			damager = (Entity) ((Projectile) event.getDamager()).getShooter();
 		}
-		if (Damager instanceof Player) {
-			Player mPlayer = (Player) Damager;
+		if (damager instanceof Player) {
+			Player mPlayer = (Player) damager;
 			PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
 
 			HashMap<Spell, UUID[]> spells = new HashMap<Spell, UUID[]>();
@@ -452,9 +452,9 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}
 			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : attackEventBuffs.entrySet()) {
-				for (UUID p[] : e.getValue().keySet()) {
-					if (p[0].equals(Damager)) {
-						spells.put(e.getKey(), p);
+				for (UUID uuids[] : e.getValue().keySet()) {
+					if (uuids[0].compareTo(damager.getUniqueId()) == 0) {
+						spells.put(e.getKey(), uuids);
 					}
 				}
 			}
@@ -516,9 +516,9 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}
 			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : damageEventBuffs.entrySet()) {
-				for (UUID p[] : e.getValue().keySet()) {
-					if (p[0].equals(event.getEntity())) {
-						spells.put(e.getKey(), p);
+				for (UUID uuids[] : e.getValue().keySet()) {
+					if (uuids[0].compareTo(event.getEntity().getUniqueId()) == 0) {
+						spells.put(e.getKey(), uuids);
 					}
 				}
 			}
@@ -552,9 +552,9 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}
 			for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : damageByEntityEventBuffs.entrySet()) {
-				for (UUID p[] : e.getValue().keySet()) {
-					if (p[0].equals(event.getEntity())) {
-						spells.put(e.getKey(), p);
+				for (UUID uuids[] : e.getValue().keySet()) {
+					if (uuids[0].compareTo(event.getEntity().getUniqueId()) == 0) {
+						spells.put(e.getKey(), uuids);
 					}
 				}
 			}
@@ -589,8 +589,8 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		if (event.getTo().getWorld() != event.getPlayer().getWorld() || event.getTo().distance(event.getPlayer().getLocation()) > 0.1) {
 			HashSet<SpellInformationObject> soobs = new HashSet<SpellInformationObject>();
-			if (disruptOnMove.containsKey(event.getPlayer())) {
-				for (SpellInformationObject sp : disruptOnMove.get(event.getPlayer())) {
+			if (disruptOnMove.containsKey(event.getPlayer().getUniqueId())) {
+				for (SpellInformationObject sp : disruptOnMove.get(event.getPlayer().getUniqueId())) {
 					sp.canceled = true;
 					sp.finished = true;
 					event.getPlayer().sendMessage("Spell cancelled");
@@ -615,9 +615,9 @@ public class AncientRPGSpellListener implements Listener {
 					}
 				}
 				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : moveEventBuffs.entrySet()) {
-					for (UUID p[] : e.getValue().keySet()) {
-						if (p[0].equals(event.getPlayer())) {
-							spells.put(e.getKey(), p);
+					for (UUID uuids[] : e.getValue().keySet()) {
+						if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+							spells.put(e.getKey(), uuids);
 						}
 					}
 				}
@@ -632,8 +632,8 @@ public class AncientRPGSpellListener implements Listener {
 
 	@EventHandler
 	public void onPlayerDisconnect(final PlayerQuitEvent event) {
-		deadPlayer.remove(event.getPlayer());
-		revivePlayer.remove(event.getPlayer());
+		deadPlayer.remove(event.getPlayer().getUniqueId());
+		revivePlayer.remove(event.getPlayer().getUniqueId());
 	}
 
 	@EventHandler
@@ -650,8 +650,8 @@ public class AncientRPGSpellListener implements Listener {
 				}
 			}, 20);
 		}
-		if (revivePlayer.containsKey(event.getPlayer())) {
-			final Location l = revivePlayer.get(event.getPlayer());
+		if (revivePlayer.containsKey(event.getPlayer().getUniqueId())) {
+			final Location l = revivePlayer.get(event.getPlayer().getUniqueId());
 			AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 				public void run() {
 					event.getPlayer().teleport(l);
@@ -660,8 +660,8 @@ public class AncientRPGSpellListener implements Listener {
 			}, 1);
 		}
 		
-		deadPlayer.remove(event.getPlayer());
-		revivePlayer.remove(event.getPlayer());
+		deadPlayer.remove(event.getPlayer().getUniqueId());
+		revivePlayer.remove(event.getPlayer().getUniqueId());
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -691,9 +691,9 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : ChangeBlockEventBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.getPlayer())) {
-					spells.put(e.getKey(), p);
+			for (UUID uuids[] : e.getValue().keySet()) {
+				if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}
@@ -727,9 +727,9 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : joinEventBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.getPlayer())) {
-					spells.put(e.getKey(), p);
+			for (UUID uuids[] : e.getValue().keySet()) {
+				if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}
@@ -767,10 +767,10 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : interactEventBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
+			for (UUID uuids[] : e.getValue().keySet()) {
 
-				if (p[0].equals(event.getPlayer())) {
-					spells.put(e.getKey(), p);
+				if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}
@@ -812,9 +812,9 @@ public class AncientRPGSpellListener implements Listener {
 					}
 				}
 				for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : chatEventBuffs.entrySet()) {
-					for (UUID p[] : e.getValue().keySet()) {
-						if (p[0].equals(event.getPlayer())) {
-							spells.put(e.getKey(), p);
+					for (UUID uuids[] : e.getValue().keySet()) {
+						if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+							spells.put(e.getKey(), uuids);
 						}
 					}
 				}
@@ -931,9 +931,9 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : UseBedEventBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.getPlayer())) {
-					spells.put(e.getKey(), p);
+			for (UUID uuids[] : e.getValue().keySet()) {
+				if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}
@@ -978,9 +978,9 @@ public class AncientRPGSpellListener implements Listener {
 			}
 		}
 		for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : killEntityEventBuffs.entrySet()) {
-			for (UUID p[] : e.getValue().keySet()) {
-				if (p[0].equals(event.getEntity())) {
-					spells.put(e.getKey(), p);
+			for (UUID uuids[] : e.getValue().keySet()) {
+				if (uuids[0].compareTo(event.getEntity().getUniqueId()) == 0) {
+					spells.put(e.getKey(), uuids);
 				}
 			}
 		}

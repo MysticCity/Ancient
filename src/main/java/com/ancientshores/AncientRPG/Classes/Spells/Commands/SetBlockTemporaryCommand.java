@@ -20,7 +20,8 @@ public class SetBlockTemporaryCommand extends ICommand {
         this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Material, ParameterType.Number};
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean playCommand(final EffectArgs ca) {
         try {
             if (ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number) {

@@ -8,7 +8,8 @@ import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.BindingData;
 
 public class ClassUnbindCommand {
-    public static void unbindCommand(String[] args, Player p) {
+    @SuppressWarnings("deprecation")
+	public static void unbindCommand(String[] args, Player p) {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         Material mat = null;
         byte b = 0;
@@ -32,7 +33,8 @@ public class ClassUnbindCommand {
         unbind(pd, p, mat, b);
     }
 
-    public static void unbind(PlayerData pd, Player p, Material m, byte data) {
+    @SuppressWarnings("deprecation")
+	public static void unbind(PlayerData pd, Player p, Material m, byte data) {
         BindingData tbd = new BindingData(m.getId(), data);
         BindingData removedata = null;
         for (BindingData bd : pd.getBindings().keySet()) {

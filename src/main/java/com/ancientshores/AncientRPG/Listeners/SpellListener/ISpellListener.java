@@ -65,15 +65,15 @@ public abstract class ISpellListener implements Listener {
         if (innerMap == null) {
             return;
         }
-        for (UUID[] players : innerMap.keySet()) {
-            if (players.length == 2 && players[0] == uuids[0] && players[1] == uuids[1]) {
-                if (innerMap.get(players) != null && innerMap.get(players) == id) {
-                    removeBuffs.add(players);
+        for (UUID[] uuids2 : innerMap.keySet()) {
+            if (uuids2.length == 2 && uuids2[0] == uuids[0] && uuids2[1] == uuids[1]) {
+                if (innerMap.get(uuids2) != null && innerMap.get(uuids2) == id) {
+                    removeBuffs.add(uuids2);
                 }
             }
         }
-        for (UUID[] pl : removeBuffs) {
-            innerMap.remove(pl);
+        for (UUID[] uuid : removeBuffs) {
+            innerMap.remove(uuid);
         }
     }
 
@@ -101,15 +101,15 @@ public abstract class ISpellListener implements Listener {
         if (innerMap == null) {
             return;
         }
-        for (UUID[] players : innerMap.keySet()) {
-            if (players.length == 2 && (players[0].compareTo(p.getUniqueId()) == 0 || players[1].compareTo(p.getUniqueId()) == 0)) {
-                if (innerMap.get(players) != null) {
-                    removeBuffs.add(players);
+        for (UUID[] uuids : innerMap.keySet()) {
+            if (uuids.length == 2 && (uuids[0].compareTo(p.getUniqueId()) == 0 || uuids[1].compareTo(p.getUniqueId()) == 0)) {
+                if (innerMap.get(uuids) != null) {
+                    removeBuffs.add(uuids);
                 }
             }
         }
-        for (UUID[] pl : removeBuffs) {
-            innerMap.remove(pl);
+        for (UUID[] uuids : removeBuffs) {
+            innerMap.remove(uuids);
         }
     }
 

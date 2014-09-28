@@ -23,6 +23,6 @@ public class PlayerExists extends IArgument {
         if (!(obj[0] instanceof UUID)) {
             return null;
         }
-        return Bukkit.getServer().getPlayer((UUID) obj[0]) != null;
+        return Bukkit.getServer().getPlayer(UUID.fromString((String) obj[0])) != null;
     }
 }

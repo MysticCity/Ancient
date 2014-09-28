@@ -36,7 +36,7 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
     public CooldownTimer(Map<String, Object> map) {
         this.ready = (Boolean) map.get("ready");
         this.time = (Long) map.get("time");
-        this.uuid = (UUID) map.get("uuid");
+        this.uuid = UUID.fromString((String) map.get("uuid"));
         this.oldtime = (Long) map.get("oldtime");
         this.enabled = (Boolean) map.get("enabled");
         this.id = (Integer) map.get("id");
@@ -82,7 +82,7 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("ready", ready);
         map.put("time", time);
-        map.put("uuid", uuid);
+        map.put("uuid", uuid.toString());
         map.put("oldtime", oldtime);
         map.put("enabled", enabled);
         map.put("id", id);

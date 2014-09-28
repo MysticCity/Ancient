@@ -14,7 +14,8 @@ import de.pylamo.spellmaker.gui.Window;
 import de.pylamo.spellmaker.parser.SpellParser;
 
 public class InsertWindow extends JFrame {
-    JTextArea textArea = new JTextArea();
+	private static final long serialVersionUID = 1L;
+	JTextArea textArea = new JTextArea();
 
     public InsertWindow(final Window w) {
         this.setLayout(null);

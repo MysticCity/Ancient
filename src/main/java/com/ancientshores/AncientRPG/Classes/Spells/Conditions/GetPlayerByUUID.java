@@ -24,6 +24,6 @@ public class GetPlayerByUUID extends IArgument {
 		if (!(obj[0] instanceof String)) {
 			return null;
 		}
-		return new Player[]{Bukkit.getServer().getPlayer((UUID) obj[0])};
+		return new Player[]{Bukkit.getServer().getPlayer(UUID.fromString((String) obj[0]))};
 	}
 }

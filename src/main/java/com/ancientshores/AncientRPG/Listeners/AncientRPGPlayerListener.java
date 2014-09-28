@@ -165,7 +165,7 @@ public class AncientRPGPlayerListener implements Listener {
 				}
 			}
 		}
-		if (summonedCreatures.containsValue(p)) {
+		if (summonedCreatures.containsValue(p.getUniqueId())) {
 			HashSet<UUID> removeentity = new HashSet<UUID>();
 			for (UUID uuid : summonedCreatures.keySet()) {
 				if (summonedCreatures.get(uuid).compareTo(p.getUniqueId()) == 0) {

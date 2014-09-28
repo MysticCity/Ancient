@@ -8,7 +8,8 @@ import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
 public class PartyCommandKick {
-    public static void processKick(CommandSender sender, String[] args, AncientRPG main) {
+    @SuppressWarnings("deprecation")
+	public static void processKick(CommandSender sender, String[] args, AncientRPG main) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
             AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());

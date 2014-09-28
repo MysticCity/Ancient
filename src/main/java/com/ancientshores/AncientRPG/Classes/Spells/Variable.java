@@ -137,7 +137,8 @@ public class Variable extends ICodeSection {
         return obj;
     }
 
-    public void AutoCast(ParameterType pt, EffectArgs ea) {
+    @SuppressWarnings("deprecation")
+	public void AutoCast(ParameterType pt, EffectArgs ea) {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {
@@ -292,9 +293,9 @@ public class Variable extends ICodeSection {
         if (Variable.globVars.containsKey(this.name)) {
             Variable.globVars.get(this.name).obj = obj;
         }
-        if (Variable.playerVars.containsKey(so.buffcaster.getPlayer().getName()) && Variable.playerVars.get(so.buffcaster.getPlayer().getName()).containsKey(this.name.toLowerCase())) {
-            Variable.playerVars.get(so.buffcaster.getPlayer().getName()).get(this.name.toLowerCase()).obj = this.obj;
-            so.variables.put(this.name.toLowerCase(), Variable.playerVars.get(so.buffcaster.getPlayer().getName()).get(this.name.toLowerCase()));
+        if (Variable.playerVars.containsKey(so.buffcaster) && Variable.playerVars.get(so.buffcaster).containsKey(this.name.toLowerCase())) {
+            Variable.playerVars.get(so.buffcaster).get(this.name.toLowerCase()).obj = this.obj;
+            so.variables.put(this.name.toLowerCase(), Variable.playerVars.get(so.buffcaster).get(this.name.toLowerCase()));
 //			Variable.playerVars.get(so.buffcaster.getPlayer().getName()).put(this.name.toLowerCase(), this);
         }
         if (obj instanceof Player) {

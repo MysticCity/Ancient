@@ -16,7 +16,8 @@ public class GetBrokenBlockType extends IArgument {
         this.name = "getbrokenblocktype";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object mPlayer[], SpellInformationObject so) {
         if (so.mEvent instanceof BlockBreakEvent) {
             return ((BlockBreakEvent) so.mEvent).getBlock().getTypeId();

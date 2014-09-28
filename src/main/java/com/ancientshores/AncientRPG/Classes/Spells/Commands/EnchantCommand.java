@@ -13,7 +13,8 @@ public class EnchantCommand extends ICommand {
         this.paramTypes = new ParameterType[]{ParameterType.Number, ParameterType.String, ParameterType.Number, ParameterType.Boolean};
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean playCommand(EffectArgs ca) {
         if (ca.getParams().size() == 4 && ca.getParams().get(0) instanceof Number && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Boolean) {
             int id = (int) ((Number) ca.getParams().get(0)).doubleValue();

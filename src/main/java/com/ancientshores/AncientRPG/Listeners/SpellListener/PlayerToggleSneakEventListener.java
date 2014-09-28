@@ -55,7 +55,7 @@ public class PlayerToggleSneakEventListener extends ISpellListener {
         }
         for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : eventBuffs.entrySet()) {
             for (UUID uuids[] : e.getValue().keySet()) {
-                if (uuids[0].equals(event.getPlayer())) {
+                if (uuids[0].compareTo(event.getPlayer().getUniqueId()) == 0) {
                     spells.put(e.getKey(), uuids);
                 }
             }

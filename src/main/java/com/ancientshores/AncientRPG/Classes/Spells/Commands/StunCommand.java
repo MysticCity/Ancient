@@ -34,7 +34,7 @@ public class StunCommand extends ICommand {
 
                             @Override
                             public void run() {
-                                if (!AncientRPGEntityListener.StunList.contains(e)) {
+                                if (!AncientRPGEntityListener.StunList.contains(e.getUniqueId())) {
                                     return;
                                 }
                                 e.teleport(l);

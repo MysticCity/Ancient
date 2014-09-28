@@ -9,7 +9,8 @@ import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
 public class PartyCommandGrant {
-    public static void processGrant(CommandSender sender, String[] args, AncientRPG main) {
+    @SuppressWarnings("deprecation")
+	public static void processGrant(CommandSender sender, String[] args, AncientRPG main) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
             AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());

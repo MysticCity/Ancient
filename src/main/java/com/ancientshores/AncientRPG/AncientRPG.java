@@ -44,9 +44,6 @@ import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
 import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
 import com.ancientshores.AncientRPG.Commands.AncientRPGCommand;
-import com.ancientshores.AncientRPG.Commands.HelpCommand;
-import com.ancientshores.AncientRPG.Commands.ReloadCommand;
-
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 import com.ancientshores.AncientRPG.Experience.SetXpCommand;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
@@ -69,7 +66,7 @@ import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellsCommandExecutor;
-import com.ancientshores.AncientRPG.UUID.Converter.AncientRPGUUIDConverter;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
 import com.ancientshores.AncientRPG.Util.FlatFileConnector;
 import com.ancientshores.AncientRPG.Util.SerializableZone;
 
@@ -368,9 +365,9 @@ public class AncientRPG extends JavaPlugin {
 			for (UUID uuid : AncientRPGSpellListener.disarmList.keySet()) {
 				Player p = Bukkit.getPlayer(uuid);
 				if (p.getItemInHand() == null) {
-					p.setItemInHand(AncientRPGSpellListener.disarmList.get(p));
+					p.setItemInHand(AncientRPGSpellListener.disarmList.get(p.getUniqueId()));
 				} else {
-					p.getInventory().addItem(AncientRPGSpellListener.disarmList.get(p));
+					p.getInventory().addItem(AncientRPGSpellListener.disarmList.get(p.getUniqueId()));
 				}
 			}
 		}
@@ -510,6 +507,7 @@ public class AncientRPG extends JavaPlugin {
 		AncientRPGClassHelp.initHelp();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		String[] nargs = args;
