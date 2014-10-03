@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.BindingData;
@@ -28,6 +27,7 @@ import com.ancientshores.AncientRPG.HP.AncientRPGHP;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
 
 
 public class PlayerData implements Serializable, ConfigurationSerializable {
@@ -41,13 +41,6 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	/**
 	 * name of the player and his achievements
 	 */
-
-	static {
-		ConfigurationSerialization.registerClass(PlayerData.class);
-		ConfigurationSerialization.registerClass(ManaSystem.class);
-		ConfigurationSerialization.registerClass(AncientRPGHP.class);
-		ConfigurationSerialization.registerClass(AncientRPGExperience.class);
-	}
 
 	private UUID player;
 	public int[] data;
@@ -72,7 +65,8 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("player", player.toString());
+		System.out.println("Serializiere Playerdata " + player.toString());
+		map.put("playeruuid", player.toString());
 		map.put("hpsystem", hpsystem);
 		map.put("className", className);
 		map.put("xpsystem", xpSystem);
@@ -86,13 +80,15 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		return map;
 	}
 
-	static {
-		ConfigurationSerialization.registerClass(PlayerData.class);
-	}
-
 	@SuppressWarnings("unchecked")
 	public PlayerData(Map<String, Object> map) {
-		player = UUID.fromString((String) map.get("player"));
+		if (map.containsKey("playeruuid")) {
+			player = UUID.fromString((String) map.get("playeruuid"));
+		}
+		else {
+			player = AncientRPGUUIDConverter.getUUID((String) map.get("player"));//Bukkit.getOfflinePlayer((String) map.get("player")).getUniqueId();
+		}
+		
 		hpsystem = (AncientRPGHP) map.get("hpsystem");
 		className = (String) map.get("className");
 		xpSystem = (AncientRPGExperience) map.get("xpsystem");
@@ -102,13 +98,9 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		// bindings = (HashMap<BindingData, String>) map.get("bindings");
 		classLevels = (HashMap<String, Integer>) map.get("classlevels");
 		stance = (String) map.get("stance");
-		try {
-			racename = (String) map.get("racename");
-			manasystem = (ManaSystem) map.get("manasystem");
-		} catch (Exception ignored) {
-
+		racename = (String) map.get("racename");
+		manasystem = (ManaSystem) map.get("manasystem");
 		}
-	}
 
 	// public HashSet<Achievement> achievements;
 	// public Experience level;

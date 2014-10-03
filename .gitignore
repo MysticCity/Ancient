@@ -33,3 +33,5 @@ build.number
 /stuff/*
 /src/main/resources/laf/*
 /uml/*
+/stuff/
+/plan.rtf

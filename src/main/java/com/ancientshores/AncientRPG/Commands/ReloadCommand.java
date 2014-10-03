@@ -34,10 +34,6 @@ public class ReloadCommand {
         mConfig.addDefaults();
         AncientRPG.plugin.saveConfig();
         AncientRPG.plugin.initializeHelpFiles();
-        for (PlayerData pd : PlayerData.playerData) {
-            pd.save();
-            pd.dispose();
-        }
         AncientRPGGuild.loadGuilds();
         PlayerData.writePlayerData();
         PlayerData.playerData = new HashSet<PlayerData>();
@@ -45,7 +41,7 @@ public class ReloadCommand {
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             pd.getHpsystem().stopRegenTimer();
-            if (DamageConverter.isEnabled() && DamageConverter.isEnabled(p.getWorld())) {
+            if (DamageConverter.isWorldEnabled(p.getWorld())) {
                 pd.getHpsystem().setMaxHp();
                 pd.getHpsystem().setHpRegen();
                 pd.getHpsystem().setMinecraftHP();

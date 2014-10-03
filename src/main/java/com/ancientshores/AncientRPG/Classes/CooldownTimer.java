@@ -20,12 +20,6 @@ public class CooldownTimer implements Serializable, Runnable, ConfigurationSeria
     public boolean enabled = false;
     public int id = 0;
 
-
-    static {
-        ConfigurationSerialization.registerClass(CooldownTimer.class);
-    }
-
-
     public CooldownTimer(int time, UUID uuid) {
         this.ready = true;
         this.time = time;

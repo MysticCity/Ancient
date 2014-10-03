@@ -43,7 +43,7 @@ public class SpellsCommand {
                 if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                     message = ChatColor.GREEN + s.getValue().name;
                 } else {
-                    if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                         message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                     } else {
                         message = ChatColor.RED + s.getValue().name;
@@ -66,7 +66,7 @@ public class SpellsCommand {
                 if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                     message = ChatColor.GREEN + s.getValue().name;
                 } else {
-                    if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                         message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                     } else {
                         message = ChatColor.RED + s.getValue().name;
@@ -92,7 +92,7 @@ public class SpellsCommand {
                     if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                         message = ChatColor.GREEN + s.getValue().name;
                     } else {
-                        if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                        if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                             message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                         } else {
                             message = ChatColor.RED + s.getValue().name;
@@ -136,7 +136,7 @@ public class SpellsCommand {
                 if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                     message = ChatColor.GREEN + s.getValue().name;
                 } else {
-                    if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                         message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                     } else {
                         message = ChatColor.RED + s.getValue().name;

@@ -10,6 +10,7 @@ import java.util.UUID;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -23,10 +24,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ManaSystem implements ConfigurationSerializable {
-    static {
-        ConfigurationSerialization.registerClass(ManaSystem.class);
-    }
-
+    
     public static float defaultManaRegInterval = 3;
     public static int defaultMana = 1000;
     public static final int defaultReg = 20;
@@ -47,10 +45,16 @@ public class ManaSystem implements ConfigurationSerializable {
     public ManaSystem(Map<String, Object> map) {
         this.curmana = (Integer) map.get("mana");
         this.maxmana = (Integer) map.get("maxmana");
-        this.playeruuid = UUID.fromString((String) map.get("uuid"));
         double d = (Double) map.get("manareginterval");
         this.manareginterval = (float) d;
         this.manareg = (Integer) map.get("manareg");
+        
+        if (map.containsKey("uuid")) {
+        	this.playeruuid = UUID.fromString((String) map.get("uuid"));
+        }
+        else {
+        	this.playeruuid = AncientRPGUUIDConverter.getUUID((String) map.get("playername"));
+        }
     }
 
     @Override
@@ -179,7 +183,7 @@ public class ManaSystem implements ConfigurationSerializable {
         PlayerData pd = PlayerData.getPlayerData(playeruuid);
         AncientRPGClass mClass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
         if (mClass != null) {
-            if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(Bukkit.getServer().getPlayer(playeruuid))) {
+            if (AncientRPGExperience.isWorldEnabled(Bukkit.getServer().getPlayer(playeruuid).getWorld())) {
                 maxmana = mClass.manalevel.get(pd.getXpSystem().level);
                 manareg = mClass.manareglevel.get(pd.getXpSystem().level);
             } else {
@@ -211,7 +215,8 @@ public class ManaSystem implements ConfigurationSerializable {
 
     @EventHandler
     public void onPlayerDisconnect(PlayerQuitEvent event) {
-        if (playeruuid.compareTo(event.getPlayer().getUniqueId()) == 0) {
+    	System.out.println("AncientRPGMana listener jetzt");
+    	if (playeruuid.compareTo(event.getPlayer().getUniqueId()) == 0) {
             stopRegenTimer();
         }
     }

@@ -33,7 +33,7 @@ public class HealCommand extends ICommand {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
                             continue;
                         }
-                        if (targetPlayer instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(ca.getCaster())) {
+                        if (targetPlayer instanceof Player && DamageConverter.isWorldEnabled(ca.getCaster().getWorld())) {
                             Player p = (Player) targetPlayer;
                             EntityRegainHealthEvent e = new EntityRegainHealthEvent(targetPlayer, heal, RegainReason.CUSTOM);
                             Bukkit.getPluginManager().callEvent(e);

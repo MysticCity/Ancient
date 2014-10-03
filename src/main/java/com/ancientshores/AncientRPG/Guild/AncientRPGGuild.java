@@ -437,11 +437,12 @@ public class AncientRPGGuild implements Serializable {
 		}
 	}
 
+	// UNUSED
 	public static void processQuit(PlayerQuitEvent event) {
 		AncientRPGGuild mGuild = getPlayersGuild(event.getPlayer().getUniqueId());
 		if (mGuild != null) {
 			mGuild.broadcastMessage(ChatColor.GREEN + "<Guild>:" + AncientRPGGuildRanks.getChatColorByRank(mGuild.getGuildMembers().get(event.getPlayer().getUniqueId())) + event.getPlayer().getName() + ChatColor.GREEN + " is now offline.");
-			AncientRPGGuild.writeGuild(mGuild);
+			writeGuild(mGuild);
 		}
 	}
 

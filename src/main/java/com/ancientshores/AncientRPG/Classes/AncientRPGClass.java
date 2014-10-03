@@ -70,7 +70,7 @@ public class AncientRPGClass implements Serializable {
     public static HashMap<SpellInformationObject, UUID> executedSpells = new HashMap<SpellInformationObject, UUID>();
     public final String name;
     public boolean hidden = false;
-    public String worldNames[] = new String[0];
+    public String worlds[] = new String[0];
     public final ArrayList<String> requiredraces = new ArrayList<String>();
     public String permissionNode = "";
     public final String weaponTypes = "";
@@ -99,19 +99,15 @@ public class AncientRPGClass implements Serializable {
     }
 
     public boolean isWorldEnabled(World w) {
-        if (worldNames.length == 0 || (worldNames.length == 1 && worldNames[0].equalsIgnoreCase("all")) || (worldNames.length == 1 && (worldNames[0] == null || worldNames[0].equals("")))) {
-            return true;
-        }
-        for (String s : worldNames) {
-            if (s.equalsIgnoreCase(w.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isWorldEnabled(Player p) {
-        return isWorldEnabled(p.getWorld());
+    	if (w == null) return false;
+    	
+		if (worlds.length == 1 && worlds[0].equals("")) return true;
+		
+		for (String s : worlds) {
+			if (w.getName().equalsIgnoreCase(s)) return true;
+		}
+		
+		return false;
     }
 
     @Override
@@ -203,11 +199,11 @@ public class AncientRPGClass implements Serializable {
         }
         this.hp = yc.getInt("Class.maxhp", this.hp);
         if (yc.get("Class.enabled in world") == null) {
-            yc.set("Class.enabled in world", "all");
+            yc.set("Class.enabled in world", "");
         }
-        this.worldNames = yc.getString("Class.enabled in world").split(",");
-        for (int i = 0; i < worldNames.length; i++) {
-            worldNames[i] = worldNames[i].trim();
+        this.worlds = yc.getString("Class.enabled in world").split(",");
+        for (int i = 0; i < worlds.length; i++) {
+            worlds[i] = worlds[i].trim();
         }
         if (yc.get("Class.permissiongroup") == null) {
             yc.set("Class.permissiongroup", this.permGroup);
@@ -320,7 +316,7 @@ public class AncientRPGClass implements Serializable {
         if (classList.get(pd.getClassName().toLowerCase()) == null) {
             return true;
         }
-        if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p)) {
+        if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p.getWorld())) {
             return true;
         }
         return classList.get(pd.getClassName().toLowerCase()).armorTypes.contains(t.toLowerCase());
@@ -330,7 +326,7 @@ public class AncientRPGClass implements Serializable {
         if (classList.get(pd.getClassName().toLowerCase()) == null) {
             return true;
         }
-        if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p)) {
+        if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p.getWorld())) {
             return true;
         }
         return classList.get(pd.getClassName().toLowerCase()).weaponTypes.contains(t.toLowerCase());

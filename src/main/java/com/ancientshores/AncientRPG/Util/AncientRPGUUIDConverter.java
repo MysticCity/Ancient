@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -17,9 +19,10 @@ import org.json.simple.parser.ParseException;
 import com.ancientshores.AncientRPG.AncientRPG;
 
 public class AncientRPGUUIDConverter {
-	private static int convertedCount;
+	private static Map<String, UUID> converted;
 	
 	public static void runConverter() {
+		converted = new HashMap<String, UUID>();
 		convert();
 		
 		inform();
@@ -27,32 +30,31 @@ public class AncientRPGUUIDConverter {
 	
 	private static void inform() {
 		if (!AncientRPG.plugin.isEnabled()) {
-			AncientRPG.plugin.getLogger().info(String.format("[%s] Converted 0 files.", AncientRPG.plugin.getName()));
-			AncientRPG.plugin.getLogger().warning(String.format("[%s] The convertation was canceled because an error occoured.", AncientRPG.plugin.getName()));
-			AncientRPG.plugin.getLogger().warning(String.format("[%s] The plugin cannot be used when these files are not converted.", AncientRPG.plugin.getName()));
-			AncientRPG.plugin.getLogger().warning(String.format("[%s] AncientRPG now disables...", AncientRPG.plugin.getName()));
+			AncientRPG.plugin.getLogger().info("Converted 0 files.");
+			AncientRPG.plugin.getLogger().warning("The convertation was canceled because an error occoured.");
+			AncientRPG.plugin.getLogger().warning("The plugin cannot be used when these files are not converted.");
+			AncientRPG.plugin.getLogger().warning("AncientRPG now disables...");
 			return;
 		}
 		
-		if (convertedCount == 0) {
-			AncientRPG.plugin.getLogger().info(String.format("[%s] Converted 0 files.", AncientRPG.plugin.getName()));
-			AncientRPG.plugin.getLogger().info(String.format("[%s] Whether your files are uptodate, or you don't have any player files.", AncientRPG.plugin.getName()));
-		} else if (convertedCount == 1) {
-			AncientRPG.plugin.getLogger().info(String.format("[%s] Converted 1 file.", AncientRPG.plugin.getName()));
+		if (converted.size() == 0) {
+			AncientRPG.plugin.getLogger().info("Converted 0 files.");
+			AncientRPG.plugin.getLogger().info("Whether your files are uptodate, or you don't have any player files.");
+		} else if (converted.size() == 1) {
+			AncientRPG.plugin.getLogger().info("Converted 1 file.");
 		}
 		else {
-			AncientRPG.plugin.getLogger().info(String.format("[%s] Converted %d files.", AncientRPG.plugin.getName(), convertedCount));
+			AncientRPG.plugin.getLogger().info(String.format("Converted %d files.", converted.size()));
 			
 		}
 		
-		AncientRPG.plugin.getLogger().info(String.format("[%s] All files that where in the folder \"plugins/AncientRPG/players\" should be converted.", AncientRPG.plugin.getName()));
-		AncientRPG.plugin.getLogger().info(String.format("[%s] If you find any unconverted files just reload the plugin/server and report that issue.", AncientRPG.plugin.getName()));
-		AncientRPG.plugin.getLogger().info(String.format("[%s] All player names were converted into UUID's.", AncientRPG.plugin.getName()));
-		AncientRPG.plugin.getLogger().info(String.format("[%s] The plugin now is ready for future use!", AncientRPG.plugin.getName()));
+		AncientRPG.plugin.getLogger().info("All files that where in the folder \"plugins/AncientRPG/players\" should be converted.");
+		AncientRPG.plugin.getLogger().info("If you find any unconverted files just reload the plugin/server and report that issue.");
+		AncientRPG.plugin.getLogger().info("All player names were converted into UUID's.");
+		AncientRPG.plugin.getLogger().info("The plugin now is ready for future use!");
 	}
 
 	private static void convert() {
-		convertedCount = 0;
 		for (File f : new File(AncientRPG.plugin.getDataFolder().getPath() + "/players/").listFiles()) {
 			if (!f.isFile()) {
 				continue;
@@ -60,77 +62,95 @@ public class AncientRPGUUIDConverter {
 			if (!f.getName().endsWith(".yml")) {
 				continue;
 			}
-			
-			FileConfiguration config = YamlConfiguration.loadConfiguration(f);
-			UUID uuid = null;
-			String name = null;
-			
-			if (isConverted(config)) {
+			String name = f.getName().replaceAll(".yml", "");
+	
+			try {
+				UUID uuid = UUID.fromString(name);
 				continue;
+			} catch (IllegalArgumentException ex) {
+				// Noch nicht convertiert
 			}
-			
-			uuid = getUUID(config.getString("PlayerData.player"));
-			name = (String) config.get("PlayerData.player");
-			config.set("PlayerData.xpsystem.xpname", null);
-			config.set("PlayerData.hpsystem.playername", null);
-			config.set("PlayerData.manasystem.playername", null);
-			
-			config.set("PlayerData.player", uuid.toString());
-			
-			config.set("PlayerData.xpsystem.uuid", uuid.toString());
-			config.set("PlayerData.hpsystem.uuid", uuid.toString());
-			config.set("PlayerData.manasystem.uuid", uuid.toString());
-			
-			if (!isConverted(config)) {
-				AncientRPG.plugin.getLogger().log(Level.WARNING, "Could not change " + name + "'s player configuration to the new UUID system. Please reload the server and try again if you want to use AncientRPG!");
-				AncientRPG.plugin.getPluginLoader().disablePlugin(AncientRPG.plugin);
-				break;
-			}	
 			
 			try {
-				config.save(f);
-			} catch (IOException e) {
-				AncientRPG.plugin.getLogger().log(Level.WARNING, "Could not save " + name + "'s changed player configuration to the hard drive. Please reload the server and try again if you want to use AncientRPG!");
+				FileConfiguration config = YamlConfiguration.loadConfiguration(f);
+			} catch (IllegalArgumentException ex) {
+				AncientRPG.plugin.getLogger().warning(String.format("Could not change %s's player configuration to the new UUID system. Please reload the server and try again if you want to use AncientRPG!", name));
 				AncientRPG.plugin.getPluginLoader().disablePlugin(AncientRPG.plugin);
-				e.printStackTrace();
-				break;
+				ex.printStackTrace();
 			}
-			File dat = new File(f.getPath().replaceAll(f.getName(), f.getName().replaceAll(".yml", ".dat")));
-			f.renameTo(new File(f.getPath().replaceAll(f.getName(), f.getName().replaceAll(name, uuid.toString()))));
-			dat.renameTo(new File(dat.getPath().replaceAll(dat.getName(), dat.getName().replaceAll(name, uuid.toString()))));
 			
-			convertedCount++;
+			
+//			UUID uuid = null;
+//			
+//			if (isConverted(config)) {
+//				continue;
+//			}
+//			
+//			for (String s : config.getKeys(true)) {
+//				System.out.println(s + " :=-=:" + (config.get(s)));
+//			}
+//			
+//			uuid = getUUID(config.getString("PlayerData.player"));
+//			name = config.getString("PlayerData.player");
+//			config.set("PlayerData.xpsystem.xpname", null);
+//			config.set("PlayerData.hpsystem.playername", null);
+//			config.set("PlayerData.manasystem.playername", null);
+//			
+//			config.set("PlayerData.player", uuid.toString());
+//			
+//			config.set("PlayerData.xpsystem.uuid", uuid.toString());
+//			config.set("PlayerData.hpsystem.uuid", uuid.toString());
+//			config.set("PlayerData.manasystem.uuid", uuid.toString());
+//			
+//			if (!isConverted(config)) {
+//				break;
+//			}	
+			
+//			try {
+//				config.save(f);
+//			} catch (IOException e) {
+//				AncientRPG.plugin.getLogger().log(Level.WARNING, "Could not save " + name + "'s changed player configuration to the hard drive. Please reload the server and try again if you want to use AncientRPG!");
+//				AncientRPG.plugin.getPluginLoader().disablePlugin(AncientRPG.plugin);
+//				e.printStackTrace();
+//				break;
+//			}
+			File dat = new File(f.getPath().replaceAll(f.getName(), name + ".dat"));
+			f.renameTo(new File(f.getPath().replaceAll(f.getName(), converted.get(name) + ".yml")));
+			dat.renameTo(new File(dat.getPath().replaceAll(dat.getName(), converted.get(name) + ".dat")));
+			
 		}
 	}
 	
-	private static boolean isConverted(FileConfiguration config) {
-		if (config.contains("PlayerData.xpsystem.xpname")) return false;
-		if (config.contains("PlayerData.hpsystem.playername")) return false;
-		if (config.contains("PlayerData.manasystem.playername")) return false;
-		
-		if (!config.contains("PlayerData.xpsystem.uuid")) return false;
-		if (!config.contains("PlayerData.hpsystem.uuid")) return false;
-		if (!config.contains("PlayerData.manasystem.uuid")) return false;
+//	private static boolean isConverted(FileConfiguration config) {
+//		if (config.contains("PlayerData.xpsystem.xpname")) return false;
+//		if (config.contains("PlayerData.hpsystem.playername")) return false;
+//		if (config.contains("PlayerData.manasystem.playername")) return false;
+//		
+//		if (!config.contains("PlayerData.xpsystem.uuid")) return false;
+//		if (!config.contains("PlayerData.hpsystem.uuid")) return false;
+//		if (!config.contains("PlayerData.manasystem.uuid")) return false;
+//	
+//		try {
+//			UUID.fromString(config.getString("PlayerData.player"));
+//			UUID.fromString(config.getString("PlayerData.xpsystem.uuid"));
+//			UUID.fromString(config.getString("PlayerData.hpsystem.uuid"));
+//			UUID.fromString(config.getString("PlayerData.manasystem.uuid"));
+//		}
+//		catch (IllegalArgumentException ex) {
+//			return false;
+//		}
+//		
+//		return true;
+//	}
 	
-		try {
-			UUID.fromString(config.getString("PlayerData.player"));
-			UUID.fromString(config.getString("PlayerData.xpsystem.uuid"));
-			UUID.fromString(config.getString("PlayerData.hpsystem.uuid"));
-			UUID.fromString(config.getString("PlayerData.manasystem.uuid"));
-		}
-		catch (IllegalArgumentException ex) {
-			return false;
-		}
+	public static UUID getUUID(String name) {
+		if (converted.containsKey(name)) return converted.get(name);
 		
-		return true;
-	}
-	
-	private static UUID getUUID(String name) {
 		UUID uuid = null;
 		InputStream is = null;
 		
 		try {
-			is = new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openConnection().getInputStream();
+			is = new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -158,9 +178,10 @@ public class AncientRPGUUIDConverter {
 				is.close();
 			} catch (IOException ex) {
 				ex.printStackTrace();
-			}
-			
+			}	
 		}
+		
+		converted.put(name, uuid);
 		return uuid;
 	}
 

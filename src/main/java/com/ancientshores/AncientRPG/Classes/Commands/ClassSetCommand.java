@@ -93,13 +93,13 @@ public class ClassSetCommand {
 
 	public static boolean canSetClass(AncientRPGClass newClass, final Player p) {
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-		if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(p)) {
+		if (AncientRPGExperience.isWorldEnabled(p.getWorld())) {
 			if (pd.getXpSystem().level < newClass.minlevel) {
 				p.sendMessage(AncientRPG.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
 				return false;
 			}
 		}
-		if (!newClass.isWorldEnabled(p)) {
+		if (!newClass.isWorldEnabled(p.getWorld())) {
 			return false;
 		}
 		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) {
@@ -130,7 +130,7 @@ public class ClassSetCommand {
 		}
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		if (newClass != null) {
-			if (sender == p && AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(p)) {
+			if (sender == p && AncientRPGExperience.isWorldEnabled(p.getWorld())) {
 				if (pd.getXpSystem().level < newClass.minlevel) {
 					p.sendMessage(AncientRPG.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
 					return;
@@ -141,7 +141,7 @@ public class ClassSetCommand {
 				sender.sendMessage(AncientRPG.brand2 + "You don't have the required permissions to become this class");
 				return;
 			}
-			if (!newClass.isWorldEnabled(p)) {
+			if (!newClass.isWorldEnabled(p.getWorld())) {
 				sender.sendMessage(AncientRPG.brand2 + "This class cannot be used in this world");
 				return;
 			}

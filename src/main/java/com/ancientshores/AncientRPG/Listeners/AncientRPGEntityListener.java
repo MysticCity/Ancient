@@ -144,7 +144,7 @@ public class AncientRPGEntityListener implements Listener {
 		double amount = event.getAmount();
 		if (event.getEntity() instanceof Player && !event.isCancelled() && DamageConverter.isEnabled()) {
 			Player mPlayer = (Player) event.getEntity();
-			if (!DamageConverter.isWorldEnabled((Player) event.getEntity()) || !DamageConverter.isEnabled()) {
+			if (!DamageConverter.isWorldEnabled(event.getEntity().getWorld())) {
 				return;
 			}
 			if (event.getRegainReason() == RegainReason.SATIATED) {
@@ -295,7 +295,7 @@ public class AncientRPGEntityListener implements Listener {
 			if (event.isCancelled()) {
 				return;
 			}
-			if (!ignoreNextHpEvent && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled((Player) event.getEntity())) {
+			if (!ignoreNextHpEvent && DamageConverter.isWorldEnabled(event.getEntity().getWorld())) {
 				processHpSystem(event);
 			}
 		}

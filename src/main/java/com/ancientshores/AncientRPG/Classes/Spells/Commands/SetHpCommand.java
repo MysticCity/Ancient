@@ -25,7 +25,7 @@ public class SetHpCommand extends ICommand {
                     if (e == null) {
                         continue;
                     }
-                    if (e instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled((Player) e)) {
+                    if (e instanceof Player && DamageConverter.isWorldEnabled(e.getWorld())) {
                         PlayerData.getPlayerData(((Player) e).getUniqueId()).getHpsystem().health = (int) ((Number) ca.getParams().get(1)).doubleValue();
                         PlayerData.getPlayerData(((Player) e).getUniqueId()).getHpsystem().setMinecraftHP();
                     } else {

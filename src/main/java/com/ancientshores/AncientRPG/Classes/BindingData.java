@@ -15,10 +15,6 @@ public class BindingData implements Serializable, ConfigurationSerializable {
     public final int id;
     public byte data;
 
-    static {
-        ConfigurationSerialization.registerClass(BindingData.class);
-    }
-
     public BindingData(Map<String, Object> map) {
         spoutstack = (Boolean) map.get("spoutstack");
         spoutname = (String) map.get("spoutname");

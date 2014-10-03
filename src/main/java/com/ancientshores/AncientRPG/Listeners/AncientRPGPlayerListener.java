@@ -101,11 +101,11 @@ public class AncientRPGPlayerListener implements Listener {
 		AncientRPGClass c = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
 		if (c != null) {
 			AncientRPGClass stance = c.stances.get(pd.getStance());
-			if (!c.isWorldEnabled(p)) {
+			if (!c.isWorldEnabled(p.getWorld())) {
 				AncientRPGClass oldClass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
 				ClassResetCommand.reset(p, oldClass, pd);
 			}
-			if (stance != null && !stance.isWorldEnabled(p)) {
+			if (stance != null && !stance.isWorldEnabled(p.getWorld())) {
 				pd.setStance("");
 			}
 		}
@@ -152,9 +152,11 @@ public class AncientRPGPlayerListener implements Listener {
 		setVisibleToAll(p);
 		setAllVisible(p);
 		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
-		if (mClass == null) {
-			ClassResetCommand.reset(p, null, PlayerData.getPlayerData(p.getUniqueId()));
-		} else if (mClass.permGroup != null && !mClass.permGroup.equals("")) {
+//		if (mClass == null) {
+//			Erstmal auskommentiert. Führt dazu, dass alle XP gelöscht werden, wenn man sich keine Klasse ausgewählt hat.
+//			ClassResetCommand.reset(p, null, PlayerData.getPlayerData(p.getUniqueId()));
+		/*} else*/
+		if (mClass.permGroup != null && !mClass.permGroup.equals("")) {
 			if (AncientRPG.permissionHandler != null) {
 				try {
 					AncientRPG.permissionHandler.playerRemoveGroup(p, mClass.permGroup);
@@ -184,8 +186,9 @@ public class AncientRPGPlayerListener implements Listener {
 			}
 		}
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-		PlayerData.playerData.remove(pd);
+		System.out.println("AncientRPGPlayerListener speichert weil disconnect jetzt dateien.");
 		pd.save();
+		PlayerData.playerData.remove(pd);
 		pd.dispose();
 	}
 
@@ -281,7 +284,7 @@ public class AncientRPGPlayerListener implements Listener {
 			}
 		}
 		if (free < 2) {
-			if (mClass != null && mClass.isWorldEnabled(p)) {
+			if (mClass != null && mClass.isWorldEnabled(p.getWorld())) {
 				if (mClass.blacklistedMats.contains(event.getItem().getItemStack().getType())) {
 					event.setCancelled(true);
 				}

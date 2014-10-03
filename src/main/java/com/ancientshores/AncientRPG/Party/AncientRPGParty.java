@@ -184,6 +184,7 @@ public class AncientRPGParty {
 	}
 
 	public static void processQuit(PlayerQuitEvent playerQuitEvent) {
+		System.out.println("AncientRPGParty listener jetzt");
 		final AncientRPGParty party = getPlayersParty(playerQuitEvent.getPlayer().getUniqueId());
 		if (party != null) {
 			final UUID uuid = playerQuitEvent.getPlayer().getUniqueId();

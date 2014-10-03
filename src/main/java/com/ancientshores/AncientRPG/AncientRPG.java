@@ -29,6 +29,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -37,6 +38,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.ancientshores.AncientRPG.API.ApiManager;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClassHelp;
+import com.ancientshores.AncientRPG.Classes.BindingData;
+import com.ancientshores.AncientRPG.Classes.CooldownTimer;
 import com.ancientshores.AncientRPG.Classes.Commands.ClassUnbindCommand;
 import com.ancientshores.AncientRPG.Classes.Spells.Parameter;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
@@ -50,6 +53,7 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandChat;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandHelp;
+import com.ancientshores.AncientRPG.HP.AncientRPGHP;
 import com.ancientshores.AncientRPG.HP.CreatureHp;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.HP.HPCommand;
@@ -61,6 +65,7 @@ import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Party.Commands.PartyCommandChat;
 import com.ancientshores.AncientRPG.Party.Commands.PartyCommandHelp;
+import com.ancientshores.AncientRPG.Permissions.AncientRPGPermission;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
@@ -122,6 +127,7 @@ public class AncientRPG extends JavaPlugin {
 	public static String brand2 = ""; // ??? NNN
 	static ResourceBundle messages; // die Texte in der jeweiligen Sprache
 
+	
 	public void onEnable() { // beim aktivieren des Plugins
 		// ===
 		// initialize/log section
@@ -158,11 +164,16 @@ public class AncientRPG extends JavaPlugin {
 		} catch (IOException ex) { // noch keine Verwendung
 			
 		}
+		// =============
+		// enable (de)serialization of configs
+		// =============
+		enableSerialization();
 		
 		// ===
 		// uuid converter section
 		// ==
 		AncientRPGUUIDConverter.runConverter();
+		
 		
 		// ===
 		// event section
@@ -262,25 +273,45 @@ public class AncientRPG extends JavaPlugin {
 		for (Player p : Bukkit.getOnlinePlayers()) { // Herzlichen Glückwunsch. Ich glaube das funktioniert nur bei /reload... NNN ??? --- vielleicht bei join event
 			PlayerData pd = PlayerData.getPlayerData(p.getUniqueId()); // speichert die PlayerData eines Spielers ??? was für daten
 			pd.getHpsystem().playerUUID = p.getUniqueId(); // ??? setzt den spieler eines hpsystems auf den aktuellen
-			if (DamageConverter.isEnabled() && DamageConverter.isEnabled(p.getWorld())) { // wenn der ??? DamageConverter aktiviert und in der entsprechenden Welt aktiviert ist
+			if (DamageConverter.isWorldEnabled(p.getWorld())) { // wenn der ??? DamageConverter aktiviert und in der entsprechenden Welt aktiviert ist
 				pd.getHpsystem().setMaxHp(); // die Maximalen Leben festlegen
 				pd.getHpsystem().setHpRegen(); // die Regeneration festlegen
 				pd.getHpsystem().setMinecraftHP(); // die ??? Minecraft leben festlegen
+			}
+			else {
+				p.setMaxHealth(20); // die maximale Lebensanzahl festlegen
 			}
 			pd.getManasystem().setMaxMana(); // die maximale Manaanzahl festlegen
 			
 			if (AncientRPGExperience.isEnabled()) { // wenn die ??? Experience aktiviert ist. was macht diese Klasse
 				pd.getXpSystem().addXP(0, false); // ??? --- scheinbar 0 XP hinzufügen nur zum aktivieren oder was
-			}
-			if (!DamageConverter.isEnabled() || !DamageConverter.isEnabled(p.getWorld())) { // wenn ??? DamageConverter nicht oder nicht in der Welt aktiviert ist // MOVE warum nicht etwas weiter oben else?
-				p.setMaxHealth(20); // die maximale Lebensanzahl festlegen
-			}
+			}	
 		}
 		
 		Spell.initializeServerSpells(); // ??? welche Spells werden initialisiert
 		// File f = new File("plugins/test.qst");
 		// new AncientRPGQuest(f);
 
+	}
+	
+	private void enableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
+		ConfigurationSerialization.registerClass(BindingData.class);
+		ConfigurationSerialization.registerClass(CooldownTimer.class);
+		ConfigurationSerialization.registerClass(AncientRPGExperience.class);
+		ConfigurationSerialization.registerClass(AncientRPGHP.class); // registriert die Klasse für Configs
+		ConfigurationSerialization.registerClass(ManaSystem.class);
+		ConfigurationSerialization.registerClass(AncientRPGPermission.class);
+		ConfigurationSerialization.registerClass(PlayerData.class);
+	}
+	
+	private void disableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
+		ConfigurationSerialization.unregisterClass(BindingData.class);
+		ConfigurationSerialization.unregisterClass(CooldownTimer.class);
+		ConfigurationSerialization.unregisterClass(AncientRPGExperience.class);
+		ConfigurationSerialization.unregisterClass(AncientRPGHP.class); // registriert die Klasse für Configs
+		ConfigurationSerialization.unregisterClass(ManaSystem.class);
+		ConfigurationSerialization.unregisterClass(AncientRPGPermission.class);
+		ConfigurationSerialization.unregisterClass(PlayerData.class);
 	}
 	
 	private void registerCommands() {
@@ -542,7 +573,7 @@ public class AncientRPG extends JavaPlugin {
 			}
 			return true;
 		}
-		if (commandName.equals(levelCommand) && AncientRPGExperience.enabled) {
+		if (commandName.equals(levelCommand) && AncientRPGExperience.isEnabled()) {
 			AncientRPGExperience.processCommand(sender, nargs);
 			return true;
 		}

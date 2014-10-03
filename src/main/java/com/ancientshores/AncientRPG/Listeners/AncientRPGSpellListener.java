@@ -631,7 +631,8 @@ public class AncientRPGSpellListener implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerDisconnect(final PlayerQuitEvent event) {
+	public void onPlayerDisconnect(PlayerQuitEvent event) {
+		System.out.println("AncientRPGSpell listener jetzt");
 		deadPlayer.remove(event.getPlayer().getUniqueId());
 		revivePlayer.remove(event.getPlayer().getUniqueId());
 	}

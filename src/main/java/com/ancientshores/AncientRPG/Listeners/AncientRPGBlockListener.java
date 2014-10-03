@@ -22,7 +22,7 @@ public class AncientRPGBlockListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void blockBreak(BlockBreakEvent event) {
-        if (!event.isCancelled() && AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(event.getPlayer())) {
+        if (!event.isCancelled() && AncientRPGExperience.isWorldEnabled(event.getPlayer().getWorld())) {
             PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getUniqueId());
             switch (event.getBlock().getType()) {
                 case STONE:

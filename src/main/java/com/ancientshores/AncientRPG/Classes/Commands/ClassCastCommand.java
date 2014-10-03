@@ -26,7 +26,7 @@ public class ClassCastCommand {
         if (p == null) {
             return false;
         }
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(mPlayer)) {
+        if (AncientRPGExperience.isWorldEnabled(mPlayer.getWorld())) {
             if (PlayerData.getPlayerData(mPlayer.getUniqueId()).getXpSystem().level < p.minlevel) {
                 return false;
             }

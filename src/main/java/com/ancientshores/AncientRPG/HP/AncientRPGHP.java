@@ -1,6 +1,5 @@
 package com.ancientshores.AncientRPG.HP;
 
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,11 +8,11 @@ import java.util.UUID;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 
 public class AncientRPGHP implements Serializable, ConfigurationSerializable {
@@ -26,10 +25,6 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 	public int task;
 	public long lastAttackDamage;
 	public boolean damage;
-
-	static {
-		ConfigurationSerialization.registerClass(AncientRPGHP.class); // registriert die Klasse für Configs
-	}
 
 	@Override
 	public Map<String, Object> serialize() {
@@ -47,9 +42,16 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 	public AncientRPGHP(Map<String, Object> map) {
 		this.health = ((Number) map.get("hp")).intValue();
 		this.maxhp = ((Number) map.get("maxhp")).intValue();
-		this.playerUUID = UUID.fromString((String) map.get("uuid"));
 		this.hpRegInterval = ((Number) map.get("hpRegInterval")).intValue();
 		this.hpReg = ((Number) map.get("hpReg")).intValue();
+		
+		if (map.containsKey("uuid")) {
+			this.playerUUID = UUID.fromString((String) map.get("uuid"));
+		}
+		else {
+			this.playerUUID = AncientRPGUUIDConverter.getUUID((String) map.get("playername"));//Bukkit.getOfflinePlayer((String) map.get("playername")).getUniqueId();
+		}
+		
 	}
 
 	public AncientRPGHP(int maxhp, UUID playeruuid) {
@@ -87,7 +89,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 					}
 					health = p.getHealth();
 					if (p.getFoodLevel() >= DamageConverter.minFoodRegLevel) {
-						if (DamageConverter.isEnabled() && DamageConverter.isWorldEnabled(p)) {
+						if (DamageConverter.isWorldEnabled(p.getWorld())) {
 							addHpByUUID(playerUUID, hpReg);
 						}
 					}
@@ -103,7 +105,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 
 	public void setMaxHp() {
 		if (Bukkit.getPlayer(playerUUID) != null) {
-			if (!DamageConverter.isEnabled() || !DamageConverter.isEnabled(Bukkit.getPlayer(playerUUID).getWorld())) {
+			if (!DamageConverter.isWorldEnabled(Bukkit.getPlayer(playerUUID).getWorld())) {
 				Bukkit.getPlayer(playerUUID).setMaxHealth(20);
 				return;
 			}

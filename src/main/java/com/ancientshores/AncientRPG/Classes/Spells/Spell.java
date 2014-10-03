@@ -587,7 +587,7 @@ public class Spell implements Serializable {
             }
             return;
         }
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(buffcaster)) {
+        if (AncientRPGExperience.isWorldEnabled(buffcaster.getWorld())) {
             if (PlayerData.getPlayerData(buffcaster.getUniqueId()).getXpSystem().level < minlevel) {
                 if (active) {
                     buffcaster.sendMessage("You need to be atleast level " + minlevel + " to cast this spell");
@@ -637,7 +637,7 @@ public class Spell implements Serializable {
             }
             return;
         }
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(buffcaster)) {
+        if (AncientRPGExperience.isWorldEnabled(buffcaster.getWorld())) {
             if (PlayerData.getPlayerData(buffcaster.getUniqueId()).getXpSystem().level < minlevel) {
                 if (active) {
                     buffcaster.sendMessage("You need to be atleast level " + minlevel + " to cast this spell");

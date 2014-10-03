@@ -69,13 +69,13 @@ public class ClassSetStanceCommand {
 
 	public static boolean canSetStanceClass(AncientRPGClass newClass, final Player p) {
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-		if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(p)) {
+		if (AncientRPGExperience.isWorldEnabled(p.getWorld())) {
 			if (pd.getXpSystem().level < newClass.minlevel) {
 				p.sendMessage(AncientRPG.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
 				return false;
 			}
 		}
-		if (!newClass.isWorldEnabled(p)) {
+		if (!newClass.isWorldEnabled(p.getWorld())) {
 			return false;
 		}
 		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) {
@@ -88,13 +88,13 @@ public class ClassSetStanceCommand {
 	public static void setStance(AncientRPGClass oldstance, AncientRPGClass newStance, AncientRPGClass rootclass, final Player p, Player sender) {
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		if (newStance != null) {
-			if (sender != p && AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(p)) {
+			if (sender != p && AncientRPGExperience.isWorldEnabled(p.getWorld())) {
 				if (pd.getXpSystem().level < newStance.minlevel) {
 					p.sendMessage(AncientRPG.brand2 + "You need to be level " + newStance.minlevel + " to join this stance");
 					return;
 				}
 			}
-			if (!newStance.isWorldEnabled(p)) {
+			if (!newStance.isWorldEnabled(p.getWorld())) {
 				p.sendMessage(AncientRPG.brand2 + "This stance cannot be used in this world");
 				return;
 			}

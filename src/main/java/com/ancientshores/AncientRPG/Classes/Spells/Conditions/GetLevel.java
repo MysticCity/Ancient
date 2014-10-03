@@ -24,7 +24,7 @@ public class GetLevel extends IArgument {
             return null;
         }
         Player mPlayer = ((Player[]) obj[0])[0];
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(mPlayer)) {
+        if (AncientRPGExperience.isWorldEnabled(mPlayer.getWorld())) {
             PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
             return pd.getXpSystem().level;
         }

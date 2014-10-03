@@ -20,13 +20,15 @@ public class ClassResetCommand {
     }
 
     public static void reset(Player p, AncientRPGClass oldClass, PlayerData pd) {
-        AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p.getUniqueId(), oldClass, null);
+    	System.out.println("----------------------> AncientRPGResetClass: Call event");
+		AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p.getUniqueId(), oldClass, null);
         Bukkit.getPluginManager().callEvent(classevent);
         if (classevent.isCancelled()) {
             return;
         }
+        
         if (oldClass != null && oldClass.permGroup != null && !oldClass.permGroup.equals("")) {
-            if (AncientRPG.permissionHandler != null) {
+        	if (AncientRPG.permissionHandler != null) {
                 AncientRPG.permissionHandler.playerRemoveGroup(p, oldClass.permGroup);
                 for (Map.Entry<String, AncientRPGClass> entry : oldClass.stances.entrySet()) {
                     AncientRPG.permissionHandler.playerRemoveGroup(p, entry.getValue().permGroup);
@@ -37,10 +39,13 @@ public class ClassResetCommand {
             }
         }
         if (AncientRPGExperience.isEnabled()) {
-            if (pd.getClassLevels().get(AncientRPGClass.standardclassName) == null) {
+        	System.out.println("----------------------> AncientRPGResetClass: XP sind aktiviert");
+    		if (pd.getClassLevels().get(AncientRPGClass.standardclassName) == null) {
                 pd.getClassLevels().put(AncientRPGClass.standardclassName, 0);
             }
             pd.getXpSystem().xp = pd.getClassLevels().get(AncientRPGClass.standardclassName);
+            
+            // Überflüssig
             pd.getXpSystem().addXP(0, false);
         }
         pd.setClassName(AncientRPGClass.standardclassName);

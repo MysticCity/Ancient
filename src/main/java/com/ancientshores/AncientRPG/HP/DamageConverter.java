@@ -510,12 +510,14 @@ public class DamageConverter {
         }
     }
 
-    public static boolean isWorldEnabled(Player p) {
-        if (worlds.length == 0 || (worlds.length >= 1 && (worlds[0] == null || worlds[0].equals("")))) {
-            return true;
-        }
-        for (String s : worlds) {
-            if (p.getWorld().getName().equalsIgnoreCase(s)) {
+    public static boolean isWorldEnabled(World w) {
+    	if (w == null) return false;
+		if (!isEnabled()) return false;
+		
+		if (worlds.length == 1 && worlds[0].equals("")) return true;
+		
+		for (String s : worlds) {
+            if (w.getName().equalsIgnoreCase(s)) {
                 return true;
             }
         }
@@ -623,9 +625,19 @@ public class DamageConverter {
         YamlConfiguration yc = new YamlConfiguration();
         try {
             yc.set(HpConfigEnabled, enabled);
-            if (yc.get(HpConfigWorlds) == null) {
-                yc.set(HpConfigWorlds, "");
-            }
+            
+            String worldsString = "";
+    		for (int i = 0; i < worlds.length; i++) {
+    			String w = worlds[i];
+    			worldsString += w;
+    			
+    			if ((i + 1) == worlds.length) break;
+    			
+    			worldsString += ",";
+    		}
+    		
+            yc.set(HpConfigWorlds, worldsString);
+            
             yc.set("HP.displayed hp divisor", displayDivider);
             yc.set(HpConfigStandardHP, standardhp);
             yc.set(HpConfigZombie, damageOfZombie);
@@ -1208,20 +1220,5 @@ public class DamageConverter {
 
     public static boolean isEnabled() {
         return enabled;
-    }
-
-    public static boolean isEnabled(World w) {
-        if (worlds.length == 0 || (worlds.length >= 1 && (worlds[0] == null || worlds[0].equals(""))) && enabled) {
-            return true;
-        }
-        for (String s : worlds) {
-            if (s == null) {
-                continue;
-            }
-            if ((w.getName().equalsIgnoreCase(s) || s.equalsIgnoreCase("all")) && enabled) {
-                return true;
-            }
-        }
-        return false;
     }
 }

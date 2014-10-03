@@ -21,7 +21,7 @@ public class AddExperienceCommand extends ICommand {
                 Player[] players = (Player[]) ca.getParams().get(0);
                 int amount = (int) ((Number) ca.getParams().get(1)).doubleValue();
                 for (Player p : players) {
-                    if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(p)) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld())) {
                         PlayerData.getPlayerData(p.getUniqueId()).getXpSystem().addXP(amount, false);
                     }
                 }

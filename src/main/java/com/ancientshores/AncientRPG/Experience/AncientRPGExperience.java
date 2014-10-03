@@ -14,14 +14,15 @@ import com.ancientshores.AncientRPG.API.AncientGainExperienceEvent;
 import com.ancientshores.AncientRPG.API.AncientLevelupEvent;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EnderDragon;
@@ -55,13 +56,9 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	public final UUID uuid;
 	public static final HashSet<UUID> alreadyDead = new HashSet<UUID>();
 
-	static {
-		ConfigurationSerialization.registerClass(AncientRPGExperience.class);
-	}
-
 	// Enabled
 	private static final String XPConfigEnabled = "XP.XPsystem enabled";
-	public static boolean enabled = true;
+	private static boolean enabled = true;
 	private static final String XPConfigWorlds = "XP.XPsystem enabled world";
 	public static String[] worlds = new String[0];
 	public static final HashMap<Integer, Integer> levelMap = new HashMap<Integer, Integer>();
@@ -144,34 +141,31 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	public AncientRPGExperience(Map<String, Object> map) {
 		this.level = (Integer) map.get("level");
 		this.xp = (Integer) map.get("xp");
-		this.uuid = UUID.fromString((String) map.get("uuid"));
+		if (map.containsKey("uuid")) {
+			this.uuid = UUID.fromString((String) map.get("uuid"));
+		}
+		else {
+			this.uuid = AncientRPGUUIDConverter.getUUID((String) map.get("xpname"));
+		}
 	}
 
-	public static boolean isWorldEnabled(Player p) {
-		if (p == null) {
-			return false;
-		}
-		if (p.getWorld() == null) {
-			return false;
-		}
-		if (worlds.length == 0 || (worlds.length >= 1 && (worlds[0] == null || worlds[0].equals("")))) {
-			return true;
-		}
+	public static boolean isWorldEnabled(World w) {
+		if (w == null) return false;
+		if (!isEnabled()) return false;
+		
+		if (worlds.length == 1 && worlds[0].equals("")) return true;
+		
 		for (String s : worlds) {
-			if (s == null) {
-				continue;
-			}
-			if (p.getWorld().getName().equalsIgnoreCase(s) || s.equalsIgnoreCase("all")) {
-				return true;
-			}
+			if (w.getName().equalsIgnoreCase(s)) return true;
 		}
+		
 		return false;
 	}
 
 	public void addXP(int xp, boolean party) {
 		xp *= multiplier;
 		Player p = AncientRPG.plugin.getServer().getPlayer(uuid);
-		if (p == null || !isWorldEnabled(p)) {
+		if (p == null || !isWorldEnabled(p.getWorld())) {
 			return;
 		}
 		try {
@@ -201,7 +195,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		AncientGainExperienceEvent gainevent = new AncientGainExperienceEvent(this.xp, p.getUniqueId(), xp);
+		AncientGainExperienceEvent gainevent = new AncientGainExperienceEvent(this.xp, uuid, xp);
 		Bukkit.getServer().getPluginManager().callEvent(gainevent);
 		if (gainevent.cancelled) {
 			return;
@@ -269,7 +263,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			SetXpMultiplierCommand.setXpMultiplier(sender, args);
 			return;
 		}
-		if (!(sender instanceof Player) || !isWorldEnabled((Player) sender)) {
+		if (!(sender instanceof Player) || !isWorldEnabled(((Player) sender).getWorld())) {
 			return;
 		}
 		Player p = (Player) sender;
@@ -302,9 +296,19 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 		}
 		YamlConfiguration xpConfig = new YamlConfiguration();
 		xpConfig.set(XPConfigEnabled, enabled);
-		if (xpConfig.get(XPConfigWorlds) == null) {
-			xpConfig.set(XPConfigWorlds, "");
+		
+		String worldsString = "";
+		for (int i = 0; i < worlds.length; i++) {
+			String w = worlds[i];
+			worldsString += w;
+			
+			if ((i + 1) == worlds.length) break;
+			
+			worldsString += ",";
 		}
+		
+		xpConfig.set(XPConfigWorlds, worldsString);
+			
 		xpConfig.set(XPConfigSpider, XPOfSpider);
 		xpConfig.set(XPConfigSkeleton, XPOfSkeleton);
 		xpConfig.set(XPConfigZombie, XPOfZombie);
@@ -359,11 +363,13 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			try {
 				yc.load(newfile);
 				MaxLevel = yc.getInt(XPConfigMaxLevel, MaxLevel);
-				enabled = yc.getBoolean(XPConfigEnabled, enabled);
+				enabled = yc.getBoolean(XPConfigEnabled, true);
+				
 				worlds = yc.getString(XPConfigWorlds, "").split(",");
 				for (int i = 0; i < worlds.length; i++) {
 					worlds[i] = worlds[i].trim();
 				}
+				
 				XPOfSpider = yc.getInt(XPConfigSpider, XPOfSpider);
 				XPOfCaveSpider = yc.getInt(XPConfigCaveSpider, XPOfCaveSpider);
 				XPOfSkeleton = yc.getInt(XPConfigSkeleton, XPOfSkeleton);
@@ -402,11 +408,13 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			}
 		} else {
 			MaxLevel = plugin.getConfig().getInt(XPConfigMaxLevel, MaxLevel);
-			enabled = plugin.getConfig().getBoolean(XPConfigEnabled, enabled);
+			enabled = plugin.getConfig().getBoolean(XPConfigEnabled, true);
+			
 			worlds = plugin.getConfig().getString(XPConfigWorlds, "").split(",");
 			for (int i = 0; i < worlds.length; i++) {
 				worlds[i] = worlds[i].trim();
 			}
+			
 			XPOfSpider = plugin.getConfig().getInt(XPConfigSpider, XPOfSpider);
 			XPOfCaveSpider = plugin.getConfig().getInt(XPConfigCaveSpider, XPOfCaveSpider);
 			XPOfSkeleton = plugin.getConfig().getInt(XPConfigSkeleton, XPOfSkeleton);
@@ -516,10 +524,12 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("level", level);
-		map.put("xp", xp);
-		map.put("uuid", uuid.toString());
+		System.out.println("Speichere level " + this.level);
+		System.out.println("Speichere xp " + this.xp);
+		System.out.println("Speichere uuid " + this.uuid.toString());
+		map.put("level", this.level);
+		map.put("xp", this.xp);
+		map.put("uuid", this.uuid.toString());
 
 		return map;
 	}
