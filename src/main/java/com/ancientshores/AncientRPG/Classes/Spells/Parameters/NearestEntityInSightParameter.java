@@ -1,26 +1,30 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 public class NearestEntityInSightParameter implements IParameter {
 
     @Override
-    public void parseParameter(EffectArgs ea, Player mPlayer, String[] subparam, ParameterType pt) {
+    public void parseParameter(EffectArgs ea, Player p, String[] subparam, ParameterType pt) {
         int range = 10;
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -29,21 +33,25 @@ public class NearestEntityInSightParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestEntityInSight == null) {
-            Entity nEntity = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
+            UUID nEntity = ea.getSpellInfo().getNearestEntityInSight(p, range);
             ea.getSpellInfo().nearestEntityInSight = nEntity;
-            if (nEntity == null) {
-                return;
-            }
         }
         switch (pt) {
             case Entity:
-                Entity[] e = {ea.getSpellInfo().nearestEntityInSight};
-                ea.getParams().addLast(e);
+                UUID[] uuid = {ea.getSpellInfo().nearestEntityInSight};
+                ea.getParams().addLast(uuid);
                 break;
             case Location:
-                Location[] l = {ea.getSpellInfo().nearestEntityInSight.getLocation()};
-                ea.getParams().addLast(l);
-                break;
+            	for (World w : Bukkit.getWorlds()) {
+            		for (Entity e : w.getEntities()) {
+            			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntityInSight) != 0) {
+            				continue;
+            			}
+            			Location[] l = {e.getLocation()};
+            			ea.getParams().addLast(l);
+                	}
+            	}	
+            	break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);
         }
@@ -55,13 +63,13 @@ public class NearestEntityInSightParameter implements IParameter {
     }
 
     @Override
-    public Object parseParameter(Player mPlayer, String[] subparam, SpellInformationObject so) {
+    public Object parseParameter(Player p, String[] subparam, SpellInformationObject so) {
 
         int range = 10;
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(p.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -69,11 +77,8 @@ public class NearestEntityInSightParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntityInSight == null) {
-            Entity nEntity = so.getNearestEntityInSight(mPlayer, range);
+            UUID nEntity = so.getNearestEntityInSight(p, range);
             so.nearestEntityInSight = nEntity;
-            if (nEntity == null) {
-                return null;
-            }
         }
         return so.nearestEntityInSight;
     }

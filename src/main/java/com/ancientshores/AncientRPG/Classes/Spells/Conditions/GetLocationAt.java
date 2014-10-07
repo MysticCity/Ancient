@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 
 public class GetLocationAt extends IArgument {
     @ArgumentDescription(

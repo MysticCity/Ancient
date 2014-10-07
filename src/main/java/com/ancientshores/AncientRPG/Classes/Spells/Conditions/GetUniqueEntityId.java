@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Entity;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.entity.Entity;
 
 public class GetUniqueEntityId extends IArgument {
     @ArgumentDescription(

@@ -1,15 +1,14 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.Location;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public class AreLocations extends IArgument {
     @ArgumentDescription(
-            description = "Checks a collection of locations if all of them are locations.",
+            description = "Checks a collection if all of them are locations.",
             parameterdescription = {"collection"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Location})
     public AreLocations() {
         this.returnType = ParameterType.Boolean;
@@ -27,7 +26,7 @@ public class AreLocations extends IArgument {
             return false;
         }
         for (Object o : objs) {
-            if (!(o instanceof Player) && !(o instanceof Entity) && !(o instanceof Location)) {
+            if (!(o instanceof Location)) {
                 return false;
             }
         }

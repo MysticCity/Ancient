@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.Effect;
+import org.bukkit.Location;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.Effect;
-import org.bukkit.Location;
 
 public class SmokeCommand extends ICommand {
     @CommandDescription(description = "<html>Creates smoke particles at the location</html>",

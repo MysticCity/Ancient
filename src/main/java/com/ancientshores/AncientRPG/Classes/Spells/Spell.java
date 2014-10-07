@@ -20,31 +20,51 @@
 
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
-import com.ancientshores.AncientRPG.Listeners.SpellListener.*;
-import com.ancientshores.AncientRPG.PlayerData;
-import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
-import com.ancientshores.AncientRPG.Util.SerializableZone;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.*;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
+import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.ISpellListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerBedEnterEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerBedLeaveEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerChatEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerDropItemEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerEggThrowEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerKickEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerPickupItemEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerPortalEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerTeleportEventListener;
+import com.ancientshores.AncientRPG.Listeners.SpellListener.PlayerToggleSneakEventListener;
+import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
+import com.ancientshores.AncientRPG.Util.SerializableZone;
 
 public class Spell implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -367,16 +387,16 @@ public class Spell implements Serializable {
                         pc.setExecutor(new CommandExecutor() {
 
                             @Override
-                            public boolean onCommand(CommandSender arg0, Command arg1, String arg2, String[] arg3) {
-                                if (arg0 instanceof Player) {
-                                    Player p = (Player) arg0;
+                            public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+                                if (sender instanceof Player) {
+                                    Player p = (Player) sender;
                                     for (Entry<String, SerializableZone> sz : AddSpellFreeZoneCommand.spellfreezones.entrySet()) {
-                                        if (sz.getValue().isInZone(p.getLocation()) && !AncientRPG.hasPermissions(p, AddSpellFreeZoneCommand.ignorespellfreezones)) {
+                                        if (sz.getValue().isInZone(p.getLocation()) && !p.hasPermission(AddSpellFreeZoneCommand.ignorespellfreezones)) {
                                             return true;
                                         }
                                     }
-                                    if (AncientRPGClass.spellAvailable(mSpell.name, PlayerData.getPlayerData(p.getName()))) {
-                                        mSpell.execute(p, p, null, arg3);
+                                    if (AncientRPGClass.spellAvailable(mSpell.name, PlayerData.getPlayerData(p.getUniqueId()))) {
+                                    	mSpell.execute(p, p, null, args);
                                     }
                                 }
                                 return true;
@@ -410,13 +430,13 @@ public class Spell implements Serializable {
                             Spell.this.executeServerSpell();
                         } else {
                             for (Player p : Bukkit.getOnlinePlayers()) {
-                                if (AncientRPGClass.spellAvailable(Spell.this.name, PlayerData.getPlayerData(p.getName()))) {
+                                if (AncientRPGClass.spellAvailable(Spell.this.name, PlayerData.getPlayerData(p.getUniqueId()))) {
                                     for (Entry<String, SerializableZone> sz : AddSpellFreeZoneCommand.spellfreezones.entrySet()) {
-                                        if (sz.getValue().isInZone(p.getLocation()) && !AncientRPG.hasPermissions(p, AddSpellFreeZoneCommand.ignorespellfreezones)) {
+                                        if (sz.getValue().isInZone(p.getLocation()) && !p.hasPermission(AddSpellFreeZoneCommand.ignorespellfreezones)) {
                                             return;
                                         }
                                     }
-                                    Spell.this.execute(p, p, null);
+                                    Spell.this.execute(p.getUniqueId(), p.getUniqueId(), null);
                                 }
                             }
                         }
@@ -449,7 +469,7 @@ public class Spell implements Serializable {
     }
 
     public int attachToEventAsBuff(Player p, Player buffcaster) {
-        if (this.permission != null && !this.permission.equals("") && !AncientRPG.hasPermissions(buffcaster, this.permission)) {
+        if (this.permission != null && !this.permission.equals("") && !buffcaster.hasPermission(this.permission)) {
             return Integer.MAX_VALUE;
         }
         if (buffEvent == null) {
@@ -557,18 +577,18 @@ public class Spell implements Serializable {
         }
     }
 
-    public void execute(Player mPlayer, Player buffcaster, Event e, String[] args) {
-        if (disabledWorlds.contains(mPlayer.getWorld().getName().toLowerCase())) {
+    public void execute(Player p, Player buffcaster, Event e, String[] args) {
+        if (disabledWorlds.contains(p.getWorld().getName().toLowerCase())) {
             return;
         }
-        if (this.permission != null && !this.permission.equals("") && !AncientRPG.hasPermissions(buffcaster, this.permission)) {
+        if (this.permission != null && !this.permission.equals("") && !buffcaster.hasPermission(this.permission)) {
             if (this.active) {
                 buffcaster.sendMessage("You don't have permission to cast this spell");
             }
             return;
         }
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(buffcaster)) {
-            if (PlayerData.getPlayerData(buffcaster.getName()).getXpSystem().level < minlevel) {
+        if (AncientRPGExperience.isWorldEnabled(buffcaster.getWorld())) {
+            if (PlayerData.getPlayerData(buffcaster.getUniqueId()).getXpSystem().level < minlevel) {
                 if (active) {
                     buffcaster.sendMessage("You need to be atleast level " + minlevel + " to cast this spell");
                 }
@@ -576,9 +596,9 @@ public class Spell implements Serializable {
             }
         }
         for (Entry<String, SerializableZone> sz : AddSpellFreeZoneCommand.spellfreezones.entrySet()) {
-            if (sz.getValue().isInZone(mPlayer.getLocation()) && !AncientRPG.hasPermissions(mPlayer, AddSpellFreeZoneCommand.ignorespellfreezones)) {
+            if (sz.getValue().isInZone(p.getLocation()) && !p.hasPermission(AddSpellFreeZoneCommand.ignorespellfreezones)) {
                 if (active) {
-                    mPlayer.sendMessage("You can't use a spell in this zone");
+                    p.sendMessage("You can't use a spell in this zone");
                 }
                 return;
             }
@@ -586,32 +606,39 @@ public class Spell implements Serializable {
         SpellInformationObject so = new SpellInformationObject();
         so.chatmessage = args;
         so.variables.putAll(Variable.globVars);
-        if (Variable.playerVars.containsKey(buffcaster.getName())) {
-            so.variables.putAll(Variable.playerVars.get(buffcaster.getName()));
+        if (Variable.playerVars.containsKey(buffcaster.getUniqueId())) {
+            so.variables.putAll(Variable.playerVars.get(buffcaster.getUniqueId()));
         }
         if (e != null) {
             so.mEvent = e;
         }
-        AncientRPGClass.executedSpells.put(so, mPlayer);
-        so.buffcaster = buffcaster;
+        AncientRPGClass.executedSpells.put(so, p.getUniqueId());
+        so.buffcaster = buffcaster.getUniqueId();
         so.mSpell = this;
         if (mainsection != null) {
-            mainsection.executeCommand(mPlayer, so);
+            mainsection.executeCommand(p, so);
         }
     }
 
-    public void execute(Player mPlayer, Player buffcaster, Event e) {
-        if (disabledWorlds.contains(mPlayer.getWorld().getName().toLowerCase())) {
+    public void execute(UUID uuidPlayer, UUID uuidBuffcaster, Event e) {
+    	Player p = Bukkit.getPlayer(uuidPlayer);
+    	Player buffcaster = Bukkit.getPlayer(uuidBuffcaster);
+    	
+    	if (p == null || buffcaster == null) {
+    		return;
+    	}
+    	
+    	if (disabledWorlds.contains(p.getWorld().getName().toLowerCase())) {
             return;
         }
-        if (this.permission != null && !this.permission.equals("") && !AncientRPG.hasPermissions(buffcaster, this.permission)) {
+        if (this.permission != null && !this.permission.equals("") && !buffcaster.hasPermission(this.permission)) {
             if (this.active) {
                 buffcaster.sendMessage("You don't have permission to cast this spell");
             }
             return;
         }
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(buffcaster)) {
-            if (PlayerData.getPlayerData(buffcaster.getName()).getXpSystem().level < minlevel) {
+        if (AncientRPGExperience.isWorldEnabled(buffcaster.getWorld())) {
+            if (PlayerData.getPlayerData(buffcaster.getUniqueId()).getXpSystem().level < minlevel) {
                 if (active) {
                     buffcaster.sendMessage("You need to be atleast level " + minlevel + " to cast this spell");
                 }
@@ -619,26 +646,26 @@ public class Spell implements Serializable {
             }
         }
         for (Entry<String, SerializableZone> sz : AddSpellFreeZoneCommand.spellfreezones.entrySet()) {
-            if (sz.getValue().isInZone(mPlayer.getLocation()) && !AncientRPG.hasPermissions(mPlayer, AddSpellFreeZoneCommand.ignorespellfreezones)) {
+            if (sz.getValue().isInZone(p.getLocation()) && !p.hasPermission(AddSpellFreeZoneCommand.ignorespellfreezones)) {
                 if (active) {
-                    mPlayer.sendMessage("You can't use a spell in this zone");
+                    p.sendMessage("You can't use a spell in this zone");
                 }
                 return;
             }
         }
         SpellInformationObject so = new SpellInformationObject();
         so.variables.putAll(Variable.globVars);
-        if (Variable.playerVars.containsKey(buffcaster.getName())) {
-            so.variables.putAll(Variable.playerVars.get(buffcaster.getName()));
+        if (Variable.playerVars.containsKey(buffcaster.getUniqueId())) {
+            so.variables.putAll(Variable.playerVars.get(buffcaster.getUniqueId()));
         }
         if (e != null) {
             so.mEvent = e;
         }
-        AncientRPGClass.executedSpells.put(so, mPlayer);
-        so.buffcaster = buffcaster;
+        AncientRPGClass.executedSpells.put(so, p.getUniqueId());
+        so.buffcaster = buffcaster.getUniqueId();
         so.mSpell = this;
         if (mainsection != null) {
-            mainsection.executeCommand(mPlayer, so);
+            mainsection.executeCommand(p, so);
         }
     }
 

@@ -1,8 +1,8 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.TryItem;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.TryItem;
 
 public class TryStatement extends ComplexStatement {
 

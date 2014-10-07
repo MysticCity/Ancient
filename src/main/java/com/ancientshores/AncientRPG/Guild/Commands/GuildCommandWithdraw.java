@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandWithdraw {
     public static void processWithdraw(CommandSender sender, String[] args) {
         Player mPlayer = (Player) sender;
         if (args.length == 2) {
-            AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+            AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
             if (mGuild != null) {
                 Double value;
                 try {
@@ -22,7 +23,7 @@ public class GuildCommandWithdraw {
                 }
                 if (value > 0) {
                     if (AncientRPG.economy.bankHas(mGuild.accountName, value).transactionSuccess()) {
-                        if (mGuild.gMember.get(mPlayer.getName()) == AncientRPGGuildRanks.LEADER || mGuild.gMember.get(mPlayer.getName()) == AncientRPGGuildRanks.CO_LEADER) {
+                        if (mGuild.gMember.get(mPlayer.getUniqueId()) == AncientRPGGuildRanks.LEADER || mGuild.gMember.get(mPlayer.getUniqueId()) == AncientRPGGuildRanks.CO_LEADER) {
                             AncientRPG.economy.bankWithdraw(mGuild.accountName, value);
                             AncientRPG.economy.depositPlayer(mPlayer.getName(), value);
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + "Successfully withdraw " + value + " of the bank of your guild.");

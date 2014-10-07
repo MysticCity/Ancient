@@ -1,6 +1,10 @@
 package de.pylamo.spellmaker;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class SettingsReader {
     public static UpdateType type = UpdateType.Release;

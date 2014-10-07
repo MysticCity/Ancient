@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.event.Cancellable;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.event.Cancellable;
 
 public class CancelEventCommand extends ICommand {
     @CommandDescription(description = "<html>Cancels the event, can only be used in a passive spell</html>",

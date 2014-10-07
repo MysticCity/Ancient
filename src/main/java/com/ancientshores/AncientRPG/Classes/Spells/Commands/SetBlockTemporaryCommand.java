@@ -1,13 +1,14 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import java.util.HashMap;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 
-import java.util.HashMap;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class SetBlockTemporaryCommand extends ICommand {
     @CommandDescription(description = "<html>Sets the id of the block, sets it back after the time</html>",
@@ -19,7 +20,8 @@ public class SetBlockTemporaryCommand extends ICommand {
         this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Material, ParameterType.Number};
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean playCommand(final EffectArgs ca) {
         try {
             if (ca.getParams().get(0) instanceof Location[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number) {

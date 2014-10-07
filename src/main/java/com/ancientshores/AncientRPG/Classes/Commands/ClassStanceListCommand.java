@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.PlayerData;
-import com.ancientshores.AncientRPG.Util.PageBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Util.PageBuilder;
 
 public class ClassStanceListCommand {
     public static void showStances(Player p, String[] args) {
@@ -18,7 +19,7 @@ public class ClassStanceListCommand {
             }
         }
         PageBuilder pb = new PageBuilder();
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         AncientRPGClass c = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
         if (c != null) {
             pb.addMessage(AncientRPG.brand2 + "Class-stances:");

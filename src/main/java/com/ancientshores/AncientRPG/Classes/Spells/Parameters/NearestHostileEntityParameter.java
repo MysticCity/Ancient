@@ -1,16 +1,20 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 public class NearestHostileEntityParameter implements IParameter {
 
@@ -22,7 +26,7 @@ public class NearestHostileEntityParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -31,7 +35,7 @@ public class NearestHostileEntityParameter implements IParameter {
             }
             try {
                 if (ea.getSpell().variables.contains(subparam[1].toLowerCase())) {
-                    count = ea.getSpellInfo().parseVariable(mPlayer, subparam[1].toLowerCase());
+                    count = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[1].toLowerCase());
                 } else {
                     count = Integer.parseInt(subparam[1]);
                 }
@@ -40,7 +44,7 @@ public class NearestHostileEntityParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().hostileEntities == null || ea.getSpellInfo().hostileEntities[0] == null) {
-            Entity[] nEntities = ea.getSpellInfo().getNearestHostileEntities(mPlayer, range, count);
+            UUID[] nEntities = ea.getSpellInfo().getNearestHostileEntities(mPlayer, range, count);
             ea.getSpellInfo().hostileEntities = nEntities;
             if (nEntities == null) {
                 return;
@@ -48,14 +52,21 @@ public class NearestHostileEntityParameter implements IParameter {
         }
         switch (pt) {
             case Entity:
-                Entity[] e = ea.getSpellInfo().hostileEntities;
-                ea.getParams().addLast(e);
+                UUID[] uuid = ea.getSpellInfo().hostileEntities;
+                ea.getParams().addLast(uuid);
                 break;
             case Location:
                 Location[] l = new Location[ea.getSpellInfo().hostileEntities.length];
                 for (int i = 0; i < ea.getSpellInfo().hostileEntities.length; i++) {
                     if (ea.getSpellInfo().hostileEntities[i] != null) {
-                        l[i] = ea.getSpellInfo().hostileEntities[i].getLocation();
+                    	for (World w : Bukkit.getWorlds()) {
+                    		for (Entity e : w.getEntities()) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().hostileEntities[i]) != 0) {
+                    				continue;
+                    			}
+                    			l[i] = e.getLocation();
+                    		}
+                    	}
                     }
                 }
                 ea.getParams().addLast(l);
@@ -78,7 +89,7 @@ public class NearestHostileEntityParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -86,7 +97,7 @@ public class NearestHostileEntityParameter implements IParameter {
             }
             try {
                 if (so.mSpell.variables.contains(subparam[1].toLowerCase())) {
-                    count = so.parseVariable(mPlayer, subparam[1].toLowerCase());
+                    count = so.parseVariable(mPlayer.getUniqueId(), subparam[1].toLowerCase());
                 } else {
                     count = Integer.parseInt(subparam[1]);
                 }

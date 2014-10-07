@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
+
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class SpawnArrowCommand extends ICommand {
     @CommandDescription(description = "<html>Spawns an arrow at the location with the velocity</html>",

@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import org.bukkit.entity.Player;
-
 import java.io.BufferedReader;
 import java.io.IOException;
+
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 
 public class TrySection extends ICodeSection {
     Condition c;

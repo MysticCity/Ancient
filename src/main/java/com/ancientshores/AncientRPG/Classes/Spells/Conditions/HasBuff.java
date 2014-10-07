@@ -1,14 +1,16 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
-import org.bukkit.entity.Player;
-
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class HasBuff extends IArgument {
     @ArgumentDescription(
@@ -19,7 +21,8 @@ public class HasBuff extends IArgument {
         this.requiredTypes = new ParameterType[]{ParameterType.Player, ParameterType.String};
         this.name = "hasbuff";
     }
-
+    
+    // TODO bei if (entry.getKey().length == 2) muss geändert werden. jeder spieler muss durchgesehen werden
     @Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length != 2 || !(obj[0] instanceof Player[]) || !(obj[1] instanceof String)) {
@@ -28,10 +31,10 @@ public class HasBuff extends IArgument {
         Player p = ((Player[]) obj[0])[0];
         String s = (String) obj[1];
         if (p != null) {
-            for (Entry<Spell, ConcurrentHashMap<Player[], Integer>> e : AncientRPGSpellListener.getAllBuffs().entrySet()) {
+            for (Entry<Spell, ConcurrentHashMap<UUID[], Integer>> e : AncientRPGSpellListener.getAllBuffs().entrySet()) {
                 if (e.getKey().name != null && e.getKey().name.equalsIgnoreCase(s)) {
-                    for (Entry<Player[], Integer> entry : e.getValue().entrySet()) {
-                        if (entry.getKey().length == 2 && entry.getKey()[0] == p) {
+                    for (Entry<UUID[], Integer> entry : e.getValue().entrySet()) {
+                        if (entry.getKey().length == 2 && entry.getKey()[0].compareTo(p.getUniqueId()) == 0) {
                             return true;
                         }
                     }

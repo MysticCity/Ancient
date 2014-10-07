@@ -1,11 +1,16 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.*;
-import com.ancientshores.AncientRPG.Classes.Spells.Parameters.ArgumentParameterWrapper;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameter;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Classes.Spells.Parameters.ArgumentParameterWrapper;
 
 public class ArgumentParameter {
     IParameter parameter;

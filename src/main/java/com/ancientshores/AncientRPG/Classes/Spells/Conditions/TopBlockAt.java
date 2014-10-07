@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+
+import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 
 public class TopBlockAt extends IArgument {
     @ArgumentDescription(
@@ -17,7 +18,8 @@ public class TopBlockAt extends IArgument {
         this.name = "topblockat";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length == 1 && obj[0] instanceof Location[]) {
             Location l = null;

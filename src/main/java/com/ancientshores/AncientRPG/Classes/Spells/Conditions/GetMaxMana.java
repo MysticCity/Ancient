@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class GetMaxMana extends IArgument {
     @ArgumentDescription(
@@ -21,7 +22,8 @@ public class GetMaxMana extends IArgument {
         if (!(obj[0] instanceof Player[])) {
             return 0;
         }
-        Player e = ((Player[]) obj[0])[0];
-        return PlayerData.getPlayerData(e.getName()).getManasystem().getMaxmana();
+
+        Player p = ((Player[]) obj[0])[0];
+        return PlayerData.getPlayerData(p.getUniqueId()).getManasystem().getMaxmana();
     }
 }

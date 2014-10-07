@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 
 public class SpellsInfoCommand {
     public static void spellsInfo(String[] args, CommandSender cs) {
@@ -17,18 +18,18 @@ public class SpellsInfoCommand {
             p.sendMessage(AncientRPG.brand2 + "The right usage is /spells info <spellname>");
             return;
         }
-        PlayerData pd = PlayerData.getPlayerData(cs.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         Spell mSpell = AncientRPGClass.getSpell(args[1], pd);
         if (mSpell == null) {
             p.sendMessage(AncientRPG.brand2 + "This spell doesn't exist or you don't have access to this spell");
             return;
         }
-        cs.sendMessage(AncientRPG.brand2 + "Spell " + mSpell.name);
+        p.sendMessage(AncientRPG.brand2 + "Spell " + mSpell.name);
         if (mSpell.minlevel != 0) {
-            cs.sendMessage(AncientRPG.brand2 + "The minimum level to use this spell is " + mSpell.minlevel);
+            p.sendMessage(AncientRPG.brand2 + "The minimum level to use this spell is " + mSpell.minlevel);
         }
         if (mSpell.description != null && !mSpell.description.equals("")) {
-            cs.sendMessage(mSpell.description);
+            p.sendMessage(mSpell.description);
         }
     }
 }

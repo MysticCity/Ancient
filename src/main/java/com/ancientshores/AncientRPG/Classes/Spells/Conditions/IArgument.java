@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import com.ancientshores.AncientRPG.Classes.Spells.StringArgument;
+import java.util.HashSet;
+import java.util.LinkedList;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.Spell;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.StringArgument;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 public abstract class IArgument {
     public ParameterType returnType;
@@ -79,7 +80,7 @@ public abstract class IArgument {
         return aio;
     }
 
-    public boolean isValidArgument(Object o, Class c) {
+    public boolean isValidArgument(Object o, Class<?> c) {
         if (o != null && o.getClass() == c && ((Object[]) o).length > 0) {
             return true;
         }
@@ -87,6 +88,7 @@ public abstract class IArgument {
     }
 
     public static void addDefaults() {
+    	// verschiedene Klassen zum herausfinden verschiedener Dinge werden registriert ??? --- kann man nicht einfach aufrufen
         registeredArguments.add(new GetLeggings());
         registeredArguments.add(new GetBoots());
         registeredArguments.add(new GetChestplate());
@@ -121,6 +123,7 @@ public abstract class IArgument {
         registeredArguments.add(new GetCuboid());
         registeredArguments.add(new GetWall());
         registeredArguments.add(new PlayerExists());
+        registeredArguments.add(new GetPlayerByUUID());
         registeredArguments.add(new GetPlayerByName());
         registeredArguments.add(new GetChatArgument());
         registeredArguments.add(new GetChatArgumentLength());
@@ -175,7 +178,8 @@ public abstract class IArgument {
         registeredArguments.add(new GetItemname());
     }
 
-    public static void AutoCast(Object obj, ParameterType pt, EffectArgs ea) {
+    @SuppressWarnings("deprecation")
+	public static void AutoCast(Object obj, ParameterType pt, EffectArgs ea) {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {

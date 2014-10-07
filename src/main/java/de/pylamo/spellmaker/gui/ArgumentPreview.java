@@ -1,13 +1,17 @@
 package de.pylamo.spellmaker.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.HashSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+
 import de.pylamo.spellmaker.Arguments;
 import de.pylamo.spellmaker.gui.SpellItems.Arguments.ArgumentPanel;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.HashSet;
 
 public class ArgumentPreview extends JPanel {
     private static final long serialVersionUID = 1L;

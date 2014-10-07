@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Entity;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.entity.Entity;
 
 public class IgniteCommand extends ICommand {
 

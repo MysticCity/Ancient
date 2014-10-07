@@ -1,23 +1,26 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
+import java.util.Set;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandMemberlist {
     public static void processMemberList(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        AncientRPGGuild g = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+        AncientRPGGuild g = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
         if (g != null) {
-            Set<String> names = g.gMember.keySet();
+            Set<UUID> uuids = g.gMember.keySet();
             mPlayer.sendMessage(ChatColor.GREEN + g.guildName + ":");
-            for (String s : names) {
-                mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(g.gMember.get(s)) + s);
+            for (UUID uuid : uuids) {
+                mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(g.gMember.get(uuid)) + Bukkit.getPlayer(uuid).getName());
             }
         } else {
             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You aren't in a guild.");

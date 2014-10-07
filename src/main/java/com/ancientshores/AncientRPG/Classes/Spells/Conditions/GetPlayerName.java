@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.entity.Player;
 
 public class GetPlayerName extends IArgument {
     @ArgumentDescription(
             description = "Returns the name of the player",
-            parameterdescription = {"player"}, returntype = ParameterType.String, rparams = {ParameterType.String})
+            parameterdescription = {"player"}, returntype = ParameterType.String, rparams = {ParameterType.Player})
     public GetPlayerName() {
         this.returnType = ParameterType.String;
-        this.requiredTypes = new ParameterType[]{ParameterType.String};
+        this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "getplayername";
     }
 

@@ -1,18 +1,19 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import com.ancientshores.AncientRPG.Classes.Spells.Conditions.ArgumentInformationObject;
-import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
-import com.ancientshores.AncientRPG.Util.GlobalMethods;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
+import com.ancientshores.AncientRPG.Classes.Spells.Conditions.ArgumentInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
+import com.ancientshores.AncientRPG.Util.GlobalMethods;
 
 public class ForeachSection extends ICodeSection {
     final ICodeSection parentSection;

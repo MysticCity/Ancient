@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import java.util.HashSet;
+
+import org.bukkit.Location;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.Location;
-
-import java.util.HashSet;
 
 public class GetCube extends IArgument {
     @ArgumentDescription(

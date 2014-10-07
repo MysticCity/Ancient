@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class SetItemNameCommand extends ICommand {
     @CommandDescription(description = "Sets the item name of the item in the players inventory",
@@ -19,7 +20,7 @@ public class SetItemNameCommand extends ICommand {
                 final Player[] target = (Player[]) ca.getParams().get(0);
                 final int slot = ((Number) ca.getParams().get(1)).intValue();
                 final String description = (String) ca.getParams().get(2);
-                for (final Player p : target) {
+                for (Player p : target) {
                     if (p == null) {
                         continue;
                     }

@@ -1,24 +1,28 @@
 package com.ancientshores.AncientRPG.Party.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Party.AncientRPGParty;
+
 public class PartyCommandList {
     public static void processList(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        if (AncientRPGParty.getPlayersParty(mPlayer) != null) {
-            if (AncientRPG.hasPermissions(mPlayer, "")) {
-                AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer);
+        if (AncientRPGParty.getPlayersParty(mPlayer.getUniqueId()) != null) {
+            if (mPlayer.hasPermission("")) { // ??? --- mega sinnlos
+                AncientRPGParty mParty = AncientRPGParty.getPlayersParty(mPlayer.getUniqueId());
                 mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "In your party are:");
-                for (Player p : mParty.getMembers()) {
-                    if (p != null) {
-                        if (p == AncientRPGParty.getPlayersParty(mPlayer).getLeader()) {
-                            mPlayer.sendMessage(ChatColor.GREEN + p.getName() + "(Leader)");
+                for (UUID uuid : mParty.getMembers()) {
+                    if (uuid != null) {
+                        if (uuid == AncientRPGParty.getPlayersParty(mPlayer.getUniqueId()).getLeader()) {
+                            mPlayer.sendMessage(ChatColor.GREEN + Bukkit.getPlayer(uuid).getName() + "(Leader)");
                         } else {
-                            mPlayer.sendMessage(ChatColor.GOLD + p.getName());
+                            mPlayer.sendMessage(ChatColor.GOLD + Bukkit.getPlayer(uuid).getName());
                         }
                     }
                 }

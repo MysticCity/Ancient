@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
 
 public class KillCommand extends ICommand {
     @CommandDescription(description = "<html>Kills the target</html>",
@@ -29,10 +30,10 @@ public class KillCommand extends ICommand {
                                 continue;
                             }
                             LivingEntity ent = (LivingEntity) e;
-                            AncientRPGEntityListener.scheduledXpList.put(e, ca.getCaster());
-                            EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(ca.getCaster(), ent, DamageCause.CUSTOM, Integer.MAX_VALUE);
+                            AncientRPGEntityListener.scheduledXpList.put(e.getUniqueId(), ca.getCaster().getUniqueId());
+                            EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(ca.getCaster(), ent, DamageCause.CUSTOM, Double.MAX_VALUE);
                             Bukkit.getServer().getPluginManager().callEvent(event);
-                            AncientRPGEntityListener.scheduledXpList.remove(e);
+                            AncientRPGEntityListener.scheduledXpList.remove(e.getUniqueId());
                             if (event.isCancelled() || event.getDamage() == 0) {
                                 return;
                             } else {

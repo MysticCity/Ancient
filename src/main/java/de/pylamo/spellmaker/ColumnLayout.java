@@ -10,7 +10,11 @@ package de.pylamo.spellmaker;
  * visit http://www.davidflanagan.com/javaexamples2.
  */
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.LayoutManager2;
 
 /**
  * This LayoutManager arranges the components into a column. Components are

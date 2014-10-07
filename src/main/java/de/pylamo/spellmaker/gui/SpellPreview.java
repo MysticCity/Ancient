@@ -1,13 +1,16 @@
 package de.pylamo.spellmaker.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.HashSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
 import de.pylamo.spellmaker.Commands;
 import de.pylamo.spellmaker.gui.SpellItems.Commands.Command;
 import de.pylamo.spellmaker.gui.SpellItems.Commands.SpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.HashSet;
 
 public class SpellPreview extends JPanel {
     private static final long serialVersionUID = 1L;

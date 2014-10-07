@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.entity.Player;
 
 public class AddPermissionCommand extends ICommand {
     @CommandDescription(description = "<html>Adds the specified permission to the player</html>",

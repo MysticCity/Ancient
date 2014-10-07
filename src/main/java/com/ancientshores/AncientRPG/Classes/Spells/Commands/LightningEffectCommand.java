@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.Location;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.Location;
 
 public class LightningEffectCommand extends ICommand {
     @CommandDescription(description = "<html>Lightning effect will strike at the location</html>",

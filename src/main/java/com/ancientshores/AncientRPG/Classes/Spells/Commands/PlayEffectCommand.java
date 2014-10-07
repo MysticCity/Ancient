@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class PlayEffectCommand extends ICommand {
     @CommandDescription(description = "<html>Play effect at the location</html>",

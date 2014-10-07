@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 
 public class DamageCommand extends ICommand {
 
@@ -29,7 +30,7 @@ public class DamageCommand extends ICommand {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
                             continue;
                         }
-                        if (targetPlayer instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled((Player) targetPlayer)) {
+                        if (targetPlayer instanceof Player && DamageConverter.isWorldEnabled(targetPlayer.getWorld())) {
                             damage = DamageConverter.reduceDamageByArmor(damage, (Player) targetPlayer);
                         }
                         AncientRPGPlayerListener.damageignored = true;
@@ -37,11 +38,11 @@ public class DamageCommand extends ICommand {
                         ((LivingEntity) targetPlayer).damage(Math.round(damage), ca.getCaster());
                         AncientRPGPlayerListener.damageignored = false;
                         AncientRPGEntityListener.ignoreNextHpEvent = false;
-                        AncientRPGEntityListener.scheduledXpList.put(targetPlayer, ca.getCaster());
+                        AncientRPGEntityListener.scheduledXpList.put(targetPlayer.getUniqueId(), ca.getCaster().getUniqueId());
                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                             @Override
                             public void run() {
-                                AncientRPGEntityListener.scheduledXpList.remove(targetPlayer);
+                                AncientRPGEntityListener.scheduledXpList.remove(targetPlayer.getUniqueId());
                             }
                         }, Math.round(1000 / 50));
                     }
@@ -51,8 +52,8 @@ public class DamageCommand extends ICommand {
             }
         } catch (IndexOutOfBoundsException ignored) {
 
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return false;
     }

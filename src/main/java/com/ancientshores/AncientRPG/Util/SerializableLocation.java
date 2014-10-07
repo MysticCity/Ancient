@@ -1,10 +1,10 @@
 package com.ancientshores.AncientRPG.Util;
 
+import java.io.Serializable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-
-import java.io.Serializable;
 
 public class SerializableLocation implements Serializable {
     private static final long serialVersionUID = 1L;

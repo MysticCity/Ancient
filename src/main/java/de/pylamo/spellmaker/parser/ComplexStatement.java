@@ -1,10 +1,10 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.Window;
-
 import java.io.BufferedReader;
 import java.io.IOException;
+
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 
 abstract class ComplexStatement {
     private final String end;

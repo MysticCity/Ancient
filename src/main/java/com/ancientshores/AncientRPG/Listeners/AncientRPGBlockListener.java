@@ -1,12 +1,13 @@
 package com.ancientshores.AncientRPG.Listeners;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 
 public class AncientRPGBlockListener implements Listener {
 
@@ -21,8 +22,8 @@ public class AncientRPGBlockListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void blockBreak(BlockBreakEvent event) {
-        if (!event.isCancelled() && AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(event.getPlayer())) {
-            PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getName());
+        if (!event.isCancelled() && AncientRPGExperience.isWorldEnabled(event.getPlayer().getWorld())) {
+            PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getUniqueId());
             switch (event.getBlock().getType()) {
                 case STONE:
                     pd.getXpSystem().addXP(AncientRPGExperience.XPOfStone, false);

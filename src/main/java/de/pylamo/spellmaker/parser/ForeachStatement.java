@@ -1,11 +1,11 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.ForeachItem;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
-import de.pylamo.spellmaker.gui.Window;
-
 import java.util.regex.Pattern;
+
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.ForeachItem;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 
 public class ForeachStatement extends ComplexStatement {
     private IParameter arr;

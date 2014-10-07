@@ -1,20 +1,22 @@
 package com.ancientshores.AncientRPG.API;
 
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import org.bukkit.entity.Player;
+import java.util.UUID;
+
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 
 public class AncientRPGClassChangeEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     boolean cancelled = false;
     public AncientRPGClass oldclass;
     public AncientRPGClass newclass;
-    public Player p;
+    public UUID uuid;
 
-    public AncientRPGClassChangeEvent(Player p, AncientRPGClass old, AncientRPGClass newc) {
-        this.p = p;
+    public AncientRPGClassChangeEvent(UUID uuid, AncientRPGClass old, AncientRPGClass newc) {
+        this.uuid = uuid;
         oldclass = old;
         newclass = newc;
     }

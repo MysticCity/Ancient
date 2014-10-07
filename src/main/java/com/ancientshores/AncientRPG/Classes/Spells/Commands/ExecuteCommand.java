@@ -1,12 +1,13 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class ExecuteCommand extends ICommand {
 
@@ -25,8 +26,8 @@ public class ExecuteCommand extends ICommand {
                 AncientRPG.plugin.getServer().getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
                     public void run() {
                         for (Player p : pl) {
-                            Spell s = AncientRPGClass.getSpell(spellName, PlayerData.getPlayerData(p.getName()));
-                            CommandPlayer.scheduleSpell(s, p);
+                            Spell s = AncientRPGClass.getSpell(spellName, PlayerData.getPlayerData(p.getUniqueId()));
+                            CommandPlayer.scheduleSpell(s, p.getUniqueId());
                         }
                     }
                 });

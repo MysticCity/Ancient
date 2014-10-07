@@ -1,13 +1,14 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 
 public class WhileSection extends ICodeSection {
     Condition c;

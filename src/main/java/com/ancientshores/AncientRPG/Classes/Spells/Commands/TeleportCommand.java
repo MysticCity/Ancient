@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.Location;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import org.bukkit.Location;
 
 public class TeleportCommand extends ICommand {
     @CommandDescription(description = "<html>Teleports the player to the location</html>",

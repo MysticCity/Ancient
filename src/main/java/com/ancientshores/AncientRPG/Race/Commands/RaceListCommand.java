@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Race.Commands;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 import com.ancientshores.AncientRPG.Util.PageBuilder;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public class RaceListCommand {
     public static void showRaces(Player p, String[] args) {
@@ -16,7 +17,7 @@ public class RaceListCommand {
             }
         }
         PageBuilder pb = new PageBuilder();
-        if (!AncientRPG.hasPermissions(p, AncientRPGRace.listRacePermission)) {
+        if (!p.hasPermission(AncientRPGRace.listRacePermission)) {
             p.sendMessage(AncientRPG.brand2 + "You don't have permission to list the races");
             return;
         }

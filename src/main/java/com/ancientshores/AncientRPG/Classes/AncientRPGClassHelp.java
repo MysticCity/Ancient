@@ -1,10 +1,11 @@
 package com.ancientshores.AncientRPG.Classes;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.HelpList;
+import java.io.File;
+
 import org.bukkit.command.CommandSender;
 
-import java.io.File;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.HelpList;
 
 public class AncientRPGClassHelp {
     static HelpList helpList;

@@ -1,12 +1,16 @@
 package de.pylamo.spellmaker.gui.SpellItems;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+
 public class SpellmakerScrollPanel extends JPanel {
-    JScrollBar jsb = new JScrollBar();
+    private static final long serialVersionUID = 1L;
+	JScrollBar jsb = new JScrollBar();
 
     public SpellmakerScrollPanel(final Container c) {
         this.setLayout(new BorderLayout());

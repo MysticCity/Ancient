@@ -1,5 +1,5 @@
 name: AncientRPG
 main: com.ancientshores.AncientRPG.AncientRPG
-version: 0.9.6
+version: 0.9.8
 depend: [Vault]
-authors: [Keyle,Pylamo]
+authors: [FroznMine,Keyle,Pylamo]

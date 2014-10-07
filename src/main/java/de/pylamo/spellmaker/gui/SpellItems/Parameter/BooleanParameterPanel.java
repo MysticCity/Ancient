@@ -1,9 +1,10 @@
 package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
-import javax.swing.*;
+import java.awt.Dimension;
+
+import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 
 public class BooleanParameterPanel extends ParameterPanel {
     private static final long serialVersionUID = 1L;

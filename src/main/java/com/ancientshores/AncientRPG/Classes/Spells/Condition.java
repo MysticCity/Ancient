@@ -1,8 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.Conditions.ArgumentInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
-import org.bukkit.entity.Player;
 
 public class Condition {
     Operators operator;

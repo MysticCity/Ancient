@@ -1,16 +1,21 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 @ParameterDescription(amount = 2, description = "<html>returns the nearest players of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "NearestPlayers")
 public class NearestPlayersParameter implements IParameter {
@@ -22,7 +27,7 @@ public class NearestPlayersParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -32,7 +37,7 @@ public class NearestPlayersParameter implements IParameter {
             if (subparam.length == 2) {
                 try {
                     if (ea.getSpell().variables.contains(subparam[1].toLowerCase())) {
-                        count = ea.getSpellInfo().parseVariable(mPlayer, subparam[1].toLowerCase());
+                        count = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[1].toLowerCase());
                     } else {
                         count = Integer.parseInt(subparam[1]);
                     }
@@ -42,9 +47,9 @@ public class NearestPlayersParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestPlayers == null || ea.getSpellInfo().nearestPlayers[0] == null) {
-            Player[] nEntity = ea.getSpellInfo().getNearestPlayers(mPlayer, range, count);
-            ea.getSpellInfo().nearestPlayers = nEntity;
-            if (nEntity == null) {
+            UUID[] players = ea.getSpellInfo().getNearestPlayers(mPlayer, range, count);
+            ea.getSpellInfo().nearestPlayers = players;
+            if (players == null) {
                 return;
             }
         }
@@ -59,14 +64,21 @@ public class NearestPlayersParameter implements IParameter {
                 Location[] l = new Location[ea.getSpellInfo().nearestPlayers.length];
                 for (int i = 0; i < ea.getSpellInfo().nearestPlayers.length; i++) {
                     if (ea.getSpellInfo().nearestPlayers[i] != null) {
-                        l[i] = ea.getSpellInfo().nearestPlayers[i].getLocation();
+                    	for (World w : Bukkit.getWorlds()) {
+                    		for (Entity e : w.getEntities()) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestPlayers[i]) != 0) {
+                    				continue;
+                    			}
+                    			l[i] = e.getLocation();
+                    		}
+                    	}
                     }
                 }
                 break;
             case String:
                 String s = "";
-                for (Player p : ea.getSpellInfo().nearestPlayers) {
-                    s += p.getName() + ",";
+                for (UUID uuid : ea.getSpellInfo().nearestPlayers) {
+                    s += Bukkit.getPlayer(uuid).getName() + ",";
                 }
                 ea.getParams().addLast(s);
                 break;
@@ -87,7 +99,7 @@ public class NearestPlayersParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -96,7 +108,7 @@ public class NearestPlayersParameter implements IParameter {
             if (subparam.length == 2) {
                 try {
                     if (so.mSpell.variables.contains(subparam[1].toLowerCase())) {
-                        count = so.parseVariable(mPlayer, subparam[1].toLowerCase());
+                        count = so.parseVariable(mPlayer.getUniqueId(), subparam[1].toLowerCase());
                     } else {
                         count = Integer.parseInt(subparam[1]);
                     }

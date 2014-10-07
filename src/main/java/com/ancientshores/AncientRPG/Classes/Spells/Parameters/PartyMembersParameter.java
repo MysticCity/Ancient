@@ -1,16 +1,21 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 @ParameterDescription(amount = 2, description = "<html>returns members of the party<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "PartyMembers")
 public class PartyMembersParameter implements IParameter {
@@ -22,7 +27,7 @@ public class PartyMembersParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (effectArgs.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = effectArgs.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = effectArgs.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -31,7 +36,7 @@ public class PartyMembersParameter implements IParameter {
             }
         }
         if (subparam != null || effectArgs.getSpellInfo().partyMembers == null) {
-            Player[] nEntity = effectArgs.getSpellInfo().getPartyMembers(mPlayer, range);
+            UUID[] nEntity = effectArgs.getSpellInfo().getPartyMembers(mPlayer, range);
             effectArgs.getSpellInfo().partyMembers = nEntity;
             if (nEntity == null) {
                 return;
@@ -49,15 +54,22 @@ public class PartyMembersParameter implements IParameter {
                 Location[] l = new Location[effectArgs.getSpellInfo().partyMembers.length];
                 for (int i = 0; i < effectArgs.getSpellInfo().partyMembers.length; i++) {
                     if (effectArgs.getSpellInfo().partyMembers[i] != null) {
-                        l[i] = effectArgs.getSpellInfo().partyMembers[i].getLocation();
-                        effectArgs.getParams().addLast(l);
+                    	for (World w : Bukkit.getWorlds()) {
+                    		for (Entity e : w.getEntities()) {
+                    			if (e.getUniqueId().compareTo(effectArgs.getSpellInfo().partyMembers[i]) != 0) {
+                    				continue;
+                    			}
+                    			l[i] = e.getLocation();
+                    			effectArgs.getParams().addLast(l);
+                    		}
+                    	}
                     }
                 }
                 break;
             case String:
                 String s = "";
-                for (Player p : effectArgs.getSpellInfo().partyMembers) {
-                    s += p.getName() + ",";
+                for (UUID uuid : effectArgs.getSpellInfo().partyMembers) {
+                    s += Bukkit.getPlayer(uuid).getName() + ",";
                 }
                 effectArgs.getParams().addLast(s);
                 break;
@@ -78,7 +90,7 @@ public class PartyMembersParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }

@@ -1,13 +1,13 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public abstract class ICodeSection {
     protected final LinkedList<ICodeSection> sections = new LinkedList<ICodeSection>();

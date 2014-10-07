@@ -1,15 +1,20 @@
 package de.pylamo.spellmaker.gui;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperationItem;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperator;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariableOperatorPanel;
 import de.pylamo.spellmaker.gui.SpellItems.Variable.VariablePanel;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashSet;
 
 public class VariablePreview extends JPanel {
     private static final long serialVersionUID = 1L;

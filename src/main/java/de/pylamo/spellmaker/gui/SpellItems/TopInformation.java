@@ -1,6 +1,7 @@
 package de.pylamo.spellmaker.gui.SpellItems;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class TopInformation extends JPanel {
     private static final long serialVersionUID = 1L;

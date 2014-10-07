@@ -1,19 +1,20 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
+
 public class GuildCommandToggleFriendlyFire {
     public static void processFF(CommandSender sender) {
         Player mPlayer = (Player) sender;
-        AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+        AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
         if (AncientRPGGuild.canToggleff) {
             if (mGuild != null) {
-                AncientRPGGuildRanks r = mGuild.getGuildMembers().get(mPlayer.getName());
+                AncientRPGGuildRanks r = mGuild.getGuildMembers().get(mPlayer.getUniqueId());
                 if (r == AncientRPGGuildRanks.CO_LEADER || r == AncientRPGGuildRanks.LEADER) {
                     if (mGuild.friendlyFire) {
                         mGuild.friendlyFire = false;

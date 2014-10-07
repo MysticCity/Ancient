@@ -1,17 +1,21 @@
 package de.pylamo.spellmaker.gui.SpellItems;
 
-import de.pylamo.spellmaker.gui.Window;
-import de.pylamo.spellmaker.parser.SpellParser;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.parser.SpellParser;
+
 public class InsertWindow extends JFrame {
-    JTextArea textArea = new JTextArea();
+	private static final long serialVersionUID = 1L;
+	JTextArea textArea = new JTextArea();
 
     public InsertWindow(final Window w) {
         this.setLayout(null);

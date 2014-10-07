@@ -1,8 +1,11 @@
 package de.pylamo.spellmaker;
 
-import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
+
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.text.html.HTMLDocument;
 
 public class HelpFrame extends JFrame {
     private static final long serialVersionUID = 1L;

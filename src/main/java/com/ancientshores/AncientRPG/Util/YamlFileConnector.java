@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Util;
 
-import com.ancientshores.AncientRPG.AncientRPG;
+import java.io.File;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.io.File;
+import com.ancientshores.AncientRPG.AncientRPG;
 
 public class YamlFileConnector implements FileConnector {
     final AncientRPG instance;

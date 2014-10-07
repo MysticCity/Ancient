@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Spells.Commands;
 
+import java.util.Map.Entry;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.Commands.ClassCastCommand;
 import com.ancientshores.AncientRPG.Classes.Spells.Spell;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 import com.ancientshores.AncientRPG.Util.PageBuilder;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
-import java.util.Map.Entry;
 
 public class SpellsCommand {
     public static void spellListCommand(String[] args, Player p) {
@@ -27,7 +28,7 @@ public class SpellsCommand {
     }
 
     public static void showSpellList(Player p, int page) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         PageBuilder pb = new PageBuilder();
         if (AncientRPGClass.classList.containsKey(pd.getClassName().toLowerCase())) {
             pb.addMessage(AncientRPG.brand2 + "Class spells:");
@@ -42,7 +43,7 @@ public class SpellsCommand {
                 if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                     message = ChatColor.GREEN + s.getValue().name;
                 } else {
-                    if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                         message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                     } else {
                         message = ChatColor.RED + s.getValue().name;
@@ -65,7 +66,7 @@ public class SpellsCommand {
                 if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                     message = ChatColor.GREEN + s.getValue().name;
                 } else {
-                    if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                         message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                     } else {
                         message = ChatColor.RED + s.getValue().name;
@@ -91,7 +92,7 @@ public class SpellsCommand {
                     if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                         message = ChatColor.GREEN + s.getValue().name;
                     } else {
-                        if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                        if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                             message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                         } else {
                             message = ChatColor.RED + s.getValue().name;
@@ -135,7 +136,7 @@ public class SpellsCommand {
                 if (ClassCastCommand.canCast(pd, p, s.getKey())) {
                     message = ChatColor.GREEN + s.getValue().name;
                 } else {
-                    if (AncientRPGExperience.isWorldEnabled(p) && AncientRPGExperience.isEnabled() && pd.getXpSystem().level < s.getValue().minlevel) {
+                    if (AncientRPGExperience.isWorldEnabled(p.getWorld()) && pd.getXpSystem().level < s.getValue().minlevel) {
                         message = ChatColor.RED + "[lvl " + s.getValue().minlevel + "] " + s.getValue().name;
                     } else {
                         message = ChatColor.RED + s.getValue().name;

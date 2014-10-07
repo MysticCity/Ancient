@@ -1,9 +1,9 @@
 package de.pylamo.spellmaker.parser;
 
-import de.pylamo.spellmaker.gui.SpellItems.Condition.WhileItem;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.Condition.WhileItem;
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 
 public class WhileStatement extends ComplexStatement {
     private IParameter panel;

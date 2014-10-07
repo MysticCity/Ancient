@@ -1,8 +1,8 @@
 package com.ancientshores.AncientRPG.Guild;
 
-import org.bukkit.ChatColor;
-
 import java.io.Serializable;
+
+import org.bukkit.ChatColor;
 
 public enum AncientRPGGuildRanks implements Serializable {
     TRIAL("Trial", 0),

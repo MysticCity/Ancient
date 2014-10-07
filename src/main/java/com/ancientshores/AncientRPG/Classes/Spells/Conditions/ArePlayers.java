@@ -1,17 +1,18 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.entity.Player;
 
 public class ArePlayers extends IArgument {
     @ArgumentDescription(
-            description = "Checks a collection of locations if all of them are players.",
-            parameterdescription = {"collection"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Location})
+            description = "Checks a collection if all of them are players.",
+            parameterdescription = {"collection"}, returntype = ParameterType.Boolean, rparams = {ParameterType.Player})
     public ArePlayers() {
         this.returnType = ParameterType.Boolean;
-        this.requiredTypes = new ParameterType[]{ParameterType.Location};
+        this.requiredTypes = new ParameterType[]{ParameterType.Player};
         this.name = "areplayers";
     }
 

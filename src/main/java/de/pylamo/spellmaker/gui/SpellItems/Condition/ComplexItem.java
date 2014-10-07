@@ -1,9 +1,9 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.Window;
+import java.awt.Point;
 
-import java.awt.*;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 
 public abstract class ComplexItem extends ISpellItem {
     ComplexItem(Window w) {

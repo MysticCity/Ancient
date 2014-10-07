@@ -1,14 +1,30 @@
 package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+import java.awt.dnd.DragSourceMotionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 import de.pylamo.spellmaker.gui.SimpleDragObject;
 import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
 import de.pylamo.spellmaker.gui.SpellItems.ToolTipItem;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.dnd.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class ParameterPanel extends IParameter {
     private static final long serialVersionUID = 1L;

@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 
 public class EnchantCommand extends ICommand {
     @CommandDescription(description = "<html>Enchants the item in hand with the id (or all if allitems is true) with the enchantment and strength</html>",
@@ -12,7 +13,8 @@ public class EnchantCommand extends ICommand {
         this.paramTypes = new ParameterType[]{ParameterType.Number, ParameterType.String, ParameterType.Number, ParameterType.Boolean};
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean playCommand(EffectArgs ca) {
         if (ca.getParams().size() == 4 && ca.getParams().get(0) instanceof Number && ca.getParams().get(1) instanceof String && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Boolean) {
             int id = (int) ((Number) ca.getParams().get(0)).doubleValue();

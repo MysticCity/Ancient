@@ -1,9 +1,9 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import java.util.List;
+
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-
-import java.util.List;
 
 public class LightningCommand extends ICommand {
     @CommandDescription(description = "<html>Lightning will strike at the location</html>",
@@ -32,12 +32,12 @@ public class LightningCommand extends ICommand {
                                     if (ca.getCaster().equals(e)) {
                                         continue;
                                     }
-                                    com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener.scheduledXpList.put(e, ca.getCaster());
+                                    com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener.scheduledXpList.put(e.getUniqueId(), ca.getCaster().getUniqueId());
                                     com.ancientshores.AncientRPG.AncientRPG.plugin.scheduleThreadSafeTask(com.ancientshores.AncientRPG.AncientRPG.plugin, new Runnable() {
 
                                         @Override
                                         public void run() {
-                                            com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener.scheduledXpList.remove(e);
+                                            com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener.scheduledXpList.remove(e.getUniqueId());
                                         }
                                     }, Math.round(1000 / 50));
                                 }

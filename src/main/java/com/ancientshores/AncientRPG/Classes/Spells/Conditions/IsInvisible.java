@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.InvisibleCommand;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
+
+import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.InvisibleCommand;
 
 public class IsInvisible extends IArgument {
     @ArgumentDescription(
@@ -23,6 +24,6 @@ public class IsInvisible extends IArgument {
             return null;
         }
         Player p = ((Player[]) obj[0])[0];
-        return p.hasPotionEffect(PotionEffectType.INVISIBILITY) || InvisibleCommand.invisiblePlayers.contains(p);
+        return p.hasPotionEffect(PotionEffectType.INVISIBILITY) || InvisibleCommand.invisiblePlayers.contains(p.getUniqueId());
     }
 }

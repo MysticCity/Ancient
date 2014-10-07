@@ -1,13 +1,16 @@
 package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 
 public abstract class IParameter extends JPanel implements MouseListener {
     private static final long serialVersionUID = 1L;

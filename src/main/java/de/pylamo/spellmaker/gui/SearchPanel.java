@@ -1,13 +1,16 @@
 package de.pylamo.spellmaker.gui;
 
+import java.util.Map;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
 import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
 
-import javax.swing.*;
-import java.util.Map;
-
-public class SearchPanel extends JPanel {
-    private final Window w;
+public class SearchPanel extends JPanel { 
+	private static final long serialVersionUID = 1L;
+	private final Window w;
 
     public SearchPanel(Window w) {
         this.w = w;

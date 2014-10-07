@@ -1,7 +1,8 @@
 package com.ancientshores.AncientRPG.Classes.Commands;
 
-import com.ancientshores.AncientRPG.Spells.Commands.SpellsCommand;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.Spells.Commands.SpellsCommand;
 
 public class ClassSpelllistCommand {
     public static void spellListCommand(String[] args, Player p) {

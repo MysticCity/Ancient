@@ -1,19 +1,21 @@
 package com.ancientshores.AncientRPG.Classes.Spells;
 
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Classes.Spells.Conditions.ArgumentInformationObject;
-import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
+import java.util.HashMap;
+import java.util.UUID;
+import java.util.regex.Pattern;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.regex.Pattern;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Classes.Spells.Conditions.ArgumentInformationObject;
+import com.ancientshores.AncientRPG.Classes.Spells.Conditions.IArgument;
 
 public class Variable extends ICodeSection {
     public static final HashMap<String, Variable> globVars = new HashMap<String, Variable>();
-    public static final HashMap<String, HashMap<String, Variable>> playerVars = new HashMap<String, HashMap<String, Variable>>();
+    public static final HashMap<UUID, HashMap<String, Variable>> playerVars = new HashMap<UUID, HashMap<String, Variable>>();
     public String name;
     IParameter param;
     public Object obj;
@@ -135,7 +137,8 @@ public class Variable extends ICodeSection {
         return obj;
     }
 
-    public void AutoCast(ParameterType pt, EffectArgs ea) {
+    @SuppressWarnings("deprecation")
+	public void AutoCast(ParameterType pt, EffectArgs ea) {
         switch (pt) {
             case Number: {
                 if (obj instanceof Number) {
@@ -159,16 +162,8 @@ public class Variable extends ICodeSection {
                     Entity[] e = new Entity[1];
                     e[0] = (Entity) obj;
                     ea.getParams().addLast(e);
-                } else if (obj instanceof Player[])
-
-                {
-                    Player[] arr = (Player[]) obj;
-                    Entity[] e = new Entity[arr.length];
-                    for (int i = 0; i < arr.length; i++) {
-                        if (arr[i] != null) {
-                            e[i] = arr[i];
-                        }
-                    }
+                } else if (obj instanceof Player[]) {
+                    Entity[] e = (Player[]) obj;
                     ea.getParams().addLast(e);
                 }
                 break;
@@ -211,9 +206,7 @@ public class Variable extends ICodeSection {
                     Location[] arr = new Location[1];
                     arr[0] = ((Entity) obj).getLocation();
                     ea.getParams().addLast(arr);
-                } else if (obj instanceof Player[])
-
-                {
+                } else if (obj instanceof Player[]) {
                     Player[] arr = (Player[]) obj;
                     Location[] l = new Location[arr.length];
                     for (int i = 0; i < arr.length; i++) {
@@ -300,9 +293,9 @@ public class Variable extends ICodeSection {
         if (Variable.globVars.containsKey(this.name)) {
             Variable.globVars.get(this.name).obj = obj;
         }
-        if (Variable.playerVars.containsKey(so.buffcaster.getPlayer().getName()) && Variable.playerVars.get(so.buffcaster.getPlayer().getName()).containsKey(this.name.toLowerCase())) {
-            Variable.playerVars.get(so.buffcaster.getPlayer().getName()).get(this.name.toLowerCase()).obj = this.obj;
-            so.variables.put(this.name.toLowerCase(), Variable.playerVars.get(so.buffcaster.getPlayer().getName()).get(this.name.toLowerCase()));
+        if (Variable.playerVars.containsKey(so.buffcaster) && Variable.playerVars.get(so.buffcaster).containsKey(this.name.toLowerCase())) {
+            Variable.playerVars.get(so.buffcaster).get(this.name.toLowerCase()).obj = this.obj;
+            so.variables.put(this.name.toLowerCase(), Variable.playerVars.get(so.buffcaster).get(this.name.toLowerCase()));
 //			Variable.playerVars.get(so.buffcaster.getPlayer().getName()).put(this.name.toLowerCase(), this);
         }
         if (obj instanceof Player) {

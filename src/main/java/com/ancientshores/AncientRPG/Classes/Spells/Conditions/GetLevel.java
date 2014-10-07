@@ -1,11 +1,12 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class GetLevel extends IArgument {
     @ArgumentDescription(
@@ -23,8 +24,8 @@ public class GetLevel extends IArgument {
             return null;
         }
         Player mPlayer = ((Player[]) obj[0])[0];
-        if (AncientRPGExperience.isEnabled() && AncientRPGExperience.isWorldEnabled(mPlayer)) {
-            PlayerData pd = PlayerData.getPlayerData(mPlayer.getName());
+        if (AncientRPGExperience.isWorldEnabled(mPlayer.getWorld())) {
+            PlayerData pd = PlayerData.getPlayerData(mPlayer.getUniqueId());
             return pd.getXpSystem().level;
         }
         return 0;

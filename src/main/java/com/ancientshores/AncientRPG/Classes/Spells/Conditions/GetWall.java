@@ -1,12 +1,13 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
+import java.util.HashSet;
+
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-import java.util.HashSet;
+import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 
 public class GetWall extends IArgument {
     @ArgumentDescription(

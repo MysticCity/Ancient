@@ -15,18 +15,18 @@ public enum CompareOperator {
     }
 
     public static CompareOperator getOperatorByToken(String s) {
-        if (s.equals("==")) {
+        if (s.equalsIgnoreCase("==")) {
             return Equals;
         }
-        if (s.equals("!=")) {
+        if (s.equalsIgnoreCase("!=")) {
             return NotEquals;
-        } else if (s.equals(">=")) {
+        } else if (s.equalsIgnoreCase(">=")) {
             return LargerEquals;
-        } else if (s.equals("<=")) {
+        } else if (s.equalsIgnoreCase("<=")) {
             return SmallerEquals;
-        } else if (s.equals(">")) {
+        } else if (s.equalsIgnoreCase(">")) {
             return Larger;
-        } else if (s.equals("<")) {
+        } else if (s.equalsIgnoreCase("<")) {
             return Smaller;
         }
         return null;

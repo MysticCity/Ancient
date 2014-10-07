@@ -1,12 +1,17 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ToolTipItem;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
 import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterSlot;
-import de.pylamo.spellmaker.gui.SpellItems.ToolTipItem;
-import de.pylamo.spellmaker.gui.Window;
-
-import javax.swing.*;
-import java.awt.*;
 
 
 public class ForeachStartItem extends JPanel {

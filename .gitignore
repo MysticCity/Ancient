@@ -16,13 +16,28 @@
 .*.sw[a-p]
 
 # Mac
-/.DS_Store
+*.DS_Store
 
 # Ant
 build.number
 
 # Maven
 /target
+<<<<<<< HEAD
 
 #Test
 /sinnlos
+=======
+/bin/
+
+# Documentation
+/doc/
+/documentation/
+
+# Stuff
+/stuff/*
+/src/main/resources/laf/*
+/uml/*
+/stuff/
+/plan.rtf
+>>>>>>> new(FroznMine)

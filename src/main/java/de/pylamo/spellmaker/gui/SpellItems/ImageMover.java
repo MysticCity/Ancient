@@ -1,6 +1,10 @@
 package de.pylamo.spellmaker.gui.SpellItems;
 
-import java.awt.*;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 

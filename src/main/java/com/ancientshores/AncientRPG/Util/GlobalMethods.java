@@ -1,8 +1,8 @@
 package com.ancientshores.AncientRPG.Util;
 
-import org.bukkit.entity.*;
-
 import java.lang.reflect.Array;
+
+import org.bukkit.entity.*;
 
 public class GlobalMethods {
     public static String getStringByEntity(Entity e) {
@@ -79,13 +79,13 @@ public class GlobalMethods {
         if (e instanceof MagmaCube) {
             return "magmacube";
         }
-        if (e instanceof PoweredMinecart) {
+        if (e instanceof org.bukkit.entity.minecart.PoweredMinecart) {
             return "poweredminecart";
         }
-        if (e instanceof StorageMinecart) {
-            return "storageminecart";
+        if (e instanceof org.bukkit.entity.minecart.StorageMinecart) {
+        	return "storageminecart";
         }
-        if (e instanceof Minecart) {
+        if (e instanceof org.bukkit.entity.minecart.RideableMinecart) {
             return "minecart";
         }
         if (e instanceof Ocelot) {

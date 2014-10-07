@@ -1,10 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import java.util.Random;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-
-import java.util.Random;
 
 public class GetRandomBetween extends IArgument {
     @ArgumentDescription(

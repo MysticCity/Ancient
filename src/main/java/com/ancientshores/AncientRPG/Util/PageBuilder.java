@@ -1,9 +1,9 @@
 package com.ancientshores.AncientRPG.Util;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-
-import java.util.ArrayList;
 
 public class PageBuilder {
     final ArrayList<String> messages = new ArrayList<String>();

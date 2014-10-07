@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.HelpList;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.HelpList;
-import org.bukkit.entity.Player;
 
 public class AddPrefixCommand extends ICommand {
     @CommandDescription(description = "<html>Adds a prefix to the players name if it doesn't already exist</html>",
@@ -23,7 +24,7 @@ public class AddPrefixCommand extends ICommand {
                         if (p == null) {
                             continue;
                         }
-                        if (!p.getDisplayName().contains(node)) {
+                        if (!p.getDisplayName().startsWith(node)) {
                             p.setDisplayName(node + p.getDisplayName());
                         }
                     }

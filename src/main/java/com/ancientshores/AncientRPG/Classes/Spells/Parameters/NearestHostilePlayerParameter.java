@@ -1,15 +1,20 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Parameters;
 
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
-import java.util.Arrays;
-import java.util.logging.Level;
+import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
 
 public class NearestHostilePlayerParameter implements IParameter {
 
@@ -19,7 +24,7 @@ public class NearestHostilePlayerParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (ea.getSpell().variables.contains(subparam[0].toLowerCase())) {
-                    range = ea.getSpellInfo().parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = ea.getSpellInfo().parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }
@@ -28,9 +33,9 @@ public class NearestHostilePlayerParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().hostilePlayers == null || ea.getSpellInfo().hostilePlayers[0] == null) {
-            Player[] nEntity = ea.getSpellInfo().getNearestHostilePlayers(mPlayer, range, 3);
-            ea.getSpellInfo().hostilePlayers = nEntity;
-            if (nEntity == null) {
+            UUID[] players = ea.getSpellInfo().getNearestHostilePlayers(mPlayer, range, 3);
+            ea.getSpellInfo().hostilePlayers = players;
+            if (players == null) {
                 return;
             }
         }
@@ -42,15 +47,22 @@ public class NearestHostilePlayerParameter implements IParameter {
                 Location[] l = new Location[ea.getSpellInfo().hostilePlayers.length];
                 for (int i = 0; i < ea.getSpellInfo().hostilePlayers.length; i++) {
                     if (ea.getSpellInfo().hostilePlayers[i] != null) {
-                        l[i] = ea.getSpellInfo().hostilePlayers[i].getLocation();
+                    	for (World w : Bukkit.getWorlds()) {
+                    		for (Entity e : w.getEntities()) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().hostilePlayers[i]) != 0) {
+                    				continue;
+                    			}
+                    			l[i] = e.getLocation();
+                    		}
+                    	}
                     }
                 }
                 ea.getParams().addLast(l);
                 break;
             case String:
                 String s = "";
-                for (Player p : ea.getSpellInfo().hostilePlayers) {
-                    s += p.getName() + ",";
+                for (UUID p : ea.getSpellInfo().hostilePlayers) {
+                    s += Bukkit.getPlayer(p).getName() + ",";
                 }
                 ea.getParams().addLast(s);
                 break;
@@ -71,7 +83,7 @@ public class NearestHostilePlayerParameter implements IParameter {
         if (subparam != null) {
             try {
                 if (so.mSpell.variables.contains(subparam[0].toLowerCase())) {
-                    range = so.parseVariable(mPlayer, subparam[0].toLowerCase());
+                    range = so.parseVariable(mPlayer.getUniqueId(), subparam[0].toLowerCase());
                 } else {
                     range = Integer.parseInt(subparam[0]);
                 }

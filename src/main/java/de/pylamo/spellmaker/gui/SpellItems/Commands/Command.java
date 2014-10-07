@@ -1,8 +1,8 @@
 package de.pylamo.spellmaker.gui.SpellItems.Commands;
 
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
-
 import java.util.regex.Pattern;
+
+import de.pylamo.spellmaker.gui.SpellItems.Parameter.Parameter;
 
 public class Command {
 

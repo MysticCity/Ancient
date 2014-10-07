@@ -1,12 +1,13 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
-import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.HP.DamageConverter;
-import com.ancientshores.AncientRPG.PlayerData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.PlayerData;
+import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
+import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.AncientRPG.HP.DamageConverter;
 
 public class SetHpCommand extends ICommand {
     @CommandDescription(description = "<html>Sets the health of the target to the specified amount</html>",
@@ -24,9 +25,9 @@ public class SetHpCommand extends ICommand {
                     if (e == null) {
                         continue;
                     }
-                    if (e instanceof Player && DamageConverter.isEnabled() && DamageConverter.isWorldEnabled((Player) e)) {
-                        PlayerData.getPlayerData(((Player) e).getName()).getHpsystem().health = (int) ((Number) ca.getParams().get(1)).doubleValue();
-                        PlayerData.getPlayerData(((Player) e).getName()).getHpsystem().setMinecraftHP();
+                    if (e instanceof Player && DamageConverter.isWorldEnabled(e.getWorld())) {
+                        PlayerData.getPlayerData(((Player) e).getUniqueId()).getHpsystem().health = (int) ((Number) ca.getParams().get(1)).doubleValue();
+                        PlayerData.getPlayerData(((Player) e).getUniqueId()).getHpsystem().setMinecraftHP();
                     } else {
                         ((LivingEntity) e).setHealth((Integer) ca.getParams().get(1));
                     }

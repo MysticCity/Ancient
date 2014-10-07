@@ -1,12 +1,15 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 
 public class GuildCommandSetTag {
     public static void processSetTag(CommandSender sender, String[] args) {
@@ -15,13 +18,13 @@ public class GuildCommandSetTag {
         }
         Player mPlayer = (Player) sender;
         if (args.length >= 2) {
-            AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getName());
+            AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
             if (mGuild != null) {
-                if (AncientRPGGuildRanks.hasMotdRights(mGuild.gMember.get(mPlayer.getName()))) {
+                if (AncientRPGGuildRanks.hasMotdRights(mGuild.gMember.get(mPlayer.getUniqueId()))) {
                     args[0] = "";
                     mGuild.tag = AncientRPG.convertStringArrayToString(args).trim();
-                    for (String s : mGuild.gMember.keySet()) {
-                        Player p = Bukkit.getServer().getPlayer(s);
+                    for (UUID uuid : mGuild.gMember.keySet()) {
+                        Player p = Bukkit.getPlayer(uuid);
                         if (p != null) {
                             AncientRPGGuild.setTag(p);
                         }

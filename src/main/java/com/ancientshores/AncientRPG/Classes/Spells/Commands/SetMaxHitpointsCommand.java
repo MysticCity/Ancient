@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.entity.Player;
+
+import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.PlayerData;
-import org.bukkit.entity.Player;
 
 public class SetMaxHitpointsCommand extends ICommand {
     @CommandDescription(description = "<html>Sets the maximumhealth of the target to the specified amount</html>",
@@ -22,7 +23,7 @@ public class SetMaxHitpointsCommand extends ICommand {
                     if (p == null) {
                         continue;
                     }
-                    PlayerData pd = PlayerData.getPlayerData(p.getName());
+                    PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
                     double ratio = pd.getHpsystem().health / pd.getHpsystem().maxhp;
                     pd.getHpsystem().maxhp = hp;
                     pd.getHpsystem().health = Math.round(pd.getHpsystem().maxhp * ratio);

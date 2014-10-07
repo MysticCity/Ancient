@@ -1,11 +1,11 @@
 package de.pylamo.spellmaker.gui.SpellItems.Parameter;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.HashSet;
 
 public enum Parameter {
-    All(Color.white),
-    Player(Color.red),
+    All(Color.WHITE),
+    Player(Color.RED),
     Condition(new Color(108, 45, 199)),
     CompareItem(new Color(255, 106, 0)),
     String(Color.PINK),
@@ -17,8 +17,9 @@ public enum Parameter {
     Void(Color.WHITE),
     Variable(Color.LIGHT_GRAY),
     Operator(Color.MAGENTA),
-    CompareOperator(new Color(255, 168, 236));
-
+    CompareOperator(new Color(255, 168, 236)),
+    UUID(new Color(164,114,83));
+    
     private final Color c;
 
     private Parameter(Color bg) {

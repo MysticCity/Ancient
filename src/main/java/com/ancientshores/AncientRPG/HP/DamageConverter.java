@@ -1,13 +1,46 @@
 package com.ancientshores.AncientRPG.HP;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.UUID;
+
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.PlayerData;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentWrapper;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.CaveSpider;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Egg;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Enderman;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fireball;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.Giant;
+import org.bukkit.entity.IronGolem;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.MagmaCube;
+import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.PigZombie;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Silverfish;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.SmallFireball;
+import org.bukkit.entity.Snowman;
+import org.bukkit.entity.Spider;
+import org.bukkit.entity.ThrownPotion;
+import org.bukkit.entity.WitherSkull;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -15,16 +48,12 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Map.Entry;
-
 public class DamageConverter {
     public static int standardhp = 600;
 
-    // =======================================================================================
+    // ===
     // Damage config
-    // =======================================================================================
+    // ===
 
     private static final String HpConfigEnabled = "HP.HPsystem enabled";
     private static boolean enabled = true;
@@ -153,9 +182,9 @@ public class DamageConverter {
     public static int minTimeBetweenAttacks = 500;
     private static final String HpConfigMinTimeBetweenAttacks = "HP.minimum time between each attack on a player in milliseconds";
 
-    // =======================================================================================
+    // ===
     // Armor config
-    // =======================================================================================
+    // ===
 
     // Diamond
     private static float ReductionOfDiamondHelmet = 12;
@@ -203,11 +232,12 @@ public class DamageConverter {
     private static float ReductionOfChainBoots = 4;
     private static final String ConfigReductionOfChainBoots = "Armor.Chain.Damage reduction of chain boots in percentage points";
 
-    // =======================================================================================
+    // ===
     // Methods
-    // =======================================================================================
+    // ===
 
-    public static double convertDamageByEventForCreatures(EntityDamageEvent event) {
+    @SuppressWarnings("deprecation")
+	public static double convertDamageByEventForCreatures(EntityDamageEvent event) {
         CreatureHp hps = CreatureHp.getCreatureHpByEntity((LivingEntity) event.getEntity());
         switch (event.getCause()) {
             case FIRE_TICK:
@@ -420,7 +450,7 @@ public class DamageConverter {
     }
 
     public static double convertDamageByCreature(LivingEntity c, Player mPlayer, double defaultHP, EntityDamageEvent e) {
-        PlayerData.getPlayerData(mPlayer.getName()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
+        PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
         if (c instanceof CaveSpider) {
             return reduceDamageByArmor(damageOfCaveSpider, mPlayer);
         } else if (c instanceof Spider) {
@@ -476,24 +506,27 @@ public class DamageConverter {
         } else if (c instanceof Skeleton) {
             return reduceDamageByArmor(getDamageOfItem(c.getEquipment().getItemInHand().getType(), c, 0), mPlayer);
         } else {
-            return AncientRPGHP.getHpByMinecraftDamage(mPlayer.getName(), defaultHP);
+            return AncientRPGHP.getHpByMinecraftDamage(mPlayer.getUniqueId(), defaultHP);
         }
     }
 
-    public static boolean isWorldEnabled(Player p) {
-        if (worlds.length == 0 || (worlds.length >= 1 && (worlds[0] == null || worlds[0].equals("")))) {
-            return true;
-        }
-        for (String s : worlds) {
-            if (p.getWorld().getName().equalsIgnoreCase(s)) {
+    public static boolean isWorldEnabled(World w) {
+    	if (w == null) return false;
+		if (!isEnabled()) return false;
+		
+		if (worlds.length == 1 && worlds[0].equals("")) return true;
+		
+		for (String s : worlds) {
+            if (w.getName().equalsIgnoreCase(s)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static double convertDamageByCause(DamageCause c, Player p, double damage, EntityDamageEvent event) {
-        PlayerData pd = PlayerData.getPlayerData(p.getName());
+    @SuppressWarnings("deprecation")
+	public static double convertDamageByCause(DamageCause c, Player p, double damage, EntityDamageEvent event) {
+        PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         switch (c) {
             case FIRE_TICK:
                 if (Math.abs(pd.lastFireDamage - System.currentTimeMillis()) >= 1000) {
@@ -592,9 +625,19 @@ public class DamageConverter {
         YamlConfiguration yc = new YamlConfiguration();
         try {
             yc.set(HpConfigEnabled, enabled);
-            if (yc.get(HpConfigWorlds) == null) {
-                yc.set(HpConfigWorlds, "");
-            }
+            
+            String worldsString = "";
+    		for (int i = 0; i < worlds.length; i++) {
+    			String w = worlds[i];
+    			worldsString += w;
+    			
+    			if ((i + 1) == worlds.length) break;
+    			
+    			worldsString += ",";
+    		}
+    		
+            yc.set(HpConfigWorlds, worldsString);
+            
             yc.set("HP.displayed hp divisor", displayDivider);
             yc.set(HpConfigStandardHP, standardhp);
             yc.set(HpConfigZombie, damageOfZombie);
@@ -893,7 +936,8 @@ public class DamageConverter {
         return basedamage;//(float) basedamage * (1 - getArmorReduction(attackedEntity) / 100);
     }
 
-    private static float getArmorReduction(LivingEntity attackedEntity) {
+    @SuppressWarnings("unused")
+	private static float getArmorReduction(LivingEntity attackedEntity) {
         float reduction = 0;
         if (attackedEntity.getEquipment().getHelmet() != null) {
             switch (attackedEntity.getEquipment().getHelmet().getType()) {
@@ -982,7 +1026,8 @@ public class DamageConverter {
         return reduction;
     }
 
-    private static float getArmorReduction(Player attackedEntity) {
+    @SuppressWarnings("unused")
+	private static float getArmorReduction(Player attackedEntity) {
         float reduction = 0;
         if (attackedEntity.getInventory().getHelmet() != null) {
             switch (attackedEntity.getInventory().getHelmet().getType()) {
@@ -1071,8 +1116,8 @@ public class DamageConverter {
         return reduction;
     }
 
-    public static double getHpByMcDamage(String name, double hp) {
-        AncientRPGHP hpinstance = PlayerData.getPlayerData(name).getHpsystem();
+    public static double getHpByMcDamage(UUID uuid, double hp) {
+        AncientRPGHP hpinstance = PlayerData.getPlayerData(uuid).getHpsystem();
         return (hpinstance.maxhp * (hp / 20));
     }
 
@@ -1152,7 +1197,8 @@ public class DamageConverter {
         return basedamage;
     }
 
-    public static float getDamageOfEnchantementAndPotion(LivingEntity attacker, float basedamage) {
+    @SuppressWarnings("deprecation")
+	public static float getDamageOfEnchantementAndPotion(LivingEntity attacker, float basedamage) {
         for (PotionEffect pe : attacker.getActivePotionEffects()) {
             if (pe.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
                 basedamage += strenghtPotionExtraDamage * pe.getAmplifier();
@@ -1174,20 +1220,5 @@ public class DamageConverter {
 
     public static boolean isEnabled() {
         return enabled;
-    }
-
-    public static boolean isEnabled(World w) {
-        if (worlds.length == 0 || (worlds.length >= 1 && (worlds[0] == null || worlds[0].equals(""))) && enabled) {
-            return true;
-        }
-        for (String s : worlds) {
-            if (s == null) {
-                continue;
-            }
-            if ((w.getName().equalsIgnoreCase(s) || s.equalsIgnoreCase("all")) && enabled) {
-                return true;
-            }
-        }
-        return false;
     }
 }

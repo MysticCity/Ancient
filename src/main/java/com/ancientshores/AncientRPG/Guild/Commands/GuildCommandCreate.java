@@ -1,14 +1,15 @@
 package com.ancientshores.AncientRPG.Guild.Commands;
 
-import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 
 public class GuildCommandCreate {
     public static boolean isValidGuildname(String Name) {
@@ -20,8 +21,8 @@ public class GuildCommandCreate {
 
     public static void processCreate(CommandSender sender, String[] args) {
         Player mPlayer = (Player) sender;
-        if (AncientRPG.hasPermissions(mPlayer, AncientRPGGuild.gNodeCreate)) {
-            if (AncientRPGGuild.getPlayersGuild(mPlayer.getName()) == null) {
+        if (mPlayer.hasPermission(AncientRPGGuild.gNodeCreate)) {
+            if (AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId()) == null) {
                 args[0] = "";
                 String name = AncientRPG.convertStringArrayToString(Arrays.copyOfRange(args, 1, args.length));
                 if (!GuildCommandCreate.isValidGuildname(name)) {
@@ -37,7 +38,7 @@ public class GuildCommandCreate {
                             return;
                         }
                     }
-                    AncientRPGGuild.guilds.add(new AncientRPGGuild(name, mPlayer.getName()));
+                    AncientRPGGuild.guilds.add(new AncientRPGGuild(name, mPlayer.getUniqueId()));
                     mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + "Succesfully created a new Guild");
                 } else {
                     sender.sendMessage(AncientRPG.brand2 + ChatColor.RED + "A guild with that name already exists.");

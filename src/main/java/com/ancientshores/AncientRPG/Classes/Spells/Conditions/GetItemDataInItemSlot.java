@@ -1,9 +1,10 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Conditions;
 
+import org.bukkit.entity.Player;
+
 import com.ancientshores.AncientRPG.Classes.Spells.ArgumentDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
-import org.bukkit.entity.Player;
 
 public class GetItemDataInItemSlot extends IArgument {
     @ArgumentDescription(
@@ -15,7 +16,8 @@ public class GetItemDataInItemSlot extends IArgument {
         this.name = "getitemdatainitemslot";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (obj.length == 2 && obj[0] instanceof Player[] && ((Player[]) obj[0])[0] != null && obj[1] instanceof Number) {
             Player p = ((Player[]) obj[0])[0];
