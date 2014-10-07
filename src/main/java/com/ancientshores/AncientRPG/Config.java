@@ -17,6 +17,7 @@ import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
 
 public class Config {
+	//NAMELOSE BLOCK
 	final AncientRPG plugin; // ??? kann vielleicht private
 	public final String directory; // ??? kann vielleicht private
 	final File file; // ??? kann vielleicht private
@@ -27,10 +28,10 @@ public class Config {
 		this.file = new File(directory + File.separator + "config.yml"); // die Config-Datei laden
 	}
 
-	public void configCheck() { // --- was soll hier passieren
+	/*public void configCheck() { // --- was soll hier passieren? */
    
 	}
-
+         //Laden der Konfiguration
 	public void addDefaults() {
 		try {
 			if (file.exists()) {
