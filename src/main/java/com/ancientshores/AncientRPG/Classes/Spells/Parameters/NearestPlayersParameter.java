@@ -16,6 +16,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 @ParameterDescription(amount = 2, description = "<html>returns the nearest players of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "NearestPlayers")
 public class NearestPlayersParameter implements IParameter {
@@ -78,7 +79,7 @@ public class NearestPlayersParameter implements IParameter {
             case String:
                 String s = "";
                 for (UUID uuid : ea.getSpellInfo().nearestPlayers) {
-                    s += Bukkit.getPlayer(uuid).getName() + ",";
+                    s += AncientRPGPlayers.getPlayerName(uuid) + ",";
                 }
                 ea.getParams().addLast(s);
                 break;

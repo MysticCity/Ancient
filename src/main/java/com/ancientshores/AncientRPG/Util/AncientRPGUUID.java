@@ -17,8 +17,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.ancientshores.AncientRPG.AncientRPG;
+import com.ancientshores.AncientRPG.PlayerData;
 
-public class AncientRPGUUIDConverter {
+public class AncientRPGUUID {
 	private static Map<String, UUID> converted;
 	
 	public static void runConverter() {
@@ -183,6 +184,42 @@ public class AncientRPGUUIDConverter {
 		
 		converted.put(name, uuid);
 		return uuid;
+	}
+
+	public static String getName(UUID uuid) {
+		String name = "";
+		InputStream is = null;
+		
+		try {
+			is = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replaceAll("-", "")).openStream();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		if (is != null) {
+			Scanner scanner = new Scanner(is, "UTF-8");
+			String jsonString = scanner.next();
+			JSONParser jsonParser = new JSONParser();
+			JSONObject json = null;
+			
+			try {
+				json = (JSONObject) jsonParser.parse(jsonString);
+			} catch (ParseException ex) {
+				ex.printStackTrace();
+			}
+			
+			name = (String) json.get("name");
+			
+			scanner.close();
+			
+			try {
+				is.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}	
+		}
+		
+		return name;
 	}
 
 }

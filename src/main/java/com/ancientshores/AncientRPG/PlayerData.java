@@ -27,7 +27,7 @@ import com.ancientshores.AncientRPG.HP.AncientRPGHP;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 
 
 public class PlayerData implements Serializable, ConfigurationSerializable {
@@ -65,7 +65,6 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println("Serializiere Playerdata " + player.toString());
 		map.put("playeruuid", player.toString());
 		map.put("hpsystem", hpsystem);
 		map.put("className", className);
@@ -86,7 +85,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 			player = UUID.fromString((String) map.get("playeruuid"));
 		}
 		else {
-			player = AncientRPGUUIDConverter.getUUID((String) map.get("player"));//Bukkit.getOfflinePlayer((String) map.get("player")).getUniqueId();
+			player = AncientRPGUUID.getUUID((String) map.get("player"));//Bukkit.getOfflinePlayer((String) map.get("player")).getUniqueId();
 		}
 		
 		hpsystem = (AncientRPGHP) map.get("hpsystem");
@@ -245,7 +244,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	}
 
 	/**
-	 * @return the name of the player for which this object stands for
+	 * @return the uuid of the player for which this object stands for
 	 */
 	public UUID getPlayer() {
 		return player;

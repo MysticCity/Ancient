@@ -45,6 +45,7 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 public class AncientRPGPlayerListener implements Listener {
 
@@ -138,6 +139,8 @@ public class AncientRPGPlayerListener implements Listener {
 		PlayerData.getPlayerData(p.getUniqueId()).getHpsystem().playerUUID = p.getUniqueId();
 		PlayerData.getPlayerData(p.getUniqueId()).getXpSystem().addXP(0, false);
 		PlayerData.getPlayerData(p.getUniqueId()).getHpsystem().setMaxHp();
+		
+		AncientRPGPlayers.addPlayer(p.getUniqueId(), p.getName());
 		/*
 		Plugin p = Bukkit.getServer().getPluginManager().getPlugin("ScoreboardAPI");
 		if (p != null) {
@@ -156,7 +159,7 @@ public class AncientRPGPlayerListener implements Listener {
 //			Erstmal auskommentiert. Führt dazu, dass alle XP gelöscht werden, wenn man sich keine Klasse ausgewählt hat.
 //			ClassResetCommand.reset(p, null, PlayerData.getPlayerData(p.getUniqueId()));
 		/*} else*/
-		if (mClass.permGroup != null && !mClass.permGroup.equals("")) {
+		if (mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
 			if (AncientRPG.permissionHandler != null) {
 				try {
 					AncientRPG.permissionHandler.playerRemoveGroup(p, mClass.permGroup);
@@ -186,7 +189,6 @@ public class AncientRPGPlayerListener implements Listener {
 			}
 		}
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-		System.out.println("AncientRPGPlayerListener speichert weil disconnect jetzt dateien.");
 		pd.save();
 		PlayerData.playerData.remove(pd);
 		pd.dispose();

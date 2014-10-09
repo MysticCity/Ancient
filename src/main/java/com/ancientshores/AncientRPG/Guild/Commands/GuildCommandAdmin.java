@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 public class GuildCommandAdmin {
     @SuppressWarnings("deprecation")
@@ -36,7 +37,7 @@ public class GuildCommandAdmin {
                         Set<UUID> uuids = g.gMember.keySet();
                         mPlayer.sendMessage(ChatColor.GREEN + g.guildName + ":");
                         for (UUID uuid : uuids) {
-                            mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(g.gMember.get(uuid)) + Bukkit.getPlayer(uuid).getName());
+                            mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(g.gMember.get(uuid)) + AncientRPGPlayers.getPlayerName(uuid));
                         }
                     } else {
                         mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "This player does not exist, please use the exact name.");

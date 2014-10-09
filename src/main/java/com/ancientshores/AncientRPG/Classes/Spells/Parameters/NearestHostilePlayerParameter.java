@@ -15,6 +15,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 public class NearestHostilePlayerParameter implements IParameter {
 
@@ -62,7 +63,7 @@ public class NearestHostilePlayerParameter implements IParameter {
             case String:
                 String s = "";
                 for (UUID p : ea.getSpellInfo().hostilePlayers) {
-                    s += Bukkit.getPlayer(p).getName() + ",";
+                    s += AncientRPGPlayers.getPlayerName(p) + ",";
                 }
                 ea.getParams().addLast(s);
                 break;

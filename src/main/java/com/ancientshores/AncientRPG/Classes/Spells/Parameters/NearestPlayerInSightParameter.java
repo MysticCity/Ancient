@@ -14,6 +14,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 @ParameterDescription(amount = 1, description = "<html>returns the nearest players in sight of the caster<br> Textfield: range of parameter</html>", returntype = "Player", name = "NearestPlayerInSight")
 public class NearestPlayerInSightParameter implements IParameter {
@@ -53,7 +54,7 @@ public class NearestPlayerInSightParameter implements IParameter {
                 ea.getParams().addLast(l);
                 break;
             case String:
-                ea.getParams().addLast(Bukkit.getPlayer(ea.getSpellInfo().nearestPlayerInSight).getName());
+                ea.getParams().addLast(AncientRPGPlayers.getPlayerName(ea.getSpellInfo().nearestPlayerInSight));
                 break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);

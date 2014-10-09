@@ -71,7 +71,8 @@ import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellsCommandExecutor;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 import com.ancientshores.AncientRPG.Util.FlatFileConnector;
 import com.ancientshores.AncientRPG.Util.SerializableZone;
 
@@ -172,8 +173,12 @@ public class AncientRPG extends JavaPlugin {
 		// ===
 		// uuid converter section
 		// ==
-		AncientRPGUUIDConverter.runConverter();
+		AncientRPGUUID.runConverter();
 		
+		// ==============
+		// Player names loader section
+		// ==============
+		AncientRPGPlayers.loadAllPlayers();
 		
 		// ===
 		// event section

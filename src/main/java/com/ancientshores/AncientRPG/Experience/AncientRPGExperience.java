@@ -14,7 +14,7 @@ import com.ancientshores.AncientRPG.API.AncientGainExperienceEvent;
 import com.ancientshores.AncientRPG.API.AncientLevelupEvent;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -145,7 +145,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			this.uuid = UUID.fromString((String) map.get("uuid"));
 		}
 		else {
-			this.uuid = AncientRPGUUIDConverter.getUUID((String) map.get("xpname"));
+			this.uuid = AncientRPGUUID.getUUID((String) map.get("xpname"));
 		}
 	}
 
@@ -524,9 +524,6 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println("Speichere level " + this.level);
-		System.out.println("Speichere xp " + this.xp);
-		System.out.println("Speichere uuid " + this.uuid.toString());
 		map.put("level", this.level);
 		map.put("xp", this.xp);
 		map.put("uuid", this.uuid.toString());

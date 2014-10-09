@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.ancient.rpg.spell.item.command.AddExperience;
+import com.ancient.rpg.spellmaker.Parameterizable;
 
 public class Spell {
 	private HashMap<Integer, SpellItem> items;
@@ -45,7 +47,6 @@ public class Spell {
 		}
 		int line = 1;
 		String s;
-		try {
 //			Altes System
 			
 //			Name
@@ -61,26 +62,65 @@ public class Spell {
 //			  AddItem: (GetPlayerByName: "FroznMine"), 89.0, 5.0
 //			}
 
-			while ((s = br.readLine()) != null) {
-				s = s.trim();
-				
-				String[] splittedColon = s.split(":");
-				
-				if (splittedColon.length > 1) {
-					String commandName = SpellItems.getFullName(splittedColon[0].trim());
-					Class.forName(commandName).getConstructor(int.class).newInstance(line);
-				} else {
-					// check if else while for usw
+			try {
+				while ((s = br.readLine()) != null) {
+					parseLine(s);
+					s = s.trim();
+					
+					String[] splittedColon = s.split(":");
+					String commandName;
+					String firstLetter;
+					firstLetter = String.valueOf(s.charAt(0));
+					if (firstLetter.equals(firstLetter.toLowerCase())) {
+
+//						kleiner erster buchstabe
+//						=> if, while etc
+					}
+					else {
+//						großer erster buchstabe
+//						=> methode
+					}
+					
+					if (splittedColon.length >= 1) commandName = SpellItems.getFullName(splittedColon[0].trim());
+					else commandName = SpellItems.getFullName(s.split("(")[0].trim());
+					
+					SpellItem item = (SpellItem) Class.forName(commandName).getConstructor(int.class).newInstance(line);
+					
+					if (((Parameterizable) item).validParameters(firstLetter))
+					items.put(items.size(), item);
+					
+					line++;
 				}
-				SpellItems.getFullName()
-				SpellItem sp = new AddExperience(line);
-				items.put(items.size(), sp);
-				
-				line++;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+	}
+
+	private void parseLine(String s) {
+		s = s.trim();
+		
+		String[] splittedColon = s.split(":");
+		String commandName;
+		String firstLetter;
+		firstLetter = String.valueOf(s.charAt(0));
+		if (firstLetter.equals(firstLetter.toLowerCase())) {
+//			kleiner erster buchstabe
+//			=> if, while etc
 		}
+		else {
+//			großer erster buchstabe
+//			=> methode
+		}
+		
+		if (splittedColon.length >= 1) commandName = SpellItems.getFullName(splittedColon[0].trim());
+		else commandName = SpellItems.getFullName(s.split("(")[0].trim());
+		
+//		SpellItem item = (SpellItem) Class.forName(commandName).getConstructor(int.class).newInstance(line);
+		
+//		items.put(items.size(), item);
+		
 	}
 
 	//TODO überall überprüfen ob nicht null usw

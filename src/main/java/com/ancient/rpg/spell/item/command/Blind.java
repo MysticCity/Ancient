@@ -30,7 +30,7 @@ public class Blind extends Command {
 		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
 		Player[] players = (Player[]) args.getValues().get(0);
-		int time = (int) args.getValues().get(1) * 20;
+		int time = Integer.parseInt((String) args.getValues().get(1)) * 20;
 		
 		for (Player p : players) {
 			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, time, 1));

@@ -22,7 +22,7 @@ public class AddGlobalVariable extends Command {
 		
 		String varName = (String) args.getValues().get(0);
 		
-		if (Variable.globVars.containsKey(varName)) throw new AncientRPGVariableAlreadyExistsException(this.spell.getName() + this.getClass().getName(), this.line, varName);
+//		if (Variable.globVars.containsKey(varName)) throw new AncientRPGVariableAlreadyExistsException(this.spell.getName() + this.getClass().getName(), this.line, varName);
 	
 		Variable v = new Variable(varName);
 		Variable.globVars.put(varName, v);

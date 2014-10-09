@@ -35,7 +35,7 @@ public class ChangePrefix extends Command {
 		String prefix = HelpList.replaceChatColor((String) args.getValues().get(1));
 		
 		for (Player p : players) {
-			if (prefix.equalsIgnoreCase("")) AncientRPG.permissionHandler
+//			if (prefix.equalsIgnoreCase("")) AncientRPG.permissionHandler
 		}
 	}
 

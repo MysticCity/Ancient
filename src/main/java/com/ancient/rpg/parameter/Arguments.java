@@ -2,6 +2,8 @@ package com.ancient.rpg.parameter;
 
 import java.util.List;
 
+import com.ancient.rpg.spell.Spell;
+
 public class Arguments {
 	private List<Object> values;
 	

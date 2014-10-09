@@ -8,7 +8,7 @@ import java.util.UUID;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -49,7 +49,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 			this.playerUUID = UUID.fromString((String) map.get("uuid"));
 		}
 		else {
-			this.playerUUID = AncientRPGUUIDConverter.getUUID((String) map.get("playername"));//Bukkit.getOfflinePlayer((String) map.get("playername")).getUniqueId();
+			this.playerUUID = AncientRPGUUID.getUUID((String) map.get("playername"));//Bukkit.getOfflinePlayer((String) map.get("playername")).getUniqueId();
 		}
 		
 	}

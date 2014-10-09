@@ -151,7 +151,8 @@ public class Window extends JFrame {
 				tabpane.insertTab("Parameters", null, jPaneParameters, "Parameters", 2);
 				tabpane.insertTab("Variables", null, jPaneVariables, "Variables", 3);
 				tabpane.insertTab("Conditions", null, jPaneConditions, "Conditions", 4);
-		
+				
+				tabpane.setSelectedIndex(0);
 			}
 		});
 		leftpane.add(searchbar);

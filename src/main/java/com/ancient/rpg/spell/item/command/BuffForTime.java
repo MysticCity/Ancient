@@ -2,8 +2,6 @@ package com.ancient.rpg.spell.item.command;
 
 import org.bukkit.entity.Player;
 
-import sun.security.krb5.internal.PAData;
-
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
@@ -23,7 +21,7 @@ public class BuffForTime extends Command {
 	
 		Player[] players = (Player[]) args.getValues().get(0);
 		String name = (String) args.getValues().get(1);
-		int time = (int) args.getValues().get(2);
+		int time = Integer.parseInt((String) args.getValues().get(2));
 		
 		
 		for (Player p : players) {

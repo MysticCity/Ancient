@@ -33,7 +33,7 @@ public class SpellsCommand {
         if (AncientRPGClass.classList.containsKey(pd.getClassName().toLowerCase())) {
             pb.addMessage(AncientRPG.brand2 + "Class spells:");
             for (Entry<String, Spell> s : AncientRPGClass.classList.get(pd.getClassName().toLowerCase()).spellList.entrySet()) {
-                String message;
+            	String message;
                 if (s.getValue().buff) {
                     continue;
                 }

@@ -24,7 +24,7 @@ public class AddItem extends Command {
 		
 		Player[] players = (Player[]) args.getValues().get(0);
 		Material material = (Material) args.getValues().get(1);
-		int amount = (int) args.getValues().get(2);
+		int amount = Integer.parseInt((String) args.getValues().get(1));
 		
 		for (Player p : players) {
 			p.getInventory().addItem(new ItemStack(material, amount));

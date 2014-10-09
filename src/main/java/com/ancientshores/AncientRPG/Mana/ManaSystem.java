@@ -10,7 +10,7 @@ import java.util.UUID;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
+import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -53,7 +53,7 @@ public class ManaSystem implements ConfigurationSerializable {
         	this.playeruuid = UUID.fromString((String) map.get("uuid"));
         }
         else {
-        	this.playeruuid = AncientRPGUUIDConverter.getUUID((String) map.get("playername"));
+        	this.playeruuid = AncientRPGUUID.getUUID((String) map.get("playername"));
         }
     }
 
@@ -215,7 +215,6 @@ public class ManaSystem implements ConfigurationSerializable {
 
     @EventHandler
     public void onPlayerDisconnect(PlayerQuitEvent event) {
-    	System.out.println("AncientRPGMana listener jetzt");
     	if (playeruuid.compareTo(event.getPlayer().getUniqueId()) == 0) {
             stopRegenTimer();
         }

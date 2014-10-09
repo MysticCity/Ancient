@@ -36,6 +36,7 @@ import com.ancientshores.AncientRPG.Party.Commands.PartyCommandList;
 import com.ancientshores.AncientRPG.Party.Commands.PartyCommandReject;
 import com.ancientshores.AncientRPG.Party.Commands.PartyCommandToggle;
 import com.ancientshores.AncientRPG.Party.Commands.PartyCommandToggleFriendlyFire;
+import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 public class AncientRPGParty {
 	protected UUID leader;
@@ -112,7 +113,7 @@ public class AncientRPGParty {
 						return false;
 					}
 					members.remove(uuid);
-					this.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + Bukkit.getPlayer(playeruuid).getName() + ChatColor.BLUE + " left your party.");
+					this.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + AncientRPGPlayers.getPlayerName(playeruuid) + ChatColor.BLUE + " left your party.");
 					if (this.getMemberNumber() == 0) {
 						partys.remove(this);
 					}
@@ -184,7 +185,6 @@ public class AncientRPGParty {
 	}
 
 	public static void processQuit(PlayerQuitEvent playerQuitEvent) {
-		System.out.println("AncientRPGParty listener jetzt");
 		final AncientRPGParty party = getPlayersParty(playerQuitEvent.getPlayer().getUniqueId());
 		if (party != null) {
 			final UUID uuid = playerQuitEvent.getPlayer().getUniqueId();

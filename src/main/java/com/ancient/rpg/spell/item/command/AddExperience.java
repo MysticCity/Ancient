@@ -23,7 +23,7 @@ public class AddExperience extends Command {
 		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
 		Player[] players = (Player[]) args.getValues().get(0);
-		int amount = (int) args.getValues().get(1);
+		int amount = Integer.parseInt((String) args.getValues().get(1));
 		
 		for (Player p : players) {
 			if (!AncientRPGExperience.isWorldEnabled(p.getWorld())) throw new AncientRPGExperienceNotEnabledException();

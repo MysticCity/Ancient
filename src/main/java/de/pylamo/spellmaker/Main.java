@@ -65,7 +65,7 @@ public class Main {
 		} catch (Exception ignored) {
 		}
 		try {
-			icon = ImageIO.read(Main.class.getResource("Test.gif")); // Resource in fertiger .jar
+			icon = ImageIO.read(Main.class.getResource("arpg.png")); // Resource in fertiger .jar
 //			icon = ImageIO.read(new File("src/main/resources/de/pylamo/spellmaker/arpg.png")); // Tests in Eclipse
 		} catch (IOException e) {
 			e.printStackTrace();
