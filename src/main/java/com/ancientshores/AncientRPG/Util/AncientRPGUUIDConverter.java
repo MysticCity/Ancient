@@ -55,7 +55,11 @@ public class AncientRPGUUIDConverter {
 	}
 
 	private static void convert() {
-		for (File f : new File(AncientRPG.plugin.getDataFolder().getPath() + "/players/").listFiles()) {
+		File folder = new File(AncientRPG.plugin.getDataFolder().getPath() + "/players/");
+		
+		if (folder == null) return;
+		
+		for (File f : folder.listFiles()) {
 			if (!f.isFile()) {
 				continue;
 			}
@@ -79,69 +83,12 @@ public class AncientRPGUUIDConverter {
 				ex.printStackTrace();
 			}
 			
-			
-//			UUID uuid = null;
-//			
-//			if (isConverted(config)) {
-//				continue;
-//			}
-//			
-//			for (String s : config.getKeys(true)) {
-//				System.out.println(s + " :=-=:" + (config.get(s)));
-//			}
-//			
-//			uuid = getUUID(config.getString("PlayerData.player"));
-//			name = config.getString("PlayerData.player");
-//			config.set("PlayerData.xpsystem.xpname", null);
-//			config.set("PlayerData.hpsystem.playername", null);
-//			config.set("PlayerData.manasystem.playername", null);
-//			
-//			config.set("PlayerData.player", uuid.toString());
-//			
-//			config.set("PlayerData.xpsystem.uuid", uuid.toString());
-//			config.set("PlayerData.hpsystem.uuid", uuid.toString());
-//			config.set("PlayerData.manasystem.uuid", uuid.toString());
-//			
-//			if (!isConverted(config)) {
-//				break;
-//			}	
-			
-//			try {
-//				config.save(f);
-//			} catch (IOException e) {
-//				AncientRPG.plugin.getLogger().log(Level.WARNING, "Could not save " + name + "'s changed player configuration to the hard drive. Please reload the server and try again if you want to use AncientRPG!");
-//				AncientRPG.plugin.getPluginLoader().disablePlugin(AncientRPG.plugin);
-//				e.printStackTrace();
-//				break;
-//			}
 			File dat = new File(f.getPath().replaceAll(f.getName(), name + ".dat"));
 			f.renameTo(new File(f.getPath().replaceAll(f.getName(), converted.get(name) + ".yml")));
 			dat.renameTo(new File(dat.getPath().replaceAll(dat.getName(), converted.get(name) + ".dat")));
 			
 		}
 	}
-	
-//	private static boolean isConverted(FileConfiguration config) {
-//		if (config.contains("PlayerData.xpsystem.xpname")) return false;
-//		if (config.contains("PlayerData.hpsystem.playername")) return false;
-//		if (config.contains("PlayerData.manasystem.playername")) return false;
-//		
-//		if (!config.contains("PlayerData.xpsystem.uuid")) return false;
-//		if (!config.contains("PlayerData.hpsystem.uuid")) return false;
-//		if (!config.contains("PlayerData.manasystem.uuid")) return false;
-//	
-//		try {
-//			UUID.fromString(config.getString("PlayerData.player"));
-//			UUID.fromString(config.getString("PlayerData.xpsystem.uuid"));
-//			UUID.fromString(config.getString("PlayerData.hpsystem.uuid"));
-//			UUID.fromString(config.getString("PlayerData.manasystem.uuid"));
-//		}
-//		catch (IllegalArgumentException ex) {
-//			return false;
-//		}
-//		
-//		return true;
-//	}
 	
 	public static UUID getUUID(String name) {
 		if (converted.containsKey(name)) return converted.get(name);
