@@ -7,9 +7,9 @@ import org.bukkit.inventory.ItemStack;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 
-public class AddItem extends Command {
+public class AddItem extends CommandParameterizable {
 
 	public AddItem(int line) {
 		super(line,

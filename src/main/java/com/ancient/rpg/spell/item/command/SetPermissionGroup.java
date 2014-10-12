@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.AncientRPG;
 
 /**
@@ -13,7 +13,7 @@ import com.ancientshores.AncientRPG.AncientRPG;
  *
  * Ersetzt AddGroup im alten System
  */
-public class SetPermissionGroup extends Command {
+public class SetPermissionGroup extends CommandParameterizable {
 
 	public SetPermissionGroup(int line) {
 		super(	line,

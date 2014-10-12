@@ -1,7 +1,6 @@
 package com.ancient.rpg.spell;
 
-
-public abstract class SpellItem {
+public abstract class SpellItem implements SpellSection {
 	protected String description;
 	protected int line;
 	protected Spell spell;
@@ -19,4 +18,5 @@ public abstract class SpellItem {
 	public int getLine() {
 		return this.line;
 	}
+	
 }

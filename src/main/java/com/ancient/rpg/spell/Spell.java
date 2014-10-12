@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +11,7 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.ancient.rpg.spell.item.command.AddExperience;
-import com.ancient.rpg.spellmaker.Parameterizable;
-
-public class Spell {
+public class Spell implements SpellSection {
 	private HashMap<Integer, SpellItem> items;
 	private List<String> disabledWorlds;
 	private SpellType spellType;
@@ -25,8 +20,6 @@ public class Spell {
 	private boolean ignoreSpellFreeZones;
 	private boolean hidden;
 	private ClickType clickType;
-	
-	//??? wirklich notwendig
 	private String shortDescription;
 	private int repeatTime;
 	
@@ -45,82 +38,30 @@ public class Spell {
 			// TODO cancel spell laden
 			e.printStackTrace();
 		}
-		int line = 1;
-		String s;
+		String s;	
+		
 //			Altes System
-			
+//			
 //			Name
 //			passive:5
 //			playerteleportevent
 //			if, 2  ==  3
 //			AddItem, (GetPlayerByName, "FroznMine"), 89.0, 5.0
 //			endif
-			
+//------------------------------------------------------------------			
 //			Neues System
-			
+//			
 //			if (2 == 3) {
 //			  AddItem: (GetPlayerByName: "FroznMine"), 89.0, 5.0
 //			}
 
 			try {
 				while ((s = br.readLine()) != null) {
-					parseLine(s);
-					s = s.trim();
-					
-					String[] splittedColon = s.split(":");
-					String commandName;
-					String firstLetter;
-					firstLetter = String.valueOf(s.charAt(0));
-					if (firstLetter.equals(firstLetter.toLowerCase())) {
-
-//						kleiner erster buchstabe
-//						=> if, while etc
-					}
-					else {
-//						großer erster buchstabe
-//						=> methode
-					}
-					
-					if (splittedColon.length >= 1) commandName = SpellItems.getFullName(splittedColon[0].trim());
-					else commandName = SpellItems.getFullName(s.split("(")[0].trim());
-					
-					SpellItem item = (SpellItem) Class.forName(commandName).getConstructor(int.class).newInstance(line);
-					
-					if (((Parameterizable) item).validParameters(firstLetter))
-					items.put(items.size(), item);
-					
-					line++;
+					items.put(items.size(), SpellParser.parseLine(s, this));	
 				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-		
-	}
-
-	private void parseLine(String s) {
-		s = s.trim();
-		
-		String[] splittedColon = s.split(":");
-		String commandName;
-		String firstLetter;
-		firstLetter = String.valueOf(s.charAt(0));
-		if (firstLetter.equals(firstLetter.toLowerCase())) {
-//			kleiner erster buchstabe
-//			=> if, while etc
-		}
-		else {
-//			großer erster buchstabe
-//			=> methode
-		}
-		
-		if (splittedColon.length >= 1) commandName = SpellItems.getFullName(splittedColon[0].trim());
-		else commandName = SpellItems.getFullName(s.split("(")[0].trim());
-		
-//		SpellItem item = (SpellItem) Class.forName(commandName).getConstructor(int.class).newInstance(line);
-		
-//		items.put(items.size(), item);
-		
 	}
 
 	//TODO überall überprüfen ob nicht null usw
@@ -153,4 +94,19 @@ public class Spell {
 		this.clickType = ClickType.getByName(config.getString("click type").trim());
 	}
 
+	public void executeSpell() {
+		int line = 0;
+		while (line < items.size()) {
+			Object[] returns;
+			try {
+				returns = items.get(line).execute();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return;
+			}
+			
+			line = (int) returns[0];
+			
+		}
+	}
 }

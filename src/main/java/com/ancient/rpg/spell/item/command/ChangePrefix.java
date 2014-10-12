@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.HelpList;
 
@@ -19,7 +19,7 @@ import com.ancientshores.AncientRPG.HelpList;
  * 
  * Ersetzt AddPrefix vom alten System
  */
-public class ChangePrefix extends Command {
+public class ChangePrefix extends CommandParameterizable {
 
 	public ChangePrefix(int line) {
 		super(	line,

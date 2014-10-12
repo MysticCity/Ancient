@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 
-public class BuffForTime extends Command {
+public class BuffForTime extends CommandParameterizable {
 
 	public BuffForTime(int line) {
 		super(line,

@@ -56,7 +56,10 @@ public class AncientRPGUUID {
 	}
 
 	private static void convert() {
-		for (File f : new File(AncientRPG.plugin.getDataFolder().getPath() + "/players/").listFiles()) {
+		File folder = new File(AncientRPG.plugin.getDataFolder().getPath() + "/players/");
+		if (folder == null) return;
+		
+		for (File f : folder.listFiles()) {
 			if (!f.isFile()) {
 				continue;
 			}

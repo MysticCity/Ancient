@@ -3,11 +3,11 @@ package com.ancient.rpg.spell.item.command;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.HelpList;
 
-public class Broadcast extends Command {
+public class Broadcast extends CommandParameterizable {
 
 	public Broadcast(int line) {
 		super(	line,

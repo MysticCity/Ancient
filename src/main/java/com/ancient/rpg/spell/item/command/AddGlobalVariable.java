@@ -4,10 +4,10 @@ import com.ancient.rpg.exceptions.AncientRPGVariableAlreadyExistsException;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.Classes.Spells.Variable;
 
-public class AddGlobalVariable extends Command {
+public class AddGlobalVariable extends CommandParameterizable {
 
 	public AddGlobalVariable(int line) {
 		super(	line,

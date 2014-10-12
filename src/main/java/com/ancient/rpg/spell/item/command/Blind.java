@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 
 //TODO überprüfen ob entities wirklich nicht blind sein können, wenn sie es können wieder entities akzeptieren
 /** 
@@ -17,7 +17,7 @@ import com.ancient.rpg.spellmaker.Command;
  * Dieser hatte sowieso keinen Effekt...
  * Desweiteren ist nun der Zeitinput in Sekunden.
  */
-public class Blind extends Command {
+public class Blind extends CommandParameterizable {
 
 	public Blind(int line) {
 		super(	line,
