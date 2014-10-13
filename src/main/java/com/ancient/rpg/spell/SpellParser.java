@@ -1,6 +1,7 @@
 package com.ancient.rpg.spell;
 
 import com.ancient.rpg.exceptions.AncientRPGIncorrectLineException;
+import com.ancient.rpg.spell.datatypes.BooleanDataType;
 import com.ancient.rpg.spell.datatypes.StringDataType;
 import com.ancient.rpg.spellmaker.Parameterizable;
 import com.ancient.rpg.stuff.Splitter;
@@ -134,38 +135,36 @@ public class SpellParser {
 		
 		char startChar = chars[0];
 		if (Character.isLowerCase(startChar)) {
-			if (line.startsWith("var:")) {
+			if (line.startsWith("var:")) { // variable differentiate call or comparison
 			
-			} else if (line.startsWith("if:")) {
+			} else if (line.startsWith("while:")) { // while
 				
-			} else if (line.startsWith("while:")) {
+			} else if (line.startsWith("for:")) { // for differentiate for each and for i < j
 				
-			} else if (line.startsWith("for:")) {
+			} else if (line.startsWith("if:")) { // if
 				
-			} else if (line.startsWith("if:")) {
+			} else if (line.startsWith("else:")) { // else after if
 				
-			} else if (line.startsWith("else")) {
+			} else if (line.startsWith("switch:")) { // switch
 				
-			} else if (line.startsWith("switch:")) {
+			} else if (line.startsWith("case:")) { // case in switch
 				
-			} else if (line.startsWith("case:")) {
+			} else if (line.startsWith("p:")) { // Player
 				
-			} else if (line.startsWith("p:")) {
+			} else if (line.startsWith("e:")) { // Entity
 				
-			} else if (line.startsWith("e:")) {
+			} else if (line.startsWith("n:")) { // Number
 				
-			} else if (line.startsWith("n:")) {
-				
-			} else if (line.startsWith("s:")) { // könnte sonst für switch gehalten werden
+			} else if (line.startsWith("s:")) { // String
 				return new StringDataType(lineNumber, arguments);
-			} else if (line.startsWith("b:")) {
+			} else if (line.startsWith("b:")) { // Boolean
+				new BooleanDataType(lineNumber, arguments);
+			} else if (line.startsWith("l:")) { // Location format: worldname, x, y, z
 				
-			} else if (line.startsWith("l:")) {
-				
-			} else if (line.startsWith("m:")) {
+			} else if (line.startsWith("m:")) { // Material
 				
 			} else {
-				// ungültige linie
+				// ungültige zeile
 			}
 			
 		}
