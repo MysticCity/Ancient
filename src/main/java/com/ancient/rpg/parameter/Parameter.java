@@ -11,6 +11,12 @@ public class Parameter {
 		this.array = array;
 	}
 	
+	public Parameter(ParameterType type, boolean array) {
+		this.type = type;
+		this.array = array;
+		this.alias = "";
+	}
+
 	/** 
 	 * @return The alias of this Parameter
 	 */
