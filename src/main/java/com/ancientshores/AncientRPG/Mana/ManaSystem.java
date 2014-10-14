@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import com.ancient.util.UUIDConverter;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -53,7 +53,7 @@ public class ManaSystem implements ConfigurationSerializable {
         	this.playeruuid = UUID.fromString((String) map.get("uuid"));
         }
         else {
-        	this.playeruuid = AncientRPGUUID.getUUID((String) map.get("playername"));
+        	this.playeruuid = UUIDConverter.getUUID((String) map.get("playername"));
         }
     }
 

@@ -16,7 +16,7 @@ public class StringDataType extends DataType<String> {
 		super(line, "<html>A string data type, which can store <b>text</b>.</html>");
 		
 		if (value.startsWith("\"")) {
-			this.value = value;
+			this.value = value.substring(1, value.length());
 			this.valueItem = null;
 		}
 		else {

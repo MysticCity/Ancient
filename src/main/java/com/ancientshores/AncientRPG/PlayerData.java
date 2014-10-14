@@ -19,6 +19,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
+import com.ancient.util.UUIDConverter;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.BindingData;
 import com.ancientshores.AncientRPG.Classes.CooldownTimer;
@@ -27,7 +28,6 @@ import com.ancientshores.AncientRPG.HP.AncientRPGHP;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 
 
 public class PlayerData implements Serializable, ConfigurationSerializable {
@@ -85,7 +85,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 			player = UUID.fromString((String) map.get("playeruuid"));
 		}
 		else {
-			player = AncientRPGUUID.getUUID((String) map.get("player"));//Bukkit.getOfflinePlayer((String) map.get("player")).getUniqueId();
+			player = UUIDConverter.getUUID((String) map.get("player"));//Bukkit.getOfflinePlayer((String) map.get("player")).getUniqueId();
 		}
 		
 		hpsystem = (AncientRPGHP) map.get("hpsystem");

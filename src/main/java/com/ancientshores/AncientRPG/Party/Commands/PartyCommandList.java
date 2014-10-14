@@ -7,9 +7,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
-import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 public class PartyCommandList {
     public static void processList(CommandSender sender) {
@@ -21,9 +21,9 @@ public class PartyCommandList {
                 for (UUID uuid : mParty.getMembers()) {
                     if (uuid != null) {
                         if (uuid == AncientRPGParty.getPlayersParty(mPlayer.getUniqueId()).getLeader()) {
-                            mPlayer.sendMessage(ChatColor.GREEN + AncientRPGPlayers.getPlayerName(uuid) + "(Leader)");
+                            mPlayer.sendMessage(ChatColor.GREEN + PlayerFinder.getPlayerName(uuid) + "(Leader)");
                         } else {
-                            mPlayer.sendMessage(ChatColor.GOLD + AncientRPGPlayers.getPlayerName(uuid));
+                            mPlayer.sendMessage(ChatColor.GOLD + PlayerFinder.getPlayerName(uuid));
                         }
                     }
                 }

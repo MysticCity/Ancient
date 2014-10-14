@@ -2,6 +2,9 @@ package com.ancient.rpg.spell;
 
 import com.ancient.rpg.exceptions.AncientRPGIncorrectLineException;
 import com.ancient.rpg.spell.datatypes.BooleanDataType;
+import com.ancient.rpg.spell.datatypes.LocationDataType;
+import com.ancient.rpg.spell.datatypes.MaterialDataType;
+import com.ancient.rpg.spell.datatypes.NumberDataType;
 import com.ancient.rpg.spell.datatypes.StringDataType;
 import com.ancient.rpg.spellmaker.Parameterizable;
 import com.ancient.rpg.stuff.Splitter;
@@ -152,17 +155,17 @@ public class SpellParser {
 			} else if (line.startsWith("p:")) { // Player
 				
 			} else if (line.startsWith("e:")) { // Entity
-				
+				new EntityDataType(lineNumber, arguments);
 			} else if (line.startsWith("n:")) { // Number
-				
+				return new NumberDataType(lineNumber, arguments);
 			} else if (line.startsWith("s:")) { // String
 				return new StringDataType(lineNumber, arguments);
 			} else if (line.startsWith("b:")) { // Boolean
-				new BooleanDataType(lineNumber, arguments);
+				return new BooleanDataType(lineNumber, arguments);
 			} else if (line.startsWith("l:")) { // Location format: worldname, x, y, z
-				
+				return new LocationDataType(lineNumber, arguments);
 			} else if (line.startsWith("m:")) { // Material
-				
+				return new MaterialDataType(lineNumber, arguments);
 			} else {
 				// ungültige zeile
 			}

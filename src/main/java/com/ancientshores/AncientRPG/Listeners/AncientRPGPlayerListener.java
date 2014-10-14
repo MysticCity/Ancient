@@ -35,6 +35,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
@@ -45,7 +46,6 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Race.AncientRPGRace;
-import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 public class AncientRPGPlayerListener implements Listener {
 
@@ -140,7 +140,7 @@ public class AncientRPGPlayerListener implements Listener {
 		PlayerData.getPlayerData(p.getUniqueId()).getXpSystem().addXP(0, false);
 		PlayerData.getPlayerData(p.getUniqueId()).getHpsystem().setMaxHp();
 		
-		AncientRPGPlayers.addPlayer(p.getUniqueId(), p.getName());
+		PlayerFinder.addPlayer(p.getUniqueId(), p.getName());
 		/*
 		Plugin p = Bukkit.getServer().getPluginManager().getPlugin("ScoreboardAPI");
 		if (p != null) {

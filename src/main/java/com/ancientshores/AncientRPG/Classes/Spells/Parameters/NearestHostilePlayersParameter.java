@@ -10,13 +10,13 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 @ParameterDescription(amount = 2, description = "<html>returns the nearest hostile players of the caster<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "NearestHostilePlayers")
 public class NearestHostilePlayersParameter implements IParameter {
@@ -76,7 +76,7 @@ public class NearestHostilePlayersParameter implements IParameter {
             case String:
                 String s = "";
                 for (UUID p : ea.getSpellInfo().hostilePlayers) {
-                    s += AncientRPGPlayers.getPlayerName(p) + ",";
+                    s += PlayerFinder.getPlayerName(p) + ",";
                 }
                 ea.getParams().addLast(s);
                 break;

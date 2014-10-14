@@ -23,6 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.HelpList;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandAccept;
@@ -49,7 +50,6 @@ import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandToggle;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandToggleFriendlyFire;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandWithdraw;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildSetSpawnCommand;
-import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 import com.ancientshores.AncientRPG.Util.SerializableLocation;
 
 public class AncientRPGGuild implements Serializable {
@@ -106,7 +106,7 @@ public class AncientRPGGuild implements Serializable {
 		this.motd = " ";
 		if (AncientRPG.iConomyEnabled()) {
 			accountName = "[g]" + guildName.replace(' ', '_');
-			AncientRPG.economy.createBank(accountName, AncientRPGPlayers.getPlayerName(leaderuuid));
+			AncientRPG.economy.createBank(accountName, PlayerFinder.getPlayerName(leaderuuid));
 		}
 		gLeader = leaderuuid;
 		gMember = new HashMap<UUID, AncientRPGGuildRanks>();
@@ -186,7 +186,7 @@ public class AncientRPGGuild implements Serializable {
 		this.broadcastMessage(AncientRPG.brand2 + ChatColor.GREEN + " this guild has been disbanded because no one of the members can be a Leader.");
 		if (AncientRPG.iConomyEnabled()) { // ??? -- wofür? mega unnötig
 			double balance = AncientRPG.economy.bankBalance(this.accountName).amount;
-			AncientRPG.economy.depositPlayer(AncientRPGPlayers.getPlayerName(gLeader), balance);
+			AncientRPG.economy.depositPlayer(PlayerFinder.getPlayerName(gLeader), balance);
 		}
 		guilds.remove(this);
 		AncientRPGGuild.writeGuild(this);
@@ -211,7 +211,7 @@ public class AncientRPGGuild implements Serializable {
 		
 		if (AncientRPG.iConomyEnabled()) {
 			double balance = AncientRPG.economy.bankBalance(this.accountName).amount;
-			AncientRPG.economy.depositPlayer(AncientRPGPlayers.getPlayerName(gLeader), balance);
+			AncientRPG.economy.depositPlayer(PlayerFinder.getPlayerName(gLeader), balance);
 		}
 		
 		AncientRPGGuild.deleteGuild(this);

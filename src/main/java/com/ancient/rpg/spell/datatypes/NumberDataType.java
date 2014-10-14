@@ -7,31 +7,25 @@ import com.ancient.rpg.spell.SpellItem;
 import com.ancient.rpg.spell.SpellParser;
 import com.ancient.rpg.spellmaker.Returnable;
 
-public class BooleanDataType extends DataType<Boolean> {
-	private Boolean value;
-	private Returnable<Boolean> valueItem;
-	
+public class NumberDataType extends DataType<Number> {
+	private Number value;
+	private Returnable<Number> valueItem;
+
 	@SuppressWarnings("unchecked")
-	public BooleanDataType(int line, String value) {
-		super(line, "<html>A boolean data type, which can store <b>true</b> or <b>false</b>.</html>");
+	public NumberDataType(int line, String value) {
+		super(line, "<html>A number data type, which can store <b>numbers</b>.</html>");
 		
-		if (value.toLowerCase().startsWith("true")) {
-			this.value = true;
-			this.valueItem = null;
-		} else if (value.toLowerCase().startsWith("false")) {
-			this.value = false;
-			this.valueItem = null;
-		}
-		else {
+		try {
+			this.value = Double.parseDouble(value);
+		} catch (NumberFormatException ex) {
 			SpellItem item = SpellParser.parse(value, line);
-		
-			if (item instanceof Returnable) this.valueItem = (Returnable<Boolean>) item;
+			if (item instanceof Returnable) this.valueItem = (Returnable<Number>) item;
 			else {} // exception. kann nicht verwendet werden.
 		}
 	}
 	
 	@Override
-	public Boolean getValue() {
+	public Number getValue() {
 		if (this.valueItem != null) calculateReturn();
 		
 		return this.value;
@@ -43,6 +37,6 @@ public class BooleanDataType extends DataType<Boolean> {
 
 	@Override
 	public Parameter getReturnType() {
-		return new Parameter(ParameterType.BOOLEAN, false);
+		return new Parameter(ParameterType.NUMBER, false);
 	}
 }

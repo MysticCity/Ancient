@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 
+import com.ancient.util.UUIDConverter;
 import com.ancientshores.AncientRPG.API.AncientGainExperienceEvent;
 import com.ancientshores.AncientRPG.API.AncientLevelupEvent;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUID;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -145,7 +145,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 			this.uuid = UUID.fromString((String) map.get("uuid"));
 		}
 		else {
-			this.uuid = AncientRPGUUID.getUUID((String) map.get("xpname"));
+			this.uuid = UUIDConverter.getUUID((String) map.get("xpname"));
 		}
 	}
 

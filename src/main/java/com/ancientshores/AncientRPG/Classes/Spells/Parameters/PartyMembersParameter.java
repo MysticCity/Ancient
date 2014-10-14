@@ -10,13 +10,13 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
 import com.ancientshores.AncientRPG.Classes.Spells.SpellInformationObject;
 import com.ancientshores.AncientRPG.Classes.Spells.Commands.EffectArgs;
-import com.ancientshores.AncientRPG.Util.AncientRPGPlayers;
 
 @ParameterDescription(amount = 2, description = "<html>returns members of the party<br> Textfield 1: range of parameter<br> Textfield 2: maximum amount of targets</html>", returntype = "Player", name = "PartyMembers")
 public class PartyMembersParameter implements IParameter {
@@ -70,7 +70,7 @@ public class PartyMembersParameter implements IParameter {
             case String:
                 String s = "";
                 for (UUID uuid : effectArgs.getSpellInfo().partyMembers) {
-                    s += AncientRPGPlayers.getPlayerName(uuid) + ",";
+                    s += PlayerFinder.getPlayerName(uuid) + ",";
                 }
                 effectArgs.getParams().addLast(s);
                 break;
