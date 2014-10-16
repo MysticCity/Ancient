@@ -2,9 +2,11 @@ package com.ancient.rpg.spell;
 
 import com.ancient.rpg.exceptions.AncientRPGIncorrectLineException;
 import com.ancient.rpg.spell.datatypes.BooleanDataType;
+import com.ancient.rpg.spell.datatypes.EntityDataType;
 import com.ancient.rpg.spell.datatypes.LocationDataType;
 import com.ancient.rpg.spell.datatypes.MaterialDataType;
 import com.ancient.rpg.spell.datatypes.NumberDataType;
+import com.ancient.rpg.spell.datatypes.PlayerDataType;
 import com.ancient.rpg.spell.datatypes.StringDataType;
 import com.ancient.rpg.spellmaker.Parameterizable;
 import com.ancient.rpg.stuff.Splitter;
@@ -139,7 +141,7 @@ public class SpellParser {
 		char startChar = chars[0];
 		if (Character.isLowerCase(startChar)) {
 			if (line.startsWith("var:")) { // variable differentiate call or comparison
-			
+				if ()
 			} else if (line.startsWith("while:")) { // while
 				
 			} else if (line.startsWith("for:")) { // for differentiate for each and for i < j
@@ -152,19 +154,19 @@ public class SpellParser {
 				
 			} else if (line.startsWith("case:")) { // case in switch
 				
-			} else if (line.startsWith("p:")) { // Player
-				
-			} else if (line.startsWith("e:")) { // Entity
-				new EntityDataType(lineNumber, arguments);
-			} else if (line.startsWith("n:")) { // Number
+			} else if (line.startsWith("p:")) { // Player needs uuid or method returning player
+				return new PlayerDataType(lineNumber, arguments);
+			} else if (line.startsWith("e:")) { // Entity needs uuid or method returning entity/player
+				return new EntityDataType(lineNumber, arguments);
+			} else if (line.startsWith("n:")) { // Number double or int or method
 				return new NumberDataType(lineNumber, arguments);
-			} else if (line.startsWith("s:")) { // String
+			} else if (line.startsWith("s:")) { // String with ""
 				return new StringDataType(lineNumber, arguments);
-			} else if (line.startsWith("b:")) { // Boolean
+			} else if (line.startsWith("b:")) { // Boolean true/false or method
 				return new BooleanDataType(lineNumber, arguments);
-			} else if (line.startsWith("l:")) { // Location format: worldname, x, y, z
+			} else if (line.startsWith("l:")) { // Location format: worldname, x, y, z or method returning parts or location
 				return new LocationDataType(lineNumber, arguments);
-			} else if (line.startsWith("m:")) { // Material
+			} else if (line.startsWith("m:")) { // Material name or method
 				return new MaterialDataType(lineNumber, arguments);
 			} else {
 				// ungültige zeile
