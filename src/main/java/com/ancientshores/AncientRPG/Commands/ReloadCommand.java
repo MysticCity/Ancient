@@ -29,7 +29,7 @@ public class ReloadCommand {
         for (Entry<String, Integer> entr : Spell.registeredTasks.entrySet()) {
             Bukkit.getScheduler().cancelTask(entr.getValue());
         }
-        mConfig.configCheck();
+//        mConfig.configCheck();
         mConfig.loadkeys();
         mConfig.addDefaults();
         AncientRPG.plugin.saveConfig();

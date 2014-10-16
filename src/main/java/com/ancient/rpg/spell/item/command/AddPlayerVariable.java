@@ -29,7 +29,7 @@ public class AddPlayerVariable extends Command {
 		for (Player p : players) {
 			if (!Variable.playerVars.containsKey(p.getUniqueId())) Variable.playerVars.put(p.getUniqueId(), new HashMap<String, Variable>());
 			
-			if (Variable.playerVars.get(p.getUniqueId()).containsKey(varName)) throw new AncientRPGVariableAlreadyExistsException(this.spell.getName(), this.getClass().getName(), this.line, varName);
+//			if (Variable.playerVars.get(p.getUniqueId()).containsKey(varName)) throw new AncientRPGVariableAlreadyExistsException(this.spell.getName(), this.getClass().getName(), this.line, varName);
 			
 			Variable v = new Variable(varName);
 			Variable.playerVars.get(p.getUniqueId()).put(varName, v);	

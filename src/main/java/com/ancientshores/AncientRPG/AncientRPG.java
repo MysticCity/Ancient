@@ -181,7 +181,7 @@ public class AncientRPG extends JavaPlugin {
 		setupPermissions(); // setzt die permissions für die einzelnen commands fest ???
 		
 		config = new Config(this);
-		config.configCheck(); // --- leer. dadrin passiert nichts
+//		config.configCheck(); // --- leer. dadrin passiert nichts
 		
 		// ==
 		// load section

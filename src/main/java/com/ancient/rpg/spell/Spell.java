@@ -68,11 +68,11 @@ public class Spell {
 				
 				if (splittedColon.length > 1) {
 					String commandName = SpellItems.getFullName(splittedColon[0].trim());
-					Class.forName(commandName).getConstructor(int.class).newInstance(line);
+//					Class.forName(commandName).getConstructor(int.class).newInstance(line);
 				} else {
 					// check if else while for usw
 				}
-				SpellItems.getFullName()
+//				SpellItems.getFullName()
 				SpellItem sp = new AddExperience(line);
 				items.put(items.size(), sp);
 				

@@ -30,7 +30,7 @@ public class Config {
 
 	/*public void configCheck() { // --- was soll hier passieren? */
    
-	}
+//	}
          //Laden der Konfiguration
 	public void addDefaults() {
 		try {
