@@ -7,6 +7,7 @@ public abstract class SpellItem implements SpellSection {
 	
 	public SpellItem(/*Spell spell, */int line, String description) {
 		this.spell = null; // = spell
+
 		this.line = line;
 		this.description = description;
 	}

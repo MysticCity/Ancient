@@ -34,12 +34,12 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Stores the playerdata of all players
+	 * Speichert die dpielerdateien aller Spieler
 	 */
 	public static HashSet<PlayerData> playerData = new HashSet<PlayerData>();
 
 	/**
-	 * name of the player and his achievements
+	 * Name des Spielers und sein Archivement
 	 */
 
 	private UUID player;
@@ -63,6 +63,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	private ManaSystem manasystem;
 
 	@Override
+	//Mapserialize
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("playeruuid", player.toString());
@@ -80,6 +81,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	}
 
 	@SuppressWarnings("unchecked")
+	//map UUID system
 	public PlayerData(Map<String, Object> map) {
 		if (map.containsKey("playeruuid")) {
 			player = UUID.fromString((String) map.get("playeruuid"));
@@ -103,7 +105,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 
 	// public HashSet<Achievement> achievements;
 	// public Experience level;
-
+       /* Player UUID */
 	/**
 	 * creates a new object by the uuid of the Player
 	 *
@@ -137,7 +139,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		}
 		dispose();
 	}
-
+       // stop Regentimer
 	public void dispose() {
 		this.getManasystem().stopRegenTimer();
 		this.getHpsystem().stopRegenTimer();

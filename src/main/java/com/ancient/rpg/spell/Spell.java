@@ -54,7 +54,6 @@ public class Spell implements SpellSection {
 //			if (2 == 3) {
 //			  AddItem: (GetPlayerByName: "FroznMine"), 89.0, 5.0
 //			}
-
 			try {
 				while ((s = br.readLine()) != null) {
 					items.put(items.size(), SpellParser.parseLine(s, this));	
@@ -62,6 +61,25 @@ public class Spell implements SpellSection {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+//
+//				while ((s = br.readLine()) != null) {
+//				s = s.trim();
+//				
+//				String[] splittedColon = s.split(":");
+//				
+//				if (splittedColon.length > 1) {
+//					String commandName = SpellItems.getFullName(splittedColon[0].trim());
+//					Class.forName(commandName).getConstructor(int.class).newInstance(line);
+//				} else {
+//					// check if else while for usw
+//				}
+//				SpellItems.getFullName()
+//				SpellItem sp = new AddExperience(line);
+//				items.put(items.size(), sp);
+//				
+//				line++;
+//			}
+				
 	}
 
 	//TODO überall überprüfen ob nicht null usw

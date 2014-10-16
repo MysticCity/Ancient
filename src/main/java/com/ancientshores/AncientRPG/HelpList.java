@@ -57,7 +57,7 @@ public class HelpList {
         }
         this.file = f;
     }
-
+    //Nachrichten replacer
     public static String replaceChatColor(String message) {
         message = message.replace("{GREEN}", ChatColor.GREEN.toString());
         message = message.replace("{BLACK}", ChatColor.BLACK.toString());
@@ -80,7 +80,7 @@ public class HelpList {
         message = message.replace("{MAGIC}", ChatColor.MAGIC.toString());
         return message;
     }
-
+   //Komandos
     public void printToPlayer(CommandSender commandSender, int page) {
         int messagesperpage = 6;
         page -= 1;
