@@ -99,7 +99,7 @@ public class Spell implements SpellSection {
 		while (line < items.size()) {
 			Object[] returns;
 			try {
-				returns = items.get(line).execute();
+				returns = ((ExecutableSpellItem) items.get(line)).execute();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				return;

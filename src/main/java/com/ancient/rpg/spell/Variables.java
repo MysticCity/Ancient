@@ -18,7 +18,6 @@ public class Variables {
 	public static Object getValue(String variableName) {
 		if (!variables.containsKey(variableName)) return null;
 		
-		variables.get(variableName)
-		
+		return variables.get(variableName);
 	}
 }

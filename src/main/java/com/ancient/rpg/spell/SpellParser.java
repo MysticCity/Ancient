@@ -68,7 +68,7 @@ public class SpellParser {
 			} else if (commandName.equals("e")) { // entity
 				
 			} else if (commandName.equals("s")) { // string
-				new StringDataType(line, description)
+//				new StringDataType(line, description);
 			} else if (commandName.equals("b")) { // boolean
 				
 			} else if (commandName.equals("l")) { // location
@@ -98,14 +98,14 @@ public class SpellParser {
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		// wenn keine parameter übergeben parameterisierbar sein	
+		// wenn keine parameter ��bergeben parameterisierbar sein	
 		if (arguments.equalsIgnoreCase("")) {
 			if (item instanceof Parameterizable) {
-				return null; // error, da eigentlich parameter da sein müssten
+				return null; // error, da eigentlich parameter da sein m��ssten
 			}
 		}
 		else {
-			if (!((Parameterizable) item).validParameters(arguments)) return null; // eigentlich müsste hier true kommen, wenn korrekt
+			if (!((Parameterizable) item).validParameters(arguments)) return null; // eigentlich m��sste hier true kommen, wenn korrekt
 		}
 		
 		return item;
@@ -141,7 +141,7 @@ public class SpellParser {
 		char startChar = chars[0];
 		if (Character.isLowerCase(startChar)) {
 			if (line.startsWith("var:")) { // variable differentiate call or comparison
-				if ()
+				
 			} else if (line.startsWith("while:")) { // while
 				
 			} else if (line.startsWith("for:")) { // for differentiate for each and for i < j
@@ -169,7 +169,7 @@ public class SpellParser {
 			} else if (line.startsWith("m:")) { // Material name or method
 				return new MaterialDataType(lineNumber, arguments);
 			} else {
-				// ungültige zeile
+				// ung��ltige zeile
 			}
 			
 		}

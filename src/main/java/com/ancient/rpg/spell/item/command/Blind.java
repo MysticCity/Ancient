@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
 import com.ancient.rpg.spellmaker.CommandParameterizable;
@@ -26,15 +25,16 @@ public class Blind extends CommandParameterizable {
 	}
 
 	@Override
-	public void execute(Arguments args) throws Exception {
-		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+	public Object[] execute() throws Exception {
+		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
-		Player[] players = (Player[]) args.getValues().get(0);
-		int time = Integer.parseInt((String) args.getValues().get(1)) * 20;
+		Player[] players = (Player[]) parameterValues[0];
+		int time = Integer.parseInt((String) parameterValues[1]) * 20;
 		
 		for (Player p : players) {
 			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, time, 1));
 		}
+		return new Object[]{line};
 	}
 
 }

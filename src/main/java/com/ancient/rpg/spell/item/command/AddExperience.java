@@ -3,7 +3,6 @@ package com.ancient.rpg.spell.item.command;
 import org.bukkit.entity.Player;
 
 import com.ancient.rpg.exceptions.AncientRPGExperienceNotEnabledException;
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
 import com.ancient.rpg.spellmaker.CommandParameterizable;
@@ -30,6 +29,6 @@ public class AddExperience extends CommandParameterizable {
 			
 			PlayerData.getPlayerData(p.getUniqueId()).getXpSystem().addXP(amount, false);
 		}
-		return new Object[]{line};
+		return new Object[]{line}; // IMPORTANT every spellitem returns the next line to execute in the spell
 	}
 }

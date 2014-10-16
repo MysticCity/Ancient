@@ -2,7 +2,6 @@ package com.ancient.rpg.spell.item.command;
 
 import org.bukkit.entity.Player;
 
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
 import com.ancient.rpg.spellmaker.CommandParameterizable;
