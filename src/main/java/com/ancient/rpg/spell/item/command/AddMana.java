@@ -2,13 +2,12 @@ package com.ancient.rpg.spell.item.command;
 
 import org.bukkit.entity.Player;
 
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 
-public class AddMana extends Command {
+public class AddMana extends CommandParameterizable {
 
 	public AddMana(int line) {
 		super(	line,
@@ -17,15 +16,16 @@ public class AddMana extends Command {
 	}
 
 	@Override
-	public void execute(Arguments args) throws Exception {
-		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+	public Object[] execute() throws Exception {
+		if (!this.validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
-		Player[] players = (Player[]) args.getValues().get(0);
-		int amount = (int) args.getValues().get(1);
+		Player[] players = (Player[]) parameterValues[0];
+		int amount = Integer.parseInt((String) parameterValues[1]);
 		
 		for (Player p : players) {
 			ManaSystem.addManaByUUID(p.getUniqueId(), amount);
 		}
+		return new Object[]{line};
 	}
 
 }

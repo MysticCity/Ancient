@@ -3,14 +3,13 @@ package com.ancient.rpg.spell.item.command;
 import org.bukkit.entity.Player;
 
 import com.ancient.rpg.exceptions.AncientRPGExperienceNotEnabledException;
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.PlayerData;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 
-public class AddExperience extends Command {
+public class AddExperience extends CommandParameterizable {
 	
 	public AddExperience(int line) {
 		super(	line,
@@ -19,18 +18,17 @@ public class AddExperience extends Command {
 	}
 
 	@Override
-	public void execute(Arguments args) throws AncientRPGExperienceNotEnabledException {
-		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+	public Object[] execute() throws AncientRPGExperienceNotEnabledException {
+		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
-		Player[] players = (Player[]) args.getValues().get(0);
-		int amount = (int) args.getValues().get(1);
+		Player[] players = (Player[]) parameterValues[0];
+		int amount = Integer.parseInt((String) parameterValues[1]);
 		
 		for (Player p : players) {
 			if (!AncientRPGExperience.isWorldEnabled(p.getWorld())) throw new AncientRPGExperienceNotEnabledException();
 			
 			PlayerData.getPlayerData(p.getUniqueId()).getXpSystem().addXP(amount, false);
 		}
+		return new Object[]{line}; // IMPORTANT every spellitem returns the next line to execute in the spell
 	}
-
-
 }

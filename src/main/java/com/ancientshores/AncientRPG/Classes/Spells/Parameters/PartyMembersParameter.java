@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
@@ -69,7 +70,7 @@ public class PartyMembersParameter implements IParameter {
             case String:
                 String s = "";
                 for (UUID uuid : effectArgs.getSpellInfo().partyMembers) {
-                    s += Bukkit.getPlayer(uuid).getName() + ",";
+                    s += PlayerFinder.getPlayerName(uuid) + ",";
                 }
                 effectArgs.getParams().addLast(s);
                 break;

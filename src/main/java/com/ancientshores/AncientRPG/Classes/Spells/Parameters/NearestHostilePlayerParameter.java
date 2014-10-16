@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
@@ -62,7 +63,7 @@ public class NearestHostilePlayerParameter implements IParameter {
             case String:
                 String s = "";
                 for (UUID p : ea.getSpellInfo().hostilePlayers) {
-                    s += Bukkit.getPlayer(p).getName() + ",";
+                    s += PlayerFinder.getPlayerName(p) + ",";
                 }
                 ea.getParams().addLast(s);
                 break;

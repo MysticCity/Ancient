@@ -35,6 +35,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ancient.util.PlayerFinder;
+import com.ancient.util.UUIDConverter;
 import com.ancientshores.AncientRPG.API.ApiManager;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClass;
 import com.ancientshores.AncientRPG.Classes.AncientRPGClassHelp;
@@ -71,7 +73,6 @@ import com.ancientshores.AncientRPG.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellBindCommand;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.AncientRPG.Spells.Commands.SpellsCommandExecutor;
-import com.ancientshores.AncientRPG.Util.AncientRPGUUIDConverter;
 import com.ancientshores.AncientRPG.Util.FlatFileConnector;
 import com.ancientshores.AncientRPG.Util.SerializableZone;
 
@@ -172,8 +173,12 @@ public class AncientRPG extends JavaPlugin {
 		// ===
 		// uuid converter section
 		// ==
-		AncientRPGUUIDConverter.runConverter();
+		UUIDConverter.runConverter(this, new File(plugin.getDataFolder().getPath() + "/players/"));
 		
+		// ==============
+		// Player names loader section
+		// ==============
+		PlayerFinder.loadAllPlayers(new File(plugin.getDataFolder().getPath() + "/players/"));
 		
 		// ===
 		// event section

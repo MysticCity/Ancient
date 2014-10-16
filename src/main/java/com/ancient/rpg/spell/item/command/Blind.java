@@ -4,10 +4,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 
 //TODO überprüfen ob entities wirklich nicht blind sein können, wenn sie es können wieder entities akzeptieren
 /** 
@@ -17,7 +16,7 @@ import com.ancient.rpg.spellmaker.Command;
  * Dieser hatte sowieso keinen Effekt...
  * Desweiteren ist nun der Zeitinput in Sekunden.
  */
-public class Blind extends Command {
+public class Blind extends CommandParameterizable {
 
 	public Blind(int line) {
 		super(	line,
@@ -26,15 +25,16 @@ public class Blind extends Command {
 	}
 
 	@Override
-	public void execute(Arguments args) throws Exception {
-		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+	public Object[] execute() throws Exception {
+		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
-		Player[] players = (Player[]) args.getValues().get(0);
-		int time = (int) args.getValues().get(1) * 20;
+		Player[] players = (Player[]) parameterValues[0];
+		int time = Integer.parseInt((String) parameterValues[1]) * 20;
 		
 		for (Player p : players) {
 			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, time, 1));
 		}
+		return new Object[]{line};
 	}
 
 }

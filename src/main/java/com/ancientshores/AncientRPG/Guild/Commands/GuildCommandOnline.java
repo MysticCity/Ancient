@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
@@ -21,7 +22,7 @@ public class GuildCommandOnline {
             Set<UUID> uuids = guild.gMember.keySet();
             for (UUID uuid : uuids) {
                 if (Bukkit.getPlayer(uuid) != null && Bukkit.getPlayer(uuid).isOnline()) {
-                    mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(guild.gMember.get(uuid)) + Bukkit.getPlayer(uuid).getName());
+                    mPlayer.sendMessage(AncientRPGGuildRanks.getChatColorByRank(guild.gMember.get(uuid)) + PlayerFinder.getPlayerName(uuid));
                 }
             }
         } else {

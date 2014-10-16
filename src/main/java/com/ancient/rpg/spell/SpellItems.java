@@ -11,6 +11,7 @@ import com.ancientshores.AncientRPG.AncientRPG;
 
 public class SpellItems {
 	private static HashMap<String, String> items;
+//	private static HashMap<>
 	
 	static {
 		String packageName = "com.ancient.rpg.spell.item";

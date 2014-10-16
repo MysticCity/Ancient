@@ -4,14 +4,12 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
-import com.ancient.rpg.exceptions.AncientRPGVariableAlreadyExistsException;
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.Classes.Spells.Variable;
 
-public class AddPlayerVariable extends Command {
+public class AddPlayerVariable extends CommandParameterizable {
 
 	public AddPlayerVariable(int line) {
 		super(	line,
@@ -20,11 +18,11 @@ public class AddPlayerVariable extends Command {
 	}
 
 	@Override
-	public void execute(Arguments args) throws Exception {
-		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+	public Object[] execute() throws Exception {
+		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
-		Player[] players = (Player[]) args.getValues().get(0);
-		String varName = (String) args.getValues().get(1);
+		Player[] players = (Player[]) parameterValues[0];
+		String varName = (String) parameterValues[1];
 		
 		for (Player p : players) {
 			if (!Variable.playerVars.containsKey(p.getUniqueId())) Variable.playerVars.put(p.getUniqueId(), new HashMap<String, Variable>());
@@ -34,6 +32,7 @@ public class AddPlayerVariable extends Command {
 			Variable v = new Variable(varName);
 			Variable.playerVars.get(p.getUniqueId()).put(varName, v);	
 		}
+		return new Object[]{line};
 	}
 
 }

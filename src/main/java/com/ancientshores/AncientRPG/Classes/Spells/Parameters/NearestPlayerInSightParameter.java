@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.IParameter;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterDescription;
@@ -53,7 +54,7 @@ public class NearestPlayerInSightParameter implements IParameter {
                 ea.getParams().addLast(l);
                 break;
             case String:
-                ea.getParams().addLast(Bukkit.getPlayer(ea.getSpellInfo().nearestPlayerInSight).getName());
+                ea.getParams().addLast(PlayerFinder.getPlayerName(ea.getSpellInfo().nearestPlayerInSight));
                 break;
             default:
                 AncientRPG.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);

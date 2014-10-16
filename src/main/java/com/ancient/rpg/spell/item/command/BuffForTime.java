@@ -2,14 +2,11 @@ package com.ancient.rpg.spell.item.command;
 
 import org.bukkit.entity.Player;
 
-import sun.security.krb5.internal.PAData;
-
-import com.ancient.rpg.parameter.Arguments;
 import com.ancient.rpg.parameter.Parameter;
 import com.ancient.rpg.parameter.ParameterType;
-import com.ancient.rpg.spellmaker.Command;
+import com.ancient.rpg.spellmaker.CommandParameterizable;
 
-public class BuffForTime extends Command {
+public class BuffForTime extends CommandParameterizable {
 
 	public BuffForTime(int line) {
 		super(line,
@@ -18,17 +15,18 @@ public class BuffForTime extends Command {
 	}
 
 	@Override
-	public void execute(Arguments args) throws Exception {
-		if (!validValues(args.getValues().toArray())) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+	public Object[] execute() throws Exception {
+		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 	
-		Player[] players = (Player[]) args.getValues().get(0);
-		String name = (String) args.getValues().get(1);
-		int time = (int) args.getValues().get(2);
+		Player[] players = (Player[]) parameterValues[0];
+		String name = (String) parameterValues[1];
+		int time = Integer.parseInt((String) parameterValues[2]);
 		
 		
 		for (Player p : players) {
 			
 		}
+		return new Object[]{line};
 		
 	}
 

@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.API.AncientRPGPartyDisbandedEvent;
 import com.ancientshores.AncientRPG.API.AncientRPGPartyJoinEvent;
@@ -112,7 +113,7 @@ public class AncientRPGParty {
 						return false;
 					}
 					members.remove(uuid);
-					this.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + Bukkit.getPlayer(playeruuid).getName() + ChatColor.BLUE + " left your party.");
+					this.sendMessage(AncientRPG.brand2 + ChatColor.GOLD + PlayerFinder.getPlayerName(playeruuid) + ChatColor.BLUE + " left your party.");
 					if (this.getMemberNumber() == 0) {
 						partys.remove(this);
 					}
@@ -184,7 +185,6 @@ public class AncientRPGParty {
 	}
 
 	public static void processQuit(PlayerQuitEvent playerQuitEvent) {
-		System.out.println("AncientRPGParty listener jetzt");
 		final AncientRPGParty party = getPlayersParty(playerQuitEvent.getPlayer().getUniqueId());
 		if (party != null) {
 			final UUID uuid = playerQuitEvent.getPlayer().getUniqueId();

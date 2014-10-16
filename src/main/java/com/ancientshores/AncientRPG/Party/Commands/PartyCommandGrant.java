@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 
@@ -19,8 +20,8 @@ public class PartyCommandGrant {
                     if (Bukkit.getPlayer(args[1]) != null) {
                         if (Bukkit.getPlayer(args[1]).hasPermission(AncientRPGParty.pNodeCreate)) {
                             mParty.setLeader(Bukkit.getPlayer(args[1]).getUniqueId());
-                            mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + Bukkit.getPlayer(mParty.getLeader()).getName() + ChatColor.BLUE + " is the new leader of the party.");
-                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Succesfully granted " + ChatColor.GOLD + Bukkit.getPlayer(mParty.getLeader()).getName() + ChatColor.BLUE + " leader rights.");
+                            mParty.sendMessage(AncientRPG.brand2 + ChatColor.GREEN + PlayerFinder.getPlayerName(mParty.getLeader()) + ChatColor.BLUE + " is the new leader of the party.");
+                            mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.BLUE + "Succesfully granted " + ChatColor.GOLD + PlayerFinder.getPlayerName(mParty.getLeader()) + ChatColor.BLUE + " leader rights.");
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "The player you chose doesn't have the permissions to lead a party.");
                         }

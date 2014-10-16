@@ -23,6 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.HelpList;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandAccept;
@@ -105,7 +106,7 @@ public class AncientRPGGuild implements Serializable {
 		this.motd = " ";
 		if (AncientRPG.iConomyEnabled()) {
 			accountName = "[g]" + guildName.replace(' ', '_');
-			AncientRPG.economy.createBank(accountName, Bukkit.getPlayer(leaderuuid).getName());
+			AncientRPG.economy.createBank(accountName, PlayerFinder.getPlayerName(leaderuuid));
 		}
 		gLeader = leaderuuid;
 		gMember = new HashMap<UUID, AncientRPGGuildRanks>();
@@ -185,7 +186,7 @@ public class AncientRPGGuild implements Serializable {
 		this.broadcastMessage(AncientRPG.brand2 + ChatColor.GREEN + " this guild has been disbanded because no one of the members can be a Leader.");
 		if (AncientRPG.iConomyEnabled()) { // ??? -- wofür? mega unnötig
 			double balance = AncientRPG.economy.bankBalance(this.accountName).amount;
-			AncientRPG.economy.depositPlayer(Bukkit.getPlayer(gLeader).getName(), balance);
+			AncientRPG.economy.depositPlayer(PlayerFinder.getPlayerName(gLeader), balance);
 		}
 		guilds.remove(this);
 		AncientRPGGuild.writeGuild(this);
@@ -210,7 +211,7 @@ public class AncientRPGGuild implements Serializable {
 		
 		if (AncientRPG.iConomyEnabled()) {
 			double balance = AncientRPG.economy.bankBalance(this.accountName).amount;
-			AncientRPG.economy.depositPlayer(Bukkit.getPlayer(gLeader).getName(), balance);
+			AncientRPG.economy.depositPlayer(PlayerFinder.getPlayerName(gLeader), balance);
 		}
 		
 		AncientRPGGuild.deleteGuild(this);
