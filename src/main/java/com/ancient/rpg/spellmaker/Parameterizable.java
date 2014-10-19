@@ -134,10 +134,11 @@ public abstract class Parameterizable extends ExecutableSpellItem {
 						x = Double.parseDouble(subargs[1]);
 						y = Double.parseDouble(subargs[2]);
 						z = Double.parseDouble(subargs[3]);
-					} catch (NumberFormatException | NullPointerException ex) {
+					} catch (NumberFormatException ex) {
+						return false;
+					} catch (NullPointerException ex) {
 						return false;
 					}
-					
 					args.add(i, new Location(w, x, y, z));
 					break;
 				case MATERIAL:
@@ -149,7 +150,9 @@ public abstract class Parameterizable extends ExecutableSpellItem {
 				case NUMBER:
 					try {
 						Double.parseDouble(argument);
-					} catch (NumberFormatException | NullPointerException ex) {
+					} catch (NumberFormatException ex) {
+						return false;
+					} catch (NullPointerException ex) {
 						return false;
 					}
 					args.add(i, Double.parseDouble(argument));
@@ -201,7 +204,9 @@ public abstract class Parameterizable extends ExecutableSpellItem {
 							x = Double.parseDouble(locargs[1]);
 							y = Double.parseDouble(locargs[2]);
 							z = Double.parseDouble(locargs[3]);
-						} catch (NumberFormatException | NullPointerException ex) {
+						} catch (NumberFormatException ex) {
+							return false;
+						} catch (NullPointerException ex) {
 							return false;
 						}
 						
@@ -228,7 +233,9 @@ public abstract class Parameterizable extends ExecutableSpellItem {
 						String subarg = subargs[j];
 						try {
 							doubles[j] = Double.parseDouble(subarg);
-						} catch (NumberFormatException | NullPointerException ex) {
+						} catch (NumberFormatException ex) {
+							return false;
+						} catch (NullPointerException ex) {
 							return false;
 						}
 					}

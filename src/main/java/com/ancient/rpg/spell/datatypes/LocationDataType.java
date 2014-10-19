@@ -46,7 +46,7 @@ public class LocationDataType extends DataType<Location> {
 	}
 
 	private void calculateReturn() {
-		this.value = new Location(Bukkit.getWorld(this.world.getValue()), (int) this.x.getValue(), (int) this.y.getValue(), (int) this.z.getValue());
+		this.value = new Location(Bukkit.getWorld(this.world.getValue()), this.x.getValue().doubleValue(), this.y.getValue().doubleValue(), this.z.getValue().doubleValue());
 	}
 
 	@Override

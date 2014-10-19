@@ -93,19 +93,23 @@ public class SpellParser {
 
 	private static SpellItem parseCommand(String commandName, String arguments) {
 		SpellItem item = null;
-		try {
-			item = (SpellItem) Class.forName(SpellItems.getFullName(commandName)).newInstance();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		// wenn keine parameter ��bergeben parameterisierbar sein	
+			try {
+				item = (SpellItem) Class.forName(SpellItems.getFullName(commandName)).newInstance();
+			} catch (InstantiationException ex) {
+				ex.printStackTrace();
+			} catch (IllegalAccessException ex) {
+				ex.printStackTrace();
+			} catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+			}
+		// wenn keine parameter übergeben parameterisierbar sein	
 		if (arguments.equalsIgnoreCase("")) {
 			if (item instanceof Parameterizable) {
-				return null; // error, da eigentlich parameter da sein m��ssten
+				return null; // error, da eigentlich parameter da sein müssten
 			}
 		}
 		else {
-			if (!((Parameterizable) item).validParameters(arguments)) return null; // eigentlich m��sste hier true kommen, wenn korrekt
+			if (!((Parameterizable) item).validParameters(arguments)) return null; // eigentlich müsste hier true kommen, wenn korrekt
 		}
 		
 		return item;

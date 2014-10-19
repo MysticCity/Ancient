@@ -121,7 +121,7 @@ public class Spell implements SpellSection {
 				return;
 			}
 			
-			line = (int) returns[0];
+			line = Integer.valueOf((String) returns[0]);
 			
 		}
 	}
