@@ -27,8 +27,7 @@ build.number
 
 #Test
 /sinnlos
-=======
-/bin/
+
 
 # Documentation
 /doc/
@@ -40,4 +39,5 @@ build.number
 /uml/*
 /stuff/
 /plan.rtf
->>>>>>> new(FroznMine)
+/bin
+/repo
