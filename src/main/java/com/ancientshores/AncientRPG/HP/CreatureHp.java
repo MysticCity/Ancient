@@ -211,6 +211,7 @@ public class CreatureHp {
 		List<String> worlds = config.getStringList("CreatureHp.enabledWorlds");
 		
 		if (worlds == null || worlds.size() == 0) return true; // if enabled and no worlds in list its everywhere enabled
+		if (worlds.size() == 1 && worlds.get(0).equalsIgnoreCase("")) return true; // if list is not empty but only has a blank line
 		for (String s : worlds) 
 			if (w.getName().equalsIgnoreCase(s)) return true;
 		return false;
