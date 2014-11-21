@@ -30,7 +30,7 @@ public class DamageCommand extends ICommand {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
                             continue;
                         }
-                        if (targetPlayer instanceof Player && DamageConverter.isWorldEnabled(targetPlayer.getWorld())) {
+                        if (targetPlayer instanceof Player && DamageConverter.isEnabledInWorld(targetPlayer.getWorld())) {
                             damage = DamageConverter.reduceDamageByArmor(damage, (Player) targetPlayer);
                         }
                         AncientRPGPlayerListener.damageignored = true;

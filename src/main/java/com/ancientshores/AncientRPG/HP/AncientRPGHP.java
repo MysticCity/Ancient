@@ -84,7 +84,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 					if (p.isDead()) return;
 					health = p.getHealth();
 					if (p.getFoodLevel() >= DamageConverter.getMinimalFoodLevelForReg()) {
-						if (DamageConverter.isWorldEnabled(p.getWorld())) {
+						if (DamageConverter.isEnabledInWorld(p.getWorld())) {
 							addHpByUUID(playerUUID, hpReg);
 						}
 					}
@@ -100,7 +100,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 
 	public void setMaxHp() {
 		if (Bukkit.getPlayer(playerUUID) != null) {
-			if (!DamageConverter.isWorldEnabled(Bukkit.getPlayer(playerUUID).getWorld())) {
+			if (!DamageConverter.isEnabledInWorld(Bukkit.getPlayer(playerUUID).getWorld())) {
 				Bukkit.getPlayer(playerUUID).setMaxHealth(20);
 				return;
 			}

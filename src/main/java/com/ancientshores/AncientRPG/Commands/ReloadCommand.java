@@ -41,7 +41,7 @@ public class ReloadCommand {
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             pd.getHpsystem().stopRegenTimer();
-            if (DamageConverter.isWorldEnabled(p.getWorld())) {
+            if (DamageConverter.isEnabledInWorld(p.getWorld())) {
                 pd.getHpsystem().setMaxHp();
                 pd.getHpsystem().setHpRegen();
                 pd.getHpsystem().setMinecraftHP();

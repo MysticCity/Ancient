@@ -1,6 +1,7 @@
 HP:
   HPsystem enabled: true
-  HPsystem enabled world: ''
+  HPsystem enabled world:
+    - ''
   displayed hp divisor: 1.0
   HP of a user: 600
   damage of a zombie: 150

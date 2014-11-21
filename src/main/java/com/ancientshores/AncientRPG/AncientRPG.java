@@ -278,7 +278,7 @@ public class AncientRPG extends JavaPlugin {
 		for (Player p : Bukkit.getOnlinePlayers()) { // Herzlichen Glückwunsch. Ich glaube das funktioniert nur bei /reload... NNN ??? --- vielleicht bei join event
 			PlayerData pd = PlayerData.getPlayerData(p.getUniqueId()); // speichert die PlayerData eines Spielers ??? was für daten
 			pd.getHpsystem().playerUUID = p.getUniqueId(); // ??? setzt den spieler eines hpsystems auf den aktuellen
-			if (DamageConverter.isWorldEnabled(p.getWorld())) { // wenn der ??? DamageConverter aktiviert und in der entsprechenden Welt aktiviert ist
+			if (DamageConverter.isEnabledInWorld(p.getWorld())) { // wenn der ??? DamageConverter aktiviert und in der entsprechenden Welt aktiviert ist
 				pd.getHpsystem().setMaxHp(); // die Maximalen Leben festlegen
 				pd.getHpsystem().setHpRegen(); // die Regeneration festlegen
 				pd.getHpsystem().setMinecraftHP(); // die ??? Minecraft leben festlegen

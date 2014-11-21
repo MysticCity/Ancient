@@ -92,7 +92,7 @@ public class AncientRPGEntityListener implements Listener {
 			return;
 		}
 		double damage = event.getDamage();
-		if (!ignoreNextHpEvent && CreatureHp.isEnabled(event.getEntity().getWorld()) && DamageConverter.isEnabled() && event.getEntity() instanceof LivingEntity && !(event.getEntity() instanceof HumanEntity)) {
+		if (!ignoreNextHpEvent && CreatureHp.isEnabledInWorld(event.getEntity().getWorld()) && DamageConverter.isEnabled() && event.getEntity() instanceof LivingEntity && !(event.getEntity() instanceof HumanEntity)) {
 			if (event.getCause() != DamageCause.CUSTOM) {
 				damage = DamageConverter.reduceDamageByArmor(DamageConverter.convertDamageByEventForCreatures(event), (LivingEntity) event.getEntity());
 			}
@@ -102,7 +102,7 @@ public class AncientRPGEntityListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onMonsterDespawn(EntityDeathEvent event) {
-		if (CreatureHp.isEnabled(event.getEntity().getWorld()) && event.getEntity() != null && !(event.getEntity() instanceof HumanEntity)) {
+		if (CreatureHp.isEnabledInWorld(event.getEntity().getWorld()) && event.getEntity() != null && !(event.getEntity() instanceof HumanEntity)) {
 			LivingEntity c = event.getEntity();
 			if (CreatureHp.containsCreature(c)) {
 				CreatureHp.removeCreature(c);
@@ -144,7 +144,7 @@ public class AncientRPGEntityListener implements Listener {
 		double amount = event.getAmount();
 		if (event.getEntity() instanceof Player && !event.isCancelled() && DamageConverter.isEnabled()) {
 			Player mPlayer = (Player) event.getEntity();
-			if (!DamageConverter.isWorldEnabled(event.getEntity().getWorld())) {
+			if (!DamageConverter.isEnabledInWorld(event.getEntity().getWorld())) {
 				return;
 			}
 			if (event.getRegainReason() == RegainReason.SATIATED) {
@@ -295,7 +295,7 @@ public class AncientRPGEntityListener implements Listener {
 			if (event.isCancelled()) {
 				return;
 			}
-			if (!ignoreNextHpEvent && DamageConverter.isWorldEnabled(event.getEntity().getWorld())) {
+			if (!ignoreNextHpEvent && DamageConverter.isEnabledInWorld(event.getEntity().getWorld())) {
 				processHpSystem(event);
 			}
 		}

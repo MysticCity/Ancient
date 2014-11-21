@@ -399,7 +399,7 @@ public class AncientRPGSpellListener implements Listener {
 		}
 		if (event.getEntity() instanceof Player) {
 		} else if (event.getEntity() instanceof LivingEntity) {
-			if (CreatureHp.isEnabled(event.getEntity().getWorld())) {
+			if (CreatureHp.isEnabledInWorld(event.getEntity().getWorld())) {
 				return;
 			}
 		}

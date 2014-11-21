@@ -8,7 +8,7 @@ import com.ancientshores.AncientRPG.PlayerData;
 
 public class HPCommand {
     public static void showHP(Player p) {
-        if (DamageConverter.isWorldEnabled(p.getWorld())) {
+        if (DamageConverter.isEnabledInWorld(p.getWorld())) {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
