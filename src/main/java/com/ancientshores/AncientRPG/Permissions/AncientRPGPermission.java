@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.permissions.PermissionDefault;
 
 public class AncientRPGPermission implements ConfigurationSerializable {

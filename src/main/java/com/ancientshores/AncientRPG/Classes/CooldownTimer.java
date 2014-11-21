@@ -9,7 +9,6 @@ import com.ancientshores.AncientRPG.AncientRPG;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 public class CooldownTimer implements Serializable, Runnable, ConfigurationSerializable {
     private static final long serialVersionUID = 1L;

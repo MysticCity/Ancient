@@ -946,9 +946,8 @@ public class AncientRPGSpellListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityDeath(final EntityDeathEvent event) {
-		if (ignoredEvents.contains(event)) {
-			return;
-		} else {
+		if (ignoredEvents.contains(event)) return;
+		else {
 			ignoredEvents.add(event);
 			Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 

@@ -154,7 +154,7 @@ public class AncientRPGEntityListener implements Listener {
 				if (event.getRegainReason() == RegainReason.MAGIC_REGEN) {
 					for (PotionEffect pe : mPlayer.getActivePotionEffects()) {
 						if (mPlayer.hasPotionEffect(PotionEffectType.REGENERATION)) {
-							amount = DamageConverter.regenPotionHp * (pe.getAmplifier() + 1);
+							amount = DamageConverter.getRegenerationPotionHP() * (pe.getAmplifier() + 1);
 						}
 					}
 				} else if (event.getRegainReason() == RegainReason.MAGIC) {
@@ -177,7 +177,7 @@ public class AncientRPGEntityListener implements Listener {
 				Player p = (Player) e;
 				PotionEffect pe = getPotionEffectByType(PotionEffectType.HEAL, event.getPotion().getEffects());
 				if (pe != null) {
-					AncientRPGHP.addHpByUUID(p.getUniqueId(), DamageConverter.healPotionHp * (pe.getAmplifier() + 1));
+					AncientRPGHP.addHpByUUID(p.getUniqueId(), DamageConverter.getHealPotionHP() * (pe.getAmplifier() + 1));
 				}
 			}
 		}
@@ -319,36 +319,30 @@ public class AncientRPGEntityListener implements Listener {
 							Entity e = ((EntityDamageByEntityEvent) event).getDamager();
 							if (e instanceof ThrownPotion) {
 								ThrownPotion p = (ThrownPotion) e;
-								for (PotionEffect pe : p.getEffects()) {
-									if (pe.getType().equals(PotionEffectType.HARM)) {
-										damage = DamageConverter.harmPotionDamage * (pe.getAmplifier() + 1);
-									}
-								}
+								for (PotionEffect pe : p.getEffects()) 
+									if (pe.getType().equals(PotionEffectType.HARM)) damage = DamageConverter.getHarmPotionDamage() * (pe.getAmplifier() + 1);
 							} else if (e instanceof Potion) {
 								Potion p = (Potion) e;
-								for (PotionEffect pe : p.getEffects()) {
-									if (pe.getType().equals(PotionEffectType.HARM)) {
-										damage = DamageConverter.harmPotionDamage * (pe.getAmplifier() + 1);
-									}
-								}
+								for (PotionEffect pe : p.getEffects()) 
+									if (pe.getType().equals(PotionEffectType.HARM)) damage = DamageConverter.getHarmPotionDamage() * (pe.getAmplifier() + 1);
 							}
 						}
 					} else if (event.getCause() == DamageCause.POISON) {
 						for (PotionEffect pe : mPlayer.getActivePotionEffects()) {
 							if (pe.getType().equals(PotionEffectType.POISON)) {
-								damage = DamageConverter.poisonPotionDamage * (pe.getAmplifier() + 1);
+								damage = DamageConverter.getPoisonDamage() * (pe.getAmplifier() + 1);
 							}
 						}
 					} else if (event.getCause() == DamageCause.WITHER) {
-						damage = DamageConverter.witherDamage;
+						damage = DamageConverter.getWitherDamage();
 					} else if (event instanceof EntityDamageByEntityEvent) {
 						EntityDamageByEntityEvent damagerevent = ((EntityDamageByEntityEvent) event);
 						if (damagerevent.getDamager() instanceof Player) {
 							Player attackingPlayer = (Player) damagerevent.getDamager();
-							if (Math.abs(PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage - System.currentTimeMillis()) < DamageConverter.minTimeBetweenAttacks) {
+							if (Math.abs(PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage - System.currentTimeMillis()) < DamageConverter.getTimeBetweenAttacks()) {
 								damage = 0;
 							} else {
-								damage = DamageConverter.getPlayerDamageOfItem(mPlayer, attackingPlayer.getItemInHand().getType(), attackingPlayer, DamageConverter.damageOfFists);
+								damage = DamageConverter.getPlayerDamageOfItem(mPlayer, attackingPlayer.getItemInHand().getType(), attackingPlayer, DamageConverter.getFistDamage());
 							}
 							PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
 						} else if (damagerevent.getDamager() instanceof LivingEntity) {

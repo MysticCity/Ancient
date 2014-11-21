@@ -51,7 +51,7 @@ public class AncientRPGPlayerListener implements Listener {
 
 	public static final Collection<UUID> toggleguildlist = Collections.newSetFromMap(new ConcurrentHashMap<UUID, Boolean>());
 	public static final Collection<UUID> togglepartylist = Collections.newSetFromMap(new ConcurrentHashMap<UUID, Boolean>());
-	public static LinkedHashMap<UUID, Integer> healpotions = new LinkedHashMap<UUID, Integer>();
+	public static LinkedHashMap<UUID, Double> healpotions = new LinkedHashMap<UUID, Double>();
 	public static final HashMap<UUID, Integer> invisibleList = new HashMap<UUID, Integer>();
 	public static final HashMap<UUID, UUID> summonedCreatures = new HashMap<UUID, UUID>();
 
@@ -424,7 +424,7 @@ public class AncientRPGPlayerListener implements Listener {
 			Potion potion = Potion.fromItemStack(item);
 			switch (potion.getType()) {
 				case INSTANT_HEAL: {
-					healpotions.put(p.getUniqueId(), DamageConverter.healPotionHp * (potion.getLevel() + 1));
+					healpotions.put(p.getUniqueId(), DamageConverter.getHealPotionHP() * (potion.getLevel() + 1));
 					Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
 						@Override
 						public void run() {

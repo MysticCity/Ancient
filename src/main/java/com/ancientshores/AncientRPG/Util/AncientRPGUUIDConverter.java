@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -57,7 +56,7 @@ public class AncientRPGUUIDConverter {
 	private static void convert() {
 		File folder = new File(AncientRPG.plugin.getDataFolder().getPath() + "/players/");
 		
-		if (folder == null) return;
+		if (!folder.exists()) return;
 		
 		for (File f : folder.listFiles()) {
 			if (!f.isFile()) {
@@ -69,6 +68,7 @@ public class AncientRPGUUIDConverter {
 			String name = f.getName().replaceAll(".yml", "");
 	
 			try {
+				@SuppressWarnings("unused")
 				UUID uuid = UUID.fromString(name);
 				continue;
 			} catch (IllegalArgumentException ex) {
@@ -76,6 +76,7 @@ public class AncientRPGUUIDConverter {
 			}
 			
 			try {
+				@SuppressWarnings("unused")
 				FileConfiguration config = YamlConfiguration.loadConfiguration(f);
 			} catch (IllegalArgumentException ex) {
 				AncientRPG.plugin.getLogger().warning(String.format("Could not change %s's player configuration to the new UUID system. Please reload the server and try again if you want to use AncientRPG!", name));

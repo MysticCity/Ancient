@@ -86,7 +86,7 @@ public abstract class Parameterizable extends ExecutableSpellItem {
 				
 				if (!(item instanceof Returnable)) return false; // hat keinen return wert, kann also kein parameter sein.
 				
-				Parameter returning = ((Returnable) item).getReturnType();
+				Parameter returning = ((Returnable<?>) item).getReturnType();
 				
 				if (parameterTypes[i].isArray() && returning.isArray() && parameterTypes[i].getType().compareTo(returning.getType()) == 0) args.add(i, item);
 				else return false;
@@ -97,6 +97,7 @@ public abstract class Parameterizable extends ExecutableSpellItem {
 			}
 			else { // keine methode
 				if (argument.startsWith("[")) { // wenn array
+					@SuppressWarnings("unused")
 					String[] subArguments = Splitter.splitArray(argument);
 					
 				}
