@@ -12,8 +12,8 @@ public class HPCommand {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
-            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (((float) hp) / DamageConverter.displayDivider) + "/" + (((float) maxhp) / DamageConverter.displayDivider) + " hp");
-            p.sendMessage(AncientRPG.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + (((float) pd.getHpsystem().hpReg) / DamageConverter.displayDivider));
+            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + hp + "/" + maxhp + " hp");
+            p.sendMessage(AncientRPG.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + pd.getHpsystem().hpReg);
         } else {
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();

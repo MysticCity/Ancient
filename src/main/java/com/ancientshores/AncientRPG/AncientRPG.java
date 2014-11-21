@@ -309,7 +309,8 @@ public class AncientRPG extends JavaPlugin {
 		ConfigurationSerialization.registerClass(PlayerData.class);
 	}
 	
-	private void disableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
+	@SuppressWarnings("unused")
+	private void disableSerialization() { // Configurations-Klassen abmelden
 		ConfigurationSerialization.unregisterClass(BindingData.class);
 		ConfigurationSerialization.unregisterClass(CooldownTimer.class);
 		ConfigurationSerialization.unregisterClass(AncientRPGExperience.class);

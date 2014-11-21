@@ -119,7 +119,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		 * achievements = new HashSet<Achievement>(); } data = new int[100];
 		 * level = new Experience();
 		 */
-		hpsystem = new AncientRPGHP(DamageConverter.standardhp, playeruuid);
+		hpsystem = new AncientRPGHP(DamageConverter.getStandardHP(), playeruuid);
 		
 		className = AncientRPGClass.standardclassName;
 		cooldownTimer = new HashSet<CooldownTimer>();
@@ -162,7 +162,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 			classLevels = new HashMap<String, Integer>();
 		}
 		if (hpsystem == null) {
-			hpsystem = new AncientRPGHP(DamageConverter.standardhp, this.player);
+			hpsystem = new AncientRPGHP(DamageConverter.getStandardHP(), this.player);
 		}
 
 		AncientRPGClass mClass = AncientRPGClass.classList.get(className.toLowerCase());

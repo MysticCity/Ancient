@@ -52,7 +52,7 @@ public class Config {
 		AncientRPGGuild.writeConfig(plugin); // ???
 		
 		// HP Config
-		DamageConverter.writeConfig(plugin); // ???
+		DamageConverter.writeConfig(); // ???
 	   
 		// XP Config
 		AncientRPGExperience.writeConfig(plugin); // ???
@@ -85,7 +85,7 @@ public class Config {
 		
 		AncientRPGGuild.loadConfig(plugin); // Guilden config laden ???
 		
-		DamageConverter.loadConfig(plugin); // converter config laden ???
+		DamageConverter.loadConfig(); // load damage converter config; handles damage made by monsters/weapons
 		
 		AncientRPGExperience.loadConfig(plugin); // xp config laden ???
 		

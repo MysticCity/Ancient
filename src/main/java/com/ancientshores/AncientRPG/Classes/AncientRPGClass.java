@@ -272,11 +272,11 @@ public class AncientRPGClass implements Serializable {
         }
         for (int i = 1; i <= AncientRPGExperience.levelMap.size(); i++) {
             if (yc.get("Class.hp of level " + i) == null) {
-                yc.set("Class.hp of level " + i, DamageConverter.standardhp);
+                yc.set("Class.hp of level " + i, DamageConverter.getStandardHP());
             }
             hplevel.put(i, (float) yc.getDouble("Class.hp of level " + i));
             if (yc.get("Class.hpreg of level " + i) == null) {
-                yc.set("Class.hpreg of level " + i, DamageConverter.hpReg);
+                yc.set("Class.hpreg of level " + i, DamageConverter.getHPRegeneration());
             }
             hpreglevel.put(i, (float) yc.getDouble("Class.hpreg of level " + i));
         }
@@ -291,7 +291,7 @@ public class AncientRPGClass implements Serializable {
             manareglevel.put(i, yc.getInt("Class.manareg of level " + i));
         }
         if (yc.get("Class.default hpreg") == null) {
-            yc.set("Class.default hpreg", DamageConverter.hpReg);
+            yc.set("Class.default hpreg", DamageConverter.getHPRegeneration());
         }
         if (yc.get("Class.default manareg") == null) {
             yc.set("Class.default manareg", ManaSystem.defaultMana);
