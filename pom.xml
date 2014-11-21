@@ -90,6 +90,13 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                  <exclude>template/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/template</directory>
+                <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
