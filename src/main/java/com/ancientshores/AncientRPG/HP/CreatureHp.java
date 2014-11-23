@@ -80,7 +80,7 @@ public class CreatureHp {
 
 	public static void loadConfig(AncientRPG instance) {
 		File file = new File(instance.getDataFolder().getPath() + File.separator + "creaturehpconfig.yml");
-		if (!file.exists()) AncientRPG.plugin.saveResource("hpconfig.yml", true);
+		if (!file.exists()) AncientRPG.plugin.saveResource("creaturehpconfig.yml", true);
 		
 		config = YamlConfiguration.loadConfiguration(file);
 	}

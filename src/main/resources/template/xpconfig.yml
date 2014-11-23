@@ -1,0 +1,45 @@
+XP:
+  XPsystem enabled: true
+  XPsystem enabled world: 
+    - ''
+  Experience of spider: 10
+  Experience of skeleton: 6
+  Experience of zombie: 7
+  Experience of creeper: 10
+  Experience of enderman: 12
+  Experience of pigzombie: 10
+  Experience of ghast: 15
+  Experience of silverfish: 5
+  Experience of iron golem: 10
+  Experience of snowman: 10
+  Experience of ocelot: 10
+  Experience of blaze: 120
+  Experience of slime: 10
+  Experience of wolf: 10
+  Experience of giant: 20
+  Experience of enderdragon: 30
+  Experience of stone: 1
+  Experience of coal: 2
+  Experience of lapis: 3
+  Experience of iron: 4
+  Experience of gold: 6
+  Experience of diamond: 10
+  Experience of redstone: 4
+  Experience of glowstone: 7
+  Experience of netherrack: 7
+  Experience of wood: 10
+  max level: 10
+  Experience of player: 30
+  Experience of cave spider: 10
+  Experience of witch: 10
+  Experience of wither: 30
+  Experience of level 1: 0
+  Experience of level 2: 600
+  Experience of level 3: 1200
+  Experience of level 4: 1800
+  Experience of level 5: 2400
+  Experience of level 6: 3000
+  Experience of level 7: 3600
+  Experience of level 8: 4200
+  Experience of level 9: 4800
+  Experience of level 10: 5400

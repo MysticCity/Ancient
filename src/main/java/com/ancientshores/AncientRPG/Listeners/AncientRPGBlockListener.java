@@ -26,35 +26,34 @@ public class AncientRPGBlockListener implements Listener {
             PlayerData pd = PlayerData.getPlayerData(event.getPlayer().getUniqueId());
             switch (event.getBlock().getType()) {
                 case STONE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfStone, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfStone(), false);
                     return;
                 case COAL_ORE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfCoal, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfCoal(), false);
                     return;
                 case IRON_ORE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfIron, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfIron(), false);
                     return;
                 case GOLD_ORE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfGold, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfGold(), false);
                     return;
                 case DIAMOND_ORE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfDiamond, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfDiamond(), false);
                     return;
                 case LAPIS_ORE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfLapis, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfLapis(), false);
                     return;
-                case REDSTONE_ORE:
-                case GLOWING_REDSTONE_ORE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfRedstone, false);
+                case REDSTONE_ORE: case GLOWING_REDSTONE_ORE:
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfRedstone(), false);
                     return;
                 case GLOWSTONE:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfGlowstone, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfGlowstone(), false);
                     return;
                 case NETHERRACK:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfNetherrack, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfNetherrack(), false);
                     return;
                 case LOG:
-                    pd.getXpSystem().addXP(AncientRPGExperience.XPOfWood, false);
+                    pd.getXpSystem().addXP(AncientRPGExperience.getXPOfWood(), false);
                     return;
                 default:
                     break;

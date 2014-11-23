@@ -75,13 +75,11 @@ public class ClassSetStanceCommand {
 				return false;
 			}
 		}
-		if (!newClass.isWorldEnabled(p.getWorld())) {
-			return false;
-		}
-		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) {
-			return false;
-		}
-
+//		if (!newClass.isWorldEnabled(p.getWorld())) {
+//			return false;
+//		}
+		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) return false;
+		
 		return !(!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !p.hasPermission(newClass.permissionNode));
 	}
 
@@ -94,10 +92,10 @@ public class ClassSetStanceCommand {
 					return;
 				}
 			}
-			if (!newStance.isWorldEnabled(p.getWorld())) {
-				p.sendMessage(AncientRPG.brand2 + "This stance cannot be used in this world");
-				return;
-			}
+//			if (!newStance.isWorldEnabled(p.getWorld())) {
+//				p.sendMessage(AncientRPG.brand2 + "This stance cannot be used in this world");
+//				return;
+//			}
 
 			if (sender == p && !(newStance.permissionNode == null || newStance.permissionNode.equalsIgnoreCase("")) && !sender.hasPermission(newStance.permissionNode)) {
 				p.sendMessage(AncientRPG.brand2 + "You don't have permissions to set join stance");
