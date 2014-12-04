@@ -4,12 +4,15 @@
     <groupId>com.ancientshores</groupId>
     <artifactId>ancient-rpg</artifactId>
     <name>AncientRPG</name>
-    <version>Effects-B1</version>
+    <version>0.9.9-2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <versionName>MultiWorld</versionName>
+
         <minecraft.version>1.7.9</minecraft.version>
+        
         <bukkit.version>R0.2</bukkit.version>
 
         <vault.version>1.2.27</vault.version>
@@ -38,6 +41,17 @@
         </repository>
     </repositories>
 
+	<pluginRepositories>
+      <pluginRepository>
+        <id>autoincrement-versions-maven-plugin</id>
+        <name>autoincrement-versions-maven-plugin</name>
+        <url>http://autoincrement-versions-maven-plugin.googlecode.com/svn/repo</url>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
+    
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -114,7 +128,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <jarName>${project.name}-${project.version}</jarName>
+                    <jarName>${project.name}-${versionName}-${project.version}</jarName>
                     <archive>
                         <manifest>
                             <mainClass>de.pylamo.spellmaker.Main</mainClass>
@@ -152,6 +166,59 @@
                     </execution>
                 </executions>
             </plugin>
+              <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>autoincrement-versions-maven-plugin</artifactId>
+                <version>2.0-SNAPSHOT</version>
+                <executions>
+                  <execution>
+                    <id>update-pom-versions</id>
+                    <goals>
+                      <goal>increment</goal>
+                    </goals>  
+                    <phase>compile</phase>
+                    <configuration>
+                      <allowSnapshots>true</allowSnapshots>
+                      <autoIncrementVersion>true</autoIncrementVersion>
+                    </configuration>
+                   </execution>
+                </executions>
+              </plugin> 
         </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.codehaus.mojo
+        								</groupId>
+        								<artifactId>
+        									autoincrement-versions-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[2.0-SNAPSHOT,)
+        								</versionRange>
+        								<goals>
+        									<goal>increment</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
     </build>
 </project>
