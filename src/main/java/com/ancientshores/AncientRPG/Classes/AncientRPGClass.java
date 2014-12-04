@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -100,18 +101,6 @@ public class AncientRPGClass implements Serializable {
 	public AncientRPGClass() {
 		name = "standard class";
 	}
-
-//	public boolean isWorldEnabled(World w) {
-//		if (w == null) return false;
-//		
-//		if (worlds.length == 1 && worlds[0].equals("")) return true;
-//		
-//		for (String s : worlds) {
-//			if (w.getName().equalsIgnoreCase(s)) return true;
-//		}
-//		
-//		return false;
-//	}
 
 	@Override
 	public boolean equals(Object c) {
@@ -645,5 +634,17 @@ public class AncientRPGClass implements Serializable {
 				}
 			}
 		}
+	}
+
+	public boolean isWorldEnabled(World w) {
+		if (w == null) return false;
+	
+		if (worlds.length == 1 && worlds[0].equals("")) return true;
+	
+		for (String s : worlds) {
+		if (w.getName().equalsIgnoreCase(s)) return true;
+	}
+	
+		return false;
 	}
 }
