@@ -78,15 +78,15 @@ public class CreatureHp {
 		return false;
 	}
 
-	public static void loadConfig(AncientRPG instance) {
-		File file = new File(instance.getDataFolder().getPath() + File.separator + "creaturehpconfig.yml");
+	public static void loadConfig() {
+		File file = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "creaturehpconfig.yml");
 		if (!file.exists()) AncientRPG.plugin.saveResource("creaturehpconfig.yml", true);
 		
 		config = YamlConfiguration.loadConfiguration(file);
 	}
-
-	public static void writeConfig(AncientRPG instance) {
-		File file = new File(instance.getDataFolder().getPath() + File.separator + "creaturehpconfig.yml");
+	
+	public static void writeConfig() {
+		File file = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "creaturehpconfig.yml");
 		try {
 			config.save(file);
 		} catch (IOException ex) {
@@ -123,7 +123,7 @@ public class CreatureHp {
 			case CREEPER:
 				return config.getDouble("CreatureHp.hp of a creeper");
 			case ENDERMAN:
-				return config.getDouble("CreatureHp.hp of a enderman");
+				return config.getDouble("CreatureHp.hp of a Enderman");
 			case ENDER_DRAGON:
 				return config.getDouble("CreatureHp.hp of an ender dragon");
 			case GHAST:
@@ -188,16 +188,14 @@ public class CreatureHp {
 						return config.getDouble("CreatureHp.hp of a slime big");
 				}
 			case ZOMBIE:
-				if (e instanceof Zombie) {
-					Zombie z = (Zombie) e;
-					if (z.isVillager()) {
-						if (z.isBaby()) return config.getDouble("CreatureHp.hp of a baby zombie villager");
-						else return config.getDouble("CreatureHp.hp of a zombie villager");
-					} else {
-						if (z.isBaby()) return config.getDouble("CreatureHp.hp of a baby zombie");
-						else return config.getDouble("CreatureHp.hp of a zombie");
-					}
-				} else return e.getMaxHealth();
+				Zombie z = (Zombie) e;
+				if (z.isVillager()) {
+					if (z.isBaby()) return config.getDouble("CreatureHp.hp of a baby zombie villager");
+					else return config.getDouble("CreatureHp.hp of a zombie villager");
+				} else {
+					if (z.isBaby()) return config.getDouble("CreatureHp.hp of a baby zombie");
+					else return config.getDouble("CreatureHp.hp of a zombie");
+				}
 			default:
 				return e.getMaxHealth();
 		}
