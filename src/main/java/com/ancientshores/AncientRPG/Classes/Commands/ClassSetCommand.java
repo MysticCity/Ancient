@@ -169,7 +169,7 @@ public class ClassSetCommand {
 			}
 			pd.getHpsystem().setHpRegen();
 			pd.getHpsystem().setMinecraftHP();
-			pd.getHpsystem().setMaxHp();
+			pd.getHpsystem().setMaxHP();
 			// pd.hpsystem.maxhp = ct.getMaxHp();
 			pd.setBindings(new HashMap<BindingData, String>());
 			p.sendMessage(AncientRPG.brand2 + "Your class is now " + newClass.name);

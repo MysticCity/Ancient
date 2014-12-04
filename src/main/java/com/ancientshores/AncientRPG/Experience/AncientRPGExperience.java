@@ -154,7 +154,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 				this.level = oldlevel;
 				return;
 			}
-			PlayerData.getPlayerData(p.getUniqueId()).getHpsystem().setMaxHp();
+			PlayerData.getPlayerData(p.getUniqueId()).getHpsystem().setMaxHP();
 			PlayerData.getPlayerData(p.getUniqueId()).getManasystem().setMaxMana();
 				/* AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
 				if (mClass != null)

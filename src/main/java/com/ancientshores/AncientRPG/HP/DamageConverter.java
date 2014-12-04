@@ -559,7 +559,7 @@ public class DamageConverter {
 
 	public static double getHpByMcDamage(UUID uuid, double hp) {
 		AncientRPGHP hpinstance = PlayerData.getPlayerData(uuid).getHpsystem();
-		return (hpinstance.maxhp * (hp / 20));
+		return (hpinstance.getMaxHP() * (hp / 20));
 	}
 
 	public static double getDamageOfItem(LivingEntity attacker, double d) {

@@ -34,14 +34,13 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Speichert die dpielerdateien aller Spieler
+	 * Speichert die Spielerdaten aller Spieler
 	 */
 	public static HashSet<PlayerData> playerData = new HashSet<PlayerData>();
 
 	/**
 	 * Name des Spielers und sein Archivement
 	 */
-
 	private UUID player;
 	public int[] data;
 	private AncientRPGHP hpsystem;
@@ -148,7 +147,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	public void initialize() {
 		this.getManasystem().setMaxMana();
 		this.getManasystem().startRegenTimer();
-		this.getHpsystem().setMaxHp();
+		this.getHpsystem().setMaxHP();
 		this.getHpsystem().setHpRegen();
 		this.getHpsystem().startRegenTimer();
 	}
@@ -237,11 +236,8 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	}
 
 	public boolean containsTimer(UUID uuid) {
-		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
-				return true;
-			}
-		}
+		for (CooldownTimer ct : cooldownTimer)
+			if (ct.uuid.compareTo(uuid) == 0) return true;
 		return false;
 	}
 

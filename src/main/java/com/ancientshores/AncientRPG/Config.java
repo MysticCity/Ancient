@@ -28,9 +28,9 @@ public class Config {
 		this.file = new File(directory + File.separator + "config.yml"); // die Config-Datei laden
 	}
 
-	/*public void configCheck() { // --- was soll hier passieren? */
+	/*public void configCheck() { // --- was soll hier passieren? 
    
-//	}
+	}*/
          //Laden der Konfiguration
 	public void addDefaults() {
 		try {
@@ -58,7 +58,7 @@ public class Config {
 		AncientRPGExperience.writeConfig(plugin); // ???
 		
 		// ??? warum kommt hier nicht die Überprüfung
-		CreatureHp.writeConfig(plugin); // ???
+		CreatureHp.writeConfig(); // ???
 		AncientRPGClass.writeConfig(plugin); // ???
 		AncientRPGRace.writeRacesConfig(plugin); // ???
 		ManaSystem.writeConfig(plugin); // ???
@@ -89,7 +89,7 @@ public class Config {
 		
 		AncientRPGExperience.loadConfig(plugin); // xp config laden ???
 		
-		CreatureHp.loadConfig(plugin); // creaturen hp config laden ???
+		CreatureHp.loadConfig(); // creaturen hp config laden ???
 		AncientRPGClass.loadConfig(plugin); // klassen config laden ???
 		AncientRPGRace.loadRacesConfig(plugin); // rassen config laden ???
 		ManaSystem.loadConfig(plugin); // mana config laden ???
