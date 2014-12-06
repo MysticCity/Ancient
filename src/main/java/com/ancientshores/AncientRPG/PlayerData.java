@@ -157,38 +157,28 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 			className = AncientRPGClass.standardclassName.toLowerCase();
 			cooldownTimer = new HashSet<CooldownTimer>();
 		}
-		if (classLevels == null) {
-			classLevels = new HashMap<String, Integer>();
-		}
-		if (hpsystem == null) {
-			hpsystem = new AncientRPGHP(DamageConverter.getStandardHP(), this.player);
-		}
+		if (classLevels == null) classLevels = new HashMap<String, Integer>();
+		
+		if (hpsystem == null) hpsystem = new AncientRPGHP(DamageConverter.getStandardHP(), this.player);
 
 		AncientRPGClass mClass = AncientRPGClass.classList.get(className.toLowerCase());
-		if (mClass != null) {
-			hpsystem.maxhp = mClass.hp;
-		}
+		if (mClass != null) hpsystem.maxhp = mClass.hp;
 		
-		if (xpSystem == null) {
-			xpSystem = new AncientRPGExperience(player);
-		}
-		if (getManasystem() == null) {
-			manasystem = new ManaSystem(player, ManaSystem.defaultMana);
-		}
+		
+		if (xpSystem == null) xpSystem = new AncientRPGExperience(player);
+		
+		if (getManasystem() == null) manasystem = new ManaSystem(player, ManaSystem.defaultMana);
+		
 
 		this.cooldownTimer = new HashSet<CooldownTimer>();
 		for (PlayerData pd : playerData) {
-			if (pd.xpSystem != null) {
-				pd.xpSystem.addXP(0, false);
-			}
-			if (pd.getBindings() == null) {
-				pd.bindings = new HashMap<BindingData, String>();
-			}
+			if (pd.xpSystem != null) pd.xpSystem.addXP(0, false);
+			if (pd.getBindings() == null) pd.bindings = new HashMap<BindingData, String>();
 		}
 		HashMap<BindingData, String> newbinds = new HashMap<BindingData, String>();
-		for (Entry<BindingData, String> entr : this.getBindings().entrySet()) {
+		for (Entry<BindingData, String> entr : this.getBindings().entrySet())
 			newbinds.put(new BindingData(entr.getKey().id, entr.getKey().data), entr.getValue());
-		}
+		
 		this.bindings = newbinds;
 	}
 

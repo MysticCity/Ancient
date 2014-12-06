@@ -59,6 +59,10 @@ public class DamageConverter {
 	 */ 
 	private static FileConfiguration config;
 	
+	// load the config before anything happens
+	static {
+		loadConfig();
+	}
 	// ===
 	// Methods
 	// ===

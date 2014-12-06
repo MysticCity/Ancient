@@ -160,6 +160,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 		
 		health = health * maxhp / p.getMaxHealth();
 	
+		if (health > maxhp) health = maxhp;
 		p.setHealthScaled(true);
 		p.setMaxHealth(maxhp);
 		p.setHealth(health);
@@ -181,10 +182,9 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 
 	public static void addMinecraftHpByUUID(UUID uuid, float hp) {
 		AncientRPGHP hpinstance = PlayerData.getPlayerData(uuid).getHpsystem();
-		if (hpinstance.health < 0) {
-			return;
-		}
-		hpinstance.health += (float) hpinstance.maxhp * (hp / (float) 20);
+		if (hpinstance.health < 0) return;
+		
+		hpinstance.health += hpinstance.maxhp * (hp / 20.0);
 		hpinstance.setMinecraftHP();
 	}
 

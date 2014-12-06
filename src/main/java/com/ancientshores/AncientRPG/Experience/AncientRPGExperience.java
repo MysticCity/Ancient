@@ -78,12 +78,8 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	public AncientRPGExperience(Map<String, Object> map) {
 		this.level = (Integer) map.get("level");
 		this.xp = (Integer) map.get("xp");
-		if (map.containsKey("uuid")) {
-			this.uuid = UUID.fromString((String) map.get("uuid"));
-		}
-		else {
-			this.uuid = UUIDConverter.getUUID((String) map.get("xpname"));
-		}
+		if (map.containsKey("uuid")) this.uuid = UUID.fromString((String) map.get("uuid"));
+		else this.uuid = UUIDConverter.getUUID((String) map.get("xpname"));
 	}
 
 	public static boolean isWorldEnabled(World w) {
@@ -154,8 +150,8 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 				this.level = oldlevel;
 				return;
 			}
-			PlayerData.getPlayerData(p.getUniqueId()).getHpsystem().setMaxHP();
-			PlayerData.getPlayerData(p.getUniqueId()).getManasystem().setMaxMana();
+			PlayerData.getPlayerData(uuid).getHpsystem().setMaxHP();
+			PlayerData.getPlayerData(uuid).getManasystem().setMaxMana();
 				/* AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getName()).getClassName().toLowerCase());
 				if (mClass != null)
 				{

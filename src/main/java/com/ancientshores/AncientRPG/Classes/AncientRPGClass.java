@@ -114,20 +114,13 @@ public class AncientRPGClass implements Serializable {
 		if (spells != null) {
 			for (final File f : spells) {
 				if (f.getPath().endsWith(".spell")) {
-					Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-						@Override
-						public void run() {
-							Spell p = new Spell(f);
-							spellList.put(p.name.toLowerCase(), p);
-						}
-					});
+					Spell p = new Spell(f);
+					spellList.put(p.name.toLowerCase(), p);
 				}
 				if (f.isDirectory()) {
 					AncientRPGClass stance = new AncientRPGClass(f);
 					stances.put(stance.name.toLowerCase(), stance);
-					if (stance.shortcut != null && !stance.shortcut.equals("")) {
-						stances.put(stance.shortcut, stance);
-					}
+					if (stance.shortcut != null && !stance.shortcut.equals("")) stances.put(stance.shortcut, stance);		
 				}
 			}
 		}
@@ -151,17 +144,14 @@ public class AncientRPGClass implements Serializable {
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
-		if (yc.get("Class.Permissionnode") == null) {
-			yc.set("Class.Permissionnode", "");
-		}
+		if (yc.get("Class.Permissionnode") == null) yc.set("Class.Permissionnode", "");
+		
 		this.permissionNode = yc.getString("Class.Permissionnode");
-		if (yc.get("Class.hidden") == null) {
-			yc.set("Class.hidden", hidden);
-		}
+		if (yc.get("Class.hidden") == null) yc.set("Class.hidden", hidden);
+		
 		this.hidden = yc.getBoolean("Class.hidden", hidden);
-		if (yc.get("Class.blacklistedarmor") == null) {
-			yc.set("Class.blacklistedarmor", "");
-		}
+		if (yc.get("Class.blacklistedarmor") == null) yc.set("Class.blacklistedarmor", "");
+		
 		String[] armors = yc.getString("Class.blacklistedarmor").split(",");
 		for (String s : armors) {
 			try {
@@ -171,9 +161,8 @@ public class AncientRPGClass implements Serializable {
 
 			}
 		}
-		if (yc.get("Class.blacklisteditems") == null) {
-			yc.set("Class.blacklisteditems", "");
-		}
+		if (yc.get("Class.blacklisteditems") == null) yc.set("Class.blacklisteditems", "");
+		
 		String[] items = yc.getString("Class.blacklisteditems").split(",");
 		for (String s : items) {
 			try {
@@ -183,27 +172,23 @@ public class AncientRPGClass implements Serializable {
 
 			}
 		}
-		if (yc.get("Class.maxhp") == null) {
-			yc.set("Class.maxhp", this.hp);
-		}
-		if (yc.get("Class.shortcut") == null) {
-			yc.set("Class.shortcut", "");
-		}
+		if (yc.get("Class.maxhp") == null) yc.set("Class.maxhp", this.hp);
+	
+		if (yc.get("Class.shortcut") == null) yc.set("Class.shortcut", "");
+		
 		this.hp = yc.getInt("Class.maxhp", this.hp);
-		if (yc.get("Class.enabled in world") == null) {
-			yc.set("Class.enabled in world", "");
-		}
+		
+		if (yc.get("Class.enabled in world") == null) yc.set("Class.enabled in world", "");
+		
 		this.worlds = yc.getString("Class.enabled in world").split(",");
-		for (int i = 0; i < worlds.length; i++) {
+		for (int i = 0; i < worlds.length; i++) 
 			worlds[i] = worlds[i].trim();
-		}
-		if (yc.get("Class.permissiongroup") == null) {
-			yc.set("Class.permissiongroup", this.permGroup);
-		}
+		
+		if (yc.get("Class.permissiongroup") == null) yc.set("Class.permissiongroup", this.permGroup);
+		
 		this.permGroup = yc.getString("Class.permissiongroup", this.permGroup);
-		if (yc.get("Class.minlevel") == null) {
-			yc.set("Class.minlevel", this.minlevel);
-		}
+		if (yc.get("Class.minlevel") == null) yc.set("Class.minlevel", this.minlevel);
+		
 		this.minlevel = yc.getInt("Class.minlevel", this.minlevel);
 		// bindings
 		Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
@@ -212,32 +197,27 @@ public class AncientRPGClass implements Serializable {
 				allspells.addAll(spellList.values());
 				allspells.addAll(globalSpells.values());
 				for (Spell spell : allspells) {
-					if (!spell.active) {
-						continue;
-					}
-					if (yc.get("Class.Bindings." + spell.name) == null) {
-						yc.set("Class.Bindings." + spell.name, 0);
-					} else {
+					if (!spell.active) continue;
+					
+					if (yc.get("Class.Bindings." + spell.name) == null) yc.set("Class.Bindings." + spell.name, 0);
+					else {
 						String[] root = yc.getString("Class.Bindings." + spell.name).split(",");
 						for (String l : root) {
 							String[] s = l.trim().split(":");
 							try {
 								int id = Integer.parseInt(s[0]);
-								if (id == 0) {
-									continue;
-								}
+								if (id == 0) continue;
+								
 								byte data = 0;
-								if (s.length == 2) {
-									data = Byte.parseByte(s[1]);
-								}
+								if (s.length == 2) data = Byte.parseByte(s[1]);
+								
 								bindings.put(new BindingData(id, data), spell.name);
 								try {
 									yc.save(f);
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-							} catch (Exception ignored) {
-							}
+							} catch (Exception ignored) {}
 						}
 					}
 				}
@@ -248,54 +228,44 @@ public class AncientRPGClass implements Serializable {
 				}
 			}
 		}, 2);
-		if (yc.get("Class.preclass") == null) {
-			yc.set("Class.preclass", this.preclass);
-		}
+		if (yc.get("Class.preclass") == null) yc.set("Class.preclass", this.preclass);
+		
 		this.preclass = yc.getString("Class.preclass", this.preclass);
-		if (yc.get("Class.requiredrace") == null) {
-			yc.set("Class.requiredrace", "");
-		}
+		if (yc.get("Class.requiredrace") == null) yc.set("Class.requiredrace", "");
+		
 		String races = yc.getString("Class.requiredrace").trim();
 		if (races.length() > 0) {
 			String[] str = races.split(",");
-			for (String s : str) {
+			for (String s : str)
 				requiredraces.add(s.trim().toLowerCase());
-			}
 		}
 		for (int i = 1; i <= AncientRPGExperience.getLevelCount(); i++) {
-			if (yc.get("Class.hp of level " + i) == null) {
-				yc.set("Class.hp of level " + i, DamageConverter.getStandardHP());
-			}
+			if (yc.get("Class.hp of level " + i) == null) yc.set("Class.hp of level " + i, DamageConverter.getStandardHP());
+			
 			hplevel.put(i, (float) yc.getDouble("Class.hp of level " + i));
-			if (yc.get("Class.hpreg of level " + i) == null) {
-				yc.set("Class.hpreg of level " + i, DamageConverter.getHPRegeneration());
-			}
+			if (yc.get("Class.hpreg of level " + i) == null) yc.set("Class.hpreg of level " + i, DamageConverter.getHPRegeneration());
+			
 			hpreglevel.put(i, (float) yc.getDouble("Class.hpreg of level " + i));
 		}
 		for (int i = 1; i <= AncientRPGExperience.getLevelCount(); i++) {
-			if (yc.get("Class.mana of level " + i) == null) {
-				yc.set("Class.mana of level " + i, ManaSystem.defaultMana);
-			}
+			if (yc.get("Class.mana of level " + i) == null) yc.set("Class.mana of level " + i, ManaSystem.defaultMana);
+			
 			manalevel.put(i, yc.getInt("Class.mana of level " + i));
-			if (yc.get("Class.manareg of level " + i) == null) {
-				yc.set("Class.manareg of level " + i, ManaSystem.defaultReg);
-			}
+			if (yc.get("Class.manareg of level " + i) == null) yc.set("Class.manareg of level " + i, ManaSystem.defaultReg);
+			
 			manareglevel.put(i, yc.getInt("Class.manareg of level " + i));
 		}
-		if (yc.get("Class.default hpreg") == null) {
-			yc.set("Class.default hpreg", DamageConverter.getHPRegeneration());
-		}
-		if (yc.get("Class.default manareg") == null) {
-			yc.set("Class.default manareg", ManaSystem.defaultMana);
-		}
+		if (yc.get("Class.default hpreg") == null) yc.set("Class.default hpreg", DamageConverter.getHPRegeneration());
+		
+		if (yc.get("Class.default manareg") == null) yc.set("Class.default manareg", ManaSystem.defaultMana);
+		
 		AncientRPG.set(yc, "Class.description", "");
 		this.description = yc.getString("Class.description", "");
 		hpreg = yc.getInt("Class.default hpreg");
 		manareg = yc.getInt("Class.default manareg");
 		shortcut = yc.getString("Class.shortcut").trim();
-		if (yc.get("Class.default mana") == null) {
-			yc.set("Class.default mana", 1000);
-		}
+		if (yc.get("Class.default mana") == null) yc.set("Class.default mana", 1000);
+		
 		defaultmana = yc.getInt("Class.default mana");
 		try {
 			yc.save(f);
