@@ -17,17 +17,17 @@ public class GuildCommandKick {
             AncientRPGGuild guild = AncientRPGGuild.getPlayersGuild(mPlayer.getUniqueId());
             if (guild != null) {
                 AncientRPGGuildRanks rank = guild.gMember.get(mPlayer.getUniqueId());
-                if (guild.gMember.containsKey(Bukkit.getPlayer(args[1]).getUniqueId())) {
+                if (guild.gMember.containsKey(Bukkit.getOfflinePlayer(args[1]).getUniqueId())) {
                     if (rank == AncientRPGGuildRanks.LEADER) {
-                        if (!(guild.gMember.get(Bukkit.getPlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.LEADER)) {
-                            guild.kickMember(Bukkit.getPlayer(args[1]).getUniqueId());
+                        if (!(guild.gMember.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.LEADER)) {
+                            guild.kickMember(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
                             AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer.getUniqueId()));
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You cannot kick yourself as a Leader.");
                         }
                     } else if (rank == AncientRPGGuildRanks.CO_LEADER) {
-                        if (!(guild.gMember.get(Bukkit.getPlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.LEADER) && !(guild.gMember.get(args[1]) == AncientRPGGuildRanks.CO_LEADER)) {
-                            guild.kickMember(Bukkit.getPlayer(args[1]).getUniqueId());
+                        if (!(guild.gMember.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.LEADER) && !(guild.gMember.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.CO_LEADER)) {
+                            guild.kickMember(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
                             AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer.getUniqueId()));
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You are not allowed to kick this player.");
