@@ -14,6 +14,7 @@ import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -182,7 +183,9 @@ public class ManaSystem implements ConfigurationSerializable {
         PlayerData pd = PlayerData.getPlayerData(playeruuid);
         AncientRPGClass mClass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
         if (mClass != null) {
-            if (AncientRPGExperience.isWorldEnabled(Bukkit.getServer().getPlayer(playeruuid).getWorld())) {
+        	OfflinePlayer p = Bukkit.getOfflinePlayer(playeruuid);
+        	
+        	if (p.isOnline() && AncientRPGExperience.isWorldEnabled(p.getPlayer().getWorld())) {
                 maxmana = mClass.manalevel.get(pd.getXpSystem().level);
                 manareg = mClass.manareglevel.get(pd.getXpSystem().level);
             } else {
