@@ -18,6 +18,7 @@ public class GetItemCount extends IArgument {
 		this.name = "getitemcount";
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Object getArgument(Object obj[], SpellInformationObject so) {
 		Material m = null;
@@ -27,9 +28,15 @@ public class GetItemCount extends IArgument {
 		if (!(obj[0] instanceof Player[])) {
 			return null;
 		}
-		if (obj[1] instanceof Material) {
-			m = Material.getMaterial(((String) obj[1]).toUpperCase());
+		try {
+			int id = ((Double) obj[1]).intValue();
+			m = Material.getMaterial(id);
 		}
+		catch (Exception ex) {
+			m = Material.getMaterial((String) obj[1]);
+		}
+		if (m == null) return -1;
+		
 		Player p = ((Player[]) obj[0])[0];
 		int amount = 0;
 		for (ItemStack is : p.getInventory().all(m).values()) {
