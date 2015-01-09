@@ -190,44 +190,63 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		}, 1200, 1200);
 	}
 
-	public boolean isCastReady(UUID uuid) {
-		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
+	/** Checks if the spell with the given name is ready to get cast.
+	 * 
+	 * @param name The spell for which to check the cooldown
+	 * @return true if ready, false otherwise. Also returns true if there is no cooldown found
+	 */
+	public boolean isCastReady(String name) {
+		for (CooldownTimer ct : cooldownTimer)
+			if (ct.cooldownname.equals(name))
 				return ct.ready;
-			}
-		}
 		return true;
 	}
 
-	public void startTimer(UUID uuid) {
+	/** Start the timer of the cooldown with the given name
+	 * 
+	 * @param name The cooldowns name
+	 */
+	public void startTimer(String name) {
 		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
+			if (ct.cooldownname.equals(name)) {
 				ct.startTimer();
 				return;
 			}
 		}
 	}
 
-	public void addTimer(UUID uuid, int time) {
-		CooldownTimer cd = new CooldownTimer(time, uuid);
-		if (cooldownTimer.contains(cd)) {
+	/** Add a new cooldown timer with the given name, which needs the given amount of time to run
+	 * 
+	 * @param name The cooldown's name
+	 * @param time The cooldown's time
+	 */
+	public void addTimer(String name, int time) {
+		CooldownTimer cd = new CooldownTimer(time, name);
+		if (cooldownTimer.contains(cd))
 			cooldownTimer.remove(cd);
-		}
 		cooldownTimer.add(cd);
 	}
 
-	public long getRemainingTime(UUID uuid) {
-		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
+	/** Get the time, the given cooldown needs to run
+	 * 
+	 * @param name The cooldown's name
+	 * @return The remaining time
+	 */
+	public long getRemainingTime(String name) {
+		for (CooldownTimer ct : cooldownTimer)
+			if (ct.cooldownname.equals(name))
 				return ct.time;
-			}
-		}
 		return 0;
 	}
 
-	public boolean containsTimer(UUID uuid) {
+	/** Check if there is a timer with the given name.
+	 * 
+	 * @param name The cooldown name to check
+	 * @return true if it exists, false otherwise
+	 */
+	public boolean containsTimer(String name) {
 		for (CooldownTimer ct : cooldownTimer)
-			if (ct.uuid.compareTo(uuid) == 0) return true;
+			if (ct.cooldownname.equals(name)) return true;
 		return false;
 	}
 
