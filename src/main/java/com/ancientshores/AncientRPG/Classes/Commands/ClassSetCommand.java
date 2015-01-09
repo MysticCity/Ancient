@@ -23,6 +23,7 @@ import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class ClassSetCommand {
+	@SuppressWarnings("deprecation")
 	public static void setCommand(Object[] args, CommandSender sender) {
 		if (args.length == 1) {
 			sender.sendMessage(AncientRPG.brand2 + "Not enough arguments");
@@ -47,19 +48,23 @@ public class ClassSetCommand {
 		
 		
 		PlayerData pd = PlayerData.getPlayerData(player.getUniqueId());
+		
+		AncientRPGClass oldclass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
+		AncientRPGClass c = AncientRPGClass.classList.get(((String) args[1]).toLowerCase());
+		
+		// if 3 arguments given, the second has to be the name of the player that gets changed
 		if (args.length == 3 && senderHasAdminPermissions(sender)) {
-			Player pl = AncientRPG.plugin.getServer().getPlayer(UUID.fromString((String) args[1]));
+			Player pl = AncientRPG.plugin.getServer().getPlayer((String) args[1]);
 			if (pl != null) {
 				pd = PlayerData.getPlayerData(player.getUniqueId());
 				player = pl;
+				c = AncientRPGClass.classList.get(((String) args[2]).toLowerCase());
 			} else {
 				sender.sendMessage(AncientRPG.brand2 + "Player not found");
 				return;
 			}
 		}
 		
-		AncientRPGClass oldclass = AncientRPGClass.classList.get(pd.getClassName().toLowerCase());
-		AncientRPGClass c = AncientRPGClass.classList.get(((String) args[2]).toLowerCase());
 		if (c != null) {
 			if ((c.preclass != null && !c.preclass.equals("") && (pd.getClassName() == null || !c.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())))) {
 				sender.sendMessage(AncientRPG.brand2 + "You need to be a " + c.preclass + " to join this class");
