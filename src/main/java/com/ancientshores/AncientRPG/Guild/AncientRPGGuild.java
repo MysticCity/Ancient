@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -157,10 +158,10 @@ public class AncientRPGGuild implements Serializable {
 	public void kickMember(UUID uuid) {
 		AncientRPGGuildRanks gr = gMember.get(uuid);
 		gMember.remove(uuid);
-		Player p = Bukkit.getPlayer(uuid);
+		OfflinePlayer p = Bukkit.getOfflinePlayer(uuid);
 		this.broadcastMessage(AncientRPG.brand2 + AncientRPGGuildRanks.getChatColorByRank(gr) + p.getName() + ChatColor.GREEN + " was kicked out of the guild");
-		if (p != null) {
-			p.sendMessage(AncientRPG.brand2 + "You were kicked out of your guild");
+		if (p.isOnline()) {
+			p.getPlayer().sendMessage(AncientRPG.brand2 + "You were kicked out of your guild");
 		}
 	}
 
