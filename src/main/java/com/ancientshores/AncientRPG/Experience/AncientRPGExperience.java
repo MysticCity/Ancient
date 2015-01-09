@@ -20,6 +20,7 @@ import com.ancientshores.AncientRPG.PlayerData;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -98,31 +99,28 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	public void addXP(int xp, boolean party) {
 		xp *= multiplier;
 		Player p = AncientRPG.plugin.getServer().getPlayer(uuid);
-		if (p == null || !isWorldEnabled(p.getWorld())) {
-			return;
-		}
+		if (p == null || !isWorldEnabled(p.getWorld())) return;
+		
 		try {
 			if (AncientRPGParty.splitxp && party) {
-
 				AncientRPGParty mParty = AncientRPGParty.getPlayersParty(p.getUniqueId());
 				if (mParty != null) {
 					HashSet<UUID> playersInRange = new HashSet<UUID>();
 					Collection<UUID> uuids = mParty.getMembers();
 					for (UUID uuid : uuids) {
-						if (uuid.compareTo(p.getUniqueId()) == 0) {
-							continue;
-						}
-						if (Bukkit.getPlayer(uuid).isOnline() && Bukkit.getPlayer(uuid).getLocation().getWorld().getName().equals(p.getWorld().getName()) && Math.abs(Bukkit.getPlayer(uuid).getLocation().distance(p.getLocation())) < AncientRPGParty.splitxprange) {
-							playersInRange.add(uuid);
+						if (uuid.compareTo(p.getUniqueId()) == 0) continue;
+						
+						if (Bukkit.getOfflinePlayer(uuid).isOnline()) {
+							Location loc = Bukkit.getPlayer(uuid).getLocation();
+							if (loc.getWorld().equals(p.getWorld()) && Math.abs(loc.distance(p.getLocation())) < AncientRPGParty.splitxprange) playersInRange.add(uuid);
 						}
 					}
 					int times = playersInRange.size() + 1;
 					int newXp = (xp / times);
 					xp = newXp;
 
-					for (UUID uuid : playersInRange) {
+					for (UUID uuid : playersInRange)
 						PlayerData.getPlayerData(uuid).getXpSystem().addXP(newXp, false);
-					}
 				}
 			}
 		} catch (Exception e) {
@@ -130,18 +128,15 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 		}
 		AncientGainExperienceEvent gainevent = new AncientGainExperienceEvent(this.xp, uuid, xp);
 		Bukkit.getServer().getPluginManager().callEvent(gainevent);
-		if (gainevent.cancelled) {
-			return;
-		}
+		if (gainevent.cancelled) return;
+		
 		this.xp += xp;
 		int oldlevel = level;
 		level = 1;
 		for (int i = 1; i <= config.getInt("XP.max level"); i++) {
-			if (this.xp >= getExperienceOfLevel(i)) {
-				level = i;
-			} else {
-				break;
-			}
+			if (this.xp >= getExperienceOfLevel(i)) level = i;
+			else break;
+			
 		}
 		if (level != oldlevel) {
 			AncientLevelupEvent event = new AncientLevelupEvent(this.level, p.getUniqueId(), this.xp, xp);
@@ -215,9 +210,8 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 	}
 
 	public int getExperienceOfLevel(int level) {
-		return config.getInt("Experience of level " + level);
+		return config.getInt("XP.Experience of level " + level);
 	}
-
 	public static void writeConfig(AncientRPG plugin) {
 		File file = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "xpconfig.yml");
 		try {

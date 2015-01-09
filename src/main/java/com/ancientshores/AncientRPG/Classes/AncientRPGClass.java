@@ -611,9 +611,8 @@ public class AncientRPGClass implements Serializable {
 	
 		if (worlds.length == 1 && worlds[0].equals("")) return true;
 	
-		for (String s : worlds) {
-		if (w.getName().equalsIgnoreCase(s)) return true;
-	}
+		for (String s : worlds)
+			if (w.getName().equalsIgnoreCase(s)) return true;
 	
 		return false;
 	}

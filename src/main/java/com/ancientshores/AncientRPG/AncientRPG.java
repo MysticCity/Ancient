@@ -216,7 +216,7 @@ public class AncientRPG extends JavaPlugin {
 		this.saveConfig(); // speichert die standart config FIX weiß nicht, ob das funktioniert
 		
 		//PlayerData.loadPlayerData();
-		AncientRPGGuild.loadGuilds(); // ??? Gilden laden
+		AncientRPGGuild.loadGuilds(); // Gilden laden
 		new AncientRPGSpellListener(this); // ??? neuer Listener für Sprüche
 		AncientRPGClass.loadClasses(); // ??? Klassen laden
 		AncientRPGRace.loadRaces(); // ??? Rassen laden

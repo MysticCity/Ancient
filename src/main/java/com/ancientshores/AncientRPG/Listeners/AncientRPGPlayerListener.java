@@ -115,9 +115,8 @@ public class AncientRPGPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerConnect(PlayerJoinEvent event) {
 		Player p = event.getPlayer();
-		for (UUID uuid : invisibleList.keySet()) {
+		for (UUID uuid : invisibleList.keySet())
 			p.hidePlayer(Bukkit.getPlayer(uuid));
-		}
 		AncientRPGGuild.setTag(p);
 		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
 		if (mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
