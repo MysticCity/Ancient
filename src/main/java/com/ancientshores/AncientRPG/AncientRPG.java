@@ -218,7 +218,7 @@ public class AncientRPG extends JavaPlugin {
 		//PlayerData.loadPlayerData();
 		AncientRPGGuild.loadGuilds(); // Gilden laden
 		new AncientRPGSpellListener(this); // ??? neuer Listener für Sprüche
-		AncientRPGClass.loadClasses(); // ??? Klassen laden
+		AncientRPGClass.loadClasses(); // Klassen laden
 		AncientRPGRace.loadRaces(); // ??? Rassen laden
 		
 			if (!new File(this.getDataFolder().getPath() + "/level").exists()) { // wenn der Levelordner nicht existiert wird er erstellt

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -74,7 +75,7 @@ public class AncientRPGClass implements Serializable {
 	public static HashMap<SpellInformationObject, UUID> executedSpells = new HashMap<SpellInformationObject, UUID>();
 	public final String name;
 	public boolean hidden = false;
-	public String worlds[] = new String[0];
+	public List<String> worlds = new ArrayList<String>();
 	public final ArrayList<String> requiredraces = new ArrayList<String>();
 	public String permissionNode = "";
 	public final String weaponTypes = "";
@@ -124,6 +125,7 @@ public class AncientRPGClass implements Serializable {
 				}
 			}
 		}
+		
 		final File f = new File(base.getPath() + File.separator + name + ".conf");
 		final YamlConfiguration yc = new YamlConfiguration();
 		if (!f.exists()) {
@@ -180,9 +182,7 @@ public class AncientRPGClass implements Serializable {
 		
 		if (yc.get("Class.enabled in world") == null) yc.set("Class.enabled in world", "");
 		
-		this.worlds = yc.getString("Class.enabled in world").split(",");
-		for (int i = 0; i < worlds.length; i++) 
-			worlds[i] = worlds[i].trim();
+		this.worlds = yc.getStringList("Class.enabled in world");
 		
 		if (yc.get("Class.permissiongroup") == null) yc.set("Class.permissiongroup", this.permGroup);
 		
@@ -277,18 +277,18 @@ public class AncientRPGClass implements Serializable {
 	public static boolean canEquipArmor(Player p, PlayerData pd, String t) {
 		if (classList.get(pd.getClassName().toLowerCase()) == null) return true;
 		
-//		if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p.getWorld())) {
-//			return true;
-//		}
+		if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p.getWorld())) {
+			return true;
+		}
 		return classList.get(pd.getClassName().toLowerCase()).armorTypes.contains(t.toLowerCase());
 	}
 
 	public static boolean canUseSword(Player p, PlayerData pd, String t) {
 		if (classList.get(pd.getClassName().toLowerCase()) == null) return true;
 		
-//		if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p.getWorld())) {
-//			return true;
-//		}
+		if (!classList.get(pd.getClassName().toLowerCase()).isWorldEnabled(p.getWorld())) {
+			return true;
+		}
 		return classList.get(pd.getClassName().toLowerCase()).weaponTypes.contains(t.toLowerCase());
 	}
 
@@ -411,9 +411,9 @@ public class AncientRPGClass implements Serializable {
 				FileReader fr = new FileReader(f);
 				BufferedReader br = new BufferedReader(fr);
 				String line;
-				while ((line = br.readLine()) != null) {
+				while ((line = br.readLine()) != null)
 					playersOnCd.put(UUID.fromString(line.split(";")[0]), Long.getLong(line.split(";")[1]));
-				}
+				
 //				playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
 //				ois.close();
 				br.close();
@@ -482,66 +482,32 @@ public class AncientRPGClass implements Serializable {
 
 	public static boolean spellAvailable(String spellname, PlayerData pd) {
 		try {
-			if (globalSpells.containsKey(spellname.toLowerCase())) {
+			if (globalSpells.containsKey(spellname.toLowerCase()))
 				return true;
-			}
+			
 			if (classList.containsKey(pd.getClassName().toLowerCase())) {
 				AncientRPGClass mClass = classList.get(pd.getClassName().toLowerCase());
 				if (mClass != null) {
-					if (mClass.spellList.containsKey(spellname.toLowerCase())) {
+					if (mClass.spellList.containsKey(spellname.toLowerCase()))
 						return true;
-					}
 					if (pd.getStance() != null && !pd.getStance().equals("") && mClass.stances.containsKey(pd.getStance().toLowerCase())) {
 						AncientRPGClass mStance = mClass.stances.get(pd.getStance().toLowerCase());
-						if (mStance != null) {
-							if (mStance.spellList.containsKey(spellname.toLowerCase())) {
+						if (mStance != null)
+							if (mStance.spellList.containsKey(spellname.toLowerCase()))
 								return true;
-							}
-						}
 					}
 				}
 			}
 			AncientRPGRace race = AncientRPGRace.getRaceByName(pd.getRacename());
-			if (race != null) {
-				for (Spell p : race.raceSpells) {
-					if (p.name.equals(spellname)) {
-						return true;
-					}
-				}
-			}
-		} catch (Exception ignored) {
-		}
+			if (race != null)
+				for (Spell p : race.raceSpells)
+					if (p.name.equals(spellname)) return true;
+		} catch (Exception ignored) {}
 		return false;
 	}
 
 	public static boolean spellAvailable(Spell p, PlayerData pd) {
-		try {
-			if (globalSpells.containsValue(p)) {
-				return true;
-			}
-			if (classList.containsKey(pd.getClassName().toLowerCase())) {
-				AncientRPGClass mClass = classList.get(pd.getClassName().toLowerCase());
-				if (mClass != null) {
-					if (mClass.spellList.containsValue(p)) {
-						return true;
-					}
-					if (pd.getStance() != null && !pd.getStance().equals("") && mClass.stances.containsValue(p)) {
-						AncientRPGClass mStance = mClass.stances.get(pd.getStance().toLowerCase());
-						if (mStance != null) {
-							if (mStance.spellList.containsValue(p)) {
-								return true;
-							}
-						}
-					}
-				}
-			}
-			AncientRPGRace race = AncientRPGRace.getRaceByName(pd.getRacename());
-			if (race.raceSpells.contains(p)) {
-				return true;
-			}
-		} catch (Exception ignored) {
-		}
-		return false;
+		return spellAvailable(p.name, pd);
 	}
 
 	public static Spell getSpell(String spellname, PlayerData pd) {
@@ -608,12 +574,14 @@ public class AncientRPGClass implements Serializable {
 
 	public boolean isWorldEnabled(World w) {
 		if (w == null) return false;
-	
-		if (worlds.length == 1 && worlds[0].equals("")) return true;
-	
-		for (String s : worlds)
-			if (w.getName().equalsIgnoreCase(s)) return true;
-	
+		
+		if (worlds == null || worlds.size() == 0) return true; // if enabled and no worlds in list its everywhere enabled
+		if (worlds.size() == 1 && worlds.get(0).equalsIgnoreCase("")) return true; // if list is not empty but only has a blank line
+		
+		for (String s : worlds) 
+			if (w.getName().equalsIgnoreCase(s))
+				return true;
+		
 		return false;
 	}
 }
