@@ -160,9 +160,8 @@ public class AncientRPGGuild implements Serializable {
 		gMember.remove(uuid);
 		OfflinePlayer p = Bukkit.getOfflinePlayer(uuid);
 		this.broadcastMessage(AncientRPG.brand2 + AncientRPGGuildRanks.getChatColorByRank(gr) + p.getName() + ChatColor.GREEN + " was kicked out of the guild");
-		if (p.isOnline()) {
+		if (p.isOnline())
 			p.getPlayer().sendMessage(AncientRPG.brand2 + "You were kicked out of your guild");
-		}
 	}
 
 	public void giveNextLeader() {

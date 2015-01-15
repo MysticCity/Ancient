@@ -153,7 +153,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	}
 
 	public void createMissingObjects() {
-		if (className == null || className.equals("")) {
+		if (className == null/* || className.equals("")*/) {
 			className = AncientRPGClass.standardclassName.toLowerCase();
 			cooldownTimer = new HashSet<CooldownTimer>();
 		}
@@ -282,11 +282,10 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	 */
 	@SuppressWarnings("unchecked")
 	public static PlayerData playerHasPlayerData(UUID uuid) {
-		for (PlayerData pd : playerData) {
-			if (pd.player != null && pd.player.compareTo(uuid) == 0) {
+		for (PlayerData pd : playerData)
+			if (pd.player != null && pd.player.compareTo(uuid) == 0)
 				return pd;
-			}
-		}
+
 		File folder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "players");
 		File f = new File(folder.getPath() + File.separator + uuid + ".yml");
 		if (f.exists()) {

@@ -21,14 +21,14 @@ public class GuildCommandKick {
                     if (rank == AncientRPGGuildRanks.LEADER) {
                         if (!(guild.gMember.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.LEADER)) {
                             guild.kickMember(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
-                            AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer.getUniqueId()));
+                            AncientRPGGuild.writeGuild(guild);//AncientRPGGuild.invites.get(mPlayer.getUniqueId()));
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You cannot kick yourself as a Leader.");
                         }
                     } else if (rank == AncientRPGGuildRanks.CO_LEADER) {
                         if (!(guild.gMember.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.LEADER) && !(guild.gMember.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId()) == AncientRPGGuildRanks.CO_LEADER)) {
                             guild.kickMember(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
-                            AncientRPGGuild.writeGuild(AncientRPGGuild.invites.get(mPlayer.getUniqueId()));
+                            AncientRPGGuild.writeGuild(guild);//AncientRPGGuild.invites.get(mPlayer.getUniqueId()));
                         } else {
                             mPlayer.sendMessage(AncientRPG.brand2 + ChatColor.RED + "You are not allowed to kick this player.");
                         }
