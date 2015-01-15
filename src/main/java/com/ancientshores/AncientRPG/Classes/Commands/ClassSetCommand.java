@@ -91,15 +91,18 @@ public class ClassSetCommand {
 
 	public static boolean canSetClass(AncientRPGClass newClass, final Player p) {
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
+		
+		if (!newClass.isWorldEnabled(p.getWorld())) {
+			return false;
+		}
+		
 		if (AncientRPGExperience.isWorldEnabled(p.getWorld())) {
 			if (pd.getXpSystem().level < newClass.minlevel) {
 				p.sendMessage(AncientRPG.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
 				return false;
 			}
 		}
-//		if (!newClass.isWorldEnabled(p.getWorld())) {
-//			return false;
-//		}
+		
 		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) return false;
 		
 		AncientRPGRace race = AncientRPGRace.getRaceByName(PlayerData.getPlayerData(p.getUniqueId()).getRacename());
@@ -124,21 +127,20 @@ public class ClassSetCommand {
 		
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		if (newClass != null) {
-			if (sender == p && AncientRPGExperience.isWorldEnabled(p.getWorld())) {
+			if (sender == p && AncientRPGExperience.isWorldEnabled(p.getWorld()))
 				if (pd.getXpSystem().level < newClass.minlevel) {
 					p.sendMessage(AncientRPG.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
 					return;
 				}
-			}
 
 			if (!sender.hasPermission(AncientRPGClass.cNodeClass)) {
 				sender.sendMessage(AncientRPG.brand2 + "You don't have the required permissions to become this class");
 				return;
 			}
-//			if (!newClass.isWorldEnabled(p.getWorld())) {
-//				sender.sendMessage(AncientRPG.brand2 + "This class cannot be used in this world");
-//				return;
-//			}
+			if (!newClass.isWorldEnabled(p.getWorld())) {
+				sender.sendMessage(AncientRPG.brand2 + "This class cannot be used in this world");
+				return;
+			}
 			AncientRPGRace race = AncientRPGRace.getRaceByName(PlayerData.getPlayerData(p.getUniqueId()).getRacename());
 			if (newClass.requiredraces.size() > 0 && (race == null || !newClass.requiredraces.contains(race.name.toLowerCase()))) {
 				p.sendMessage(AncientRPG.brand2 + "Your race can't use this class");
@@ -166,7 +168,8 @@ public class ClassSetCommand {
 			pd.setClassName(newClass.name);
 			if (AncientRPGExperience.isEnabled()) {
 				int xp = 0;
-				if (pd.getClassLevels().get(newClass.name.toLowerCase()) != null && !AncientRPGClass.resetlevelonchange) xp = pd.getClassLevels().get(newClass.name.toLowerCase());
+				if (pd.getClassLevels().get(newClass.name.toLowerCase()) != null && !AncientRPGClass.resetlevelonchange)
+					xp = pd.getClassLevels().get(newClass.name.toLowerCase());
 				
 				pd.getXpSystem().xp = xp;
 				pd.getXpSystem().addXP(0, false);
