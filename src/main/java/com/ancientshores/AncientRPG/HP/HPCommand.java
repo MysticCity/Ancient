@@ -8,16 +8,16 @@ import com.ancientshores.AncientRPG.PlayerData;
 
 public class HPCommand {
     public static void showHP(Player p) {
-        if (DamageConverter.isWorldEnabled(p.getWorld())) {
+        if (DamageConverter.isEnabledInWorld(p.getWorld())) {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
-            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (((float) hp) / DamageConverter.displayDivider) + "/" + (((float) maxhp) / DamageConverter.displayDivider) + " hp");
-            p.sendMessage(AncientRPG.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + (((float) pd.getHpsystem().hpReg) / DamageConverter.displayDivider));
+            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (Math.round(hp * 100) / 100.0) + "/" + (Math.round(maxhp * 100) / 100.0) + " hp");
+            p.sendMessage(AncientRPG.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + pd.getHpsystem().getHPRegen());
         } else {
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
-            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + hp + "/" + maxhp + " hp");
+            p.sendMessage(AncientRPG.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (Math.round(hp * 100) / 100.0) + "/" + (Math.round(maxhp * 100) / 100.0) + " hp");
         }
     }
 

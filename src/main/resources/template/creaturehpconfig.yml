@@ -1,0 +1,43 @@
+CreatureHp:
+  enabled: true
+  enabledWorlds:
+    - ''
+  minimum time between each attack on a creature in milliseconds: 500
+  hp of a bat: 300
+  hp of a blaze: 500
+  hp of a cave spider: 350
+  hp of a chicken: 50
+  hp of a wither: 500
+  hp of a cow: 200
+  hp of a creeper: 300
+  hp of a Enderman: 1000
+  hp of an ender dragon: 5000
+  hp of a ghast: 300
+  hp of a giant: 5000
+  hp of an iron golem: 2500
+  hp of a magma cube tiny: 50
+  hp of a magma cube small: 100
+  hp of a magma cube big: 450
+  hp of a mooshroom: 200
+  hp of an Ocelot: 200
+  hp of a pig: 200
+  hp of a zombie pigman: 500
+  hp of a sheep: 150
+  hp of a silverfish: 200
+  hp of a skeleton: 500
+  hp of a slime tiny: 40
+  hp of a slime small: 150
+  hp of a slime big: 450
+  hp of a snow golem: 200
+  hp of a spider: 450
+  hp of a squid: 200
+  hp of a horse: 150
+  hp of a witch: 1000
+  hp of a villager: 500
+  hp of a wolf: 200
+  hp of a tamed wolf: 500
+  hp of a zombie: 500
+  hp of a baby zombie: 300
+  hp of a zombie villager: 500
+  hp of a baby zombie villager: 300
+  hp of a wither skeleton: 600

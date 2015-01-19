@@ -206,8 +206,7 @@ public class Command extends ICodeSection {
             AncientRPG.plugin.getLogger().log(Level.SEVERE, "AncientRPG: error in command " + commandString);
         }
         param = new Parameter[buffer.length - 1];
-        for (int i = 1; i < buffer.length; i++) {
+        for (int i = 1; i < buffer.length; i++)
             param[i - 1] = new Parameter(this, buffer[i].trim(), i - 1, this.command);
-        }
     }
 }

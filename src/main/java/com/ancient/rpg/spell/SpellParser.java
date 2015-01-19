@@ -9,7 +9,6 @@ import com.ancient.rpg.spell.datatypes.NumberDataType;
 import com.ancient.rpg.spell.datatypes.PlayerDataType;
 import com.ancient.rpg.spell.datatypes.StringDataType;
 import com.ancient.rpg.spellmaker.Parameterizable;
-import com.ancient.rpg.stuff.Splitter;
 
 public class SpellParser {
 

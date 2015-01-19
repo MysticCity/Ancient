@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -24,6 +25,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.ancient.util.PlayerFinder;
+import com.ancient.util.UUIDConverter;
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.HelpList;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandAccept;
@@ -139,9 +141,7 @@ public class AncientRPGGuild implements Serializable {
 	public void broadcastMessage(String message) {
 		for (UUID uuid : gMember.keySet()) {
 			Player p = Bukkit.getPlayer(uuid);
-			if (p != null) {
-				p.sendMessage(message);
-			}
+			if (p != null) p.sendMessage(message);
 		}
 	}
 
@@ -158,11 +158,10 @@ public class AncientRPGGuild implements Serializable {
 	public void kickMember(UUID uuid) {
 		AncientRPGGuildRanks gr = gMember.get(uuid);
 		gMember.remove(uuid);
-		Player p = Bukkit.getPlayer(uuid);
+		OfflinePlayer p = Bukkit.getOfflinePlayer(uuid);
 		this.broadcastMessage(AncientRPG.brand2 + AncientRPGGuildRanks.getChatColorByRank(gr) + p.getName() + ChatColor.GREEN + " was kicked out of the guild");
-		if (p != null) {
-			p.sendMessage(AncientRPG.brand2 + "You were kicked out of your guild");
-		}
+		if (p.isOnline())
+			p.getPlayer().sendMessage(AncientRPG.brand2 + "You were kicked out of your guild");
 	}
 
 	public void giveNextLeader() {
@@ -411,15 +410,12 @@ public class AncientRPGGuild implements Serializable {
 	}
 
 	public static void setTag(Player p) {
-		if (p == null) {
-			return;
-		}
+		if (p == null) return;
+		
 		AncientRPGGuild mGuild = AncientRPGGuild.getPlayersGuild(p.getUniqueId());
 		if (mGuild != null && mGuild.tag != null && !mGuild.tag.equals("")) {
 			String tag = "<" + HelpList.replaceChatColor(mGuild.tag) + ">";
-			if (!p.getDisplayName().contains(tag)) {
-				p.setDisplayName(tag + p.getDisplayName());
-			}
+			if (!p.getDisplayName().contains(tag)) p.setDisplayName(tag + p.getDisplayName());
 		}
 	}
 
@@ -544,12 +540,23 @@ public class AncientRPGGuild implements Serializable {
 			for (File f : guildFiles) {
 				if (!f.isDirectory() && f.getName().endsWith(".guild")) {
 					YamlConfiguration guildConfig = new YamlConfiguration();
-					try {
 						AncientRPGGuild guild = new AncientRPGGuild();
-						guildConfig.load(f);
+						try {
+							guildConfig.load(f);
+						} catch (Exception e) {
+							e.printStackTrace();
+							AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load guild " + f.getName().replaceAll("\\.guild", ""));
+							continue;
+						}
 						guild.guildName = guildConfig.getString("Guild.Name");
 						guild.accountName = guildConfig.getString("Guild.Accountname");
-						guild.gLeader = UUID.fromString(guildConfig.getString("Guild.Leader"));
+						
+						try {
+							guild.gLeader = UUID.fromString(guildConfig.getString("Guild.Leader"));
+						} catch (IllegalArgumentException e) {
+							guild.gLeader = UUIDConverter.getUUID(guildConfig.getString("Guild.Leader"));
+						}
+						
 						guild.motd = guildConfig.getString("Guild.Motd");
 						guild.friendlyFire = guildConfig.getBoolean("Guild.FF");
 						guild.tag = guildConfig.getString("Guild.tag", guild.tag);
@@ -565,18 +572,19 @@ public class AncientRPGGuild implements Serializable {
 						while (s != null && !s.equals("")) {
 							String[] regex = s.split(":");
 							if (regex.length == 2) {
-								guild.gMember.put(UUID.fromString(regex[0].trim()), AncientRPGGuildRanks.getGuildRankByString(regex[1].trim()));
-							} else {
-								break;
+								UUID uuid = null;
+								try {
+									uuid = UUID.fromString(regex[0].trim());
+								} catch (IllegalArgumentException e) {
+									uuid = UUIDConverter.getUUID(regex[0].trim());
+								}
+								guild.gMember.put(uuid, AncientRPGGuildRanks.getGuildRankByString(regex[1].trim()));
 							}
+							else break;
 							i++;
 							s = guildConfig.getString("Guild.Members." + i);
 						}
 						guilds.add(guild);
-					} catch (Exception e) {
-						e.printStackTrace();
-						AncientRPG.plugin.getLogger().log(Level.SEVERE, "Failed to load guilds");
-					}
 				}
 			}
 		}
@@ -634,29 +642,20 @@ public class AncientRPGGuild implements Serializable {
 	}
 
 	public static boolean guildExists(String guildname) {
-		for (AncientRPGGuild g : guilds) {
-			if (g.guildName.equalsIgnoreCase(guildname)) {
-				return true;
-			}
-		}
+		for (AncientRPGGuild g : guilds)
+			if (g.guildName.equalsIgnoreCase(guildname)) return true;
 		return false;
 	}
 
 	public static AncientRPGGuild getGuildByName(String guildname) {
-		for (AncientRPGGuild g : guilds) {
-			if (g.guildName.equalsIgnoreCase(guildname)) {
-				return g;
-			}
-		}
+		for (AncientRPGGuild g : guilds) 
+			if (g.guildName.equalsIgnoreCase(guildname)) return g;
 		return null;
 	}
 
 	public static AncientRPGGuild getPlayersGuild(UUID uuid) {
-		for (AncientRPGGuild g : guilds) {
-			if (g.gMember.containsKey(uuid)) {
-				return g;
-			}
-		}
+		for (AncientRPGGuild g : guilds)
+			if (g.gMember.containsKey(uuid)) return g;
 		return null;
 	}
 }

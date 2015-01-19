@@ -112,11 +112,13 @@ public class Parameter implements Serializable {
 	}
 
 	public void parseParameter(EffectArgs ea, Player mPlayer) {
+		// if global variable
 		if (ea.getSpellInfo().variables.containsKey(s.toLowerCase())) {
 			Variable v = getVariable(ea.getSpellInfo(), s.toLowerCase());
 			v.AutoCast(pt, ea);
 			return;
 		}
+		// if spell variable
 		if (ea.getSpell() != null && ea.getSpell().variables.contains(s.toLowerCase())) {
 			parseVariable(ea, mPlayer, s.toLowerCase());
 			return;

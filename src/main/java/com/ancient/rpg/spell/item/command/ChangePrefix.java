@@ -8,8 +8,8 @@ import com.ancient.rpg.spellmaker.CommandParameterizable;
 import com.ancientshores.AncientRPG.HelpList;
 
 /* TODO	muss noch fertig gemacht werden.
- * 		wenn prefix ??berall sichtbar muss in playerdate ein neuer punkt gemacht werden:
- * 		prefix, suffix u.??.
+ * 		wenn prefix ueberall sichtbar muss in playerdate ein neuer punkt gemacht werden:
+ * 		prefix, suffix u.ae.
  */
 
 /**
@@ -29,12 +29,14 @@ public class ChangePrefix extends CommandParameterizable {
 	public Object[] execute() throws Exception {
 		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
 		
+		@SuppressWarnings("unused")
 		Player[] players = (Player[]) parameterValues[0];
+		@SuppressWarnings("unused")
 		String prefix = HelpList.replaceChatColor((String) parameterValues[1]);
 		
-		for (Player p : players) {
+//		for (Player p : players) {
 //			if (prefix.equalsIgnoreCase("")) AncientRPG.permissionHandler
-		}
+//		}
 
 		return new Object[]{line};
 	}

@@ -78,10 +78,8 @@ public class ClassSetStanceCommand {
 		if (!newClass.isWorldEnabled(p.getWorld())) {
 			return false;
 		}
-		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) {
-			return false;
-		}
-
+		if (newClass.preclass != null && !newClass.preclass.equals("") && !newClass.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())) return false;
+		
 		return !(!(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !p.hasPermission(newClass.permissionNode));
 	}
 

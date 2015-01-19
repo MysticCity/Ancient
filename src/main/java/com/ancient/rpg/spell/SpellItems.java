@@ -1,9 +1,7 @@
 package com.ancient.rpg.spell;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
@@ -28,6 +26,7 @@ public class SpellItems {
 					items.put(className.split("\\.")[className.split("/").length - 1], className);
 				}
 			}
+			jarFile.close();
 		}
 		catch( Exception e){
 			e.printStackTrace ();

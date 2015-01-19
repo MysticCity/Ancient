@@ -33,6 +33,7 @@ import de.pylamo.spellmaker.examples.ExampleSpellLoader;
 import de.pylamo.spellmaker.gui.Window;
 import de.pylamo.spellmaker.parser.SpellParser;
 
+@SuppressWarnings("restriction")
 public class Menu extends JFrame {
 	private static final long serialVersionUID = 1L;
 

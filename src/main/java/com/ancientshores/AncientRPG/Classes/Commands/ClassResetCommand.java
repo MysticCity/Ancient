@@ -20,12 +20,10 @@ public class ClassResetCommand {
     }
 
     public static void reset(Player p, AncientRPGClass oldClass, PlayerData pd) {
-    	System.out.println("----------------------> AncientRPGResetClass: Call event");
-		AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p.getUniqueId(), oldClass, null);
+    	AncientRPGClassChangeEvent classevent = new AncientRPGClassChangeEvent(p.getUniqueId(), oldClass, null);
         Bukkit.getPluginManager().callEvent(classevent);
-        if (classevent.isCancelled()) {
+        if (classevent.isCancelled())
             return;
-        }
         
         if (oldClass != null && oldClass.permGroup != null && !oldClass.permGroup.equals("")) {
         	if (AncientRPG.permissionHandler != null) {
@@ -38,17 +36,31 @@ public class ClassResetCommand {
                 pd.getClassLevels().put(oldClass.name, pd.getXpSystem().xp);
             }
         }
+        boolean defaultClassEnabledInNewWorld = false;
+        
+        for (String className : AncientRPGClass.classList.keySet())
+			if (className.equalsIgnoreCase(AncientRPGClass.standardclassName))
+				if (AncientRPGClass.classList.get(className).isWorldEnabled(p.getWorld())) {
+					defaultClassEnabledInNewWorld = true;
+					break;
+				}
+        
+        String newClassName;
+        if (defaultClassEnabledInNewWorld)
+        	newClassName = AncientRPGClass.standardclassName;
+        else
+        	newClassName = "";
+        	
         if (AncientRPGExperience.isEnabled()) {
-        	System.out.println("----------------------> AncientRPGResetClass: XP sind aktiviert");
-    		if (pd.getClassLevels().get(AncientRPGClass.standardclassName) == null) {
-                pd.getClassLevels().put(AncientRPGClass.standardclassName, 0);
-            }
-            pd.getXpSystem().xp = pd.getClassLevels().get(AncientRPGClass.standardclassName);
-            
-            // Überflüssig
-            pd.getXpSystem().addXP(0, false);
+        	pd.getClassLevels().put(oldClass.name.toLowerCase(), pd.getXpSystem().xp);
+        	if (pd.getClassLevels().get(newClassName) == null)
+        		pd.getClassLevels().put(newClassName, 0);
+        		
+        	pd.getXpSystem().xp = pd.getClassLevels().get(newClassName);
+        		
+        	pd.getXpSystem().addXP(0, false);
         }
-        pd.setClassName(AncientRPGClass.standardclassName);
+        pd.setClassName(newClassName);
         pd.setStance("");
     }
 }

@@ -1,0 +1,26 @@
+Class:
+  Permissionnode: ''
+  maxhp: 100
+  permissiongroup: ''
+  enabled in world: ''
+  hidden: false
+  blacklistedarmor: ''
+  blacklisteditems: '261'
+  shortcut: ''
+  minlevel: 0
+  preclass: ''
+  requiredrace: ''
+  hp of level x: 100
+  hpreg of level x: 100
+  
+  mana of level x: 100
+  manareg of level x: 100
+  
+  default hpreg: 10
+  default manareg: 10
+  
+  description: ''
+  
+  default mana: 100
+  
+  Bindings: ''

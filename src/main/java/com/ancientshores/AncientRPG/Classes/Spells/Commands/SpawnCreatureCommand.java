@@ -36,7 +36,7 @@ public class SpawnCreatureCommand extends ICommand {
                                     }
                                     for (int i = 0; i < amount; i++) {
                                         final Entity mob = loc.getWorld().spawnEntity(loc, e);
-                                        if (mob instanceof Creature && CreatureHp.isEnabled(mob.getWorld())) {
+                                        if (mob instanceof Creature && CreatureHp.isEnabledInWorld(mob.getWorld())) {
                                             ((Creature) mob).setMaxHealth(health);
                                             ((Creature) mob).setHealth(health);
                                         }

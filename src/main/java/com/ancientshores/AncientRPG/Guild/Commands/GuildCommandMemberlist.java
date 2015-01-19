@@ -3,7 +3,6 @@ package com.ancientshores.AncientRPG.Guild.Commands;
 import java.util.Set;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

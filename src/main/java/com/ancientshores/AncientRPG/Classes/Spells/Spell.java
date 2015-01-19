@@ -579,6 +579,7 @@ public class Spell implements Serializable {
 
     public void execute(Player p, Player buffcaster, Event e, String[] args) {
         if (disabledWorlds.contains(p.getWorld().getName().toLowerCase())) {
+        	buffcaster.sendMessage("This spell is not enabled in this world");
             return;
         }
         if (this.permission != null && !this.permission.equals("") && !buffcaster.hasPermission(this.permission)) {
@@ -616,7 +617,7 @@ public class Spell implements Serializable {
         so.buffcaster = buffcaster.getUniqueId();
         so.mSpell = this;
         if (mainsection != null) {
-            mainsection.executeCommand(p, so);
+        	mainsection.executeCommand(p, so);
         }
     }
 
@@ -629,6 +630,7 @@ public class Spell implements Serializable {
     	}
     	
     	if (disabledWorlds.contains(p.getWorld().getName().toLowerCase())) {
+    		buffcaster.sendMessage("This spell is not enabled in this world");
             return;
         }
         if (this.permission != null && !this.permission.equals("") && !buffcaster.hasPermission(this.permission)) {
@@ -665,7 +667,7 @@ public class Spell implements Serializable {
         so.buffcaster = buffcaster.getUniqueId();
         so.mSpell = this;
         if (mainsection != null) {
-            mainsection.executeCommand(p, so);
+        	mainsection.executeCommand(p, so);
         }
     }
 

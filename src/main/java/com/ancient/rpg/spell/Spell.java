@@ -16,11 +16,17 @@ public class Spell implements SpellSection {
 	private List<String> disabledWorlds;
 	private SpellType spellType;
 	private int priority;
+	@SuppressWarnings("unused")
 	private String description;
+	@SuppressWarnings("unused")
 	private boolean ignoreSpellFreeZones;
+	@SuppressWarnings("unused")
 	private boolean hidden;
+	@SuppressWarnings("unused")
 	private ClickType clickType;
+	@SuppressWarnings("unused")
 	private String shortDescription;
+	@SuppressWarnings("unused")
 	private int repeatTime;
 	
 	public Spell(File f) {
