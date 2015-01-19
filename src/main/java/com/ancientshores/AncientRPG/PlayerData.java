@@ -100,7 +100,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		stance = (String) map.get("stance");
 		racename = (String) map.get("racename");
 		manasystem = (ManaSystem) map.get("manasystem");
-		}
+	}
 
 	// public HashSet<Achievement> achievements;
 	// public Experience level;

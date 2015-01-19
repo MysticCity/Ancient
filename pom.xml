@@ -4,7 +4,7 @@
     <groupId>com.ancientshores</groupId>
     <artifactId>ancient-rpg</artifactId>
     <name>AncientRPG</name>
-    <version>0.9.9-39</version>
+    <version>0.9.9-40</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

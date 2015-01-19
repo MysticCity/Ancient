@@ -110,7 +110,7 @@ public class AncientRPGPlayerListener implements Listener {
 		
 		if (prevClass != null) {
 			if (prevClass.isWorldEnabled(p.getWorld())) {
-				ClassSetCommand.setClass(prevClass, currentClass, p, p);
+				ClassSetCommand.setClass(prevClass, currentClass, p, Bukkit.getConsoleSender());
 				prevClasses.remove(p.getUniqueId());
 				if (prevStances.containsKey(p.getUniqueId()))
 					pd.setStance(prevStances.remove(p.getUniqueId()));

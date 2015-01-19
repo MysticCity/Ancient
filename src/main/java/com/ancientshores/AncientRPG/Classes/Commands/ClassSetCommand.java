@@ -162,10 +162,10 @@ public class ClassSetCommand {
 				if (AncientRPGExperience.isEnabled()) 
 					if (oldClass != null) pd.getClassLevels().put(oldClass.name.toLowerCase(), pd.getXpSystem().xp);
 				
-			} catch (Exception ignored) {
-
-			}
+			} catch (Exception ignored) {}
+			
 			pd.setClassName(newClass.name);
+			
 			if (AncientRPGExperience.isEnabled()) {
 				int xp = 0;
 				if (pd.getClassLevels().get(newClass.name.toLowerCase()) != null && !AncientRPGClass.resetlevelonchange)
@@ -183,11 +183,9 @@ public class ClassSetCommand {
 			p.sendMessage(AncientRPG.brand2 + "Your class is now " + newClass.name);
 			pd.setStance("");
 			try {
-				if (newClass.permGroup != null && !newClass.permGroup.equals("") && AncientRPG.permissionHandler != null) AncientRPG.permissionHandler.playerAddGroup(p, newClass.permGroup);
-				
-			} catch (Exception ignored) {
-
-			}
+				if (newClass.permGroup != null && !newClass.permGroup.equals("") && AncientRPG.permissionHandler != null)
+					AncientRPG.permissionHandler.playerAddGroup(p, newClass.permGroup);
+			} catch (Exception ignored) {}
 			for (Map.Entry<BindingData, String> bind : newClass.bindings.entrySet()) 
 				pd.getBindings().put(bind.getKey(), bind.getValue());
 
