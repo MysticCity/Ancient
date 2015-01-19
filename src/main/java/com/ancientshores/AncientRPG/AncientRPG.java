@@ -216,9 +216,9 @@ public class AncientRPG extends JavaPlugin {
 		this.saveConfig(); // speichert die standart config FIX weiß nicht, ob das funktioniert
 		
 		//PlayerData.loadPlayerData();
-		AncientRPGGuild.loadGuilds(); // ??? Gilden laden
+		AncientRPGGuild.loadGuilds(); // Gilden laden
 		new AncientRPGSpellListener(this); // ??? neuer Listener für Sprüche
-		AncientRPGClass.loadClasses(); // ??? Klassen laden
+		AncientRPGClass.loadClasses(); // Klassen laden
 		AncientRPGRace.loadRaces(); // ??? Rassen laden
 		
 			if (!new File(this.getDataFolder().getPath() + "/level").exists()) { // wenn der Levelordner nicht existiert wird er erstellt
@@ -278,8 +278,8 @@ public class AncientRPG extends JavaPlugin {
 		for (Player p : Bukkit.getOnlinePlayers()) { // Herzlichen Glückwunsch. Ich glaube das funktioniert nur bei /reload... NNN ??? --- vielleicht bei join event
 			PlayerData pd = PlayerData.getPlayerData(p.getUniqueId()); // speichert die PlayerData eines Spielers ??? was für daten
 			pd.getHpsystem().playerUUID = p.getUniqueId(); // ??? setzt den spieler eines hpsystems auf den aktuellen
-			if (DamageConverter.isWorldEnabled(p.getWorld())) { // wenn der ??? DamageConverter aktiviert und in der entsprechenden Welt aktiviert ist
-				pd.getHpsystem().setMaxHp(); // die Maximalen Leben festlegen
+			if (DamageConverter.isEnabledInWorld(p.getWorld())) { // wenn der ??? DamageConverter aktiviert und in der entsprechenden Welt aktiviert ist
+				pd.getHpsystem().setMaxHP(); // die Maximalen Leben festlegen
 				pd.getHpsystem().setHpRegen(); // die Regeneration festlegen
 				pd.getHpsystem().setMinecraftHP(); // die ??? Minecraft leben festlegen
 			}
@@ -296,7 +296,6 @@ public class AncientRPG extends JavaPlugin {
 		Spell.initializeServerSpells(); // ??? welche Spells werden initialisiert
 		// File f = new File("plugins/test.qst");
 		// new AncientRPGQuest(f);
-
 	}
 	
 	private void enableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
@@ -309,7 +308,8 @@ public class AncientRPG extends JavaPlugin {
 		ConfigurationSerialization.registerClass(PlayerData.class);
 	}
 	
-	private void disableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
+	@SuppressWarnings("unused")
+	private void disableSerialization() { // Configurations-Klassen abmelden
 		ConfigurationSerialization.unregisterClass(BindingData.class);
 		ConfigurationSerialization.unregisterClass(CooldownTimer.class);
 		ConfigurationSerialization.unregisterClass(AncientRPGExperience.class);

@@ -1,0 +1,92 @@
+HP:
+  HPsystem enabled: true
+  HPsystem enabled world:
+    - ''
+  displayed hp divisor: 1.0
+  HP of a user: 600
+  damage of a zombie: 150
+  damage of a baby zombie: 100
+  damage of a villager baby zombie: 100
+  damage of a villager zombie: 150
+  damage of a spider: 100
+  damage of a cave spider: 100
+  damage of an ender dragon: 400
+  regeneration interval: 3
+  damage of a fireball: 230
+  damage of a small fireball: 180
+  damage of a wither skull: 230
+  regeneration per interval: 20
+  damage of a pig zombie: 150
+  damage of a creeper: 400
+  minfoodlevel for regeneration: 14
+  damage of fall per block: 50
+  first block fall damage: 3
+  damage of starvation: 50
+  damage of a ghast: 250
+  damage of an enderman: 200
+  damage of a giant: 400
+  damage of a wolf: 150
+  damage of a slime: 100
+  damage of a magma cube: 100
+  damage of fire: 50
+  damage of a Cactus per second: 50
+  damage of a silverfish: 40
+  damage of a blaze: 120
+  damage of an iron golem: 100
+  damage of a ocelot: 100
+  damage of a snowman: 100
+  damage of TNT: 400
+  damage of lava per second: 250
+  damage of drowning: 50
+  damage of an arrow: 50
+  damage of an egg: 10
+  damage of a snowball: 10
+  damage of a lightning: 50
+  damage of fists: 50
+  damage of a wood sword: 80
+  damage of a stone sword: 130
+  damage of an iron sword: 200
+  damage of a gold sword: 250
+  damage of a diamond sword: 300
+  damage of a wooden axe: 40
+  damage of a stone axe: 90
+  damage of an iron axe: 140
+  damage of a gold axe: 190
+  damage of a diamond axe: 230
+  extra damage of sharpness enchantment: 20
+  max extra damage of bane of arthropods and smite enchantment: 50
+  extra damage of bow enchantments: 20
+  extra damage of strenght potion per tier: 100
+  less damage of weaken potion per tier: 100
+  regeneration potion per tick per tier: 20
+  heal per heal potion per tier: 250
+  damage per harm potion per tier: 250
+  posion potion damage per tick per tier: 20
+  damage of wither effect: 50
+  minimum time between each attack on a player in milliseconds: 500
+Armor:
+  Diamond:
+    Damage reduction of a diamond helmet in percentage points: 12.0
+    Damage reduction of a diamond chestplate in percentage points: 32.0
+    Damage reduction of a diamond leggings in percentage points: 24.0
+    Damage reduction of diamond boots in percentage points: 12.0
+  Iron:
+    Damage reduction of an iron helmet in percentage points: 8.0
+    Damage reduction of an iron chestplate in percentage points: 24.0
+    Damage reduction of an iron leggings in percentage points: 20.0
+    Damage reduction of iron boots in percentage points: 8.0
+  Gold:
+    Damage reduction of a gold helmet in percentage points: 8.0
+    Damage reduction of a gold chestplate in percentage points: 20.0
+    Damage reduction of a gold leggings in percentage points: 12.0
+    Damage reduction of gold boots in percentage points: 4.0
+  Chain:
+    Damage reduction of a chain helmet in percentage points: 8.0
+    Damage reduction of a chain chestplate in percentage points: 20.0
+    Damage reduction of a chain leggings in percentage points: 16.0
+    Damage reduction of chain boots in percentage points: 4.0
+  Leather:
+    Damage reduction of a leather cap in percentage points: 4.0
+    Damage reduction of a leather tunic in percentage points: 12.0
+    Damage reduction of a leather pants in percentage points: 8.0
+    Damage reduction of leather boots in percentage points: 4.0

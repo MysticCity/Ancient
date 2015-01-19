@@ -18,8 +18,8 @@ import org.bukkit.entity.Player;
 public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 	private static final long serialVersionUID = 1L;
 	public double maxhp;
-	public double hpReg = DamageConverter.hpReg;
-	public double hpRegInterval = DamageConverter.hpRegInterval;
+	private double hpReg = DamageConverter.getHPRegeneration();
+	public double hpRegInterval = DamageConverter.getHPRegenerationInterval();
 	public double health;
 	public UUID playerUUID;
 	public int task;
@@ -54,7 +54,7 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 		
 	}
 
-	public AncientRPGHP(int maxhp, UUID playeruuid) {
+	public AncientRPGHP(double maxhp, UUID playeruuid) {
 		this.health = maxhp;
 		this.maxhp = maxhp;
 		this.playerUUID = playeruuid;
@@ -67,15 +67,12 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 		}
 		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(playerUUID).getClassName().toLowerCase());
 		if (mClass != null) {
-			if (DamageConverter.isEnabled()) {
-				hpReg = mClass.hpreglevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
-			} else {
-				hpReg = mClass.hpreg;
-			}
-		} else {
-			hpReg = DamageConverter.hpReg;
-		}
-		hpRegInterval = DamageConverter.hpRegInterval;
+			if (DamageConverter.isEnabled()) hpReg = mClass.hpreglevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
+			else hpReg = mClass.hpreg;
+			
+		} else hpReg = DamageConverter.getHPRegeneration();
+		
+		hpRegInterval = DamageConverter.getHPRegenerationInterval();
 		task = Bukkit.getScheduler().scheduleSyncRepeatingTask(AncientRPG.plugin, new Runnable() {
 			public void run() {
 				if (!damage) {
@@ -84,12 +81,10 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 						stopRegenTimer();
 						return;
 					}
-					if (p.isDead()) {
-						return;
-					}
+					if (p.isDead()) return;
 					health = p.getHealth();
-					if (p.getFoodLevel() >= DamageConverter.minFoodRegLevel) {
-						if (DamageConverter.isWorldEnabled(p.getWorld())) {
+					if (p.getFoodLevel() >= DamageConverter.getMinimalFoodLevelForReg()) {
+						if (DamageConverter.isEnabledInWorld(p.getWorld())) {
 							addHpByUUID(playerUUID, hpReg);
 						}
 					}
@@ -103,83 +98,72 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 		Bukkit.getScheduler().cancelTask(task);
 	}
 
-	public void setMaxHp() {
+	public double getMaxHP() {
+		setMaxHP();
+		setMinecraftHP();
+		return this.maxhp;
+	}
+	
+	public void setMaxHP() {
+		Player p = Bukkit.getPlayer(playerUUID);
+		if (p == null) return;
+		
 		if (Bukkit.getPlayer(playerUUID) != null) {
-			if (!DamageConverter.isWorldEnabled(Bukkit.getPlayer(playerUUID).getWorld())) {
-				Bukkit.getPlayer(playerUUID).setMaxHealth(20);
+			if (!DamageConverter.isEnabledInWorld(Bukkit.getPlayer(playerUUID).getWorld())) {
+				this.maxhp = 20;
+				
+				addMinecraftHpByUUID(playerUUID, 0); // update displayed mc hp
 				return;
 			}
 		}
 		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(playerUUID).getClassName().toLowerCase());
 		if (mClass != null) {
 			if (AncientRPGExperience.isEnabled()) {
-				if (PlayerData.getPlayerData(playerUUID).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase())) {
-					maxhp = mClass.stances.get(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase()).hplevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
-				} else {
-					maxhp = mClass.hplevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
-				}
+				if (PlayerData.getPlayerData(playerUUID).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase())) maxhp = mClass.stances.get(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase()).hplevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
+				else maxhp = mClass.hplevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
+				
 			} else {
-				if (mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance())) {
-					maxhp = mClass.stances.get(PlayerData.getPlayerData(playerUUID).getStance()).hp;
-				} else {
-					maxhp = mClass.hp;
-				}
+				if (mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance())) maxhp = mClass.stances.get(PlayerData.getPlayerData(playerUUID).getStance()).hp;
+				else maxhp = mClass.hp;
+				
 			}
-		} else {
-			maxhp = DamageConverter.standardhp;
-		}
-		if (health > maxhp) {
-			health = maxhp;
-		}
-		addMinecraftHpByUUID(playerUUID, 0);
-		Player p = Bukkit.getPlayer(playerUUID);
-		if (p == null) {
-			return;
-		}
-		p.setMaxHealth((int) maxhp);
+		} else maxhp = DamageConverter.getStandardHP();
+		
+		addMinecraftHpByUUID(playerUUID, 0); // update displayed mc hp
 	}
 
+	public double getHPRegen() {
+		setHpRegen();
+		return this.hpReg;
+	}
+	
 	public void setHpRegen() {
 		AncientRPGClass mClass = AncientRPGClass.classList.get(PlayerData.getPlayerData(playerUUID).getClassName().toLowerCase());
 		if (mClass != null) {
 			if (AncientRPGExperience.isEnabled()) {
-				if (PlayerData.getPlayerData(playerUUID).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase())) {
+				if (PlayerData.getPlayerData(playerUUID).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase()))
 					hpReg = mClass.stances.get(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase()).hpreglevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
-				} else {
+				else
 					hpReg = mClass.hpreglevel.get(PlayerData.getPlayerData(playerUUID).getXpSystem().level).intValue();
-				}
 			} else {
-				if (PlayerData.getPlayerData(playerUUID).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase())) {
+				if (PlayerData.getPlayerData(playerUUID).getStance() != null && mClass.stances.containsKey(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase()))
 					hpReg = mClass.stances.get(PlayerData.getPlayerData(playerUUID).getStance().toLowerCase()).hpreg;
-				} else {
+				else
 					hpReg = mClass.hpreg;
-				}
 			}
-		} else {
-			hpReg = DamageConverter.hpReg;
-		}
+		} else hpReg = DamageConverter.getHPRegeneration();
 	}
 
 	public void setMinecraftHP() {
-		if (health < 0) {
-			health = 0;
-		}
-		if (health > maxhp) {
-			health = maxhp;
-		}
-		Player mPlayer = Bukkit.getPlayer(playerUUID);
-		if (Bukkit.getPlayer(playerUUID) == null) {
-			return;
-		}
-		if (health > mPlayer.getMaxHealth()) {
-			health = mPlayer.getMaxHealth();
-		}
-		mPlayer.setHealthScaled(true);
-		if ((int) health == 0 && health > 0) {
-			mPlayer.setHealth(1);
-		} else {
-			mPlayer.setHealth((int) health);
-		}
+		if (Bukkit.getPlayer(playerUUID) == null) return;
+		Player p = Bukkit.getPlayer(playerUUID);
+		
+		health = health * maxhp / p.getMaxHealth();
+	
+		if (health > maxhp) health = maxhp;
+		p.setHealthScaled(true);
+		p.setMaxHealth(maxhp);
+		p.setHealth(health);
 	}
 
 	public static void addHpByUUID(UUID uuid, double hp) {
@@ -188,9 +172,8 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 			return;
 		}
 		AncientRPGHP hpinstance = PlayerData.getPlayerData(uuid).getHpsystem();
-		if (hpinstance.health < 0) {
-			return;
-		}
+		if (hpinstance.health < 0) return;
+		
 		Player p = Bukkit.getPlayer(uuid);
 		
 		hpinstance.health = p.getHealth();
@@ -199,10 +182,9 @@ public class AncientRPGHP implements Serializable, ConfigurationSerializable {
 
 	public static void addMinecraftHpByUUID(UUID uuid, float hp) {
 		AncientRPGHP hpinstance = PlayerData.getPlayerData(uuid).getHpsystem();
-		if (hpinstance.health < 0) {
-			return;
-		}
-		hpinstance.health += (float) hpinstance.maxhp * (hp / (float) 20);
+		if (hpinstance.health < 0) return;
+		
+		hpinstance.health += hpinstance.maxhp * (hp / 20.0);
 		hpinstance.setMinecraftHP();
 	}
 

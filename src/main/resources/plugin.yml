@@ -1,5 +1,5 @@
 name: AncientRPG
 main: com.ancientshores.AncientRPG.AncientRPG
-version: 0.9.8.2
+version: 0.9.9 MultiWorld
 depend: [Vault]
 authors: [FroznMine,Keyle,Pylamo]

@@ -34,14 +34,13 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Speichert die dpielerdateien aller Spieler
+	 * Speichert die Spielerdaten aller Spieler
 	 */
 	public static HashSet<PlayerData> playerData = new HashSet<PlayerData>();
 
 	/**
 	 * Name des Spielers und sein Archivement
 	 */
-
 	private UUID player;
 	public int[] data;
 	private AncientRPGHP hpsystem;
@@ -101,7 +100,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		stance = (String) map.get("stance");
 		racename = (String) map.get("racename");
 		manasystem = (ManaSystem) map.get("manasystem");
-		}
+	}
 
 	// public HashSet<Achievement> achievements;
 	// public Experience level;
@@ -119,7 +118,7 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		 * achievements = new HashSet<Achievement>(); } data = new int[100];
 		 * level = new Experience();
 		 */
-		hpsystem = new AncientRPGHP(DamageConverter.standardhp, playeruuid);
+		hpsystem = new AncientRPGHP(DamageConverter.getStandardHP(), playeruuid);
 		
 		className = AncientRPGClass.standardclassName;
 		cooldownTimer = new HashSet<CooldownTimer>();
@@ -148,48 +147,38 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	public void initialize() {
 		this.getManasystem().setMaxMana();
 		this.getManasystem().startRegenTimer();
-		this.getHpsystem().setMaxHp();
+		this.getHpsystem().setMaxHP();
 		this.getHpsystem().setHpRegen();
 		this.getHpsystem().startRegenTimer();
 	}
 
 	public void createMissingObjects() {
-		if (className == null || className.equals("")) {
+		if (className == null/* || className.equals("")*/) {
 			className = AncientRPGClass.standardclassName.toLowerCase();
 			cooldownTimer = new HashSet<CooldownTimer>();
 		}
-		if (classLevels == null) {
-			classLevels = new HashMap<String, Integer>();
-		}
-		if (hpsystem == null) {
-			hpsystem = new AncientRPGHP(DamageConverter.standardhp, this.player);
-		}
+		if (classLevels == null) classLevels = new HashMap<String, Integer>();
+		
+		if (hpsystem == null) hpsystem = new AncientRPGHP(DamageConverter.getStandardHP(), this.player);
 
 		AncientRPGClass mClass = AncientRPGClass.classList.get(className.toLowerCase());
-		if (mClass != null) {
-			hpsystem.maxhp = mClass.hp;
-		}
+		if (mClass != null) hpsystem.maxhp = mClass.hp;
 		
-		if (xpSystem == null) {
-			xpSystem = new AncientRPGExperience(player);
-		}
-		if (getManasystem() == null) {
-			manasystem = new ManaSystem(player, ManaSystem.defaultMana);
-		}
+		
+		if (xpSystem == null) xpSystem = new AncientRPGExperience(player);
+		
+		if (getManasystem() == null) manasystem = new ManaSystem(player, ManaSystem.defaultMana);
+		
 
 		this.cooldownTimer = new HashSet<CooldownTimer>();
 		for (PlayerData pd : playerData) {
-			if (pd.xpSystem != null) {
-				pd.xpSystem.addXP(0, false);
-			}
-			if (pd.getBindings() == null) {
-				pd.bindings = new HashMap<BindingData, String>();
-			}
+			if (pd.xpSystem != null) pd.xpSystem.addXP(0, false);
+			if (pd.getBindings() == null) pd.bindings = new HashMap<BindingData, String>();
 		}
 		HashMap<BindingData, String> newbinds = new HashMap<BindingData, String>();
-		for (Entry<BindingData, String> entr : this.getBindings().entrySet()) {
+		for (Entry<BindingData, String> entr : this.getBindings().entrySet())
 			newbinds.put(new BindingData(entr.getKey().id, entr.getKey().data), entr.getValue());
-		}
+		
 		this.bindings = newbinds;
 	}
 
@@ -201,47 +190,63 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		}, 1200, 1200);
 	}
 
-	public boolean isCastReady(UUID uuid) {
-		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
+	/** Checks if the spell with the given name is ready to get cast.
+	 * 
+	 * @param name The spell for which to check the cooldown
+	 * @return true if ready, false otherwise. Also returns true if there is no cooldown found
+	 */
+	public boolean isCastReady(String name) {
+		for (CooldownTimer ct : cooldownTimer)
+			if (ct.cooldownname.equals(name))
 				return ct.ready;
-			}
-		}
 		return true;
 	}
 
-	public void startTimer(UUID uuid) {
+	/** Start the timer of the cooldown with the given name
+	 * 
+	 * @param name The cooldowns name
+	 */
+	public void startTimer(String name) {
 		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
+			if (ct.cooldownname.equals(name)) {
 				ct.startTimer();
 				return;
 			}
 		}
 	}
 
-	public void addTimer(UUID uuid, int time) {
-		CooldownTimer cd = new CooldownTimer(time, uuid);
-		if (cooldownTimer.contains(cd)) {
+	/** Add a new cooldown timer with the given name, which needs the given amount of time to run
+	 * 
+	 * @param name The cooldown's name
+	 * @param time The cooldown's time
+	 */
+	public void addTimer(String name, int time) {
+		CooldownTimer cd = new CooldownTimer(time, name);
+		if (cooldownTimer.contains(cd))
 			cooldownTimer.remove(cd);
-		}
 		cooldownTimer.add(cd);
 	}
 
-	public long getRemainingTime(UUID uuid) {
-		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
+	/** Get the time, the given cooldown needs to run
+	 * 
+	 * @param name The cooldown's name
+	 * @return The remaining time
+	 */
+	public long getRemainingTime(String name) {
+		for (CooldownTimer ct : cooldownTimer)
+			if (ct.cooldownname.equals(name))
 				return ct.time;
-			}
-		}
 		return 0;
 	}
 
-	public boolean containsTimer(UUID uuid) {
-		for (CooldownTimer ct : cooldownTimer) {
-			if (ct.uuid.compareTo(uuid) == 0) {
-				return true;
-			}
-		}
+	/** Check if there is a timer with the given name.
+	 * 
+	 * @param name The cooldown name to check
+	 * @return true if it exists, false otherwise
+	 */
+	public boolean containsTimer(String name) {
+		for (CooldownTimer ct : cooldownTimer)
+			if (ct.cooldownname.equals(name)) return true;
 		return false;
 	}
 
@@ -277,11 +282,10 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 	 */
 	@SuppressWarnings("unchecked")
 	public static PlayerData playerHasPlayerData(UUID uuid) {
-		for (PlayerData pd : playerData) {
-			if (pd.player != null && pd.player.compareTo(uuid) == 0) {
+		for (PlayerData pd : playerData)
+			if (pd.player != null && pd.player.compareTo(uuid) == 0)
 				return pd;
-			}
-		}
+
 		File folder = new File(AncientRPG.plugin.getDataFolder().getPath() + File.separator + "players");
 		File f = new File(folder.getPath() + File.separator + uuid + ".yml");
 		if (f.exists()) {

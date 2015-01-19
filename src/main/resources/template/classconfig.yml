@@ -1,0 +1,6 @@
+Class:
+  StandardClassName: standardclass
+  change cooldown in seconds: 2
+  only right click casts bound spells: false
+  reset level on class change: false
+  show all classes: true
