@@ -59,7 +59,7 @@ public abstract class IArgument {
                     last = curpos + 1;
                 }
             }
-            if (line.charAt(curpos) == '"') {
+            if (line.charAt(curpos) == '\"') {
                 openq = !openq;
             }
             curpos++;

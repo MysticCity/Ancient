@@ -20,9 +20,8 @@ public class DamageModifyCommand extends ICommand {
                 if (ca.getSpellInfo().mEvent instanceof EntityDamageEvent) {
                     final EntityDamageEvent event = (EntityDamageEvent) ca.getSpellInfo().mEvent;
                     event.setDamage(Math.round(event.getDamage() * (float) percent / (float) 100));
-                    if (event.getDamage() == 0) {
+                    if (event.getDamage() == 0)
                         event.setCancelled(true);
-                    }
                     return true;
                 }
             }
