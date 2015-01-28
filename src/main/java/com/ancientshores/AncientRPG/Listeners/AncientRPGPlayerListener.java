@@ -34,6 +34,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionType;
 
 import com.ancient.util.PlayerFinder;
 import com.ancientshores.AncientRPG.AncientRPG;
@@ -404,7 +405,19 @@ public class AncientRPGPlayerListener implements Listener {
 
 		ItemStack item = event.getItem();
 		if (item != null && item.getType() == Material.POTION) {
-			Potion potion = Potion.fromItemStack(item);
+			Potion potion;
+			
+			try {
+				// Instant health potions from creative inventory cause an exception
+				// also water bottles have a problem
+				potion = Potion.fromItemStack(item);
+			} catch (IllegalArgumentException ex) {
+				if (ex.getMessage().contains("Instant potions cannot be extended"))
+					potion = new Potion(PotionType.INSTANT_HEAL);
+				else if (ex.getMessage().contains("Water bottles don't have a level!"))
+					potion = new Potion(PotionType.WATER);
+				else return;
+			}
 			switch (potion.getType()) {
 				case INSTANT_HEAL: {
 					healpotions.put(p.getUniqueId(), DamageConverter.getHealPotionHP() * (potion.getLevel() + 1));
