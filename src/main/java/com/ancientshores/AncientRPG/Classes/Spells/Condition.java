@@ -131,6 +131,18 @@ public class Condition {
                         break;
                 }
             }
+            if (l.getClass().equals(r.getClass())) {
+            	switch (operator) {
+            		case equals:
+            			fulfilled = l.equals(r);
+            			break;
+            		case notequals:
+            			fulfilled = !l.equals(r);
+            			break;
+            		default:
+            			break;
+            	}
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

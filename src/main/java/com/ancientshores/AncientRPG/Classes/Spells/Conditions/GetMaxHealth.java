@@ -28,7 +28,7 @@ public class GetMaxHealth extends IArgument {
 		}
 		LivingEntity e = (LivingEntity) ((Entity[]) obj[0])[0];
 		if (e instanceof Player) {
-			Player p = (Player) obj[0];
+			Player p = (Player) e;
 			PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 			if (DamageConverter.isEnabledInWorld(p.getWorld())) return pd.getHpsystem().getMaxHP();
 			
