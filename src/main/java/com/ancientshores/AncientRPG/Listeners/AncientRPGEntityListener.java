@@ -28,6 +28,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -39,6 +40,7 @@ import com.ancientshores.AncientRPG.Classes.Spells.Commands.CommandPlayer;
 import com.ancientshores.AncientRPG.Experience.AncientRPGExperience;
 import com.ancientshores.AncientRPG.Guild.AncientRPGGuild;
 import com.ancientshores.AncientRPG.HP.AncientRPGHP;
+import com.ancientshores.AncientRPG.HP.Armor;
 import com.ancientshores.AncientRPG.HP.CreatureHp;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
@@ -65,18 +67,30 @@ public class AncientRPGEntityListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void damageMonitor(final EntityDamageEvent event) {
-	/*	Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
-			@Override
-			public void run()
-			{
-				if(event.getEntity() instanceof Player && ScoreboardInterface.scoreboardenabled)
-				{
-					Scoreboard sb = ScoreboardInterface.getPlayersScoreboard((Player)event.getEntity());
-					ScoreboardAPI.getInstance().removeScoreboard(sb);
-					ScoreboardInterface.showScoreboard((Player) event.getEntity());
+		if (event.getEntity() instanceof LivingEntity) {
+			final LivingEntity entity = (LivingEntity) event.getEntity();
+			
+			final ItemStack[] armor = entity.getEquipment().getArmorContents().clone();
+			entity.getEquipment().setArmorContents(null);
+			
+			Armor.damageArmor(armor);
+			
+			Bukkit.getScheduler().scheduleSyncDelayedTask(AncientRPG.plugin, new Runnable() {
+				@Override
+				public void run() {
+					// update the players armor
+					entity.getEquipment().setArmorContents(armor);
+					/*	
+					 *	if(event.getEntity() instanceof Player && ScoreboardInterface.scoreboardenabled) {
+					 *	Scoreboard sb = ScoreboardInterface.getPlayersScoreboard((Player)event.getEntity());
+					 *	ScoreboardAPI.getInstance().removeScoreboard(sb);
+					 *	ScoreboardInterface.showScoreboard((Player) event.getEntity());
+					 *	}
+					 */
 				}
-			}
-		});*/
+			}, 1);
+			
+		}
 	}
 
 	// ======
@@ -92,11 +106,13 @@ public class AncientRPGEntityListener implements Listener {
 			return;
 		}
 		double damage = event.getDamage();
-		if (!ignoreNextHpEvent && CreatureHp.isEnabledInWorld(event.getEntity().getWorld()) && DamageConverter.isEnabled() && event.getEntity() instanceof LivingEntity && !(event.getEntity() instanceof HumanEntity)) {
-			if (event.getCause() != DamageCause.CUSTOM) {
-				damage = DamageConverter.reduceDamageByArmor(DamageConverter.convertDamageByEventForCreatures(event), (LivingEntity) event.getEntity());
-			}
-		}
+		if (!ignoreNextHpEvent
+				&& CreatureHp.isEnabledInWorld(event.getEntity().getWorld())
+				&& DamageConverter.isEnabled()
+				&& event.getEntity() instanceof LivingEntity
+				&& !(event.getEntity() instanceof HumanEntity))
+			damage = DamageConverter.reduceDamageByArmor(DamageConverter.convertDamageByEventForCreatures(event), (LivingEntity) event.getEntity());
+		
 		event.setDamage(damage);
 	}
 
