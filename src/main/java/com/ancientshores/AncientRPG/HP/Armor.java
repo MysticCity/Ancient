@@ -3,7 +3,10 @@ package com.ancientshores.AncientRPG.HP;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,11 +22,13 @@ public class Armor {
 	// Configuration for Armor durability
 	private static FileConfiguration config;
 	
-	public static void damageArmor(ItemStack... armor) {
+	private static Map<UUID, ItemStack[]> changedArmor = new HashMap<UUID, ItemStack[]>();
+	
+	public static void damageArmor(ItemStack[] armor) {
 		for (int i = 0; i < armor.length; i++) {
 			ItemStack part = armor[i];
-			// ignore air
-			if (part.getType() == Material.AIR) continue;
+			// ignore air and not existing
+			if (part == null || part.getType() == Material.AIR) continue;
 			
 			if (part.hasItemMeta() && part.getItemMeta().hasLore()) {
 				List<String> lore = part.getItemMeta().getLore();
@@ -77,6 +82,8 @@ public class Armor {
 				part.setItemMeta(meta);
 			}
 		}
+		
+		
 	}
 	
 	private static int getMaxDurabilityOfArmor(Material mat) {
@@ -214,6 +221,34 @@ public class Armor {
 		if (!file.exists()) AncientRPG.plugin.saveResource("armorconfig.yml", true);
 		
 		config = YamlConfiguration.loadConfiguration(file);
+	}
+
+	public static boolean hasChangedArmor(LivingEntity entity) {
+		return changedArmor.containsKey(entity.getUniqueId());
+	}
+
+	public static ItemStack[] getChangedArmor(LivingEntity entity) {
+		return changedArmor.get(entity.getUniqueId());
+	}
+
+	public static void addChangedArmor(LivingEntity entity, ItemStack[] armor) {
+		changedArmor.remove(entity.getUniqueId());
+		
+		// only add to map if at least one part of array isnt air or null
+		boolean validItemIncluded = false;
+		
+		for (ItemStack is : armor)
+			if (is != null && is.getType() != Material.AIR) {
+				validItemIncluded = true;
+				break;
+			}
+		
+		if (validItemIncluded)
+			changedArmor.put(entity.getUniqueId(), armor);
+	}
+
+	public static void removeChangedArmor(LivingEntity entity) {
+		changedArmor.remove(entity.getUniqueId());
 	}
 
 }

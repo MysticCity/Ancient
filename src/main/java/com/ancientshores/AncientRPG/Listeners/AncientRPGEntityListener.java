@@ -70,7 +70,16 @@ public class AncientRPGEntityListener implements Listener {
 		if (event.getEntity() instanceof LivingEntity) {
 			final LivingEntity entity = (LivingEntity) event.getEntity();
 			
-			final ItemStack[] armor = entity.getEquipment().getArmorContents().clone();
+			ItemStack[] unfinalArmor = entity.getEquipment().getArmorContents().clone();
+			
+			// change stack which gets modified if there was armor changed but removed right now
+			if (Armor.hasChangedArmor(entity))
+				unfinalArmor = Armor.getChangedArmor(entity);
+			else
+				Armor.addChangedArmor(entity, unfinalArmor);
+			
+			final ItemStack[] armor = unfinalArmor;
+			
 			entity.getEquipment().setArmorContents(null);
 			
 			Armor.damageArmor(armor);
@@ -80,6 +89,7 @@ public class AncientRPGEntityListener implements Listener {
 				public void run() {
 					// update the players armor
 					entity.getEquipment().setArmorContents(armor);
+					Armor.removeChangedArmor(entity);
 					/*	
 					 *	if(event.getEntity() instanceof Player && ScoreboardInterface.scoreboardenabled) {
 					 *	Scoreboard sb = ScoreboardInterface.getPlayersScoreboard((Player)event.getEntity());
