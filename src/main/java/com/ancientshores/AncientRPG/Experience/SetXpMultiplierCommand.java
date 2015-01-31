@@ -12,11 +12,11 @@ public class SetXpMultiplierCommand {
 
     public static void setXpMultiplier(CommandSender cs, String[] args) {
         if (cs instanceof Player && !cs.hasPermission(AncientRPGExperience.nodeXPAdmin)) {
-            cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You don't have the permission to use this command");
+            cs.sendMessage(ChatColor.GOLD + AncientRPG.brand + ChatColor.YELLOW + "You don't have the permission to use this command");
             return;
         }
         if (args.length < 3) {
-            cs.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "wrong number of parameters");
+            cs.sendMessage(ChatColor.GOLD + AncientRPG.brand + ChatColor.YELLOW + "wrong number of parameters");
             return;
         }
         float multiplier = Float.parseFloat(args[1]);
