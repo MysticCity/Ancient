@@ -164,7 +164,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 					pd.getManasystem().setMaxMana();
 				}
 				*/
-			p.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "You reached level " + level);
+			p.sendMessage(ChatColor.GOLD + AncientRPG.brand + ChatColor.YELLOW + "You reached level " + level);
 		}
 	}
 
@@ -197,7 +197,7 @@ public class AncientRPGExperience implements Serializable, ConfigurationSerializ
 		Player p = (Player) sender;
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		p.sendMessage(ChatColor.GOLD + "-----------------------------------------------------");
-		p.sendMessage(ChatColor.GOLD + "[" + AncientRPG.brand + "] " + ChatColor.YELLOW + "Experience Information");
+		p.sendMessage(ChatColor.GOLD + AncientRPG.brand + ChatColor.YELLOW + "Experience Information");
 		p.sendMessage("You are level " + pd.getXpSystem().level);
 		p.sendMessage("You have already " + pd.getXpSystem().xp + " XP");
 		int xpofcurrentLevel = pd.getXpSystem().xp - pd.getXpSystem().getExperienceOfLevel(pd.getXpSystem().level);
