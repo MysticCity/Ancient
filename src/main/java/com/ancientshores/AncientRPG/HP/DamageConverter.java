@@ -371,6 +371,7 @@ public class DamageConverter {
 		if (!file.exists()) AncientRPG.plugin.saveResource("hpconfig.yml", true);
 		
 		config = YamlConfiguration.loadConfiguration(file);
+		config.set("Armor", null);
 		for (PlayerData pd : PlayerData.playerData) pd.getHpsystem().maxhp = config.getDouble("HP.HP of a user");
 	}
 
