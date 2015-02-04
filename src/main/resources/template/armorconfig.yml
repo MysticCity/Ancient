@@ -1,0 +1,52 @@
+Reduction:
+  Diamond:
+    Damage reduction of a diamond helmet in percentage points: 12.0
+    Damage reduction of a diamond chestplate in percentage points: 32.0
+    Damage reduction of a diamond leggings in percentage points: 24.0
+    Damage reduction of diamond boots in percentage points: 12.0
+  Iron:
+    Damage reduction of an iron helmet in percentage points: 8.0
+    Damage reduction of an iron chestplate in percentage points: 24.0
+    Damage reduction of an iron leggings in percentage points: 20.0
+    Damage reduction of iron boots in percentage points: 8.0
+  Gold:
+    Damage reduction of a gold helmet in percentage points: 8.0
+    Damage reduction of a gold chestplate in percentage points: 20.0
+    Damage reduction of a gold leggings in percentage points: 12.0
+    Damage reduction of gold boots in percentage points: 4.0
+  Chain:
+    Damage reduction of a chain helmet in percentage points: 8.0
+    Damage reduction of a chain chestplate in percentage points: 20.0
+    Damage reduction of a chain leggings in percentage points: 16.0
+    Damage reduction of chain boots in percentage points: 4.0
+  Leather:
+    Damage reduction of a leather cap in percentage points: 4.0
+    Damage reduction of a leather tunic in percentage points: 12.0
+    Damage reduction of a leather pants in percentage points: 8.0
+    Damage reduction of leather boots in percentage points: 4.0
+Durability:
+  Diamond:
+    Durability of a diamond helmet: 120
+    Durability of a diamond chestplate: 320
+    Durability of a diamond leggings: 240
+    Durability of diamond boots: 120
+  Iron:
+    Durability of an iron helmet: 80
+    Durability of an iron chestplate: 240
+    Durability of an iron leggings: 200
+    Durability of iron boots: 80
+  Gold:
+    Durability of a gold helmet: 80
+    Durability of a gold chestplate: 200
+    Durability of a gold leggings: 120
+    Durability of gold boots: 40
+  Chain:
+    Durability of a chain helmet: 80
+    Durability of a chain chestplate: 200
+    Durability of a chain leggings: 160
+    Durability of chain boots: 40
+  Leather:
+    Durability of a leather cap: 40
+    Durability of a leather tunic: 120
+    Durability of a leather pants: 80
+    Durability of leather boots: 40

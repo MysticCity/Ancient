@@ -1,15 +1,15 @@
 package com.ancientshores.AncientRPG.Classes.Spells.Commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import com.ancientshores.AncientRPG.AncientRPG;
 import com.ancientshores.AncientRPG.Classes.Spells.CommandDescription;
 import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
-import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
-import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
 
 public class DamageCommand extends ICommand {
 
@@ -30,14 +30,13 @@ public class DamageCommand extends ICommand {
                         if (targetPlayer == null || !(targetPlayer instanceof LivingEntity)) {
                             continue;
                         }
-                        if (targetPlayer instanceof Player && DamageConverter.isEnabledInWorld(targetPlayer.getWorld())) {
-                            damage = DamageConverter.reduceDamageByArmor(damage, (Player) targetPlayer);
-                        }
-                        AncientRPGPlayerListener.damageignored = true;
-                        AncientRPGEntityListener.ignoreNextHpEvent = true;
-                        ((LivingEntity) targetPlayer).damage(Math.round(damage), ca.getCaster());
-                        AncientRPGPlayerListener.damageignored = false;
-                        AncientRPGEntityListener.ignoreNextHpEvent = false;
+                        EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(ca.getCaster(), targetPlayer, DamageCause.CUSTOM, damage); 
+                        
+                        Bukkit.getPluginManager().callEvent(event);
+                        
+                        if (event.isCancelled())
+                        	continue;
+                        
                         AncientRPGEntityListener.scheduledXpList.put(targetPlayer.getUniqueId(), ca.getCaster().getUniqueId());
                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                             @Override

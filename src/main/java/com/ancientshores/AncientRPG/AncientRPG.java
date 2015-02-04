@@ -56,6 +56,7 @@ import com.ancientshores.AncientRPG.Guild.AncientRPGGuildRanks;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandChat;
 import com.ancientshores.AncientRPG.Guild.Commands.GuildCommandHelp;
 import com.ancientshores.AncientRPG.HP.AncientRPGHP;
+import com.ancientshores.AncientRPG.HP.Armor;
 import com.ancientshores.AncientRPG.HP.CreatureHp;
 import com.ancientshores.AncientRPG.HP.DamageConverter;
 import com.ancientshores.AncientRPG.HP.HPCommand;
@@ -293,6 +294,7 @@ public class AncientRPG extends JavaPlugin {
 			}	
 		}
 		
+		Armor.loadConfig();
 		Spell.initializeServerSpells(); // ??? welche Spells werden initialisiert
 		// File f = new File("plugins/test.qst");
 		// new AncientRPGQuest(f);

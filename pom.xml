@@ -4,12 +4,12 @@
     <groupId>com.ancientshores</groupId>
     <artifactId>ancient-rpg</artifactId>
     <name>AncientRPG</name>
-    <version>0.9.9-40</version>
+    <version>0.9.9-84</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <versionName>MultiWorld</versionName>
+        <versionName>Armor</versionName>
 
         <minecraft.version>1.7.9</minecraft.version>
         

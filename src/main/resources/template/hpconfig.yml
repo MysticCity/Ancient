@@ -64,29 +64,3 @@ HP:
   posion potion damage per tick per tier: 20
   damage of wither effect: 50
   minimum time between each attack on a player in milliseconds: 500
-Armor:
-  Diamond:
-    Damage reduction of a diamond helmet in percentage points: 12.0
-    Damage reduction of a diamond chestplate in percentage points: 32.0
-    Damage reduction of a diamond leggings in percentage points: 24.0
-    Damage reduction of diamond boots in percentage points: 12.0
-  Iron:
-    Damage reduction of an iron helmet in percentage points: 8.0
-    Damage reduction of an iron chestplate in percentage points: 24.0
-    Damage reduction of an iron leggings in percentage points: 20.0
-    Damage reduction of iron boots in percentage points: 8.0
-  Gold:
-    Damage reduction of a gold helmet in percentage points: 8.0
-    Damage reduction of a gold chestplate in percentage points: 20.0
-    Damage reduction of a gold leggings in percentage points: 12.0
-    Damage reduction of gold boots in percentage points: 4.0
-  Chain:
-    Damage reduction of a chain helmet in percentage points: 8.0
-    Damage reduction of a chain chestplate in percentage points: 20.0
-    Damage reduction of a chain leggings in percentage points: 16.0
-    Damage reduction of chain boots in percentage points: 4.0
-  Leather:
-    Damage reduction of a leather cap in percentage points: 4.0
-    Damage reduction of a leather tunic in percentage points: 12.0
-    Damage reduction of a leather pants in percentage points: 8.0
-    Damage reduction of leather boots in percentage points: 4.0

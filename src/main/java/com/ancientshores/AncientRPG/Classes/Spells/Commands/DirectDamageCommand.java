@@ -26,9 +26,12 @@ public class DirectDamageCommand extends ICommand {
                         }
                         AncientRPGPlayerListener.damageignored = true;
                         AncientRPGEntityListener.ignoreNextHpEvent = true;
+                        
                         ((LivingEntity) targetPlayer).damage(Math.round(damage), ca.getCaster());
+                        
                         AncientRPGPlayerListener.damageignored = false;
                         AncientRPGEntityListener.ignoreNextHpEvent = false;
+                        
                         AncientRPGEntityListener.scheduledXpList.put(targetPlayer.getUniqueId(), ca.getCaster().getUniqueId());
                         AncientRPG.plugin.scheduleThreadSafeTask(AncientRPG.plugin, new Runnable() {
                             @Override
