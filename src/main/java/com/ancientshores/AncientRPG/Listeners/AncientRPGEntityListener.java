@@ -67,6 +67,9 @@ public class AncientRPGEntityListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void damageMonitor(final EntityDamageEvent event) {
+		// only damage armor if entity is damaged
+		if (event.isCancelled() || event.getDamage() == 0) return;
+		
 		if (event.getEntity() instanceof LivingEntity) {
 			final LivingEntity entity = (LivingEntity) event.getEntity();
 			
