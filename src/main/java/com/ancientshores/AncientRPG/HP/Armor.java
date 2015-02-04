@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -32,7 +34,6 @@ public class Armor {
 			
 			if (part.hasItemMeta() && part.getItemMeta().hasLore()) {
 				List<String> lore = part.getItemMeta().getLore();
-				
 				for (String l : lore) {
 					// Get Lore starting with $a$r$p$g That shouldn't be visible ingame
 					if (l.startsWith(ChatColor.COLOR_CHAR + "a" + ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "p" + ChatColor.COLOR_CHAR + "g")) {
@@ -43,7 +44,21 @@ public class Armor {
 						int current = Integer.parseInt(values[0].replaceAll(ChatColor.COLOR_CHAR + ".", ""));
 						int max = getMaxDurabilityOfArmor(part.getType());
 						
-						current--;
+						// only modify armor
+						if (max == -1) return;
+						
+						// possibility of getting damage on armor
+						int dmgPossibility = 100;
+						
+						// decrease possiblity with 5 every level
+						// level 1 has 80 %
+						// level 2 75 %
+						for (Entry<Enchantment, Integer> entry : part.getEnchantments().entrySet())
+							if (entry.getKey().getName().equals(Enchantment.DURABILITY.getName()))
+								dmgPossibility = 80 - 5 * (entry.getValue() - 1);
+						
+						// apply possibility
+						current -= (int) (Math.random() * 100) < dmgPossibility ? 1 : 0;
 						
 						// Update lore. Format: Durability: current/max
 						String newLore = ChatColor.COLOR_CHAR + "a" + ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "p" + ChatColor.COLOR_CHAR + "g" + ChatColor.GOLD + "Durability: " + ChatColor.AQUA + current + ChatColor.RESET + "/" + ChatColor.AQUA + max; 
@@ -76,7 +91,25 @@ public class Armor {
 				}
 			} else {
 				List<String> lore = new ArrayList<String>();
-				lore.add(ChatColor.COLOR_CHAR + "a" + ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "p" + ChatColor.COLOR_CHAR + "g" + ChatColor.GOLD + "Durability: " + ChatColor.AQUA + (getMaxDurabilityOfArmor(part.getType()) - 1) + ChatColor.RESET + "/" + ChatColor.AQUA + getMaxDurabilityOfArmor(part.getType()));
+				int max = getMaxDurabilityOfArmor(part.getType());
+				int current = (int) (max * (1 - (double) part.getDurability() / part.getType().getMaxDurability()));
+				
+				// only modify armor
+				if (max == -1) return;
+				
+				// possibility of getting damage on armor
+				int dmgPossibility = 100;
+				
+				// decrease possiblity with 5 every level
+				// level 1 has 80 %
+				// level 2 75 %
+				for (Entry<Enchantment, Integer> entry : part.getEnchantments().entrySet())
+					if (entry.getKey().getName().equals(Enchantment.DURABILITY.getName()))
+						dmgPossibility = 80 - 5 * (entry.getValue() - 1);
+
+				// apply possibility
+				current -= (int) (Math.random() * 100) < dmgPossibility ? 1 : 0;
+				lore.add(ChatColor.COLOR_CHAR + "a" + ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "p" + ChatColor.COLOR_CHAR + "g" + ChatColor.GOLD + "Durability: " + ChatColor.AQUA + current + ChatColor.RESET + "/" + ChatColor.AQUA + max);
 				ItemMeta meta = part.getItemMeta();
 				meta.setLore(lore);
 				part.setItemMeta(meta);
@@ -113,7 +146,7 @@ public class Armor {
 		case LEATHER_LEGGINGS: return config.getInt("Durability.Leather.Durability of a leather pants");
 		case LEATHER_BOOTS: return config.getInt("Durability.Leather.Durability of leather boots");
 		
-		default: return mat.getMaxDurability();
+		default: return -1;
 		}
 	}
 	
