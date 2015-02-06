@@ -64,6 +64,7 @@ import com.ancientshores.AncientRPG.Listeners.AncientRPGBlockListener;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGEntityListener;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGPlayerListener;
 import com.ancientshores.AncientRPG.Listeners.AncientRPGSpellListener;
+import com.ancientshores.AncientRPG.Listeners.External.MythicMobsListener;
 import com.ancientshores.AncientRPG.Mana.ManaSystem;
 import com.ancientshores.AncientRPG.Party.AncientRPGParty;
 import com.ancientshores.AncientRPG.Party.Commands.PartyCommandChat;
@@ -192,10 +193,13 @@ public class AncientRPG extends JavaPlugin {
 		// ==
 		// load section
 		// ==
-		new AncientRPGPlayerListener(this); // ???
-		new AncientRPGBlockListener(this); // ???
-		new AncientRPGEntityListener(this); // ???
+		new AncientRPGPlayerListener(this); // aktivieren der listener fuer spieler,
+		new AncientRPGBlockListener(this); // bloecke,
+		new AncientRPGEntityListener(this); // entities
 		
+		// und MythicMobs, aber nur wenn MythicMobs installiert und aktiviert ist
+		if (this.getServer().getPluginManager().getPlugin("MythicMobs") != null && this.getServer().getPluginManager().getPlugin("MythicMobs").isEnabled())
+			new MythicMobsListener(this);
 		config.loadkeys(); // lädt die einzelnen configurationen
 		config.addDefaults(); // schreibt die standart werte der configurationen in die Dateien
 		
