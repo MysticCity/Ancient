@@ -36,29 +36,49 @@ public class CreatureHp {
 	public long lastLavaDamage;
 	public long lastAttackDamage;
 
-	public CreatureHp(LivingEntity e) {
+	public CreatureHp(LivingEntity e, double maxHealth) {
 		if (e instanceof HumanEntity) {
 			return;
 		}
 		if (e.getHealth() <= 0) {
 			return;
 		}
-		e.setMaxHealth(getMaxHpByEntity(e));
-		e.setHealth(e.getMaxHealth());
+		e.setMaxHealth(maxHealth);
+		e.setHealth(maxHealth);
 		this.ent = e;
 		// ent.setHealth(1);
 		registeredMonsters.add(this);
 	}
 
+	/**
+	 * Get the CreatureHp of this entity, if no one exists it
+	 * will create a new one with the standard hp defined in
+	 * the configs.
+	 * 
+	 * @param e the entity for which to get the CreatureHp
+	 * @return the entity's CreatureHp
+	 */
 	public static CreatureHp getCreatureHpByEntity(LivingEntity e) {
+		return getCreatureHpByEntity(e, getMaxHpByEntity(e));
+	}
+
+	/**
+	 * Get the CreatureHp of this entity, if no one exists it
+	 * will create a new one with the given maximum hp.
+	 *
+	 * @param e the entity for which to get the CreatureHp
+	 * @param maxHealth the maximum health of this entity if its CreatureHp wasn't found
+	 * @return the entitys CreatureHp
+	 */
+	public static CreatureHp getCreatureHpByEntity(LivingEntity e, double maxHealth) {
 		for (CreatureHp hp : registeredMonsters) {
 			if (e.getUniqueId().compareTo(hp.ent.getUniqueId()) == 0) {
 				return hp;
 			}
 		}
-		return new CreatureHp(e);
+		return new CreatureHp(e, maxHealth);
 	}
-
+	
 	public static void removeCreature(LivingEntity e) {
 		CreatureHp mhp = null;
 		for (CreatureHp hp : registeredMonsters) {
