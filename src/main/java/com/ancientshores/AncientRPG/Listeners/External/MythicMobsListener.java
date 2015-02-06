@@ -1,6 +1,6 @@
 package com.ancientshores.AncientRPG.Listeners.External;
 
-import net.elseland.xikage.MythicMobs.API.MythicMobSpawnEvent;
+import net.elseland.xikage.MythicMobs.API.Events.MythicMobSpawnEvent;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
