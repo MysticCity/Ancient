@@ -4,12 +4,12 @@
     <groupId>com.ancientshores</groupId>
     <artifactId>ancient-rpg</artifactId>
     <name>AncientRPG</name>
-    <version>0.9.9-84</version>
+    <version>0.9.9-86</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <versionName>Armor</versionName>
+        <versionName>MythicMobs support</versionName>
 
         <minecraft.version>1.7.9</minecraft.version>
         
@@ -20,6 +20,8 @@
         <metrics.version>R7</metrics.version>
       
         <ancientutil.version>0.0.4</ancientutil.version>
+        
+        <mm.version>2.0.0</mm.version>
    </properties>
 
     <repositories>
@@ -96,8 +98,12 @@
             <artifactId>AncientUtil</artifactId>
             <version>${ancientutil.version}</version>
         </dependency>
+        <dependency>
+          <groupId>net.elseland.xikage</groupId>
+          <artifactId>MythicMobs</artifactId>
+          <version>2.0.0</version>
+        </dependency>
     </dependencies>
-
     <build>
         <defaultGoal>clean package</defaultGoal>
         <resources>
