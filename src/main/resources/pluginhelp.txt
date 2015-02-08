@@ -1,4 +1,4 @@
-{GOLD}/ancientrpg {GRAY}- {GREEN}access to general ancientrpg commands
+{GOLD}/ancient {GRAY}- {GREEN}access to general ancient commands
 {GOLD}/class {GRAY}- {GREEN}access to class commands
 {GOLD}/guild {GRAY}- {GREEN}access to guild commands
 {GOLD}/party {GRAY}- {GREEN}access to party commands

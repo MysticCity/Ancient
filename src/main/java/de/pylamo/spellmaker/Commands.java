@@ -1,6 +1,6 @@
 package de.pylamo.spellmaker;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.Ancient.Classes.Spells.ParameterType;
 
 public enum Commands {
     AddExperience("<html>Adds the specific amount of experience to the player<br>Parameter 1: The player who receives the xp<br>Parameter 2: The amount of experience the player receives</html>", new String[]{"the player", "the number"}, "AddExperience", new ParameterType[]{ParameterType.Player, ParameterType.Number}),
@@ -66,7 +66,7 @@ public enum Commands {
     SetDamage("<html>Sets the damage of a damage event (attackevent/damageevent/damagebyentityevent)</html>", new String[]{"amount"}, "SetDamage", new ParameterType[]{ParameterType.Number}),
     SetFly("<html>Sets if the player can fly or not</html>", new String[]{"player", "canfly"}, "SetFly", new ParameterType[]{ParameterType.Player, ParameterType.Boolean}),
     SetFoodLevel("<html>Sets the foodlevel of the player</html>", new String[]{"player", "amount"}, "SetFoodLevel", new ParameterType[]{ParameterType.Player, ParameterType.Number}),
-    SetGainedExperience("<html>Changes the amount of xp a player gains of an ancientrpggainxp event</html>", new String[]{"amount"}, "SetGainedExperience", new ParameterType[]{ParameterType.Number}),
+    SetGainedExperience("<html>Changes the amount of xp a player gains of an ancientgainxp event</html>", new String[]{"amount"}, "SetGainedExperience", new ParameterType[]{ParameterType.Number}),
     SetHp("<html>Sets the health of the target to the specified amount</html>", new String[]{"entity", "amount"}, "SetHp", new ParameterType[]{ParameterType.Entity, ParameterType.Number}),
     SetInvisible("<html>Makes the player invisible or makes them visible</html>", new String[]{"player", "isinvisible"}, "SetInvisible", new ParameterType[]{ParameterType.Player, ParameterType.Boolean}),
     SetItem("Sets the item in the specified slot of the player's inventory", new String[]{"player", "material", "slot", "amount"}, "SetItem", new ParameterType[]{ParameterType.Player, ParameterType.Material, ParameterType.Number, ParameterType.Number}),

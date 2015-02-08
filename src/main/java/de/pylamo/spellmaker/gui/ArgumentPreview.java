@@ -7,7 +7,7 @@ import java.util.HashSet;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.Ancient.Classes.Spells.ParameterType;
 
 import de.pylamo.spellmaker.Arguments;
 import de.pylamo.spellmaker.gui.SpellItems.Arguments.ArgumentPanel;

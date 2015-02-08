@@ -1,6 +1,6 @@
-name: AncientRPG
-main: com.ancientshores.AncientRPG.AncientRPG
-version: 0.9.9.3 MythicMobs support
+name: Ancient
+main: com.ancientshores.Ancient.Ancient
+version: 1.0.0
 depend: [Vault]
 softdepend: [MythicMobs]
 authors: [FroznMine,Keyle,Pylamo]
