@@ -2,14 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ancientshores</groupId>
-    <artifactId>ancient-rpg</artifactId>
-    <name>AncientRPG</name>
-    <version>0.9.9-84</version>
+    <artifactId>ancient</artifactId>
+    <name>Ancient</name>
+    <version>1.0.0-2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <versionName>Armor</versionName>
+        <versionName>Official Release</versionName>
 
         <minecraft.version>1.7.9</minecraft.version>
         
@@ -19,7 +19,9 @@
 
         <metrics.version>R7</metrics.version>
       
-        <ancientutil.version>0.0.4</ancientutil.version>
+        <ancientutil.version>0.1.0</ancientutil.version>
+        
+        <mm.version>1.1.8</mm.version>
    </properties>
 
     <repositories>
@@ -96,8 +98,12 @@
             <artifactId>AncientUtil</artifactId>
             <version>${ancientutil.version}</version>
         </dependency>
+        <dependency>
+          <groupId>net.elseland.xikage</groupId>
+          <artifactId>MythicMobs</artifactId>
+          <version>${mm.version}</version>
+        </dependency>
     </dependencies>
-
     <build>
         <defaultGoal>clean package</defaultGoal>
         <resources>
@@ -159,7 +165,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.mcstats</pattern>
-                                    <shadedPattern>com.ancientshores.AncientRPG.Util</shadedPattern>
+                                    <shadedPattern>com.ancientshores.Ancient.Util</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

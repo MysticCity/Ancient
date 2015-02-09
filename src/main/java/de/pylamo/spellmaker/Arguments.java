@@ -1,6 +1,6 @@
 package de.pylamo.spellmaker;
 
-import com.ancientshores.AncientRPG.Classes.Spells.ParameterType;
+import com.ancientshores.Ancient.Classes.Spells.ParameterType;
 
 public enum Arguments {
     AreEntities("Checks a collection of locations if all of them are entities.", new String[]{"collection"}, "AreEntities", new ParameterType[]{ParameterType.Location}, ParameterType.Boolean),
@@ -32,7 +32,7 @@ public enum Arguments {
     GetEntityName("Returns the name of the entity", new String[]{"entity"}, "GetEntityName", new ParameterType[]{ParameterType.Entity}, ParameterType.String),
     GetEventProperty("Returns the class object of the event with the specified name", new String[]{"objectname"}, "GetEventProperty", new ParameterType[]{ParameterType.String}, ParameterType.Void),
     GetFoodLevel("Returns the food level of the player", new String[]{"player"}, "GetFoodLevel", new ParameterType[]{ParameterType.Player}, ParameterType.Number),
-    GetGainedExperience("Returns the gained experience of an ancientrpg gainexperience event", new String[]{}, "GetGainedExperience", new ParameterType[]{}, ParameterType.Number),
+    GetGainedExperience("Returns the gained experience of an ancient gainexperience event", new String[]{}, "GetGainedExperience", new ParameterType[]{}, ParameterType.Number),
     GetGuildName("Returns the guild name of the player", new String[]{"player"}, "GetGuildName", new ParameterType[]{ParameterType.Player}, ParameterType.String),
     GetHealth("Returns the health of the player", new String[]{"entity"}, "GetHealth", new ParameterType[]{ParameterType.Entity}, ParameterType.Number),
     GetHealthPercentage("Returns the health percentage of the entity", new String[]{"entity"}, "GetHealthPercentage", new ParameterType[]{ParameterType.Entity}, ParameterType.Number),
