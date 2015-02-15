@@ -22,7 +22,7 @@ public class IsCooldownReady extends IArgument {
 			return null;
 
 		String cooldownname = (String) obj[0];
-		PlayerData pd = PlayerData.getPlayerData(so.buffcaster);
+		PlayerData pd = PlayerData.getPlayerData(so.buffcaster.getUniqueId());
 		for (CooldownTimer cd : pd.getCooldownTimer())
 			if (cd.cooldownname.equals(cooldownname))
 				return cd.ready;

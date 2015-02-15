@@ -1,7 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -46,7 +45,7 @@ public class NearestEntitiesParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestEntities == null || ea.getSpellInfo().nearestEntities[0] == null) {
-            UUID[] nEntities = ea.getSpellInfo().getNearestEntities(p, range, count);
+            Entity[] nEntities = ea.getSpellInfo().getNearestEntities(p, range, count);
             ea.getSpellInfo().nearestEntities = nEntities;
             if (nEntities == null) {
                 return;
@@ -54,8 +53,8 @@ public class NearestEntitiesParameter implements IParameter {
         }
         switch (pt) {
             case Entity:
-                UUID[] uuid = ea.getSpellInfo().nearestEntities;
-                ea.getParams().addLast(uuid);
+                Entity[] entities = ea.getSpellInfo().nearestEntities;
+                ea.getParams().addLast(entities);
                 break;
             case Location:
                 Location[] l = new Location[ea.getSpellInfo().nearestEntities.length];
@@ -63,7 +62,7 @@ public class NearestEntitiesParameter implements IParameter {
                     if (ea.getSpellInfo().nearestEntities[i] != null) {
                     	for (World w : Bukkit.getWorlds()) {
                     		for (Entity e : w.getEntities()) {
-                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntities[i]) != 0) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntities[i].getUniqueId()) != 0) {
                     				continue;
                     			}
                     			l[i] = e.getLocation();
@@ -107,7 +106,7 @@ public class NearestEntitiesParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntities == null || so.nearestEntities[0] == null) {
-            UUID[] nEntities = so.getNearestEntities(p, range, count);
+            Entity[] nEntities = so.getNearestEntities(p, range, count);
             so.nearestEntities = nEntities;
             if (nEntities == null) {
                 return null;

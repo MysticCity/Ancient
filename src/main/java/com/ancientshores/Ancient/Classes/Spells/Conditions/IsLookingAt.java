@@ -25,7 +25,7 @@ public class IsLookingAt extends IArgument {
                 Entity ent = null;
                 for (World w : Bukkit.getWorlds()) {
         			for (Entity e : w.getEntities()) {
-        				if (e.getUniqueId().compareTo(so.getNearestEntityInSight((LivingEntity) ent1, range)) == 0) {
+        				if (e.getUniqueId().compareTo(so.getNearestEntityInSight((LivingEntity) ent1, range).getUniqueId()) == 0) {
         					ent = e;
         				}
         			}

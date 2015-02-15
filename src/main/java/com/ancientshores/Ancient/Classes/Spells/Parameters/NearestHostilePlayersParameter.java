@@ -1,7 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -47,7 +46,7 @@ public class NearestHostilePlayersParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().hostilePlayers == null || ea.getSpellInfo().hostilePlayers[0] == null) {
-            UUID[] players = ea.getSpellInfo().getNearestHostilePlayers(mPlayer, range, count);
+            Entity[] players = ea.getSpellInfo().getNearestHostilePlayers(mPlayer, range, count);
             ea.getSpellInfo().hostilePlayers = players;
             if (players == null) {
                 return;
@@ -63,7 +62,7 @@ public class NearestHostilePlayersParameter implements IParameter {
                     if (ea.getSpellInfo().hostilePlayers[i] != null) {
                     	for (World w : Bukkit.getWorlds()) {
                     		for (Entity e : w.getEntities()) {
-                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().hostilePlayers[i]) != 0) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().hostilePlayers[i].getUniqueId()) != 0) {
                     				continue;
                     			}
                     			l[i] = e.getLocation();
@@ -75,8 +74,8 @@ public class NearestHostilePlayersParameter implements IParameter {
                 break;
             case String:
                 String s = "";
-                for (UUID p : ea.getSpellInfo().hostilePlayers) {
-                    s += PlayerFinder.getPlayerName(p) + ",";
+                for (Entity p : ea.getSpellInfo().hostilePlayers) {
+                    s += PlayerFinder.getPlayerName(p.getUniqueId()) + ",";
                 }
                 ea.getParams().addLast(s);
                 break;

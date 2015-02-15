@@ -1,7 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -44,7 +43,7 @@ public class NearestHostileEntityParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().hostileEntities == null || ea.getSpellInfo().hostileEntities[0] == null) {
-            UUID[] nEntities = ea.getSpellInfo().getNearestHostileEntities(mPlayer, range, count);
+            Entity[] nEntities = ea.getSpellInfo().getNearestHostileEntities(mPlayer, range, count);
             ea.getSpellInfo().hostileEntities = nEntities;
             if (nEntities == null) {
                 return;
@@ -52,8 +51,8 @@ public class NearestHostileEntityParameter implements IParameter {
         }
         switch (pt) {
             case Entity:
-                UUID[] uuid = ea.getSpellInfo().hostileEntities;
-                ea.getParams().addLast(uuid);
+                Entity[] entities = ea.getSpellInfo().hostileEntities;
+                ea.getParams().addLast(entities);
                 break;
             case Location:
                 Location[] l = new Location[ea.getSpellInfo().hostileEntities.length];
@@ -61,7 +60,7 @@ public class NearestHostileEntityParameter implements IParameter {
                     if (ea.getSpellInfo().hostileEntities[i] != null) {
                     	for (World w : Bukkit.getWorlds()) {
                     		for (Entity e : w.getEntities()) {
-                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().hostileEntities[i]) != 0) {
+                    			if (e.getUniqueId().compareTo(ea.getSpellInfo().hostileEntities[i].getUniqueId()) != 0) {
                     				continue;
                     			}
                     			l[i] = e.getLocation();

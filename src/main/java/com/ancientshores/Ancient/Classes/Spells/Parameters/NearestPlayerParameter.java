@@ -1,11 +1,10 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.ancient.util.PlayerFinder;
@@ -34,7 +33,7 @@ public class NearestPlayerParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestPlayer == null) {
-            UUID nearestPlayer = ea.getSpellInfo().getNearestPlayer(mPlayer, range);
+            Entity nearestPlayer = ea.getSpellInfo().getNearestPlayer(mPlayer, range);
             ea.getSpellInfo().nearestPlayer = nearestPlayer;
             if (nearestPlayer == null) {
                 return;
@@ -42,19 +41,19 @@ public class NearestPlayerParameter implements IParameter {
         }
         switch (pt) {
             case Player:
-                UUID[] p = {ea.getSpellInfo().nearestPlayer};
+                Entity[] p = {ea.getSpellInfo().nearestPlayer};
                 ea.getParams().addLast(p);
                 break;
             case Entity:
-                UUID[] e = {ea.getSpellInfo().nearestPlayer};
+                Entity[] e = {ea.getSpellInfo().nearestPlayer};
                 ea.getParams().addLast(e);
                 break;
             case Location:
-                Location[] l = {Bukkit.getPlayer(ea.getSpellInfo().nearestPlayer).getLocation()};
+                Location[] l = {ea.getSpellInfo().nearestPlayer.getLocation()};
                 ea.getParams().addLast(l);
                 break;
             case String:
-                ea.getParams().addLast(PlayerFinder.getPlayerName(ea.getSpellInfo().nearestPlayer));
+                ea.getParams().addLast(PlayerFinder.getPlayerName(ea.getSpellInfo().nearestPlayer.getUniqueId()));
                 break;
             default:
                 Ancient.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);

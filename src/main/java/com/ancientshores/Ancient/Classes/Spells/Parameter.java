@@ -135,11 +135,11 @@ public class Parameter implements Serializable {
 	void parseVariable(EffectArgs ea, Player mPlayer, String var) {
 		switch (pt) {
 			case Number:
-				int value = Variables.getParameterIntByString(ea.getSpellInfo().buffcaster, var, ea.getSpell().newConfigFile);
+				int value = Variables.getParameterIntByString(ea.getSpellInfo().buffcaster.getUniqueId(), var, ea.getSpell().newConfigFile);
 				ea.getParams().addLast(value);
 				break;
 			case String:
-				int v = Variables.getParameterIntByString(ea.getSpellInfo().buffcaster, var, ea.getSpell().newConfigFile);
+				int v = Variables.getParameterIntByString(ea.getSpellInfo().buffcaster.getUniqueId(), var, ea.getSpell().newConfigFile);
 				ea.getParams().addLast("" + v);
 			default:
 				break;
