@@ -1,8 +1,5 @@
 package com.ancientshores.Ancient.Guild.Commands;
 
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,14 +19,9 @@ public class GuildCommandSetTag {
             if (mGuild != null) {
                 if (AncientGuildRanks.hasMotdRights(mGuild.gMember.get(mPlayer.getUniqueId()))) {
                     args[0] = "";
-                    mGuild.tag = Ancient.convertStringArrayToString(args).trim();
-                    for (UUID uuid : mGuild.gMember.keySet()) {
-                        Player p = Bukkit.getPlayer(uuid);
-                        if (p != null) {
-                            AncientGuild.setTag(p);
-                        }
-                    }
+                    mGuild.setTag(Ancient.convertStringArrayToString(args).trim());
                     AncientGuild.writeGuilds();
+                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Guild tag successfully set!");
                 }
             } else {
                 mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You are in no guild.");
