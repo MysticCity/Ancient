@@ -28,6 +28,8 @@ import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
@@ -241,7 +243,25 @@ public class AncientEntityListener implements Listener {
 		}
 	}
 
-
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onProjectileLaunch(final ProjectileLaunchEvent event) {
+		if (event.isCancelled()) return;
+		if (event.getEntity().getShooter() instanceof Entity) {
+			UUID uuid = ((Entity)event.getEntity().getShooter()).getUniqueId();
+			
+			if (AncientPlayerListener.playersWhoThrowed.containsKey(uuid)) {
+				String name = AncientPlayerListener.playersWhoThrowed.remove(uuid);
+				
+				AncientPlayerListener.thrownProjectiles.put(event.getEntity(), name);
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onProjectileHit(final ProjectileHitEvent event) {
+		AncientPlayerListener.thrownProjectiles.remove(event.getEntity());
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityDeath(final EntityDeathEvent event) {
 		Entity deathEntity = null;

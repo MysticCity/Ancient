@@ -112,6 +112,7 @@ public abstract class IArgument {
         registeredArguments.add(new GetDayTime());
         registeredArguments.add(new GetProjectileHitLocation());
         registeredArguments.add(new GetProjectileName());
+        registeredArguments.add(new GetProjectileNameCustomName());
         registeredArguments.add(new GetItemCount());
         registeredArguments.add(new GetBlockRelative());
         registeredArguments.add(new GetBrokenBlockType());

@@ -59,6 +59,7 @@ public enum Arguments {
     GetPlayerName("Returns the name of the player", new String[]{"player"}, "GetPlayerName", new ParameterType[]{ParameterType.String}, ParameterType.String),
     GetProjectileHitLocation("Returns the location the projectile hit, only usable in projectilehitevent", new String[]{}, "GetProjectileHitLocation", new ParameterType[]{}, ParameterType.Location),
     GetProjectileName("Returns the name of the projectile, only usable in projectilehitevent", new String[]{}, "GetProjectileName", new ParameterType[]{}, ParameterType.String),
+    GetProjectileNameCustomName("Returns the name of the projectile with the custom set name, only usable in projectilehitevent", new String[]{}, "GetProjectileName:CustomName", new ParameterType[]{}, ParameterType.String),
     GetRandom("Returns a random number between 0 and 100 (both inclusive)", new String[]{}, "GetRandom", new ParameterType[]{}, ParameterType.Number),
     GetRandomBetween("Returns a random number between 2 numbers", new String[]{"number1", "number2"}, "GetRandomBetween", new ParameterType[]{ParameterType.Number, ParameterType.Number}, ParameterType.Number),
     GetShooterOrAttacker("Returns the damager, for example if a player hits you with an arrow the player is returned.", new String[]{}, "GetShooterOrAttacker", new ParameterType[]{}, ParameterType.String),
