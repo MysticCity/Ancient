@@ -1,5 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Conditions;
 
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 import com.ancientshores.Ancient.Classes.Spells.ArgumentDescription;
@@ -16,12 +17,11 @@ public class GetProjectileName extends IArgument {
         this.name = "getprojectilename";
     }
 
-    @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
         if (so.mEvent instanceof ProjectileHitEvent) {
             ProjectileHitEvent pEvent = (ProjectileHitEvent) so.mEvent;
-            return pEvent.getEntity().getType().getName();
+            return WordUtils.capitalizeFully(pEvent.getEntity().getType().toString().replaceAll("_", " ")).replaceAll(" ", "");
         }
         return null;
     }
