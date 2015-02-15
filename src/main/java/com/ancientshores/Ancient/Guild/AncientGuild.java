@@ -46,8 +46,10 @@ import com.ancientshores.Ancient.Guild.Commands.GuildCommandMoney;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandMotd;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandOnline;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandReject;
+import com.ancientshores.Ancient.Guild.Commands.GuildCommandRemoveMotd;
+import com.ancientshores.Ancient.Guild.Commands.GuildCommandRemoveTag;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandSetTag;
-import com.ancientshores.Ancient.Guild.Commands.GuildCommandSetmMotd;
+import com.ancientshores.Ancient.Guild.Commands.GuildCommandSetMotd;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandToggle;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandToggleFriendlyFire;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandWithdraw;
@@ -105,7 +107,7 @@ public class AncientGuild implements Serializable {
 	// ====
 	public AncientGuild(String name, UUID leaderuuid) {
 		this.guildName = name;
-		this.motd = " ";
+		this.motd = "";
 		if (Ancient.iConomyEnabled()) {
 			accountName = "[g]" + guildName.replace(' ', '_');
 			Ancient.economy.createBank(accountName, PlayerFinder.getPlayerName(leaderuuid));
@@ -272,10 +274,13 @@ public class AncientGuild implements Serializable {
 		}
 
 		// ====
-		// setmotd
+		// set/remove motd
 		// ====
 		else if (args[0].equals("setmotd")) {
-			GuildCommandSetmMotd.processSetmotd(sender, args);
+			GuildCommandSetMotd.processSetMOTD(sender, args);
+		}
+		else if (args[0].equals("removemotd")) {
+			GuildCommandRemoveMotd.processRemoveMOTD(sender, args);
 		}
 
 		// ====
@@ -380,7 +385,9 @@ public class AncientGuild implements Serializable {
 		else if (args[0].equals("settag")) {
 			GuildCommandSetTag.processSetTag(sender, args);
 		}
-
+		else if (args[0].equals("removetag")) {
+			GuildCommandRemoveTag.processRemoveTag(sender, args);
+		}
 		// ====
 		// Economy stuff
 		// ====
@@ -409,14 +416,25 @@ public class AncientGuild implements Serializable {
 		}
 	}
 
-	public static void setTag(Player p) {
-		if (p == null) return;
+	public void setTag(String tag) {
+		String finalTag = HelpList.replaceChatColor(tag) + "&r "; // reset possible colors
+		finalTag = ChatColor.translateAlternateColorCodes('&', finalTag);
+		if (tag.equals(""))
+			finalTag = "";
+		if (this.tag == null)
+			this.tag = "";
 		
-		AncientGuild mGuild = AncientGuild.getPlayersGuild(p.getUniqueId());
-		if (mGuild != null && mGuild.tag != null && !mGuild.tag.equals("")) {
-			String tag = "<" + HelpList.replaceChatColor(mGuild.tag) + ">";
-			if (!p.getDisplayName().contains(tag)) p.setDisplayName(tag + p.getDisplayName());
+		for (UUID uuid : this.gMember.keySet()) {
+			Player p = Bukkit.getPlayer(uuid);
+			if (p == null) continue;
+			
+			String newName = p.getDisplayName();
+			newName = newName.replace(this.tag, ""); // remove old tag
+			newName = finalTag + newName; // put new tag in front
+			p.setDisplayName(newName); // set new tag
 		}
+		
+		this.tag = finalTag;
 	}
 
 	public static void processJoin(final PlayerJoinEvent event) {
@@ -428,9 +446,11 @@ public class AncientGuild implements Serializable {
 			new Timer().schedule(new TimerTask() {
 				@Override
 				public void run() {
-					event.getPlayer().sendMessage(ChatColor.GREEN + "<Guild> MOTD: " + guild.motd);
+					if (guild.motd != null && !guild.motd.equals(""))
+						event.getPlayer().sendMessage(ChatColor.GREEN + "<Guild> MOTD: " + guild.motd);
 				}
 			}, 3000);
+			guild.setTag(guild.tag);
 		}
 	}
 
@@ -444,13 +464,13 @@ public class AncientGuild implements Serializable {
 	}
 
 	public static void writeGuilds() {
-		File basepath = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "Guilds" + File.separator);
+		File basepath = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "Guilds");
 		if (!basepath.exists()) {
 			basepath.mkdir();
 		}
 		
 		for (AncientGuild guild : guilds) {
-			File f = new File(basepath.getPath() + guild.guildName + ".guild");
+			File f = new File(basepath.getPath() + File.separator + guild.guildName + ".guild");
 			if (f.exists()) {
 				f.renameTo(new File(f.getName() + "old"));
 				f.delete();
@@ -498,7 +518,7 @@ public class AncientGuild implements Serializable {
 	}
 
 	public static void writeGuild(AncientGuild guild) {
-		File f = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + File.separator + "Guilds" + File.separator + guild.guildName + ".guild");
+		File f = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "Guilds" + File.separator + guild.guildName + ".guild");
 		if (f.exists()) {
 			f.renameTo(new File(f.getName() + "old"));
 			f.delete();
@@ -529,7 +549,7 @@ public class AncientGuild implements Serializable {
 	}
 
 	public static void loadGuilds() {
-		File basepath = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "Guilds" + File.separator);
+		File basepath = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "Guilds");
 		if (!basepath.exists()) {
 			basepath.mkdir();
 		}
