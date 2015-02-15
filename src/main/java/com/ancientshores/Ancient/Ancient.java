@@ -413,10 +413,16 @@ public class Ancient extends JavaPlugin {
 				}
 			}
 		}
+		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			AncientPlayerListener.setVisibleToAll(p);
 			AncientPlayerListener.setAllVisible(p);
+			AncientHP hp = PlayerData.getPlayerData(p.getUniqueId()).getHpsystem();
+			p.setMaxHealth(20);
+			p.setHealthScaled(false);
+			p.setHealth(hp.health / hp.maxhp * 20);
 		}
+		
 		for (Entry<String, Integer> entr : Spell.registeredTasks.entrySet()) {
 			Bukkit.getScheduler().cancelTask(entr.getValue());
 		}
