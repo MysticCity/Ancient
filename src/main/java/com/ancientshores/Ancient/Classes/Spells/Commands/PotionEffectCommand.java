@@ -41,12 +41,15 @@ public class PotionEffectCommand extends ICommand {
 		}
 		return false;
 	}
-
+	
 	public static PotionEffectType getTypeByName(String name) {
-		name = name.replace("_", "").toUpperCase();
-		for (PotionEffectType pt : PotionEffectType.values())
-			if (pt.getName().replace("_", "").equalsIgnoreCase(name)) return pt;
-		
+		for (PotionEffectType pt : PotionEffectType.values()) {
+			if (pt != null && pt.getName() != null && pt.getName().replace("_", "").equalsIgnoreCase(name)) {
+				return pt;
+			} else if (pt != null && pt.getName() != null && pt.getName().equalsIgnoreCase(name)) {
+				return pt;
+			}
+		}
 		return null;
 	}
 }
