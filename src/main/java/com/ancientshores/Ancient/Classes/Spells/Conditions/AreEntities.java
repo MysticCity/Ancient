@@ -27,7 +27,7 @@ public class AreEntities extends IArgument {
             return false;
         }
         for (Object o : objs) {
-            if (!(o instanceof Player) && !(o instanceof Entity)) {
+            if (!(o instanceof Entity)) {
                 return false;
             }
         }

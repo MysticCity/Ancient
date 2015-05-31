@@ -16,7 +16,7 @@ import com.ancientshores.Ancient.Util.GlobalMethods;
 // TODO durchlesen
 public class GetNearbyEntities extends IArgument {
     @ArgumentDescription(
-            description = "Returns the amount of entities nearby the location in the specified range",
+            description = "Returns the given amount of entities nearby the location in the specified range",
             parameterdescription = {"location", "range", "amount"}, returntype = ParameterType.Entity, rparams = {ParameterType.Location, ParameterType.Number, ParameterType.Number})
     public GetNearbyEntities() {
         this.returnType = ParameterType.Entity;

@@ -16,6 +16,6 @@ public class GetRandom extends IArgument {
 
     @Override
     public Object getArgument(Object obj[], SpellInformationObject so) {
-        return Math.abs((int) Math.round(Math.random() * 100));
+        return (int) (Math.random() * 100);
     }
 }

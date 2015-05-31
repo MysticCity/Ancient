@@ -24,7 +24,7 @@ public class GetItemInItemSlot extends IArgument {
 			if (p.getInventory().getItem(slot) == null) {
 				return 0;
 			} else {
-				return p.getInventory().getItem(slot).getType();
+				return p.getInventory().getItem(slot).getType().getId();
 			}
 		}
 		return null;

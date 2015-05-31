@@ -417,7 +417,7 @@ public class Spell implements Serializable {
                 try {
                     time = Math.round(Integer.parseInt(split[1].trim()) / 50);
                 } catch (Exception e) {
-                    Bukkit.getLogger().log(Level.SEVERE, "Spell " + this.name + ": error in line: " + s + " Needs to 2nd argumend needs to be an integer");
+                    Bukkit.getLogger().log(Level.SEVERE, "Spell " + this.name + ": error in line: " + s + " 2nd argumend needs to be an integer");
                     return;
                 }
                 if (registeredTasks.containsKey(this.name)) {
