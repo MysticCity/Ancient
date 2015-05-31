@@ -49,6 +49,7 @@ import com.ancientshores.Ancient.Classes.Spells.SpellInformationObject;
 import com.ancientshores.Ancient.Classes.Spells.Commands.CommandPlayer;
 import com.ancientshores.Ancient.Classes.Spells.Conditions.IArgument;
 import com.ancientshores.Ancient.Commands.AncientCommand;
+import com.ancientshores.Ancient.Display.Display;
 import com.ancientshores.Ancient.Experience.AncientExperience;
 import com.ancientshores.Ancient.Experience.SetXpCommand;
 import com.ancientshores.Ancient.Guild.AncientGuild;
@@ -78,6 +79,8 @@ import com.ancientshores.Ancient.Spells.Commands.SpellsCommandExecutor;
 import com.ancientshores.Ancient.Util.FlatFileConnector;
 import com.ancientshores.Ancient.Util.SerializableZone;
 
+import de.slikey.effectlib.EffectLib;
+
 public class Ancient extends JavaPlugin {
 
 	public Config config; // Die Konfiguration ???
@@ -91,6 +94,7 @@ public class Ancient extends JavaPlugin {
 	public Thread bukkitThread; // ??? NNN
 	public CommandPlayer ef; // ???
 	public static String languagecode; // für die Sprache wird aus Config geladen in mconfig.loadkeys();
+	public static EffectLib effectLib;
 	// ClassListeners
 	
 	HashMap<SpellInformationObject, UUID> executingSpells = new HashMap<SpellInformationObject, UUID>(); // ??? Hashmap für die Zauber
@@ -226,25 +230,28 @@ public class Ancient extends JavaPlugin {
 		AncientClass.loadClasses(); // Klassen laden
 		AncientRace.loadRaces(); // ??? Rassen laden
 		
-			if (!new File(this.getDataFolder().getPath() + "/level").exists()) { // wenn der Levelordner nicht existiert wird er erstellt
-				new File(this.getDataFolder().getPath() + "/level").mkdir();
-			}
-			
-			File configFile = new File(this.getDataFolder().getPath() + "/level/level.conf"); // Datei level.conf in File objekt speichern
-			if (!configFile.exists()) { // wenn diese Datei nicht existiert
-				try {
-					configFile.createNewFile(); // neu anlegen
-					BufferedWriter bw = new BufferedWriter(new FileWriter(configFile)); // neue BufferedWriter instanz zum schreiben in die Datei
-					bw.write("level \n"); // überschrift EDIT Schöner und aussagekräftiger. Vielleicht mit .yml ??? wie wird es verwendet
-					for (int i = 1; i <= 10; i++) {
-						bw.write("" + i + "\n"); // ??? --- mega notwendig
-					}
-					bw.flush(); // in die Datei kopieren
-					bw.close(); // die Verbindung beenden
-				} catch (Exception e) {
-					Ancient.plugin.getLogger().log(Level.SEVERE, "Ancient: unable to create spell config file " + configFile.getName()); // ??? ich denke es ist eine level datei. wenn ich locales habe sollte ich die auch benutzen...
+		if (!new File(this.getDataFolder().getPath() + "/level").exists()) { // wenn der Levelordner nicht existiert wird er erstellt
+			new File(this.getDataFolder().getPath() + "/level").mkdir();
+		}
+		if (!new File(this.getDataFolder().getPath() + "/images").exists()) { // wenn der Bilderordner nicht existiert wird er erstellt
+			new File(this.getDataFolder().getPath() + "/images").mkdir();
+		}
+		
+		File configFile = new File(this.getDataFolder().getPath() + "/level/level.conf"); // Datei level.conf in File objekt speichern
+		if (!configFile.exists()) { // wenn diese Datei nicht existiert
+			try {
+				configFile.createNewFile(); // neu anlegen
+				BufferedWriter bw = new BufferedWriter(new FileWriter(configFile)); // neue BufferedWriter instanz zum schreiben in die Datei
+				bw.write("level \n"); // überschrift EDIT Schöner und aussagekräftiger. Vielleicht mit .yml ??? wie wird es verwendet
+				for (int i = 1; i <= 10; i++) {
+					bw.write("" + i + "\n"); // ??? --- mega notwendig
 				}
+				bw.flush(); // in die Datei kopieren
+				bw.close(); // die Verbindung beenden
+			} catch (Exception e) {
+				Ancient.plugin.getLogger().log(Level.SEVERE, "Ancient: unable to create spell config file " + configFile.getName()); // ??? ich denke es ist eine level datei. wenn ich locales habe sollte ich die auch benutzen...
 			}
+		}
 		
 		try {
 			File f = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "spellfreezones"); // ??? OMG warum frage ich hier nach seperator aber nicht 10 zeilen darüber WTF und warum nehme ich davor this und jetzt klasse.plugin | soll wahrscheinlich den ordner für spruchfreie zonen speichern. interessant...
@@ -299,6 +306,11 @@ public class Ancient extends JavaPlugin {
 		}
 		
 		Armor.loadConfig();
+		
+		effectLib = EffectLib.instance();
+		
+		Display.loadConfig(this);
+		
 		Spell.initializeServerSpells(); // ??? welche Spells werden initialisiert
 		// File f = new File("plugins/test.qst");
 		// new AncientQuest(f);
@@ -399,7 +411,6 @@ public class Ancient extends JavaPlugin {
 		config.addDefaults();
 		this.saveConfig();
 		PlayerData.writePlayerData();
-		log.info("Ancient disabled.");
 		
 		AncientGuild.writeGuilds();
 		
@@ -446,6 +457,8 @@ public class Ancient extends JavaPlugin {
 		Spell.eventListeners = null;
 		Parameter.registeredParameters = null;
 		com.ancientshores.Ancient.Classes.Spells.Command.registeredCommands = null;
+	
+		log.info("Ancient disabled.");
 	}
 
 	public int scheduleThreadSafeTask(Plugin p, Runnable r) {
