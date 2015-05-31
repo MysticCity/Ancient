@@ -155,7 +155,6 @@ public abstract class IArgument {
         registeredArguments.add(new GetZCoordinate());
         registeredArguments.add(new IsInWater());
         registeredArguments.add(new IsSneaking());
-        registeredArguments.add(new CastTo());
         registeredArguments.add(new GetEventProperty());
         registeredArguments.add(new IsRightClicked());
         registeredArguments.add(new GetHeldSlotNumber());
