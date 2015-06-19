@@ -40,11 +40,14 @@ import org.bukkit.potion.PotionType;
 import com.ancient.util.PlayerFinder;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.PlayerData;
+import com.ancientshores.Ancient.API.AncientGainExperienceEvent;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.BindingData;
 import com.ancientshores.Ancient.Classes.Commands.ClassCastCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassResetCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassSetCommand;
+import com.ancientshores.Ancient.Display.Bar;
+import com.ancientshores.Ancient.Display.Display;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.HP.AncientHP;
 import com.ancientshores.Ancient.HP.DamageConverter;
@@ -176,6 +179,18 @@ public class AncientPlayerListener implements Listener {
 		*/
 	}
 
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerGainXP(final AncientGainExperienceEvent event) {
+		if (!event.isCancelled())
+			Bukkit.getScheduler().runTaskLater(Ancient.plugin, new Runnable() {	
+				@Override
+				public void run() {
+					Display.updateXP(PlayerData.getPlayerData(event.uuid));
+				}
+			}, 1);
+			
+	}
+	
 	@EventHandler
 	public void onPlayerDisconnect(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
@@ -214,10 +229,15 @@ public class AncientPlayerListener implements Listener {
 		pd.dispose();
 		
 		AncientHP hp = pd.getHpsystem();
+		
 		p.setMaxHealth(20);
 		p.setHealthScaled(false);
 		p.setHealth(hp.health / hp.maxhp * 20);
 	
+		if (Display.manaBar == Bar.XP || Display.xpBar == Bar.XP) {
+			p.setLevel(0);
+			p.setExp(0);
+		}
 //		p.setMaxHealth(20)
 	}
 
