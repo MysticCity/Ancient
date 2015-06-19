@@ -119,13 +119,13 @@ public class DamageConverter {
 				if (event instanceof EntityDamageByEntityEvent) {
 					EntityDamageByEntityEvent mEvent = (EntityDamageByEntityEvent) event;
 					if (mEvent.getDamager() instanceof WitherSkull) {
-						double percente = (event.getDamage() / (double) 49);
+						double percente = (event.getDamage() / 49);
 						return config.getDouble("HP.damage of a wither skull") * percente;
 					} else if (mEvent.getDamager() instanceof SmallFireball) {
-						double percente = (event.getDamage() / (double) 17);
+						double percente = (event.getDamage() / 17);
 						return config.getDouble("HP.damage of a small fireball") * percente;
 					} else if (mEvent.getDamager() instanceof Fireball) {
-						double percente = (event.getDamage() / (double) 7);
+						double percente = (event.getDamage() / 7);
 						return config.getDouble("HP.damage of a fireball") * percente;
 					}
 				}
@@ -176,7 +176,7 @@ public class DamageConverter {
 				else if (c instanceof PigZombie) return config.getDouble("HP.damage of a pig zombie");
 				else if (c instanceof EnderDragon) return config.getDouble("HP.damage of an ender dragon");
 				else if (c instanceof Skeleton) return getDamageOfItem((LivingEntity) c, 0);
-				else if (c instanceof Creeper) return Math.round(config.getDouble("HP.damage of a creeper") * event.getDamage() / 49);
+				else if (c instanceof Creeper) return config.getDouble("HP.damage of a creeper") * event.getDamage() / 49;
 				else if (c instanceof Ghast) return config.getDouble("HP.damage of a ghast");
 				else if (c instanceof Enderman) return config.getDouble("HP.damage of an enderman");
 				else if (c instanceof Giant) return config.getDouble("HP.damage of a giant");
@@ -269,15 +269,15 @@ public class DamageConverter {
 				}
 			}
 		} else if (c instanceof Creeper) {
-			if (e.getCause() != DamageCause.ENTITY_ATTACK) {
+			if (e.getCause() != DamageCause.ENTITY_EXPLOSION) {
 				return 0;
 			}
 			double distance = c.getLocation().distance(mPlayer.getLocation());
-			if (distance <= 1) return config.getDouble("HP.damage of a creeper");
+			if (distance <= 1) return reduceDamageByArmor(config.getDouble("HP.damage of a creeper"), mPlayer);
 			
-			return (config.getDouble("HP.damage of a creeper")) / Math.sqrt(distance);
+			return reduceDamageByArmor(config.getDouble("HP.damage of a creeper") / distance, mPlayer);
 		}
-		return AncientHP.getHpByMinecraftDamage(mPlayer.getUniqueId(), defaultHP);
+		return reduceDamageByArmor(AncientHP.getHpByMinecraftDamage(mPlayer.getUniqueId(), defaultHP), mPlayer);
 	}
 
 	public static boolean isEnabledInWorld(World w) {
@@ -457,13 +457,13 @@ public class DamageConverter {
 
 	public static double getDamageOfEnchantementAndPotion(LivingEntity attacker, double d) {
 		for (PotionEffect pe : attacker.getActivePotionEffects()) {
-			if (pe.getType().equals(PotionEffectType.INCREASE_DAMAGE)) d += config.getDouble("HP.extra damage of strenght potion per tier") * pe.getAmplifier();
-			if (pe.getType().equals(PotionEffectType.WEAKNESS)) d -= config.getDouble("HP.less damage of weaken potion per tier") * pe.getAmplifier();
+			if (pe.getType().getName().equalsIgnoreCase(PotionEffectType.INCREASE_DAMAGE.getName())) d += config.getDouble("HP.extra damage of strenght potion per tier") * (pe.getAmplifier() + 1);
+			if (pe.getType().getName().equalsIgnoreCase(PotionEffectType.WEAKNESS.getName())) d -= config.getDouble("HP.less damage of weaken potion per tier") * (pe.getAmplifier() + 1);
 		}
-		for (Entry<Enchantment, Integer> entry : attacker.getEquipment().getItemInHand().getEnchantments().entrySet()) {
-			if (entry.getKey() == Enchantment.DAMAGE_ALL) d += config.getDouble("HP.extra damage of sharpness enchantment") * entry.getValue();
-			if (entry.getKey() == Enchantment.DAMAGE_ARTHROPODS) d += config.getDouble("HP.max extra damage of bane of arthropods and smite enchantment") * entry.getValue();
-		}
+		
+		d += config.getDouble("HP.extra damage of sharpness enchantment") * attacker.getEquipment().getItemInHand().getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+		d += config.getDouble("HP.max extra damage of bane of arthropods and smite enchantment") * attacker.getEquipment().getItemInHand().getEnchantmentLevel(Enchantment.DAMAGE_ARTHROPODS);
+		
 		return d;
 	}
 
