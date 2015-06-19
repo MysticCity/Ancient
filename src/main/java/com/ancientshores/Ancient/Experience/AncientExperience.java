@@ -116,11 +116,15 @@ public class AncientExperience implements Serializable, ConfigurationSerializabl
 						}
 					}
 					int times = playersInRange.size() + 1;
-					int newXp = (xp / times);
+					// add party split bonus for every party member
+					int newXp = (int) (xp / times * (1 + AncientParty.splitxpGlobalBonus / 100.0));
 					xp = newXp;
 
 					for (UUID uuid : playersInRange)
 						PlayerData.getPlayerData(uuid).getXpSystem().addXP(newXp, false);
+					
+					// Add party split bonus for source player
+					xp = (int) (xp * (1 + AncientParty.splitxpSourcePlayerBonus / 100.0));	
 				}
 			}
 		} catch (Exception e) {
