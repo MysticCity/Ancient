@@ -1,8 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Conditions;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-
 import com.ancientshores.Ancient.Classes.Spells.ArgumentDescription;
 import com.ancientshores.Ancient.Classes.Spells.ParameterType;
 import com.ancientshores.Ancient.Classes.Spells.SpellInformationObject;

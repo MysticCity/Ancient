@@ -1,7 +1,5 @@
 package com.ancientshores.Ancient.Classes.Spells.Conditions;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 
 import com.ancientshores.Ancient.Classes.Spells.ArgumentDescription;

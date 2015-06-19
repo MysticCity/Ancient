@@ -2,9 +2,6 @@ package com.ancientshores.Ancient.Display;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.SwitchPoint;
-import java.util.UUID;
-
 import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
