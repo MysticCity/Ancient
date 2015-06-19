@@ -257,7 +257,7 @@ public class AncientClass implements Serializable {
 		}
 		if (yc.get("Class.default hpreg") == null) yc.set("Class.default hpreg", DamageConverter.getHPRegeneration());
 		
-		if (yc.get("Class.default manareg") == null) yc.set("Class.default manareg", ManaSystem.defaultMana);
+		if (yc.get("Class.default manareg") == null) yc.set("Class.default manareg", ManaSystem.defaultReg);
 		
 		Ancient.set(yc, "Class.description", "");
 		this.description = yc.getString("Class.description", "");
