@@ -1,13 +1,16 @@
 package com.ancientshores.Ancient.Listeners;
 
+import java.util.ArrayList; 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
@@ -30,6 +33,7 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
@@ -92,9 +96,12 @@ public class AncientEntityListener implements Listener {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Ancient.plugin, new Runnable() {
 				@Override
 				public void run() {
-					// update the players armor
-					entity.getEquipment().setArmorContents(armor);
-					Armor.removeChangedArmor(entity);
+					// if the entity got killed the armor will not be given back
+					if (Armor.hasChangedArmor(entity)) {
+						// update the players armor
+						entity.getEquipment().setArmorContents(armor);
+						Armor.removeChangedArmor(entity);
+					}
 					/*	
 					 *	if(event.getEntity() instanceof Player && ScoreboardInterface.scoreboardenabled) {
 					 *	Scoreboard sb = ScoreboardInterface.getPlayersScoreboard((Player)event.getEntity());
@@ -140,7 +147,56 @@ public class AncientEntityListener implements Listener {
 			}
 		}
 	}
-
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onEntityDeathWithArmor(EntityDeathEvent event) {
+		// drop armor
+		if (Armor.hasChangedArmor(event.getEntity())) {
+			event.getDrops().addAll(addArmorDrops(event.getEntity()));
+			
+			Armor.removeChangedArmor(event.getEntity());
+			
+		}
+		
+	}
+	
+	private List<ItemStack> addArmorDrops(LivingEntity entity) {
+		List<ItemStack> list = new ArrayList<ItemStack>();
+		EntityEquipment equ = entity.getEquipment();
+		
+		ItemStack[] armor = Armor.getChangedArmor(entity);
+		
+		for (ItemStack item : armor) {
+			if (item == null || item.getType() == Material.AIR) continue;
+			
+			if (entity instanceof Player)
+				list.add(item);
+			else {
+				float possibility;
+				switch (item.getType()) {
+				case LEATHER_HELMET: case CHAINMAIL_HELMET: case IRON_HELMET: case DIAMOND_HELMET: case GOLD_HELMET:
+					possibility = equ.getHelmetDropChance();
+					break;
+				case LEATHER_CHESTPLATE: case CHAINMAIL_CHESTPLATE: case IRON_CHESTPLATE: case DIAMOND_CHESTPLATE: case GOLD_CHESTPLATE:
+					possibility = equ.getChestplateDropChance();
+					break;
+				case LEATHER_LEGGINGS: case CHAINMAIL_LEGGINGS: case IRON_LEGGINGS: case DIAMOND_LEGGINGS: case GOLD_LEGGINGS:
+					possibility = equ.getLeggingsDropChance();
+					break;
+				case LEATHER_BOOTS: case CHAINMAIL_BOOTS: case IRON_BOOTS: case DIAMOND_BOOTS: case GOLD_BOOTS:
+					possibility = equ.getBootsDropChance();
+					break;
+				default:
+					possibility = 0;
+					break;
+				}
+			
+				if (Math.random() * 100 <= possibility)
+					list.add(item);
+			}
+		}
+		
+		return list;
+	}
 	// ======
 	// Other listeners
 	// ======
