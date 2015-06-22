@@ -20,6 +20,14 @@ public class Trace extends ICommand {
 
 	@Override
 	public boolean playCommand(final EffectArgs ca) {
+		System.out.println("vor if");
+		System.out.println(ca.getParams().size());
+		System.out.println(ca.getParams().get(0).getClass());
+		System.out.println(ca.getParams().get(1).getClass());
+		System.out.println(ca.getParams().get(2).getClass());
+		System.out.println(ca.getParams().get(3).getClass());
+		System.out.println(ca.getParams().get(4).getClass());
+		System.out.println(ca.getParams().get(5).getClass());
 		if (ca.getParams().size() == 6
 				&& ca.getParams().get(5) instanceof Number
 				&& ca.getParams().get(4) instanceof Number
@@ -28,6 +36,7 @@ public class Trace extends ICommand {
 				&& ca.getParams().get(1) instanceof String
 				&& ca.getParams().get(0) instanceof Entity[]) {
 			
+			System.out.println("in if");
 			EffectManager man = new EffectManager(Ancient.effectLib);
 			
 			Entity[] entities = (Entity[]) ca.getParams().get(0);
@@ -41,11 +50,12 @@ public class Trace extends ICommand {
 			int period = ((Number) ca.getParams().get(4)).intValue();
 			int iterations = ((Number) ca.getParams().get(5)).intValue();
 			
+			System.out.println("vor if loop!");
 			if (entities != null && entities.length > 0) {
 				for (Entity ent : entities) {
 					if (ent == null)
 						continue;
-					
+				System.out.println(" in if loop");	
 					TraceEntityEffect e = new TraceEntityEffect(man, ent);
 					
 					e.particle = particle;

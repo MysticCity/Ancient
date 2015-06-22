@@ -12,7 +12,7 @@ import de.slikey.effectlib.util.ParticleEffect;
 
 public class WarpEffect extends ICommand {
 	@CommandDescription(description = "<html>Creates a warp effect at the given location</html>",
-			argnames = {"location", "particlename", "particles per circle", "radius", "grow", "period", "iterations"}, name = "WarpEffect", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+			argnames = {"location", "particlename", "circles", "particles per circle", "radius", "grow", "period", "iterations"}, name = "WarpEffect", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public WarpEffect() {
 		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}

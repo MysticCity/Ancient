@@ -13,7 +13,7 @@ import de.slikey.effectlib.util.ParticleEffect;
 
 public class Fountain extends ICommand {
 	@CommandDescription(description = "<html>Creates a fountain at the given location</html>",
-			argnames = {"location", "particlename", "particles per strand", "particles per iteration in spout", "radius", "radius of spout", "height", "height of spout", "rotation", "period", "iterations"}, name = "Fountain", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+			argnames = {"location", "particlename", "strands", "particles per strand", "particles per iteration in spout", "radius", "radius of spout", "height", "height of spout", "rotation", "period", "iterations"}, name = "Fountain", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public Fountain() {
 		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}

@@ -79,6 +79,8 @@ public class AnimatedBall extends ICommand {
 					e.yFactor = yFactor;
 					e.zFactor = zFactor;
 					
+					e.xOffset = e.yOffset = e.zOffset = 0;
+					
 					e.period = period;
 					e.iterations = iterations;
 					

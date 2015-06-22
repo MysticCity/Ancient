@@ -13,7 +13,7 @@ import de.slikey.effectlib.util.ParticleEffect;
 
 public class Vortex extends ICommand {
 	@CommandDescription(description = "<html>Creates a vortex at the given location</html>",
-			argnames = {"location", "particlename", "grow per iteration", "radials per iteration", "helix circles per iterations", "helices", "period", "iterations"}, name = "Vortex", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+			argnames = {"location", "particlename", "radius", "grow per iteration", "radials per iteration", "helix circles per iterations", "helices", "period", "iterations"}, name = "Vortex", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public Vortex() {
 		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}

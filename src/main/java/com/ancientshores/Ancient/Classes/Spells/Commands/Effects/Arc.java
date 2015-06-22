@@ -12,52 +12,52 @@ import de.slikey.effectlib.effect.ArcEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 
 public class Arc extends ICommand {
-	@CommandDescription(description = "<html>Creates an arc at the given location</html>",
-			argnames = {"location", "particlename", "particles", "height", "period", "iterations"}, name = "Arc", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+	@CommandDescription(description = "<html>Creates an arc from the first to the second location</html>",
+			argnames = {"location from", "location to", "particlename", "particles", "height", "period", "iterations"}, name = "Arc", parameters = {ParameterType.Location, ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public Arc() {
-		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
+		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}
 
 	@Override
 	public boolean playCommand(final EffectArgs ca) {
-		if (ca.getParams().size() == 6
+		if (ca.getParams().size() == 7
+				&& ca.getParams().get(6) instanceof Number
 				&& ca.getParams().get(5) instanceof Number
 				&& ca.getParams().get(4) instanceof Number
 				&& ca.getParams().get(3) instanceof Number
-				&& ca.getParams().get(2) instanceof Number
-				&& ca.getParams().get(1) instanceof String
+				&& ca.getParams().get(2) instanceof String
+				&& ca.getParams().get(1) instanceof Location[]
 				&& ca.getParams().get(0) instanceof Location[]) {
 			
 			EffectManager man = new EffectManager(Ancient.effectLib);
 			
-			Location[] loc = (Location[]) ca.getParams().get(0);
+			Location[] loc1 = (Location[]) ca.getParams().get(0);
+			Location[] loc2 = (Location[]) ca.getParams().get(1);
 			
-			ParticleEffect particle = ParticleEffect.fromName((String) ca.getParams().get(1));
+			ParticleEffect particle = ParticleEffect.fromName((String) ca.getParams().get(2));
 			
-			int particles = ((Number) ca.getParams().get(2)).intValue();
-			float height = ((Number) ca.getParams().get(3)).floatValue();
+			int particles = ((Number) ca.getParams().get(3)).intValue();
+			float height = ((Number) ca.getParams().get(4)).floatValue();
 			
-			int period = ((Number) ca.getParams().get(4)).intValue();
-			int iterations = ((Number) ca.getParams().get(5)).intValue();
+			int period = ((Number) ca.getParams().get(5)).intValue();
+			int iterations = ((Number) ca.getParams().get(6)).intValue();
 			
-			if (loc != null && loc.length > 0) {
-				for (Location l : loc) {
-					if (l == null)
-						continue;
+			if (loc1 != null && loc2 != null && loc1.length != 0 && loc2.length != 0) {
+				ArcEffect e = new ArcEffect(man);
 					
-					ArcEffect e = new ArcEffect(man);
-					e.particle = particle;
-					
-					e.particles = particles;
-					e.height = height;
-					
-					e.period = period;
-					e.iterations = iterations;
-					
-					
-					e.setLocation(l);
-					e.start();
-				}
+				e.particle = particle;
+				
+				e.particles = particles;
+				e.height = height;
+				
+				e.period = period;
+				e.iterations = iterations;
+				
+				
+				e.setLocation(loc1[0]);
+				e.setTarget(loc2[0]);
+				
+				e.start();
 			}
 			
 			man.disposeOnTermination();

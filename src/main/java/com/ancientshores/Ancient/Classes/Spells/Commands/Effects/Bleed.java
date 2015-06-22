@@ -12,9 +12,9 @@ import de.slikey.effectlib.effect.BleedEffect;
 
 public class Bleed extends ICommand {
 	@CommandDescription(description = "<html>Plays an bleed effect to/at the entity</html>",
-			argnames = {"entity", "hurt effect visible for player", "color", "period", "iterations"}, name = "Bleed", parameters = {ParameterType.Location, ParameterType.Boolean, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+			argnames = {"entity", "hurt effect visible for entity", "color", "period", "iterations"}, name = "Bleed", parameters = {ParameterType.Entity, ParameterType.Boolean, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public Bleed() {
-		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.Boolean, ParameterType.Number, ParameterType.Number, ParameterType.Number};
+		this.paramTypes = new ParameterType[]{ParameterType.Entity, ParameterType.Boolean, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}
 
 	@Override
@@ -47,6 +47,7 @@ public class Bleed extends ICommand {
 					e.period = period;
 					e.iterations = iterations;
 					
+					e.setLocation(ent.getLocation());
 					e.setEntity(ent);
 					e.start();
 				}

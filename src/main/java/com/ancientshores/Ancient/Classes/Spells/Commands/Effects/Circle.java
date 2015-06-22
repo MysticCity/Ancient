@@ -13,7 +13,7 @@ import de.slikey.effectlib.util.ParticleEffect;
 
 public class Circle extends ICommand {
 	@CommandDescription(description = "<html>Creates a (rotating) circle at the given location</html>",
-			argnames = {"location", "particlename", "particles", "radius", "period", "iterations", "x rotation", "y rotation", "z rotation", "rotating", "angular velocity x", "angular velocity y", "angular velocity z"}, name = "Circle", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+			argnames = {"location", "particlename", "particles", "radius", "period", "iterations", "x rotation", "y rotation", "z rotation", "rotating", "angular velocity x", "angular velocity y", "angular velocity z"}, name = "Circle", parameters = {ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Boolean, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public Circle() {
 		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Boolean, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}
@@ -62,7 +62,6 @@ public class Circle extends ICommand {
 				for (Location l : loc) {
 					if (l == null)
 						continue;
-					
 					CircleEffect e = new CircleEffect(man);
 					
 					e.particle = particle;
@@ -83,6 +82,8 @@ public class Circle extends ICommand {
 					e.angularVelocityZ = angularVelocityZ;
 					
 					
+					l = l.clone();
+					l.setZ(l.getZ());
 					e.setLocation(l);
 					e.start();
 				}

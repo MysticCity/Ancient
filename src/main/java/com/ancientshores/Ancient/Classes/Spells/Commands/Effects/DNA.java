@@ -14,7 +14,7 @@ import de.slikey.effectlib.util.ParticleEffect;
 
 public class DNA extends ICommand {
 	@CommandDescription(description = "<html>Creates a dna helix at the given location</html>",
-			argnames = {"location", "helix particlename", "base 1 particlename", "base 2 particlename", "radial turns", "radius", "particles helix per iteration", "particles per base", "length", "grow", "base interval"}, name = "DNA", parameters = {ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+			argnames = {"location", "helix particlename", "base 1 particlename", "base 2 particlename", "radial turns", "radius", "particles helix per iteration", "particles per base", "length", "grow", "base interval", "period", "iteration"}, name = "DNA", parameters = {ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public DNA() {
 		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}

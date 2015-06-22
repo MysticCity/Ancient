@@ -12,8 +12,8 @@ import de.slikey.effectlib.effect.CloudEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 
 public class Cloud extends ICommand {
-	@CommandDescription(description = "<html>Creates an animated ball at the given location</html>",
-			argnames = {"location", "cloud particlename", "rain particlename", "cloud size", "rain particle radius", "period", "iterations"}, name = "Circle", parameters = {ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
+	@CommandDescription(description = "<html>Creates a cloud at the given location</html>",
+			argnames = {"location", "cloud particlename", "rain particlename", "cloud size", "rain particle radius", "period", "iterations"}, name = "Cloud", parameters = {ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number})
 	public Cloud() {
 		this.paramTypes = new ParameterType[]{ParameterType.Location, ParameterType.String, ParameterType.String, ParameterType.Number, ParameterType.Number, ParameterType.Number, ParameterType.Number};
 	}

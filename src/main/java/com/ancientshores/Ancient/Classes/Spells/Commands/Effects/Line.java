@@ -27,26 +27,26 @@ public class Line extends ICommand {
 				&& ca.getParams().get(4) instanceof Number
 				&& ca.getParams().get(3) instanceof Boolean
 				&& ca.getParams().get(2) instanceof String
-				&& ca.getParams().get(1) instanceof Location
-				&& ca.getParams().get(0) instanceof Location) {
+				&& ca.getParams().get(1) instanceof Location[]
+				&& ca.getParams().get(0) instanceof Location[]) {
 			
 			EffectManager man = new EffectManager(Ancient.effectLib);
 			
-			Location loc1 = (Location) ca.getParams().get(0);
-			Location loc2 = (Location) ca.getParams().get(1);
+			Location[] loc1 = (Location[]) ca.getParams().get(0);
+			Location[] loc2 = (Location[]) ca.getParams().get(1);
 			
-			ParticleEffect particle = ParticleEffect.fromName((String) ca.getParams().get(1));
+			ParticleEffect particle = ParticleEffect.fromName((String) ca.getParams().get(2));
 			
-			boolean isZigZag = (Boolean) ca.getParams().get(7);
+			boolean isZigZag = (Boolean) ca.getParams().get(3);
 			
-			int zigZags = ((Number) ca.getParams().get(2)).intValue();
-			int particles = ((Number) ca.getParams().get(3)).intValue();
+			int zigZags = ((Number) ca.getParams().get(4)).intValue();
+			int particles = ((Number) ca.getParams().get(5)).intValue();
 			
-			int period = ((Number) ca.getParams().get(5)).intValue();
-			int iterations = ((Number) ca.getParams().get(6)).intValue();
+			int period = ((Number) ca.getParams().get(6)).intValue();
+			int iterations = ((Number) ca.getParams().get(7)).intValue();
 			
-			if (loc1 != null && loc2 != null) {
-					
+			if (loc1 != null && loc2 != null && loc1.length != 0 && loc2.length != 0) {
+						
 				LineEffect e = new LineEffect(man);
 				
 				e.particle = particle;
@@ -59,8 +59,8 @@ public class Line extends ICommand {
 				e.period = period;
 				e.iterations = iterations;
 				
-				e.setLocation(loc1);
-				e.setTarget(loc2);
+				e.setLocation(loc1[0]);
+				e.setTarget(loc2[0]);
 				e.start();
 			
 			}

@@ -180,6 +180,7 @@ public class Command extends ICodeSection {
         registeredCommands.put("bigbang", new BigBang());
         registeredCommands.put("bleed", new Bleed());
         registeredCommands.put("circle", new Circle());
+        registeredCommands.put("cloud", new Cloud());
         registeredCommands.put("coloredimage", new ColoredImage());
         registeredCommands.put("cone", new Cone());
         registeredCommands.put("cube", new Cube());
@@ -189,7 +190,7 @@ public class Command extends ICodeSection {
         registeredCommands.put("donut", new Donut());
         registeredCommands.put("dragon", new Dragon());
         registeredCommands.put("earth", new Earth());
-        registeredCommands.put("exlodeeffect", new ExplodeEffect());
+        registeredCommands.put("explodeeffect", new ExplodeEffect());
         registeredCommands.put("flame", new Flame());
         registeredCommands.put("fountain", new Fountain());
         registeredCommands.put("grid", new Grid());

@@ -100,9 +100,8 @@ public class Image extends ICommand {
 				
 				man.disposeOnTermination();
 				return true;
-			} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
 		}
 		return false;
