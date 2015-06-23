@@ -2,7 +2,6 @@ package com.ancientshores.Ancient.Display;
 
 import java.io.File;
 import java.io.IOException;
-import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,6 +12,7 @@ import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.PlayerData;
 import com.ancientshores.Ancient.Experience.AncientExperience;
 import com.ancientshores.Ancient.Mana.ManaSystem;
+import com.ancientshores.Ancient.Util.Bar.BarAPI;
 
 public class Display {
 	public static Bar xpBar = Bar.NONE;
@@ -82,20 +82,27 @@ public class Display {
 	public static void updateMana(PlayerData pd) {
 		Player p = Bukkit.getPlayer(pd.getPlayer());
 		
+		if (p == null) return;
+		
 		int mana = pd.getManasystem().curmana;
 		int maxMana = pd.getManasystem().maxmana;
 		
 		switch (manaBar) {
 		case BOSS:
-			if (manaBar == xpBar) {
-				// same bar
-				if (!xpCurrentlyShown) {
-					// mana shown now
-					BarAPI.setMessage(p, "Mana: " + mana , (float) mana / maxMana * 100);
+			try {
+				if (manaBar == xpBar) {
+					// same bar
+					if (!xpCurrentlyShown) {
+						// mana shown now
+						BarAPI.getInstance().setStatus(p, "Mana: " + mana, (float) mana / maxMana * 100, true);
+					}
+					break;
 				}
-				break;
+				BarAPI.getInstance().setStatus(p, "Mana: " + mana, (float) mana / maxMana * 100, true);
 			}
-			BarAPI.setMessage(p, "Mana: " + mana , (float) mana / maxMana * 100);
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
 			break;
 		case XP:
 			if (manaBar == xpBar) {
@@ -118,6 +125,8 @@ public class Display {
 	public static void updateXP(PlayerData pd) {
 		Player p = Bukkit.getPlayer(pd.getPlayer());
 		
+		if (p == null) return;
+		
 		AncientExperience expSys = PlayerData.getPlayerData(p.getUniqueId()).getXpSystem();
 		
 		int xp = expSys.xp;
@@ -128,19 +137,24 @@ public class Display {
 		int xpOfCurrLvl = xp - xpReqForCurrLvl;
 		int deltaxpOfLevel = xpReqForNextLvl - xpReqForCurrLvl;
 		
-		float done = (float) xpOfCurrLvl / deltaxpOfLevel * 100;
+		float done = (float) xpOfCurrLvl / deltaxpOfLevel;
 		
 		switch (xpBar) {
 		case BOSS:
-			if (xpBar == manaBar) {
-				// same bar
-				if (xpCurrentlyShown) {
-					// xp shown now
-					BarAPI.setMessage(p, "Level: " + expSys.level , done >= 0 ? done : 100);	
+			try {
+				if (xpBar == manaBar) {
+					// same bar
+					if (xpCurrentlyShown) {
+						// xp shown now
+						BarAPI.getInstance().setStatus(p, "Level: " + expSys.level, (done >= 0 && done <= 100) ? done * 100 : 100, true);
+					}
+					break;
 				}
-				break;
+				BarAPI.getInstance().setStatus(p, "Level: " + expSys.level, (done >= 0 && done <= 100) ? done * 100 : 100, true);
 			}
-			BarAPI.setMessage(p, "Level: " + expSys.level , done >= 0 ? done : 100);	
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
 			break;
 		case XP:
 			if (xpBar == manaBar) {
@@ -148,12 +162,12 @@ public class Display {
 				if (xpCurrentlyShown) {
 					// xp shown now
 					p.setLevel(expSys.level);
-					p.setExp(done >= 0 ? done : 100);
+					p.setExp((done >= 0 && done <= 1) ? done : 1);
 				}
 				break;
 			}
 			p.setLevel(expSys.level);
-			p.setExp(done >= 0 ? done : 100);
+			p.setExp((done >= 0 && done <= 1) ? done : 1);
 			break;
 		case NONE:
 			break;
@@ -180,7 +194,12 @@ public class Display {
 					
 					float done = (float) xpOfCurrLvl / deltaxpOfLevel * 100;
 					
-					BarAPI.setMessage(p, "Level: " + expSys.level , 100 >= done && done >= 0 ? done : 100);	
+					try {
+						BarAPI.getInstance().setStatus(p, "Level: " + expSys.level, (done >= 0 && done <= 100) ? done * 100 : 100, true);
+					}
+					catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 				break;
 			case XP:
@@ -216,7 +235,12 @@ public class Display {
 					
 					float done = (float) mana / maxMana * 100;
 					
-					BarAPI.setMessage(p, "Mana: " + mana , 100 >= done && done >= 0 ? done : 100);
+					try {
+						BarAPI.getInstance().setStatus(p, "Mana: " + mana, done, true);
+					}
+					catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 				break;
 			case XP:
