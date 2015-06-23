@@ -209,7 +209,8 @@ public class Command extends ICodeSection {
         registeredCommands.put("sphere", new Sphere());
         registeredCommands.put("star", new Star());
         registeredCommands.put("tornado", new Tornado());
-        registeredCommands.put("trace", new Trace());
+        // currently not working
+        // registeredCommands.put("trace", new Trace());
         registeredCommands.put("turn", new Turn());
         registeredCommands.put("vortex", new Vortex());
         registeredCommands.put("warpeffect", new WarpEffect());
