@@ -3,6 +3,8 @@ package com.ancientshores.Ancient.Display;
 import java.io.File;
 import java.io.IOException;
 
+import me.confuser.barapi.BarAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,7 +14,6 @@ import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.PlayerData;
 import com.ancientshores.Ancient.Experience.AncientExperience;
 import com.ancientshores.Ancient.Mana.ManaSystem;
-import com.ancientshores.Ancient.Util.Bar.BarAPI;
 
 public class Display {
 	public static Bar xpBar = Bar.NONE;
@@ -40,7 +41,7 @@ public class Display {
 			changeTime = yc.getLong(configNodeChangeTime);
 			
 			// start switch timer
-			if (changeTime > 0) {
+			if (xpBar == manaBar && changeTime > 0) {
 				BukkitRunnable runnable = new BukkitRunnable() {
 					
 					@Override
@@ -94,11 +95,11 @@ public class Display {
 					// same bar
 					if (!xpCurrentlyShown) {
 						// mana shown now
-						BarAPI.getInstance().setStatus(p, "Mana: " + mana, (float) mana / maxMana * 100, true);
+						BarAPI.setMessage(p, "Mana: " + mana , (float) mana / maxMana * 100);
 					}
 					break;
 				}
-				BarAPI.getInstance().setStatus(p, "Mana: " + mana, (float) mana / maxMana * 100, true);
+				BarAPI.setMessage(p, "Mana: " + mana , (float) mana / maxMana * 100);
 			}
 			catch (Exception ex) {
 				ex.printStackTrace();
@@ -146,11 +147,11 @@ public class Display {
 					// same bar
 					if (xpCurrentlyShown) {
 						// xp shown now
-						BarAPI.getInstance().setStatus(p, "Level: " + expSys.level, (done >= 0 && done <= 100) ? done * 100 : 100, true);
+						BarAPI.setMessage(p, "Level: " + expSys.level , done >= 0 ? done : 100);
 					}
 					break;
 				}
-				BarAPI.getInstance().setStatus(p, "Level: " + expSys.level, (done >= 0 && done <= 100) ? done * 100 : 100, true);
+				BarAPI.setMessage(p, "Level: " + expSys.level , done >= 0 ? done : 100);
 			}
 			catch (Exception ex) {
 				ex.printStackTrace();
@@ -194,12 +195,7 @@ public class Display {
 					
 					float done = (float) xpOfCurrLvl / deltaxpOfLevel * 100;
 					
-					try {
-						BarAPI.getInstance().setStatus(p, "Level: " + expSys.level, (done >= 0 && done <= 100) ? done * 100 : 100, true);
-					}
-					catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					BarAPI.setMessage(p, "Level: " + expSys.level , 100 >= done && done >= 0 ? done : 100);	
 				}
 				break;
 			case XP:
@@ -235,12 +231,7 @@ public class Display {
 					
 					float done = (float) mana / maxMana * 100;
 					
-					try {
-						BarAPI.getInstance().setStatus(p, "Mana: " + mana, done, true);
-					}
-					catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					BarAPI.setMessage(p, "Mana: " + mana , 100 >= done && done >= 0 ? done : 100);
 				}
 				break;
 			case XP:
