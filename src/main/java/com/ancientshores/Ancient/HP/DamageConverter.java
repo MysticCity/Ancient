@@ -238,34 +238,34 @@ public class DamageConverter {
 
 	public static double convertDamageByCreature(LivingEntity c, Player mPlayer, double defaultHP, EntityDamageEvent e) {
 		PlayerData.getPlayerData(mPlayer.getUniqueId()).getHpsystem().lastAttackDamage = System.currentTimeMillis();
-		if (c instanceof CaveSpider) return reduceDamageByArmor(config.getDouble("HP.damage of a cave spider"), mPlayer);
-		else if (c instanceof Spider) return reduceDamageByArmor(config.getDouble("HP.damage of a spider"), mPlayer);
-		else if (c instanceof PigZombie) return reduceDamageByArmor(config.getDouble("HP.damage of a pig zombie"), mPlayer);
-		else if (c instanceof EnderDragon) return reduceDamageByArmor(config.getDouble("HP.damage of an ender dragon"), mPlayer);
-		else if (c instanceof Ghast) return reduceDamageByArmor(config.getDouble("HP.damage of a ghat"), mPlayer);
-		else if (c instanceof Enderman) return reduceDamageByArmor(config.getDouble("HP.damage of an enderman"), mPlayer);
-		else if (c instanceof Giant) return reduceDamageByArmor(config.getDouble("HP.damage of a giant"), mPlayer);
-		else if (c instanceof Wolf) return reduceDamageByArmor(config.getDouble("HP.damage of a wolf"), mPlayer);
-		else if (c instanceof MagmaCube) return reduceDamageByArmor(config.getDouble("HP.damage of a magma cube"), mPlayer);
-		else if (c instanceof Slime) return reduceDamageByArmor(config.getDouble("HP.damage of a slime"), mPlayer);
-		else if (c instanceof Ocelot) return reduceDamageByArmor(config.getDouble("HP.damage of a ocelot"), mPlayer);
-		else if (c instanceof Snowman) return reduceDamageByArmor(config.getDouble("HP.damage of a snowman"), mPlayer);
-		else if (c instanceof IronGolem) return reduceDamageByArmor(config.getDouble("HP.damage of an iron golem"), mPlayer);
-		else if (c instanceof Silverfish) return reduceDamageByArmor(config.getDouble("HP.damage of a silverfish"), mPlayer);
-		else if (c instanceof Skeleton) return reduceDamageByArmor(getDamageOfItem(c, 0), mPlayer);
+		if (c instanceof CaveSpider) return config.getDouble("HP.damage of a cave spider");
+		else if (c instanceof Spider) return config.getDouble("HP.damage of a spider");
+		else if (c instanceof PigZombie) return config.getDouble("HP.damage of a pig zombie");
+		else if (c instanceof EnderDragon) return config.getDouble("HP.damage of an ender dragon");
+		else if (c instanceof Ghast) return config.getDouble("HP.damage of a ghat");
+		else if (c instanceof Enderman) return config.getDouble("HP.damage of an enderman");
+		else if (c instanceof Giant) return config.getDouble("HP.damage of a giant");
+		else if (c instanceof Wolf) return config.getDouble("HP.damage of a wolf");
+		else if (c instanceof MagmaCube) return config.getDouble("HP.damage of a magma cube");
+		else if (c instanceof Slime) return config.getDouble("HP.damage of a slime");
+		else if (c instanceof Ocelot) return config.getDouble("HP.damage of a ocelot");
+		else if (c instanceof Snowman) return config.getDouble("HP.damage of a snowman");
+		else if (c instanceof IronGolem) return config.getDouble("HP.damage of an iron golem");
+		else if (c instanceof Silverfish) return config.getDouble("HP.damage of a silverfish");
+		else if (c instanceof Skeleton) return getDamageOfItem(c, 0);
 		else if (c instanceof Zombie) {
 			Zombie z = (Zombie) c;
 			if (z.isVillager()) {
 				if (z.isBaby()) {
-					return reduceDamageByArmor(getDamageOfItem(c, config.getDouble("HP.damage of a villager baby zombie")), mPlayer);
+					return getDamageOfItem(c, config.getDouble("HP.damage of a villager baby zombie"));
 				} else {
-					return reduceDamageByArmor(getDamageOfItem(c, config.getDouble("HP.damage of a villager zombie")), mPlayer);
+					return getDamageOfItem(c, config.getDouble("HP.damage of a villager zombie"));
 				}
 			} else {
 				if (z.isBaby()) {
-					return reduceDamageByArmor(getDamageOfItem(c, config.getDouble("HP.damage of a baby zombie")), mPlayer);
+					return getDamageOfItem(c, config.getDouble("HP.damage of a baby zombie"));
 				} else {
-					return reduceDamageByArmor(getDamageOfItem(c, config.getDouble("HP.damage of a zombie")), mPlayer);
+					return getDamageOfItem(c, config.getDouble("HP.damage of a zombie"));
 				}
 			}
 		} else if (c instanceof Creeper) {
@@ -273,11 +273,11 @@ public class DamageConverter {
 				return 0;
 			}
 			double distance = c.getLocation().distance(mPlayer.getLocation());
-			if (distance <= 1) return reduceDamageByArmor(config.getDouble("HP.damage of a creeper"), mPlayer);
+			if (distance <= 1) return config.getDouble("HP.damage of a creeper");
 			
-			return reduceDamageByArmor(config.getDouble("HP.damage of a creeper") / distance, mPlayer);
+			return config.getDouble("HP.damage of a creeper") / distance;
 		}
-		return reduceDamageByArmor(AncientHP.getHpByMinecraftDamage(mPlayer.getUniqueId(), defaultHP), mPlayer);
+		return AncientHP.getHpByMinecraftDamage(mPlayer.getUniqueId(), defaultHP);
 	}
 
 	public static boolean isEnabledInWorld(World w) {
@@ -300,11 +300,11 @@ public class DamageConverter {
 			case FIRE_TICK: case FIRE:
 				if (Math.abs(pd.lastFireDamage - System.currentTimeMillis()) >= 1000) {
 					pd.lastFireDamage = System.currentTimeMillis();
-					return reduceDamageByArmor(config.getDouble("HP.damage of fire"), p);
+					return config.getDouble("HP.damage of fire");
 				} else return 0;
 			case BLOCK_EXPLOSION:
 				double percentb = ((double) damage / 65);
-				return reduceDamageByArmor(Math.round(config.getDouble("HP.damage of tnt") * percentb), p);
+				return Math.round(config.getDouble("HP.damage of tnt") * percentb);
 			case STARVATION:
 				return config.getDouble("HP.damage of starvation");
 			case FALL:
@@ -326,12 +326,12 @@ public class DamageConverter {
 			case CONTACT:
 				if (Math.abs(pd.lastCactusDamage - System.currentTimeMillis()) >= 1000) {
 					pd.lastCactusDamage = System.currentTimeMillis();
-					return reduceDamageByArmor(config.getDouble("HP.damage of a Cactus per second"), p);
+					return config.getDouble("HP.damage of a Cactus per second");
 				} else return 0;
 			case LAVA:
 				if (Math.abs(pd.lastLavaDamage - System.currentTimeMillis()) >= 1000) {
 					pd.lastLavaDamage = System.currentTimeMillis();
-					return reduceDamageByArmor(config.getDouble("HP.damage of lava per second"), p);
+					return config.getDouble("HP.damage of lava per second");
 				} else return 0;
 			case VOID:
 				return Double.MAX_VALUE;
@@ -340,17 +340,17 @@ public class DamageConverter {
 					EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) event;
 					short id = damageByEntityEvent.getDamager().getType().getTypeId();
 					if (id == EntityType.ARROW.getTypeId()) {
-						if (((Arrow) damageByEntityEvent.getDamager()).getShooter() instanceof Player) return reduceDamageByArmor(getBowDamage((Player) ((Arrow) damageByEntityEvent.getDamager()).getShooter()), p);
-						return reduceDamageByArmor(config.getDouble("HP.damage of an arrow"), p);
-					} else if (id == EntityType.SNOWBALL.getTypeId()) return reduceDamageByArmor(config.getDouble("HP.damage of a snowball"), p);
-					else if (damageByEntityEvent.getDamager() instanceof Egg) return reduceDamageByArmor(config.getDouble("HP.damage of an egg"), p);
-					else if (id == EntityType.FIREBALL.getTypeId()) return reduceDamageByArmor(config.getDouble("HP.damage of a fireball"), p);
-					else if (id == EntityType.SMALL_FIREBALL.getTypeId()) return reduceDamageByArmor(config.getDouble("HP.damage of a small fireball"), p);
-					else if (id == EntityType.WITHER_SKULL.getTypeId()) return reduceDamageByArmor(config.getDouble("HP.damage of a wither skull"), p);
+						if (((Arrow) damageByEntityEvent.getDamager()).getShooter() instanceof Player) return getBowDamage((Player) ((Arrow) damageByEntityEvent.getDamager()).getShooter());
+						return config.getDouble("HP.damage of an arrow");
+					} else if (id == EntityType.SNOWBALL.getTypeId()) return config.getDouble("HP.damage of a snowball");
+					else if (damageByEntityEvent.getDamager() instanceof Egg) return config.getDouble("HP.damage of an egg");
+					else if (id == EntityType.FIREBALL.getTypeId()) return config.getDouble("HP.damage of a fireball");
+					else if (id == EntityType.SMALL_FIREBALL.getTypeId()) return config.getDouble("HP.damage of a small fireball");
+					else if (id == EntityType.WITHER_SKULL.getTypeId()) return config.getDouble("HP.damage of a wither skull");
 					break;
 				}
 			case LIGHTNING:
-				return reduceDamageByArmor(config.getDouble("HP.damage of a lightning"), p);
+				return config.getDouble("HP.damage of a lightning");
 			default:
 				break;
 		}
@@ -416,37 +416,37 @@ public class DamageConverter {
 	public static double getPlayerDamageOfItem(Player attackedEntity, Material iteminhand, LivingEntity attacker, double basedamage) {
 		switch (iteminhand) {
 			case IRON_SWORD:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of an iron sword")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of an iron sword"));
 			case STONE_SWORD:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a stone sword")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a stone sword"));
 			case DIAMOND_SWORD:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a diamond sword")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a diamond sword"));
 			case GOLD_SWORD:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a gold sword")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a gold sword"));
 			case WOOD_SWORD:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a wood sword")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a wood sword"));
 			case IRON_AXE:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of an iron axe")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of an iron axe"));
 			case STONE_AXE:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a stone axe")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a stone axe"));
 			case DIAMOND_AXE:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a diamond axe")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a diamond axe"));
 			case GOLD_AXE:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a gold axe")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a gold axe"));
 			case WOOD_AXE:
-				return reduceDamageByArmor(getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a wood axe")), attackedEntity);
+				return getDamageOfEnchantementAndPotion(attacker, config.getDouble("HP.damage of a wood axe"));
 			default:
 				break;
 		}
-		return reduceDamageByArmor(basedamage, attackedEntity);
+		return basedamage;
 	}
 
-	public static double getBowDamage(Player attacker, Player mPlayer) {
-		double basedamage = config.getDouble("HP.damage of an arrow");
-		for (Entry<Enchantment, Integer> entry : attacker.getItemInHand().getEnchantments().entrySet()) 
-			if (entry.getKey().equals(EnchantmentWrapper.ARROW_DAMAGE)) basedamage += config.getDouble("HP.extra damage of bow enchantments") * entry.getValue();
-		return reduceDamageByArmor(basedamage, mPlayer);
-	}
+//	public static double getBowDamage(Player attacker, Player mPlayer) {
+//		double basedamage = config.getDouble("HP.damage of an arrow");
+//		for (Entry<Enchantment, Integer> entry : attacker.getItemInHand().getEnchantments().entrySet()) 
+//			if (entry.getKey().equals(EnchantmentWrapper.ARROW_DAMAGE)) basedamage += config.getDouble("HP.extra damage of bow enchantments") * entry.getValue();
+//		return reduceDamageByArmor(basedamage, mPlayer);
+//	}
 
 	public static double getBowDamage(Player attacker) {
 		double basedamage = config.getDouble("HP.damage of an arrow");

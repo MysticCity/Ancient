@@ -133,7 +133,7 @@ public class AncientEntityListener implements Listener {
 				&& DamageConverter.isEnabled()
 				&& event.getEntity() instanceof LivingEntity
 				&& !(event.getEntity() instanceof HumanEntity))
-			damage = DamageConverter.reduceDamageByArmor(DamageConverter.convertDamageByEventForCreatures(event), (LivingEntity) event.getEntity());
+			damage = DamageConverter.convertDamageByEventForCreatures(event);
 		
 		event.setDamage(damage);
 	}
@@ -147,6 +147,22 @@ public class AncientEntityListener implements Listener {
 			}
 		}
 	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void armorReductionListener(EntityDamageEvent event) {
+		if (event.isCancelled() || event.getDamage() == Integer.MAX_VALUE) {
+			return;
+		}
+		double damage = event.getDamage();
+		if (!ignoreNextHpEvent
+				&& event.getEntity() instanceof LivingEntity
+				&& CreatureHp.isEnabledInWorld(event.getEntity().getWorld())
+				&& DamageConverter.isEnabled())
+			damage = DamageConverter.reduceDamageByArmor(damage, (LivingEntity) event.getEntity());
+		
+		event.setDamage(damage);
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDeathWithArmor(EntityDeathEvent event) {
 		// drop armor
@@ -155,8 +171,7 @@ public class AncientEntityListener implements Listener {
 			
 			Armor.removeChangedArmor(event.getEntity());
 			
-		}
-		
+		}	
 	}
 	
 	private List<ItemStack> addArmorDrops(LivingEntity entity) {
@@ -167,7 +182,6 @@ public class AncientEntityListener implements Listener {
 		
 		for (ItemStack item : armor) {
 			if (item == null || item.getType() == Material.AIR) continue;
-			
 			if (entity instanceof Player)
 				list.add(item);
 			else {
