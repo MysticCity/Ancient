@@ -20,7 +20,7 @@ public class VariableArgument extends IArgument {
         }
         if (so.mSpell.variables.contains(name.toLowerCase())) {
             try {
-                return so.parseVariable(so.buffcaster, name.toLowerCase());
+                return so.parseVariable(so.buffcaster.getUniqueId(), name.toLowerCase());
             } catch (Exception ignored) {
 
             }

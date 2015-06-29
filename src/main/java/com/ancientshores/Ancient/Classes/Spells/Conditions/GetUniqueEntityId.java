@@ -8,7 +8,7 @@ import com.ancientshores.Ancient.Classes.Spells.SpellInformationObject;
 
 public class GetUniqueEntityId extends IArgument {
     @ArgumentDescription(
-            description = "Gets the unique entity id of the entity",
+            description = "Gets the uuid of the entity",
             parameterdescription = {"entity"}, returntype = ParameterType.String, rparams = {ParameterType.Entity})
     public GetUniqueEntityId() {
         this.returnType = ParameterType.String;

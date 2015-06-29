@@ -1,11 +1,10 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.ancient.util.PlayerFinder;
@@ -34,7 +33,7 @@ public class NearestPlayerInSightParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestPlayerInSight == null) {
-            UUID playerInSight = ea.getSpellInfo().getNearestPlayerInSight(mPlayer, range);
+            Entity playerInSight = ea.getSpellInfo().getNearestPlayerInSight(mPlayer, range);
             ea.getSpellInfo().nearestPlayerInSight = playerInSight;
             if (playerInSight == null) {
                 return;
@@ -42,19 +41,19 @@ public class NearestPlayerInSightParameter implements IParameter {
         }
         switch (pt) {
             case Player:
-                UUID[] p = {ea.getSpellInfo().nearestPlayerInSight};
+                Entity[] p = {ea.getSpellInfo().nearestPlayerInSight};
                 ea.getParams().addLast(p);
                 break;
             case Entity:
-                UUID[] e = {ea.getSpellInfo().nearestPlayerInSight};
+                Entity[] e = {ea.getSpellInfo().nearestPlayerInSight};
                 ea.getParams().addLast(e);
                 break;
             case Location:
-                Location[] l = {Bukkit.getPlayer(ea.getSpellInfo().nearestPlayerInSight).getLocation()};
+                Location[] l = {ea.getSpellInfo().nearestPlayerInSight.getLocation()};
                 ea.getParams().addLast(l);
                 break;
             case String:
-                ea.getParams().addLast(PlayerFinder.getPlayerName(ea.getSpellInfo().nearestPlayerInSight));
+                ea.getParams().addLast(PlayerFinder.getPlayerName(ea.getSpellInfo().nearestPlayerInSight.getUniqueId()));
                 break;
             default:
                 Ancient.plugin.getLogger().log(Level.SEVERE, "Syntax error in command " + ea.getCommand().commandString);

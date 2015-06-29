@@ -4,7 +4,7 @@
     <groupId>com.ancientshores</groupId>
     <artifactId>ancient</artifactId>
     <name>Ancient</name>
-    <version>1.0.0-2</version>
+    <version>1.1-44</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,9 +22,17 @@
         <ancientutil.version>0.1.0</ancientutil.version>
         
         <mm.version>1.1.8</mm.version>
-   </properties>
+        
+        <effectlib.version>3.2</effectlib.version>
+    
+        <barapi.version>3.3</barapi.version>
+    </properties>
 
     <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+        </repository>
         <repository>
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public/</url>
@@ -41,6 +49,14 @@
             <id>ancientutil-repo</id>
             <url>${project.baseUri}repo</url>
         </repository>
+        <repository>
+            <id>effectlib-repo</id>
+            <url>http://maven.elmakers.com/repository/</url>
+        </repository>
+        <repository>
+		    <id>confuser-repo</id>
+	     	<url>http://ci.frostcast.net/plugin/repository/everything</url>
+	    </repository>
     </repositories>
 
 	<pluginRepositories>
@@ -61,6 +77,12 @@
             <version>${minecraft.version}-${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!--<dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.8-R0.1-SNAPSHOT</version>
+        </dependency>
+        -->
         <!--
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -99,10 +121,20 @@
             <version>${ancientutil.version}</version>
         </dependency>
         <dependency>
-          <groupId>net.elseland.xikage</groupId>
-          <artifactId>MythicMobs</artifactId>
-          <version>${mm.version}</version>
+            <groupId>net.elseland.xikage</groupId>
+            <artifactId>MythicMobs</artifactId>
+            <version>${mm.version}</version>
         </dependency>
+        <dependency>
+            <groupId>de.slikey</groupId>
+            <artifactId>EffectLib</artifactId>
+            <version>${effectlib.version}</version>
+        </dependency>
+        <dependency>
+		    <groupId>me.confuser</groupId>
+		    <artifactId>BarAPI</artifactId>
+		    <version>${barapi.version}</version>
+	    </dependency>
     </dependencies>
     <build>
         <defaultGoal>clean package</defaultGoal>

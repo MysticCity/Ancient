@@ -27,19 +27,19 @@ import com.ancientshores.Ancient.Spells.Commands.AddSpellFreeZoneCommand;
 import com.ancientshores.Ancient.Util.GlobalMethods;
 
 public class SpellInformationObject {
-	public UUID nearestPlayer;
-	public UUID nearestEntity;
-	public UUID[] nearestPlayers;
-	public UUID[] partyMembers;
-	public UUID[] hostilePlayers;
-	public UUID[] nearestEntities;
-	public UUID[] hostileEntities;
+	public Entity nearestPlayer;
+	public Entity nearestEntity;
+	public Entity[] nearestPlayers;
+	public Entity[] partyMembers;
+	public Entity[] hostilePlayers;
+	public Entity[] nearestEntities;
+	public Entity[] hostileEntities;
 	public Location blockInSight;
-	public UUID buffcaster;
+	public Entity buffcaster;
 	public int skipedCommands = 0;
 	public int waittime = 0;
-	public UUID nearestPlayerInSight;
-	public UUID nearestEntityInSight;
+	public Entity nearestPlayerInSight;
+	public Entity nearestEntityInSight;
 	public Event mEvent;
 	public boolean canceled;
 	public Command command;
@@ -50,24 +50,41 @@ public class SpellInformationObject {
 	public String[] chatmessage;
 
  
-	public Collection<UUID> removeEntitiesInSpellfreeZone(Collection<UUID> uuidset) {
+	public Collection<Entity> removeEntitiesInSpellfreeZone(Collection<Entity> entityset) {
+		if (mSpell.ignorespellfreezones) {
+			return entityset;
+		}
+		HashSet<Entity> removeSet = new HashSet<Entity>();
+		for (Entity e : entityset) {
+			if (!(e instanceof LivingEntity)) {
+				removeSet.add(e);
+				continue;
+			}
+			if (AddSpellFreeZoneCommand.isLocationInSpellfreeZone(e.getLocation())) {
+				removeSet.add(e);
+			}
+		}
+		entityset.removeAll(removeSet);
+		return entityset;
+	}
+	
+	public Collection<UUID> removeUUIDsInSpellfreeZone(Collection<UUID> uuidset) {
 		if (mSpell.ignorespellfreezones) {
 			return uuidset;
 		}
 		HashSet<UUID> removeSet = new HashSet<UUID>();
 		for (UUID uuid : uuidset) {
+			Entity e = null;
 			for (World w : Bukkit.getWorlds()) {
-				for (Entity e : w.getEntities()) {
-					if (e.getUniqueId().compareTo(uuid) == 0) {
-						if (!(e instanceof LivingEntity)) {
-							removeSet.add(uuid);
-							continue;
-						}
-						if (AddSpellFreeZoneCommand.isLocationInSpellfreeZone(e.getLocation())) {
-							removeSet.add(uuid);
-						}
-					}	
+				for (Entity ent : w.getEntities()) {
+					if (ent.getUniqueId().compareTo(uuid) == 0) {
+						e = ent;
+						break;
+					}
 				}
+			}
+			if (e == null ||!(e instanceof LivingEntity) || AddSpellFreeZoneCommand.isLocationInSpellfreeZone(e.getLocation())) {
+				removeSet.add(uuid);
 			}
 		}
 		uuidset.removeAll(removeSet);
@@ -88,101 +105,81 @@ public class SpellInformationObject {
 		return blockset;
 	}
 
-	public UUID getNearestEntity(final Player mPlayer, final int range) {
-		Collection<UUID> nearbyuuids = new ArrayList<UUID>();
+	public Entity getNearestEntity(final Player mPlayer, final int range) {
+		Collection<Entity> nearbyentities = new ArrayList<Entity>();
 		for (Entity e : mPlayer.getNearbyEntities(range, range, range)) {
-			nearbyuuids.add(e.getUniqueId());
+			nearbyentities.add(e);
 		}
 		
-		Collection<UUID> uuidset = removeEntitiesInSpellfreeZone(nearbyuuids);
-		UUID nearestEntity = null;
+		Collection<Entity> entityset = removeEntitiesInSpellfreeZone(nearbyentities);
+		Entity nearestEntity = null;
 		double curdif = 100000;
 		try {
-			for (UUID uuid : uuidset) {
-				for (World w : Bukkit.getWorlds()) {
-					for (Entity e : w.getEntities()) {
-						if (e.getUniqueId().compareTo(uuid) != 0) {
-							break; 
-						}
-						if (e instanceof Creature || e instanceof Player) {
-							double dif = e.getLocation().distance(mPlayer.getLocation());
-							if (dif < curdif && e != mPlayer) {
-								curdif = dif;
-								nearestEntity = uuid;
-							}
-						}
+			for (Entity e : entityset) {
+				if (e instanceof Creature || e instanceof Player) {
+					double dif = e.getLocation().distance(mPlayer.getLocation());
+					if (dif < curdif && e != mPlayer) {
+						curdif = dif;
+						nearestEntity = e;
 					}
 				}
 			}
-		return nearestEntity;
+			return nearestEntity;
 		} catch (Exception ignored) {
 		}
 		return null;
 	}
 
-	public UUID[] getNearestEntities(final Location loc, final int range, int count) {
-		Collection<UUID> entityset = new ArrayList<UUID>();
+	public Entity[] getNearestEntities(final Location loc, final int range, int count) {
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : loc.getWorld().getEntities()) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
-		final UUID[] nearestEntity = new UUID[count];
-		final HashSet<UUID> alreadyParsed = new HashSet<UUID>();
+		final Entity[] nearestEntity = new Entity[count];
+		final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
 		for (int i = 0; i < count; i++) {
 			double curdif = 100000;
-			for (UUID uuid : entityset) {
-				for (World w : Bukkit.getWorlds()) {
-					for (Entity e : w.getEntities()) {
-						if (e.getUniqueId().compareTo(uuid) != 0) {
-							continue;
-						}
-						if (e instanceof Creature || e instanceof Player) {
-							double dif = e.getLocation().distance(loc);
-							if (dif < curdif && dif < range && !alreadyParsed.contains(e.getUniqueId())) {
-								curdif = dif;
-								nearestEntity[i] = e.getUniqueId();
-								alreadyParsed.add(nearestEntity[i]);
-							}
-						}
+			for (Entity e : entityset) {
+				if (e instanceof Creature || e instanceof Player) {
+					double dif = e.getLocation().distance(loc);
+					if (dif < curdif && dif < range && !alreadyParsed.contains(e)) {
+						curdif = dif;
+						nearestEntity[i] = e;
+						alreadyParsed.add(nearestEntity[i]);
 					}
 				}
-				
 			}
-		   
 		}
+		
 		return GlobalMethods.removeNullArrayCells(nearestEntity);
 	}
-	public UUID getNearestPlayer(final Player mPlayer, final int range) {
-		Collection<UUID> entityset = new ArrayList<UUID>();
+	public Entity getNearestPlayer(final Player mPlayer, final int range) {
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : mPlayer.getNearbyEntities(range, range, range)) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
 		
 		entityset.addAll(AncientSpellListener.deadPlayer);
-		UUID nearestPlayer = null;
+		
+		Entity nearestPlayer = null;
 		double curdif = Double.MAX_VALUE;
-		for (UUID uuid : entityset) {
-			for (World w : Bukkit.getWorlds()) {
-				for (Entity e : w.getEntities()) {
-					if (e.getUniqueId().compareTo(uuid) != 0) {
-						continue;
-					}
-					if (e instanceof Player) {
-						double dif = e.getLocation().distance(mPlayer.getLocation());
-						if (dif <= range && dif < curdif && e != mPlayer) {
-							curdif = dif;
-							nearestPlayer = e.getUniqueId();
-						}
-					}
+		for (Entity e : entityset) {
+			if (e instanceof Player) {
+				double dif = e.getLocation().distance(mPlayer.getLocation());
+				if (dif <= range && dif < curdif && e != mPlayer) {
+					curdif = dif;
+					nearestPlayer = e;
 				}
 			}
 		}
+		
 		return nearestPlayer;
 	}
 
 	@SuppressWarnings("deprecation")
-	public UUID getNearestEntityInSight(final LivingEntity le, final int range) {
+	public Entity getNearestEntityInSight(final LivingEntity le, final int range) {
 		HashSet<Byte> list = new HashSet<Byte>();
 		list.add((byte) 9);
 		list.add((byte) 8);
@@ -195,37 +192,30 @@ public class SpellInformationObject {
 		Entity nearestEntity = null;
 		double curdif = 100000;
 		
-		Collection<UUID> entityset = new ArrayList<UUID>();
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : le.getNearbyEntities(range, range, range)) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
 		
 		for (Block b : blocksInSight) {
 			if (b.getLocation().distance(le.getLocation()) > 2.4f) {
-				for (UUID uuid : entityset) {
-					for (World w : Bukkit.getWorlds()) {
-						for (Entity e : w.getEntities()) {
-							if (e.getUniqueId().compareTo(uuid) != 0) {
-								continue;
-							}
-							double dif = Math.abs(e.getLocation().distance(b.getLocation()));
-							if (dif < 2.5f) {
-								if (dif < curdif && e != le && (e instanceof Creature || e instanceof Player || e instanceof Ghast || e instanceof Slime)) {
-									curdif = dif;
-									nearestEntity = e;
-								}
-							}
+				for (Entity e : entityset) {
+					double dif = Math.abs(e.getLocation().distance(b.getLocation()));
+					if (dif < 2.5f) {
+						if (dif < curdif && e != le && (e instanceof Creature || e instanceof Player || e instanceof Ghast || e instanceof Slime)) {
+							curdif = dif;
+							nearestEntity = e;
 						}
 					}
 				}
 			}
 		}
-		return nearestEntity.getUniqueId();
+		return nearestEntity;
 	}
 
 	@SuppressWarnings("deprecation")
-	public UUID getNearestPlayerInSight(final Player mPlayer, final int range) {
+	public Entity getNearestPlayerInSight(final Player mPlayer, final int range) {
 		HashSet<Byte> list = new HashSet<Byte>();
 		list.add((byte) 9);
 		list.add((byte) 8);
@@ -235,11 +225,12 @@ public class SpellInformationObject {
 		list.add((byte) Material.SNOW.getId());
 		list.add((byte) Material.ICE.getId());
 		List<Block> blocksInSight = mPlayer.getLineOfSight(list, range);
-		UUID nearestPlayer = null;
 		
-		Collection<UUID> entityset = new ArrayList<UUID>();
+		Entity nearestPlayer = null;
+		
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : mPlayer.getNearbyEntities(range, range, range)) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
 		
@@ -247,21 +238,14 @@ public class SpellInformationObject {
 		
 		for (Block b : blocksInSight) {
 			double curdif = 100000;
-			for (UUID uuid : entityset) {
+			for (Entity e : entityset) {
 				if (b.getLocation().distance(mPlayer.getLocation()) > 2.4f) {
-					for (World w : Bukkit.getWorlds()) {
-						for (Entity e : w.getEntities()) {
-							if (e.getUniqueId().compareTo(uuid) != 0) {
-								continue;
-							}
-							if (e instanceof Player) {
-								double dif = Math.abs(e.getLocation().distance(b.getLocation()));
-								if (dif < 2.5f) {
-									if (dif <= range && dif < curdif && e != mPlayer) {
-										curdif = dif;
-										nearestPlayer = e.getUniqueId();
-									}
-								}
+					if (e instanceof Player) {
+						double dif = Math.abs(e.getLocation().distance(b.getLocation()));
+						if (dif < 2.5f) {
+							if (dif <= range && dif < curdif && e != mPlayer) {
+								curdif = dif;
+								nearestPlayer = e;
 							}
 						}
 					}
@@ -289,33 +273,26 @@ public class SpellInformationObject {
 		return null;
 	}
 
-	public UUID[] getNearestPlayers(final Player mPlayer, final int range, final int count) {
-		final UUID[] nearestPlayer = new UUID[count];
+	public Entity[] getNearestPlayers(final Player mPlayer, final int range, final int count) {
+		final Entity[] nearestPlayer = new Entity[count];
 		
-		Collection<UUID> entityset = new ArrayList<UUID>();
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : mPlayer.getNearbyEntities(range, range, range)) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
 		
-		HashSet<UUID> alreadyParsed = new HashSet<UUID>();
+		HashSet<Entity> alreadyParsed = new HashSet<Entity>();
 		
 		double curdif = 100000;
 		for (int i = 0; i < count; i++) {
-			for (UUID uuid : entityset) {
-				for (World w : Bukkit.getWorlds()) {
-					for (Entity e : w.getEntities()) {
-						if (e.getUniqueId().compareTo(uuid) != 0) {
-							continue;
-						}
-						if (e instanceof Player) {
-							double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(e.getLocation().getZ() - mPlayer.getLocation().getZ()));
-							if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e.getUniqueId())) {
-								curdif = dif;
-								nearestPlayer[i] = e.getUniqueId();
-								alreadyParsed.add(e.getUniqueId());
-							}
-						}
+			for (Entity e : entityset) {
+				if (e instanceof Player) {
+					double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(e.getLocation().getZ() - mPlayer.getLocation().getZ()));
+					if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e)) {
+						curdif = dif;
+						nearestPlayer[i] = e;
+						alreadyParsed.add(e);
 					}
 				}
 			}
@@ -324,16 +301,16 @@ public class SpellInformationObject {
 		return GlobalMethods.removeNullArrayCells(nearestPlayer);
 	}
 
-	public UUID[] getNearestHostilePlayers(final Player mPlayer, final int range, final int count) {
-		final UUID[] nearestPlayer = new UUID[count];
+	public Entity[] getNearestHostilePlayers(final Player mPlayer, final int range, final int count) {
+		final Entity[] nearestPlayer = new Entity[count];
 		
-		Collection<UUID> entityset = new ArrayList<UUID>();
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : mPlayer.getNearbyEntities(range, range, range)) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
 		
-		HashSet<UUID> alreadyParsed = new HashSet<UUID>();
+		HashSet<Entity> alreadyParsed = new HashSet<Entity>();
 		double curdif = 100000;
 		AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
 		HashSet<UUID> partyMembers = new HashSet<UUID>();
@@ -341,78 +318,39 @@ public class SpellInformationObject {
 			partyMembers.addAll(mParty.getMembers());
 		}
 		for (int i = 0; i < count; i++) {
-			for (UUID uuid : entityset) {
-				for (World w : Bukkit.getWorlds()) {
-					for (Entity e : w.getEntities()) {
-						if (e.getUniqueId().compareTo(uuid) != 0) {
-							continue;
-						}
-						if (e instanceof Player) {
-							double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(e.getLocation().getZ() - mPlayer.getLocation().getZ()));
-							if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e.getUniqueId()) && !partyMembers.contains(e.getUniqueId())) {
-								curdif = dif;
-								nearestPlayer[i] = e.getUniqueId();
-								alreadyParsed.add(e.getUniqueId());
-							}
-						}
+			for (Entity e : entityset) {
+				if (e instanceof Player) {
+					double dif = Math.sqrt(Math.abs(e.getLocation().getX() - mPlayer.getLocation().getX()) + Math.abs(e.getLocation().getY() - mPlayer.getLocation().getY()) + Math.abs(e.getLocation().getZ() - mPlayer.getLocation().getZ()));
+					if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e) && !partyMembers.contains(e.getUniqueId())) {
+						curdif = dif;
+						nearestPlayer[i] = e;
+						alreadyParsed.add(e);
 					}
 				}
 			}
+			
 			alreadyParsed.add(nearestPlayer[i]);
 		}
 		return GlobalMethods.removeNullArrayCells(nearestPlayer);
 	}
 
-	public UUID[] getNearestEntities(final Player mPlayer, final int range, final int count) {
-		Collection<UUID> entityset = new ArrayList<UUID>();
+	public Entity[] getNearestEntities(final Player mPlayer, final int range, final int count) {
+		Collection<Entity> entityset = new ArrayList<Entity>();
 		for (Entity e : mPlayer.getNearbyEntities(range, range, range)) {
-			entityset.add(e.getUniqueId());
+			entityset.add(e);
 		}
 		entityset = removeEntitiesInSpellfreeZone(entityset);
 		
-		final UUID[] nearestEntity = new UUID[count];
-		final HashSet<UUID> alreadyParsed = new HashSet<UUID>();
-		for (int i = 0; i < count; i++) {
-			double curdif = 100000;
-			for (UUID uuid : entityset) {
-				for (World w : Bukkit.getWorlds()) {
-					for (Entity e : w.getEntities()) {
-						if (e.getUniqueId().compareTo(uuid) != 0) {
-							continue;
-						}
-						if (e instanceof Creature || e instanceof Player) {
-							double dif = e.getLocation().distance(mPlayer.getLocation());
-							if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e.getUniqueId())) {
-								curdif = dif;
-								nearestEntity[i] = e.getUniqueId();
-							}
-						}
-					}
-				}
-			}
-			alreadyParsed.add(nearestEntity[i]);
-		}
-		return GlobalMethods.removeNullArrayCells(nearestEntity);
-	}
-
-	public UUID[] getNearestHostileEntities(final Player mPlayer, final int range, final int count) {
-		final List<Entity> entityset = mPlayer.getNearbyEntities(range, range, range);
-		final UUID[] nearestEntity = new UUID[count];
-		final HashSet<UUID> alreadyParsed = new HashSet<UUID>();
-		AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
-		HashSet<UUID> partyMembers = new HashSet<UUID>();
-		if (mParty != null) {
-			partyMembers.addAll(mParty.getMembers());
-		}
-		partyMembers = (HashSet<UUID>) removeEntitiesInSpellfreeZone(partyMembers);
+		final Entity[] nearestEntity = new Entity[count];
+		final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
 		for (int i = 0; i < count; i++) {
 			double curdif = 100000;
 			for (Entity e : entityset) {
 				if (e instanceof Creature || e instanceof Player) {
 					double dif = e.getLocation().distance(mPlayer.getLocation());
-					if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e.getUniqueId()) && !partyMembers.contains(e.getUniqueId())) {
+					if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e)) {
 						curdif = dif;
-						nearestEntity[i] = e.getUniqueId();
+						nearestEntity[i] = e;
 					}
 				}
 			}
@@ -421,18 +359,45 @@ public class SpellInformationObject {
 		return GlobalMethods.removeNullArrayCells(nearestEntity);
 	}
 
-	public UUID[] getPartyMembers(final Player mPlayer, final int range) {
+	public Entity[] getNearestHostileEntities(final Player mPlayer, final int range, final int count) {
+		final List<Entity> entityset = mPlayer.getNearbyEntities(range, range, range);
+		final Entity[] nearestEntity = new Entity[count];
+		final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
+		AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
+		HashSet<UUID> partyMembers = new HashSet<UUID>();
+		if (mParty != null) {
+			partyMembers.addAll(mParty.getMembers());
+		}
+		partyMembers = (HashSet<UUID>) removeUUIDsInSpellfreeZone(partyMembers);
+		for (int i = 0; i < count; i++) {
+			double curdif = 100000;
+			for (Entity e : entityset) {
+				if (e instanceof Creature || e instanceof Player) {
+					double dif = e.getLocation().distance(mPlayer.getLocation());
+					if (dif < curdif && e != mPlayer && !alreadyParsed.contains(e) && !partyMembers.contains(e.getUniqueId())) {
+						curdif = dif;
+						nearestEntity[i] = e;
+					}
+				}
+			}
+			alreadyParsed.add(nearestEntity[i]);
+		}
+		return GlobalMethods.removeNullArrayCells(nearestEntity);
+	}
+
+	public Entity[] getPartyMembers(final Player mPlayer, final int range) {
 		AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
 		if (mParty == null) {
-			return new UUID[0];
+			return new Entity[0];
 		} else {
+			Collection<Entity> entities = new HashSet<Entity>();
 			Collection<UUID> partyMembers = new HashSet<UUID>(mParty.getMembers());
 			for (Iterator<UUID> iterator = partyMembers.iterator(); iterator.hasNext(); ) {
 				UUID uuid = iterator.next();
 				if (uuid == null || Bukkit.getPlayer(uuid) == null || Bukkit.getPlayer(uuid).getLocation().distance(mPlayer.getLocation()) > range)
-					iterator.remove();
+					entities.add(Bukkit.getPlayer(uuid));
 			}
-			return GlobalMethods.removeNullArrayCells(partyMembers.toArray(new UUID[partyMembers.size()]));
+			return GlobalMethods.removeNullArrayCells(entities.toArray(new Entity[entities.size()]));
 		}
 	}
 

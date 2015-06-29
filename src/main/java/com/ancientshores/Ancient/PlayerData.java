@@ -169,8 +169,9 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 		
 		if (getManasystem() == null) manasystem = new ManaSystem(player, ManaSystem.defaultMana);
 		
-
-		this.cooldownTimer = new HashSet<CooldownTimer>();
+		if (this.cooldownTimer == null)
+			this.cooldownTimer = new HashSet<CooldownTimer>();
+		
 		for (PlayerData pd : playerData) {
 			if (pd.xpSystem != null) pd.xpSystem.addXP(0, false);
 			if (pd.getBindings() == null) pd.bindings = new HashMap<BindingData, String>();
@@ -303,25 +304,25 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 					ois = new ObjectInputStream(new FileInputStream(input));
 					pd.cooldownTimer = (HashSet<CooldownTimer>) ois.readObject();
 					pd.bindings = (HashMap<BindingData, String>) ois.readObject();
-					try {
-						pd.slotbinds = (HashMap<Integer, String>) ois.readObject();
-					} catch (Exception ignored) {
-
-					}
+					pd.slotbinds = (HashMap<Integer, String>) ois.readObject();
 				} catch (Exception e) {
 					Bukkit.getLogger().log(Level.SEVERE, "Cooldown and binding data corrupt, replacing them");
 				} finally {
 					if (ois != null) {
 						try {
 							ois.close();
-						} catch (Exception ignored) {
-
-						}
+						} catch (Exception ignored) {}
 					}
 				}
 				playerData.add(pd);
 				pd.createMissingObjects();
 				pd.initialize();
+				
+				// Restart loaded timer
+				for (CooldownTimer cd : pd.cooldownTimer) {
+					cd.enabled = false;
+					cd.startTimer();
+				}
 				return pd;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -344,17 +345,13 @@ public class PlayerData implements Serializable, ConfigurationSerializable {
 			oos.writeObject(this.cooldownTimer);
 			oos.writeObject(this.bindings);
 			oos.writeObject(this.slotbinds);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		} finally {
 			if (oos != null) {
 				try {
 					oos.close();
-				} catch (Exception ignored) {
-
-				}
+				} catch (Exception ignored) {}
 			}
 		}
 		YamlConfiguration yc = new YamlConfiguration();

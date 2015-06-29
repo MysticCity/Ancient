@@ -112,6 +112,7 @@ public abstract class IArgument {
         registeredArguments.add(new GetDayTime());
         registeredArguments.add(new GetProjectileHitLocation());
         registeredArguments.add(new GetProjectileName());
+        registeredArguments.add(new GetProjectileNameCustomName());
         registeredArguments.add(new GetItemCount());
         registeredArguments.add(new GetBlockRelative());
         registeredArguments.add(new GetBrokenBlockType());
@@ -154,7 +155,6 @@ public abstract class IArgument {
         registeredArguments.add(new GetZCoordinate());
         registeredArguments.add(new IsInWater());
         registeredArguments.add(new IsSneaking());
-        registeredArguments.add(new CastTo());
         registeredArguments.add(new GetEventProperty());
         registeredArguments.add(new IsRightClicked());
         registeredArguments.add(new GetHeldSlotNumber());

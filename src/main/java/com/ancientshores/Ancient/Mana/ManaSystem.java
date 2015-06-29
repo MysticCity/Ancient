@@ -11,6 +11,7 @@ import com.ancient.util.UUIDConverter;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.PlayerData;
 import com.ancientshores.Ancient.Classes.AncientClass;
+import com.ancientshores.Ancient.Display.Display;
 import com.ancientshores.Ancient.Experience.AncientExperience;
 
 import org.bukkit.Bukkit;
@@ -27,7 +28,7 @@ public class ManaSystem implements ConfigurationSerializable {
     
     public static float defaultManaRegInterval = 3;
     public static int defaultMana = 1000;
-    public static final int defaultReg = 20;
+    public static int defaultReg = 20;
     public static boolean enabled = true;
     public int maxmana;
     public int curmana;
@@ -116,6 +117,8 @@ public class ManaSystem implements ConfigurationSerializable {
         if (0 > pd.getManasystem().curmana) {
             pd.getManasystem().curmana = 0;
         }
+        
+        Display.updateMana(pd);
     }
 
     public static void removeManaByUUID(UUID uuid, int amount) {
@@ -127,7 +130,8 @@ public class ManaSystem implements ConfigurationSerializable {
         if (0 > pd.getManasystem().curmana) {
             pd.getManasystem().curmana = 0;
         }
-    }
+        Display.updateMana(pd);
+       }
 
     public static void loadConfig(Ancient plugin) {
         File newconfig = new File(plugin.getDataFolder().getPath() + File.separator + "manaconfig.yml");
@@ -139,7 +143,7 @@ public class ManaSystem implements ConfigurationSerializable {
                 e.printStackTrace();
             }
             defaultMana = yc.getInt("Mana.default mana", defaultMana);
-            defaultMana = yc.getInt("Mana.default manareg", defaultMana);
+            defaultReg = yc.getInt("Mana.default manareg", defaultReg);
             defaultManaRegInterval = (float) yc.getDouble("Mana.manareg interval", defaultManaRegInterval);
         }
     }
@@ -155,7 +159,7 @@ public class ManaSystem implements ConfigurationSerializable {
         }
         YamlConfiguration yc = new YamlConfiguration();
         yc.set("Mana.default mana", defaultMana);
-        yc.set("Mana.default manareg", defaultMana);
+        yc.set("Mana.default manareg", defaultReg);
         yc.set("Mana.manareg interval", defaultManaRegInterval);
         try {
             yc.save(newconfig);
@@ -173,6 +177,7 @@ public class ManaSystem implements ConfigurationSerializable {
         if (0 > pd.getManasystem().curmana) {
             pd.getManasystem().curmana = 0;
         }
+        Display.updateMana(pd);
     }
 
     public void stopRegenTimer() {

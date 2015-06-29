@@ -1,7 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -37,7 +36,7 @@ public class PartyMembersParameter implements IParameter {
             }
         }
         if (subparam != null || effectArgs.getSpellInfo().partyMembers == null) {
-            UUID[] nEntity = effectArgs.getSpellInfo().getPartyMembers(mPlayer, range);
+            Entity[] nEntity = effectArgs.getSpellInfo().getPartyMembers(mPlayer, range);
             effectArgs.getSpellInfo().partyMembers = nEntity;
             if (nEntity == null) {
                 return;
@@ -57,7 +56,7 @@ public class PartyMembersParameter implements IParameter {
                     if (effectArgs.getSpellInfo().partyMembers[i] != null) {
                     	for (World w : Bukkit.getWorlds()) {
                     		for (Entity e : w.getEntities()) {
-                    			if (e.getUniqueId().compareTo(effectArgs.getSpellInfo().partyMembers[i]) != 0) {
+                    			if (e.getUniqueId().compareTo(effectArgs.getSpellInfo().partyMembers[i].getUniqueId()) != 0) {
                     				continue;
                     			}
                     			l[i] = e.getLocation();
@@ -69,9 +68,8 @@ public class PartyMembersParameter implements IParameter {
                 break;
             case String:
                 String s = "";
-                for (UUID uuid : effectArgs.getSpellInfo().partyMembers) {
-                    s += PlayerFinder.getPlayerName(uuid) + ",";
-                }
+                for (Entity e : effectArgs.getSpellInfo().partyMembers)
+                    s += PlayerFinder.getPlayerName(e.getUniqueId()) + ",";
                 effectArgs.getParams().addLast(s);
                 break;
             default:

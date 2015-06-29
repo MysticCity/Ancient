@@ -29,6 +29,7 @@ import org.bukkit.entity.Player;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.Spells.Commands.*;
+import com.ancientshores.Ancient.Classes.Spells.Commands.Effects.*;
 
 public class Command extends ICodeSection {
     ICommand command;
@@ -171,6 +172,50 @@ public class Command extends ICodeSection {
         registeredCommands.put("setyaw", new SetYawCommand());
         registeredCommands.put("setpitch", new SetPitchCommand());
         registeredCommands.put("setgainedexperience", new SetGainedExperience());
+
+        // effects from effectlib
+        registeredCommands.put("animatedball", new AnimatedBall());
+        registeredCommands.put("arc", new Arc());
+        registeredCommands.put("atom", new Atom());
+        registeredCommands.put("bigbang", new BigBang());
+        registeredCommands.put("bleed", new Bleed());
+        registeredCommands.put("circle", new Circle());
+        registeredCommands.put("cloud", new Cloud());
+        registeredCommands.put("coloredimage", new ColoredImage());
+        registeredCommands.put("cone", new Cone());
+        registeredCommands.put("cube", new Cube());
+        registeredCommands.put("cylinder", new Cylinder());
+        registeredCommands.put("discoball", new DiscoBall());
+        registeredCommands.put("dna", new DNA());
+        registeredCommands.put("donut", new Donut());
+        registeredCommands.put("dragon", new Dragon());
+        registeredCommands.put("earth", new Earth());
+        registeredCommands.put("explodeeffect", new ExplodeEffect());
+        registeredCommands.put("flame", new Flame());
+        registeredCommands.put("fountain", new Fountain());
+        registeredCommands.put("grid", new Grid());
+        registeredCommands.put("heart", new Heart());
+        registeredCommands.put("helix", new Helix());
+        registeredCommands.put("hill", new Hill());
+        registeredCommands.put("icon", new Icon());
+        registeredCommands.put("image", new Image());
+        registeredCommands.put("jump", new Jump());
+        registeredCommands.put("line", new Line());
+        registeredCommands.put("love", new Love());
+        registeredCommands.put("musicnotes", new MusicNotes());
+        registeredCommands.put("particletext", new ParticleText());
+        registeredCommands.put("shield", new Shield());
+        registeredCommands.put("smokeeffect", new Smoke());
+        registeredCommands.put("sphere", new Sphere());
+        registeredCommands.put("star", new Star());
+        registeredCommands.put("tornado", new Tornado());
+        // currently not working
+        // registeredCommands.put("trace", new Trace());
+        registeredCommands.put("turn", new Turn());
+        registeredCommands.put("vortex", new Vortex());
+        registeredCommands.put("warpeffect", new WarpEffect());
+        registeredCommands.put("wave", new Wave());
+        
     }
 
     public void parseLine(String line) {

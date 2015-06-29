@@ -41,18 +41,18 @@ public class NearestHostileEntityInSight implements IParameter {
         if (mParty != null) {
             partyMembers.addAll(mParty.getMembers());
         }
-        UUID playerParty = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
+        Entity playerParty = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
         if (partyMembers.contains(playerParty)) {
             playerParty = null;
         }
         switch (pt) {
             case Entity:
-                Entity[] e = {Bukkit.getPlayer(playerParty)};
+                Entity[] e = {playerParty};
                 ea.getParams().addLast(e);
                 break;
             case Location:
                 if (playerParty != null) {
-                    Location[] l = {Bukkit.getPlayer(playerParty).getLocation()};
+                    Location[] l = {playerParty.getLocation()};
                     ea.getParams().addLast(l);
                 }
                 break;
@@ -88,7 +88,7 @@ public class NearestHostileEntityInSight implements IParameter {
         Entity en = null;
         for (World w : Bukkit.getWorlds()) {
 			for (Entity e : w.getEntities()) {
-				if (e.getUniqueId().compareTo(so.getNearestEntityInSight(mPlayer, range)) == 0) {
+				if (e.getUniqueId().compareTo(so.getNearestEntityInSight(mPlayer, range).getUniqueId()) == 0) {
 					en = e;
 				}
 			}

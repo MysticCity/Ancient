@@ -56,11 +56,15 @@ public class AncientParty {
 	public static final String pConfigEnabled = "party.enabled";
 	public static final String pConfigSplitXpEnabled = "party.split xp";
 	public static final String pConfigSplitXpRange = "party.split xp range";
+	public static final String pConfigSplitXpGlobalBonus = "party.split xp bonus for every party member in percent";
+	public static final String pConfigSplitXpSourcePlayerBonus = "party.split xp bonus for player who splits xp in percent";
 	public static int maxPlayers = 5;
 	public static boolean enabled = true;
 	public static boolean cantoggleff = true;
 	public static boolean splitxp = true;
 	public static int splitxprange = 10;
+	public static int splitxpGlobalBonus = 10;
+	public static int splitxpSourcePlayerBonus = 50;
 
 	public AncientParty(UUID leader) {
 		this.leader = leader;
@@ -302,7 +306,9 @@ public class AncientParty {
 		partyConfig.set(pConfigSize, maxPlayers);
 		partyConfig.set(pConfigSplitXpEnabled, splitxp);
 		partyConfig.set(pConfigSplitXpRange, splitxprange);
-		try {
+		partyConfig.set(pConfigSplitXpGlobalBonus, splitxpGlobalBonus);
+		partyConfig.set(pConfigSplitXpSourcePlayerBonus, splitxpSourcePlayerBonus);
+	try {
 			partyConfig.save(newfile);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -323,12 +329,16 @@ public class AncientParty {
 			maxPlayers = yc.getInt(pConfigSize, maxPlayers);
 			splitxp = yc.getBoolean(pConfigSplitXpEnabled, splitxp);
 			splitxprange = yc.getInt(pConfigSplitXpRange, splitxprange);
+			splitxpGlobalBonus = yc.getInt(pConfigSplitXpGlobalBonus, splitxpGlobalBonus);
+			splitxpSourcePlayerBonus = yc.getInt(pConfigSplitXpSourcePlayerBonus, splitxpSourcePlayerBonus);
 		} else {
 			enabled = plugin.getConfig().getBoolean(pConfigEnabled, enabled);
 			cantoggleff = plugin.getConfig().getBoolean(pConfigCantoggleff, cantoggleff);
 			maxPlayers = plugin.getConfig().getInt(pConfigSize, maxPlayers);
 			splitxp = plugin.getConfig().getBoolean(pConfigSplitXpEnabled, splitxp);
 			splitxprange = plugin.getConfig().getInt(pConfigSplitXpRange, splitxprange);
+			splitxpGlobalBonus = plugin.getConfig().getInt(pConfigSplitXpGlobalBonus, splitxpGlobalBonus);
+			splitxpSourcePlayerBonus = plugin.getConfig().getInt(pConfigSplitXpSourcePlayerBonus, splitxpSourcePlayerBonus);
 		}
 	}
 

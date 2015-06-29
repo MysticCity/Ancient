@@ -82,7 +82,7 @@ public class AncientSpellListener implements Listener {
 	public static final ConcurrentHashMap<UUID, ItemStack> disarmList = new ConcurrentHashMap<UUID, ItemStack>();
 	public static int buffId = 0;
 
-	public static final HashSet<UUID> deadPlayer = new HashSet<UUID>();
+	public static final HashSet<Entity> deadPlayer = new HashSet<Entity>();
 	public static final ConcurrentHashMap<UUID, Location> revivePlayer = new ConcurrentHashMap<UUID, Location>();
 	public static final ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> disruptOnMove = new ConcurrentHashMap<UUID, HashSet<SpellInformationObject>>();
 	public static final ConcurrentHashMap<UUID, HashSet<SpellInformationObject>> disruptOnDeath = new ConcurrentHashMap<UUID, HashSet<SpellInformationObject>>();

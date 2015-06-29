@@ -82,8 +82,7 @@ public class Armor {
 							short partDurability = (short) (part.getType().getMaxDurability() * (1 - ((double) current / max)));
 							// if calculated durabilty equals maximum, but item isn't destroyed right now, set durability to max - 1
 							part.setDurability((short) (partDurability != part.getType().getMaxDurability() ? partDurability : part.getType().getMaxDurability() - 1));
-							
-							
+												
 						}
 						
 						break;
@@ -100,7 +99,7 @@ public class Armor {
 				// possibility of getting damage on armor
 				int dmgPossibility = 100;
 				
-				// decrease possiblity with 5 every level
+				// decrease possiblity by 5 every level
 				// level 1 has 80 %
 				// level 2 75 %
 				for (Entry<Enchantment, Integer> entry : part.getEnchantments().entrySet())

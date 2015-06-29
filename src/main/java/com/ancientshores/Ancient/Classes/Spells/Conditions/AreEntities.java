@@ -1,8 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Conditions;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-
 import com.ancientshores.Ancient.Classes.Spells.ArgumentDescription;
 import com.ancientshores.Ancient.Classes.Spells.ParameterType;
 import com.ancientshores.Ancient.Classes.Spells.SpellInformationObject;
@@ -27,7 +25,7 @@ public class AreEntities extends IArgument {
             return false;
         }
         for (Object o : objs) {
-            if (!(o instanceof Player) && !(o instanceof Entity)) {
+            if (!(o instanceof Entity)) {
                 return false;
             }
         }

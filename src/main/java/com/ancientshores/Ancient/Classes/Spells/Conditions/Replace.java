@@ -22,7 +22,6 @@ public class Replace extends IArgument {
         String source = obj[0].toString();
         String searchstring = obj[1].toString();
         String replacestring = obj[2].toString();
-        String s = source.replace(searchstring, replacestring);
-        return s;
+        return source.replace(searchstring, replacestring);
     }
 }

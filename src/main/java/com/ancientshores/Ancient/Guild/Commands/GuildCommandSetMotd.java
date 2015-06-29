@@ -8,8 +8,8 @@ import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.Guild.AncientGuildRanks;
 
-public class GuildCommandSetmMotd {
-    public static void processSetmotd(CommandSender sender, String[] args) {
+public class GuildCommandSetMotd {
+    public static void processSetMOTD(CommandSender sender, String[] args) {
         Player player = (Player) sender;
         if (args.length >= 2) {
             AncientGuild guild = AncientGuild.getPlayersGuild(player.getUniqueId());

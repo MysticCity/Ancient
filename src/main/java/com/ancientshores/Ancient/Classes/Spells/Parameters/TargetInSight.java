@@ -1,12 +1,9 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -35,15 +32,7 @@ public class TargetInSight implements IParameter {
             }
         }
         
-        UUID uuid = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
-        Entity e = null;
-        for (World w : Bukkit.getWorlds()) {
-        	for (Entity entity : w.getEntities()) {
-        		if (entity.getUniqueId().compareTo(uuid) == 0) {
-        			e = entity;
-        		}
-        	}
-        }
+        Entity e = ea.getSpellInfo().getNearestEntityInSight(mPlayer, range);
         
         Location l;
         if (e != null) {
@@ -78,15 +67,7 @@ public class TargetInSight implements IParameter {
             } catch (Exception ignored) {
             }
         }
-        UUID uuid = so.getNearestEntityInSight(mPlayer, range);
-        Entity e = null;
-        for (World w : Bukkit.getWorlds()) {
-        	for (Entity entity : w.getEntities()) {
-        		if (entity.getUniqueId().compareTo(uuid) == 0) {
-        			e = entity;
-        		}
-        	}
-        }
+        Entity e = so.getNearestEntityInSight(mPlayer, range);
         
         Location l = null;
         if (e != null) {

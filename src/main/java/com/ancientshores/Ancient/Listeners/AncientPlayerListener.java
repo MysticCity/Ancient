@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -39,12 +40,16 @@ import org.bukkit.potion.PotionType;
 import com.ancient.util.PlayerFinder;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.PlayerData;
+import com.ancientshores.Ancient.API.AncientGainExperienceEvent;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.BindingData;
 import com.ancientshores.Ancient.Classes.Commands.ClassCastCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassResetCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassSetCommand;
+import com.ancientshores.Ancient.Display.Bar;
+import com.ancientshores.Ancient.Display.Display;
 import com.ancientshores.Ancient.Guild.AncientGuild;
+import com.ancientshores.Ancient.HP.AncientHP;
 import com.ancientshores.Ancient.HP.DamageConverter;
 import com.ancientshores.Ancient.Party.AncientParty;
 import com.ancientshores.Ancient.Race.AncientRace;
@@ -59,6 +64,9 @@ public class AncientPlayerListener implements Listener {
 	
 	private static final HashMap<UUID, AncientClass> prevClasses = new HashMap<UUID, AncientClass>();
 	private static final HashMap<UUID, String> prevStances = new HashMap<UUID, String>();
+
+	public static final HashMap<UUID, String> playersWhoThrowed = new HashMap<UUID, String>();
+	public static final HashMap<Projectile, String> thrownProjectiles = new HashMap<Projectile, String>();
 
 	public static EventPriority guildSpawnPriority = EventPriority.HIGHEST;
 	public static EventPriority raceSpawnPriority = EventPriority.HIGHEST;
@@ -143,7 +151,6 @@ public class AncientPlayerListener implements Listener {
 		for (UUID uuid : invisibleList.keySet())
 			p.hidePlayer(Bukkit.getPlayer(uuid));
 		
-		AncientGuild.setTag(p);
 		AncientClass mClass = AncientClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
 		if (mClass != null && mClass.permGroup != null && !mClass.permGroup.equals("")) {
 			if (Ancient.permissionHandler != null) {
@@ -172,6 +179,18 @@ public class AncientPlayerListener implements Listener {
 		*/
 	}
 
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerGainXP(final AncientGainExperienceEvent event) {
+		if (!event.isCancelled())
+			Bukkit.getScheduler().runTaskLater(Ancient.plugin, new Runnable() {	
+				@Override
+				public void run() {
+					Display.updateXP(PlayerData.getPlayerData(event.uuid));
+				}
+			}, 1);
+			
+	}
+	
 	@EventHandler
 	public void onPlayerDisconnect(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
@@ -208,6 +227,18 @@ public class AncientPlayerListener implements Listener {
 		pd.save();
 		PlayerData.playerData.remove(pd);
 		pd.dispose();
+		
+		AncientHP hp = pd.getHpsystem();
+		
+		p.setMaxHealth(20);
+		p.setHealthScaled(false);
+		p.setHealth(hp.health / hp.maxhp * 20);
+	
+		if (Display.manaBar == Bar.XP || Display.xpBar == Bar.XP) {
+			p.setLevel(0);
+			p.setExp(0);
+		}
+//		p.setMaxHealth(20)
 	}
 
 	@EventHandler
@@ -453,6 +484,10 @@ public class AncientPlayerListener implements Listener {
 				ClassCastCommand.processCast(pd, p, pd.getSlotbinds().get(p.getInventory().getHeldItemSlot()), ClassCastCommand.castType.RIGHT);
 			else
 				ClassCastCommand.processCast(pd, p, pd.getSlotbinds().get(p.getInventory().getHeldItemSlot()), ClassCastCommand.castType.LEFT);
+		}
+		
+		if ((event.getMaterial() == Material.EXP_BOTTLE || event.getMaterial() == Material.SNOW_BALL || event.getMaterial() == Material.ENDER_PEARL) && event.getItem().hasItemMeta() && event.getItem().getItemMeta().hasDisplayName()) {
+			playersWhoThrowed.put(p.getUniqueId(), event.getItem().getItemMeta().getDisplayName());
 		}
 	}
 }

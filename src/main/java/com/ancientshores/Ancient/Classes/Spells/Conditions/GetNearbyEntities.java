@@ -2,7 +2,6 @@ package com.ancientshores.Ancient.Classes.Spells.Conditions;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Creature;
@@ -17,7 +16,7 @@ import com.ancientshores.Ancient.Util.GlobalMethods;
 // TODO durchlesen
 public class GetNearbyEntities extends IArgument {
     @ArgumentDescription(
-            description = "Returns the amount of entities nearby the location in the specified range",
+            description = "Returns the given amount of entities nearby the location in the specified range",
             parameterdescription = {"location", "range", "amount"}, returntype = ParameterType.Entity, rparams = {ParameterType.Location, ParameterType.Number, ParameterType.Number})
     public GetNearbyEntities() {
         this.returnType = ParameterType.Entity;
@@ -25,9 +24,9 @@ public class GetNearbyEntities extends IArgument {
         this.name = "getnearbyentities";
     }
 
-    public UUID[] getNearbyEntities(List<Entity> entityset, Location l, double range, int count) {
-        final UUID[] nearestEntity = new UUID[count];
-        final HashSet<UUID> alreadyParsed = new HashSet<UUID>();
+    public Entity[] getNearbyEntities(List<Entity> entityset, Location l, double range, int count) {
+        final Entity[] nearestEntity = new Entity[count];
+        final HashSet<Entity> alreadyParsed = new HashSet<Entity>();
         for (int i = 0; i < count; i++) {
             double curdif = 100000;
             for (Entity e : entityset) {
@@ -35,7 +34,7 @@ public class GetNearbyEntities extends IArgument {
                     double dif = e.getLocation().distance(l);
                     if (dif < range && dif < curdif && l != e.getLocation() && !alreadyParsed.contains(e.getUniqueId())) {
                         curdif = dif;
-                        nearestEntity[i] = e.getUniqueId();
+                        nearestEntity[i] = e;
                     }
                 }
             }

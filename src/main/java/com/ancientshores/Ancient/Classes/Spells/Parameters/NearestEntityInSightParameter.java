@@ -1,7 +1,6 @@
 package com.ancientshores.Ancient.Classes.Spells.Parameters;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -33,18 +32,18 @@ public class NearestEntityInSightParameter implements IParameter {
             }
         }
         if (subparam != null || ea.getSpellInfo().nearestEntityInSight == null) {
-            UUID nEntity = ea.getSpellInfo().getNearestEntityInSight(p, range);
+            Entity nEntity = ea.getSpellInfo().getNearestEntityInSight(p, range);
             ea.getSpellInfo().nearestEntityInSight = nEntity;
         }
         switch (pt) {
             case Entity:
-                UUID[] uuid = {ea.getSpellInfo().nearestEntityInSight};
-                ea.getParams().addLast(uuid);
+                Entity[] entities = {ea.getSpellInfo().nearestEntityInSight};
+                ea.getParams().addLast(entities);
                 break;
             case Location:
             	for (World w : Bukkit.getWorlds()) {
             		for (Entity e : w.getEntities()) {
-            			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntityInSight) != 0) {
+            			if (e.getUniqueId().compareTo(ea.getSpellInfo().nearestEntityInSight.getUniqueId()) != 0) {
             				continue;
             			}
             			Location[] l = {e.getLocation()};
@@ -77,7 +76,7 @@ public class NearestEntityInSightParameter implements IParameter {
             }
         }
         if (subparam != null || so.nearestEntityInSight == null) {
-            UUID nEntity = so.getNearestEntityInSight(p, range);
+            Entity nEntity = so.getNearestEntityInSight(p, range);
             so.nearestEntityInSight = nEntity;
         }
         return so.nearestEntityInSight;

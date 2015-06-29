@@ -10,7 +10,7 @@ import com.ancientshores.Ancient.Classes.Spells.SpellInformationObject;
 
 public class GetCube extends IArgument {
     @ArgumentDescription(
-            description = "<html>returns the outline of a cube with the specified radius at the given locaiton<br>Parameter 1: the middle point of the Coboid<br>Parameter 2: the radius of the cube</html>",
+            description = "<html>returns the outline of a cube with the specified radius at the given locaiton<br>Parameter 1: the middle point of the cube<br>Parameter 2: the radius of the cube</html>",
             parameterdescription = {"location", "radius"}, returntype = ParameterType.Location, rparams = {ParameterType.Location, ParameterType.Number})
     public GetCube() {
         this.name = "getCube";
