@@ -317,13 +317,13 @@ public class Ancient extends JavaPlugin {
 	}
 	
 	private void enableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
-		ConfigurationSerialization.registerClass(BindingData.class, "com.ancientshores.AncientRPG.Classes.BindingData");
-		ConfigurationSerialization.registerClass(CooldownTimer.class, "com.ancientshores.AncientRPG.Classes.CooldownTimer");
-		ConfigurationSerialization.registerClass(AncientExperience.class, "com.ancientshores.AncientRPG.Experience.AncientRPGExperience");
-		ConfigurationSerialization.registerClass(AncientHP.class, "com.ancientshores.AncientRPG.HP.AncientRPGHP"); // registriert die Klasse für Configs
-		ConfigurationSerialization.registerClass(ManaSystem.class, "com.ancientshores.AncientRPG.Mana.ManaSystem");
-		ConfigurationSerialization.registerClass(AncientPermission.class, "com.ancientshores.AncientRPG.Permissions.AncientPermission");
-		ConfigurationSerialization.registerClass(PlayerData.class, "com.ancientshores.AncientRPG.PlayerData");
+		ConfigurationSerialization.registerClass(BindingData.class, "com.ancientshores.Ancient.Classes.BindingData");
+		ConfigurationSerialization.registerClass(CooldownTimer.class, "com.ancientshores.Ancient.Classes.CooldownTimer");
+		ConfigurationSerialization.registerClass(AncientExperience.class, "com.ancientshores.Ancient.Experience.AncientRPGExperience");
+		ConfigurationSerialization.registerClass(AncientHP.class, "com.ancientshores.Ancient.HP.AncientRPGHP"); // registriert die Klasse für Configs
+		ConfigurationSerialization.registerClass(ManaSystem.class, "com.ancientshores.Ancient.Mana.ManaSystem");
+		ConfigurationSerialization.registerClass(AncientPermission.class, "com.ancientshores.Ancient.Permissions.AncientPermission");
+		ConfigurationSerialization.registerClass(PlayerData.class, "com.ancientshores.Ancient.PlayerData");
 	}
 	
 	@SuppressWarnings("unused")
