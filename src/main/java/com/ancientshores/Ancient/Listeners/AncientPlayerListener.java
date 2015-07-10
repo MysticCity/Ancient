@@ -499,7 +499,7 @@ public class AncientPlayerListener implements Listener {
 	}
 
 	public static void loadPreviousClasses() {
-		File f = new File(Ancient.plugin.getDataFolder() + "prevClasses.dat");
+		File f = new File(Ancient.plugin.getDataFolder() + "/prevClasses.dat");
 		ObjectInputStream ois = null;
 		try {
 			if (!f.exists()) return;
@@ -518,7 +518,7 @@ public class AncientPlayerListener implements Listener {
 	}
 	
 	public static void savePreviousClasses() {
-		File f = new File(Ancient.plugin.getDataFolder() + "prevClasses.dat");
+		File f = new File(Ancient.plugin.getDataFolder() + "/prevClasses.dat");
 		ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(f));
