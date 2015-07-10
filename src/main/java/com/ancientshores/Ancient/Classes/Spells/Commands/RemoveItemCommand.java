@@ -1,6 +1,7 @@
 package com.ancientshores.Ancient.Classes.Spells.Commands;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,25 +24,26 @@ public class RemoveItemCommand extends ICommand {
             if (ca.getParams().get(0) instanceof Player[] && ca.getParams().get(1) instanceof Material && ca.getParams().get(2) instanceof Number && ca.getParams().get(3) instanceof Boolean) {
                 final Player[] players = (Player[]) ca.getParams().get(0);
                 final Material mat = (Material) ca.getParams().get(1);
-                final int amount = (int) ((Number) ca.getParams().get(2)).doubleValue();
+                int amountToTake = (int) ((Number) ca.getParams().get(2)).doubleValue();
                 final boolean cancelOnFail = (Boolean) ca.getParams().get(3);
                 for (Player p : players) {
-                    int zaehler = 0;
+                    int amountPlayerHas = 0;
                     HashMap<Integer, ? extends ItemStack> items = p.getInventory().all(mat);
                     for (ItemStack istack : items.values()) {
-                        zaehler += istack.getAmount();
+                        amountPlayerHas += istack.getAmount();
                     }
-                    if (cancelOnFail && zaehler < amount) {
+                    if (cancelOnFail && amountPlayerHas < amountToTake) {
                         ca.getSpellInfo().canceled = true;
                         return false;
                     } else {
-                        int anzahl = amount;
-                        for (ItemStack istack : items.values()) {
-                            if (anzahl >= istack.getAmount()) {
-                                p.getInventory().remove(istack);
-                                anzahl -= istack.getAmount();
+                        for (Entry<Integer, ? extends ItemStack> entry : items.entrySet()) {
+                        	Integer pos = entry.getKey();
+                        	ItemStack istack = entry.getValue();
+                        	if (amountToTake >= istack.getAmount()) {
+                                p.getInventory().clear(pos);
+                            	amountToTake -= istack.getAmount();
                             } else {
-                                istack.setAmount(istack.getAmount() - anzahl);
+                                istack.setAmount(istack.getAmount() - amountToTake);
                                 break;
                             }
                         }
