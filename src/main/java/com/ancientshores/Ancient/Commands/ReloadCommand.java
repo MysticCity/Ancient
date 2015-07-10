@@ -39,6 +39,7 @@ public class ReloadCommand {
         PlayerData.writePlayerData();
         PlayerData.playerData = new HashSet<PlayerData>();
         AncientPlayerListener.savePreviousClasses();
+        AncientClass.saveCooldowns();
 		Ancient.plugin.reloadConfig();
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());

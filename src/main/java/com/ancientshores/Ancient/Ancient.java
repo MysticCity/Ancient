@@ -444,6 +444,7 @@ public class Ancient extends JavaPlugin {
 		Bukkit.getScheduler().cancelTasks(this);
 		Spell.registeredTasks.clear();
 		Bukkit.getScheduler().cancelTasks(this);
+		AncientClass.saveCooldowns();
 		AncientClass.removePerms();
 		PlayerData.playerData = null;
 		Ancient.plugin = null;

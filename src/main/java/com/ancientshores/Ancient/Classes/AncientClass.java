@@ -2,8 +2,12 @@ package com.ancientshores.Ancient.Classes;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -405,20 +410,21 @@ public class AncientClass implements Serializable {
 				}
 			}
 		}
-		File f = new File(Ancient.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
-		if (f.exists()) {
+		
+		File cooldownsFile = new File(Ancient.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
+		if (cooldownsFile.exists()) {
+			ObjectInputStream ois = null;
 			try {
-				FileReader fr = new FileReader(f);
-				BufferedReader br = new BufferedReader(fr);
-				String line;
-				while ((line = br.readLine()) != null)
-					playersOnCd.put(UUID.fromString(line.split(";")[0]), Long.getLong(line.split(";")[1]));
-				
-//				playersOnCd = (ConcurrentHashMap<String, Long>) ois.readObject();
-//				ois.close();
-				br.close();
-				fr.close();
-			} catch (Exception ignored) {
+				ois = new ObjectInputStream(new FileInputStream(cooldownsFile));
+				playersOnCd = (ConcurrentHashMap<UUID, Long>) ois.readObject();
+			} catch (Exception e) {
+				Bukkit.getLogger().log(Level.SEVERE, "Cooldown data corrupt, replacing them");
+			} finally {
+				if (ois != null) {
+					try {
+						ois.close();
+					} catch (Exception ignored) {}
+				}
 			}
 		}
 	}
@@ -583,5 +589,22 @@ public class AncientClass implements Serializable {
 				return true;
 		
 		return false;
+	}
+
+	public static void saveCooldowns() {
+		File file = new File(Ancient.plugin.getDataFolder() + File.separator + "Class" + File.separator + "changecds.dat");
+		ObjectOutputStream oos = null;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(file));
+			oos.writeObject(playersOnCd);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (oos != null) {
+				try {
+					oos.close();
+				} catch (Exception ignored) {}
+			}
+		}
 	}
 }
