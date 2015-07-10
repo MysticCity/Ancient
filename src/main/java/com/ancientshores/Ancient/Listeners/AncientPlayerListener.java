@@ -1,5 +1,10 @@
 package com.ancientshores.Ancient.Listeners;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -43,6 +49,7 @@ import com.ancientshores.Ancient.PlayerData;
 import com.ancientshores.Ancient.API.AncientGainExperienceEvent;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.BindingData;
+import com.ancientshores.Ancient.Classes.CooldownTimer;
 import com.ancientshores.Ancient.Classes.Commands.ClassCastCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassResetCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassSetCommand;
@@ -62,8 +69,8 @@ public class AncientPlayerListener implements Listener {
 	public static final HashMap<UUID, Integer> invisibleList = new HashMap<UUID, Integer>();
 	public static final HashMap<UUID, UUID> summonedCreatures = new HashMap<UUID, UUID>();
 	
-	private static final HashMap<UUID, AncientClass> prevClasses = new HashMap<UUID, AncientClass>();
-	private static final HashMap<UUID, String> prevStances = new HashMap<UUID, String>();
+	private static HashMap<UUID, AncientClass> prevClasses = new HashMap<UUID, AncientClass>();
+	private static HashMap<UUID, String> prevStances = new HashMap<UUID, String>();
 
 	public static final HashMap<UUID, String> playersWhoThrowed = new HashMap<UUID, String>();
 	public static final HashMap<Projectile, String> thrownProjectiles = new HashMap<Projectile, String>();
@@ -488,6 +495,43 @@ public class AncientPlayerListener implements Listener {
 		
 		if ((event.getMaterial() == Material.EXP_BOTTLE || event.getMaterial() == Material.SNOW_BALL || event.getMaterial() == Material.ENDER_PEARL) && event.getItem().hasItemMeta() && event.getItem().getItemMeta().hasDisplayName()) {
 			playersWhoThrowed.put(p.getUniqueId(), event.getItem().getItemMeta().getDisplayName());
+		}
+	}
+
+	public static void loadPreviousClasses() {
+		File f = new File(Ancient.plugin.getDataFolder() + "prevClasses.dat");
+		ObjectInputStream ois = null;
+		try {
+			if (!f.exists()) return;
+			ois = new ObjectInputStream(new FileInputStream(f));
+			prevClasses = (HashMap<UUID, AncientClass>) ois.readObject();
+			prevStances = (HashMap<UUID, String>) ois.readObject();
+		}
+		catch (Exception e) {}
+		finally {
+			if (ois != null) {
+				try {
+					ois.close();
+				} catch (Exception ignored) {}
+			}
+		}
+	}
+	
+	public static void savePreviousClasses() {
+		File f = new File(Ancient.plugin.getDataFolder() + "prevClasses.dat");
+		ObjectOutputStream oos = null;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(f));
+			oos.writeObject(prevClasses);
+			oos.writeObject(prevStances);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (oos != null) {
+				try {
+					oos.close();
+				} catch (Exception ignored) {}
+			}
 		}
 	}
 }

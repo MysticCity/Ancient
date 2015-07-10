@@ -311,11 +311,13 @@ public class Ancient extends JavaPlugin {
 		
 		Display.loadConfig(this);
 		
+		AncientPlayerListener.loadPreviousClasses();
+		
 		Spell.initializeServerSpells(); // ??? welche Spells werden initialisiert
 		// File f = new File("plugins/test.qst");
 		// new AncientQuest(f);
 	}
-	
+
 	private void enableSerialization() { // Configurations-Klassen registrieren, damit sie beim laden bekannt sind.
 		ConfigurationSerialization.registerClass(BindingData.class, "com.ancientshores.AncientRPG.Classes.BindingData");
 		ConfigurationSerialization.registerClass(CooldownTimer.class, "com.ancientshores.AncientRPG.Classes.CooldownTimer");
@@ -411,6 +413,8 @@ public class Ancient extends JavaPlugin {
 		config.addDefaults();
 		this.saveConfig();
 		PlayerData.writePlayerData();
+		
+		AncientPlayerListener.savePreviousClasses();
 		
 		AncientGuild.writeGuilds();
 		
