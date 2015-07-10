@@ -15,6 +15,7 @@ import com.ancientshores.Ancient.Classes.Spells.Spell;
 import com.ancientshores.Ancient.Experience.AncientExperience;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.HP.DamageConverter;
+import com.ancientshores.Ancient.Listeners.AncientPlayerListener;
 import com.ancientshores.Ancient.Listeners.AncientSpellListener;
 import com.ancientshores.Ancient.Race.AncientRace;
 import com.ancientshores.Ancient.Util.LinkedStringHashMap;
@@ -37,7 +38,8 @@ public class ReloadCommand {
         AncientGuild.loadGuilds();
         PlayerData.writePlayerData();
         PlayerData.playerData = new HashSet<PlayerData>();
-        Ancient.plugin.reloadConfig();
+        AncientPlayerListener.savePreviousClasses();
+		Ancient.plugin.reloadConfig();
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             pd.getHpsystem().stopRegenTimer();
@@ -60,6 +62,7 @@ public class ReloadCommand {
         AncientClass.loadConfig(Ancient.plugin);
         AncientRace.loadRaces();
         AncientRace.loadRacesConfig(Ancient.plugin);
+        AncientPlayerListener.loadPreviousClasses();
         Bukkit.getServer().getLogger().log(Level.INFO, "Ancient: reload complete");
     }
 }
