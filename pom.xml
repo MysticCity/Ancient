@@ -22,15 +22,15 @@
 
         <versionName>Official Release</versionName>
 
-        <minecraft.version>1.7.9</minecraft.version>
+        <minecraft.version>1.8.8</minecraft.version>
         
-        <bukkit.version>R0.2</bukkit.version>
-
+        <bukkit.version>R0.1-SNAPSHOT</bukkit.version>
+        
         <vault.version>1.2.27</vault.version>
 
         <metrics.version>R7</metrics.version>
       
-        <ancientutil.version>0.1.0</ancientutil.version>
+        <ancientutil.version>0.1.1-SNAPSHOT</ancientutil.version>
         
         <mm.version>1.1.8</mm.version>
         
@@ -42,10 +42,6 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public/</url>
         </repository>
         <repository>
             <id>vault-repo</id>
@@ -67,6 +63,10 @@
 		    <id>confuser-repo</id>
 	     	<url>http://ci.frostcast.net/plugin/repository/everything</url>
 	    </repository>
+	    <repository>
+            <id>pesacraft-repo</id>
+            <url>http://pesacraft.de:8081/nexus/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -142,8 +142,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
