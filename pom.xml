@@ -4,8 +4,19 @@
     <groupId>com.ancientshores</groupId>
     <artifactId>ancient</artifactId>
     <name>Ancient</name>
-    <version>1.1-44</version>
+    <version>1.1.1-SNAPSHOT</version>
 
+    <distributionManagement>
+        <repository>
+            <id>pesacraft-releases</id>
+            <url>http://pesacraft.de:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>pesacraft-snapshots</id>
+            <url>http://pesacraft.de:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -27,7 +38,6 @@
     
         <barapi.version>3.3</barapi.version>
     </properties>
-
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -59,17 +69,6 @@
 	    </repository>
     </repositories>
 
-	<pluginRepositories>
-      <pluginRepository>
-        <id>autoincrement-versions-maven-plugin</id>
-        <name>autoincrement-versions-maven-plugin</name>
-        <url>http://autoincrement-versions-maven-plugin.googlecode.com/svn/repo</url>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
-      </pluginRepository>
-    </pluginRepositories>
-    
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -77,20 +76,6 @@
             <version>${minecraft.version}-${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!--<dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-        </dependency>
-        -->
-        <!--
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit</artifactId>
-            <version>${minecraft.version}-${bukkit.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        -->
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
@@ -204,24 +189,17 @@
                     </execution>
                 </executions>
             </plugin>
-              <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>autoincrement-versions-maven-plugin</artifactId>
-                <version>2.0-SNAPSHOT</version>
-                <executions>
-                  <execution>
-                    <id>update-pom-versions</id>
-                    <goals>
-                      <goal>increment</goal>
-                    </goals>  
-                    <phase>compile</phase>
-                    <configuration>
-                      <allowSnapshots>true</allowSnapshots>
-                      <autoIncrementVersion>true</autoIncrementVersion>
-                    </configuration>
-                   </execution>
-                </executions>
-              </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
         </plugins>
         <pluginManagement>
         	<plugins>
