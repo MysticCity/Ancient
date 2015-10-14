@@ -72,10 +72,19 @@ public class Menu extends JFrame {
 		if (System.getProperty("os.name").startsWith("Mac")) {
 			
 			try {
+				// set dock icon
 				Class<?> clazz = Class.forName("com.apple.eawt.Application");
 				Object obj = clazz.getMethod("getApplication").invoke(null);
 				clazz.getMethod("setDockIconImage", Image.class).invoke(obj, Main.icon);
-				clazz.getMethod("setDockIconBadge", String.class).invoke(obj, "Ancient - SpellMaker");
+				
+				// take the menu bar off the jframe
+				System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+				// set the name of the application menu item
+				System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Ancient - SpellMaker");
+
+				// adds the red badge overlaying the icon 
+				//clazz.getMethod("setDockIconBadge", String.class).invoke(obj, "Ancient - SpellMaker");
 			} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 				ex.printStackTrace();
 			}
