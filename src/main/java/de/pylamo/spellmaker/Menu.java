@@ -1,11 +1,13 @@
 package de.pylamo.spellmaker;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 
 import javax.swing.ButtonGroup;
@@ -68,7 +70,15 @@ public class Menu extends JFrame {
 
 	public Menu() {
 		if (System.getProperty("os.name").startsWith("Mac")) {
-			com.apple.eawt.Application.getApplication().setDockIconImage(Main.icon);
+			
+			try {
+				Class<?> clazz = Class.forName("com.apple.eawt.Application");
+				Object obj = clazz.getMethod("getApplication").invoke(null);
+				clazz.getMethod("setDockIconImage", Image.class).invoke(obj, Main.icon);
+			} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+				ex.printStackTrace();
+			}
+			//com.apple.eawt.Application.getApplication().setDockIconImage(Main.icon);
 		}
 		else {
 			this.setIconImage(Main.icon);
