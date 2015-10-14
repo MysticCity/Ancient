@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ancientshores</groupId>
-    <artifactId>ancient</artifactId>
+    <groupId>com.ancientshores.ancient</groupId>
+    <artifactId>Ancient</artifactId>
     <name>Ancient</name>
     <version>1.1.1-SNAPSHOT</version>
 
@@ -52,10 +52,6 @@
             <url>http://repo.mcstats.org/content/repositories/releases/</url>
         </repository>
         <repository>
-            <id>ancientutil-repo</id>
-            <url>${project.baseUri}repo</url>
-        </repository>
-        <repository>
             <id>effectlib-repo</id>
             <url>http://maven.elmakers.com/repository/</url>
         </repository>
@@ -101,7 +97,7 @@
             <version>2.4</version>
         </dependency>
         <dependency>
-            <groupId>Ancient</groupId>
+            <groupId>com.ancientshores.ancient</groupId>
             <artifactId>AncientUtil</artifactId>
             <version>${ancientutil.version}</version>
         </dependency>
