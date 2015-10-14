@@ -26,8 +26,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
-import com.apple.eawt.Application;
-
 import de.pylamo.spellmaker.SettingsReader.UpdateType;
 import de.pylamo.spellmaker.examples.ExampleSpellLoader;
 import de.pylamo.spellmaker.gui.Window;
@@ -70,7 +68,7 @@ public class Menu extends JFrame {
 
 	public Menu() {
 		if (System.getProperty("os.name").startsWith("Mac")) {
-			Application.getApplication().setDockIconImage(Main.icon);
+			com.apple.eawt.Application.getApplication().setDockIconImage(Main.icon);
 		}
 		else {
 			this.setIconImage(Main.icon);
