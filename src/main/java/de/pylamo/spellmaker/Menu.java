@@ -75,15 +75,17 @@ public class Menu extends JFrame {
 				Class<?> clazz = Class.forName("com.apple.eawt.Application");
 				Object obj = clazz.getMethod("getApplication").invoke(null);
 				clazz.getMethod("setDockIconImage", Image.class).invoke(obj, Main.icon);
+				clazz.getMethod("setDockIconBadge", String.class).invoke(obj, "Ancient - SpellMaker");
 			} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 				ex.printStackTrace();
 			}
-			//com.apple.eawt.Application.getApplication().setDockIconImage(Main.icon);
 		}
 		else {
 			this.setIconImage(Main.icon);
 		}		
 		
+		this.setTitle("Ancient - SpellMaker");
+
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addComponentListener(cl);
 		JScrollPane jsp = new JScrollPane(content);
