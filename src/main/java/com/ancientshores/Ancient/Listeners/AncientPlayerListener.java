@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -49,7 +48,6 @@ import com.ancientshores.Ancient.PlayerData;
 import com.ancientshores.Ancient.API.AncientGainExperienceEvent;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.BindingData;
-import com.ancientshores.Ancient.Classes.CooldownTimer;
 import com.ancientshores.Ancient.Classes.Commands.ClassCastCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassResetCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassSetCommand;
