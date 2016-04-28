@@ -1,6 +1,6 @@
 package com.ancientshores.Ancient.Listeners.External;
 
-import net.elseland.xikage.MythicMobs.API.Events.MythicMobSpawnEvent;
+import net.elseland.xikage.MythicMobs.API.Bukkit.Events.MythicMobSpawnEvent;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,7 +22,7 @@ public class MythicMobsListener implements Listener {
 		// Calculate how many hp the mob will have when spawned
 		double hp = event.getMobType().getHealth();
 		if (event.getMobLevel() > 1)
-			hp += event.getMobType().lvlModHealth * (event.getMobLevel() - 1);
+			hp += event.getMobType().getHealth() * (event.getMobLevel() - 1);
 		
 		// Create a new CreatureHp for that mob
 		CreatureHp.getCreatureHpByEntity(event.getLivingEntity(), hp);

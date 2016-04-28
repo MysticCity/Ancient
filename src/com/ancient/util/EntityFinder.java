@@ -9,13 +9,16 @@ public class EntityFinder
 {
   public static Entity findByUUID(UUID uuid)
   {
-    for (World w : ) {
+    
+      World w = Bukkit.getWorld(uuid);
+      
       for (Entity e : w.getEntities()) {
         if (e.getUniqueId().compareTo(uuid) == 0) {
           return e;
         }
       }
-    }
+      
+    
     return null;
   }
 }

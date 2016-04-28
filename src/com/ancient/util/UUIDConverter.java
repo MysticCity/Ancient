@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -74,21 +72,21 @@ public class UUIDConverter
           String name = f.getName().replaceAll(".yml", "");
           try
           {
-            uuid = UUID.fromString(name);
+            UUID uuid = UUID.fromString(name);
           }
           catch (IllegalArgumentException ex)
           {
             try
             {
               UUID uuid;
-              config = YamlConfiguration.loadConfiguration(f);
+              YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
             }
-            catch (IllegalArgumentException ex)
+            catch (IllegalArgumentException e)
             {
               FileConfiguration config;
               pl.getLogger().warning(String.format("Could not change %s's player configuration to the new UUID system. Please reload the server and try again if you want to use Ancient!", new Object[] { name }));
               pl.getPluginLoader().disablePlugin(pl);
-              ex.printStackTrace();
+              e.printStackTrace();
             }
             File dat = new File(f.getPath().replaceAll(f.getName(), name + ".dat"));
             f.renameTo(new File(f.getPath().replaceAll(f.getName(), converted.get(name) + ".yml")));
