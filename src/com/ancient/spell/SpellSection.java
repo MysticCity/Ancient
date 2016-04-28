@@ -1,3 +1,5 @@
 package com.ancient.spell;
 
-public abstract interface SpellSection {}
+public interface SpellSection {
+	
+}

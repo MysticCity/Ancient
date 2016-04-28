@@ -1,17 +1,11 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-import de.pylamo.spellmaker.gui.SimpleDragObject;
-import de.pylamo.spellmaker.gui.SimpleDragObject.TransferableSimpleDragObject;
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.IParameter;
-import de.pylamo.spellmaker.gui.SpellItems.Parameter.ParameterSlot;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.PointerInfo;
+import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
@@ -22,241 +16,240 @@ import java.awt.dnd.DragSourceListener;
 import java.awt.dnd.DragSourceMotionListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JLayeredPane;
 
-public class ElseIfItem
-  extends ComplexItem
-{
-  private static final long serialVersionUID = 1L;
-  public ConditionStartPanel istp;
-  private SidePanel isp = new SidePanel();
-  private EndPanel eip = new EndPanel("endelseif");
-  
-  public ISpellItem clone()
-  {
-    ElseIfItem eii = new ElseIfItem(!this.b, this.w);
-    if (this.istp.conditionslot.content != null)
-    {
-      eii.istp.conditionslot.add(this.istp.conditionslot.content.clone());
-      eii.istp.conditionslot.content = this.istp.conditionslot.content.clone();
+import de.pylamo.spellmaker.gui.SimpleDragObject;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+import de.pylamo.spellmaker.gui.SpellItems.ImageMover;
+
+public class ElseIfItem extends ComplexItem {
+    private static final long serialVersionUID = 1L;
+
+    public ConditionStartPanel istp;
+    private SidePanel isp = new SidePanel();
+    private EndPanel eip = new EndPanel("endelseif");
+
+    @Override
+    public ISpellItem clone() {
+        ElseIfItem eii = new ElseIfItem(!b, w);
+        if (istp.conditionslot.content != null) {
+            eii.istp.conditionslot.add(istp.conditionslot.content.clone());
+            eii.istp.conditionslot.content = istp.conditionslot.content.clone();
+        }
+        return eii;
     }
-    return eii;
-  }
-  
-  public ElseIfItem(boolean preview, de.pylamo.spellmaker.gui.Window w)
-  {
-    super(w);
-    setLayout(null);
-    this.b = (!preview);
-    setOpaque(false);
-    if (preview)
-    {
-      this.istp = new ConditionStartPanel("elseif", true, w);
-      createDragSource();
+
+    public ElseIfItem(boolean preview, Window w) {
+        super(w);
+        this.setLayout(null);
+        this.b = !preview;
+        this.setOpaque(false);
+        if (preview) {
+            istp = new ConditionStartPanel("elseif", true, w);
+            createDragSource();
+        } else {
+            istp = new ConditionStartPanel("elseif", false, w);
+            istp.addMouseListener(this);
+            istp.addMouseMotionListener(this);
+            isp.addMouseListener(this);
+            isp.addMouseMotionListener(this);
+            eip.addMouseListener(this);
+            eip.addMouseMotionListener(this);
+        }
+        this.add(istp);
+        this.add(isp);
+        this.add(eip);
+        istp.setLocation(0, 0);
+        istp.setVisible(true);
+        this.revalidate();
     }
-    else
-    {
-      this.istp = new ConditionStartPanel("elseif", false, w);
-      this.istp.addMouseListener(this);
-      this.istp.addMouseMotionListener(this);
-      this.isp.addMouseListener(this);
-      this.isp.addMouseMotionListener(this);
-      this.eip.addMouseListener(this);
-      this.eip.addMouseMotionListener(this);
+
+    @Override
+    public EndPanel getEndPanel() {
+        return eip;
     }
-    add(this.istp);
-    add(this.isp);
-    add(this.eip);
-    this.istp.setLocation(0, 0);
-    this.istp.setVisible(true);
-    revalidate();
-  }
-  
-  public EndPanel getEndPanel()
-  {
-    return this.eip;
-  }
-  
-  public boolean isInVisiblePart(Point p)
-  {
-    int x = getX();
-    int y = getY();
-    if ((p.getX() < x + this.istp.getWidth()) && (p.getY() < y + this.istp.getHeight())) {
-      return true;
+
+    @Override
+    public boolean isInVisiblePart(Point p) {
+        int x = this.getX();
+        int y = this.getY();
+        if (p.getX() < x + this.istp.getWidth() && p.getY() < y + istp.getHeight()) {
+            return true;
+        } else if (p.getX() < x + 25 && p.getY() < y + isp.getY() + isp.getHeight() && p.getY() > y + isp.getY()) {
+            return true;
+        } else if (p.getX() < x + eip.getWidth() && p.getY() > y + eip.getY()) {
+            return true;
+        }
+        return false;
     }
-    if ((p.getX() < x + 25) && (p.getY() < y + this.isp.getY() + this.isp.getHeight()) && (p.getY() > y + this.isp.getY())) {
-      return true;
+
+    void createDragSource() {
+
+        DragSource ds = new DragSource();
+        IfItemDragGestureListener sis = new IfItemDragGestureListener();
+        ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, sis);
+        ds.addDragSourceMotionListener(sis);
+        ds.addDragSourceListener(new DragSourceListener() {
+            @Override
+            public void dropActionChanged(DragSourceDragEvent dsde) {
+            }
+
+            @Override
+            public void dragOver(DragSourceDragEvent dsde) {
+            }
+
+            @Override
+            public void dragExit(DragSourceEvent dse) {
+            }
+
+            @Override
+            public void dragEnter(DragSourceDragEvent dsde) {
+            }
+
+            @Override
+            public void dragDropEnd(DragSourceDropEvent dsde) {
+                ImageMover.stop();
+            }
+        });
     }
-    if ((p.getX() < x + this.eip.getWidth()) && (p.getY() > y + this.eip.getY())) {
-      return true;
+
+    @Override
+    public void revalidate() {
+        int w = 0;
+        int h;
+        int height = 0;
+        ISpellItem isi = firstBlockItem;
+        while (isi != null) {
+            height += isi.getHeight();
+            isi = isi.getNext();
+        }
+        if (height == 0) {
+            height = 25;
+        }
+        if (isp == null) {
+        	isp = new SidePanel();
+        }
+        if (istp == null) {
+        	istp = new ConditionStartPanel("elseif", true, this.w);
+        }
+        if (eip == null) {
+        	eip = new EndPanel("endelseif");
+        }
+        isp.setSize(25, height);
+        isp.setLocation(0, istp.getPreferredSize().height);
+        istp.setSize(istp.getPreferredSize());
+        eip.setSize(eip.getPreferredSize().width + 70, eip.getPreferredSize().height);
+        eip.setLocation(0, isp.getY() + isp.getHeight());
+        h = this.eip.getY() + this.eip.getHeight();
+        for (Component com : getComponents()) {
+            if (com.getPreferredSize().width + com.getX() > w) {
+                w = com.getPreferredSize().width + com.getX();
+            }
+        }
+        isi = firstBlockItem;
+        ISpellItem vo = null;
+        while (isi != null) {
+            if (vo != null) {
+                isi.setLocation(vo.getX(), vo.getY() + vo.getHeight());
+            } else {
+                isi.setLocation(this.getX() + 25, this.getY() + istp.getHeight());
+            }
+            vo = isi;
+            isi = isi.getNext();
+        }
+        this.setSize(w, h);
+        this.setPreferredSize(new Dimension(w, h));
+        super.revalidate();
+        if (this.previous != null) {
+            this.previous.revalidate();
+        }
     }
-    return false;
-  }
-  
-  void createDragSource()
-  {
-    DragSource ds = new DragSource();
-    IfItemDragGestureListener sis = new IfItemDragGestureListener(null);
-    ds.createDefaultDragGestureRecognizer(this, 1, sis);
-    ds.addDragSourceMotionListener(sis);
-    ds.addDragSourceListener(new DragSourceListener()
-    {
-      public void dropActionChanged(DragSourceDragEvent dsde) {}
-      
-      public void dragOver(DragSourceDragEvent dsde) {}
-      
-      public void dragExit(DragSourceEvent dse) {}
-      
-      public void dragEnter(DragSourceDragEvent dsde) {}
-      
-      public void dragDropEnd(DragSourceDropEvent dsde) {}
-    });
-  }
-  
-  public void revalidate()
-  {
-    int w = 0;
-    
-    int height = 0;
-    ISpellItem isi = this.firstBlockItem;
-    while (isi != null)
-    {
-      height += isi.getHeight();
-      isi = isi.getNext();
+
+    @Override
+    public void setLocation(int x, int y) {
+        super.setLocation(x, y);
+        ISpellItem isi = firstBlockItem;
+        ISpellItem vo = null;
+        while (isi != null) {
+            if (vo != null) {
+                isi.setLocation(vo.getX(), vo.getY() + vo.getHeight());
+            } else {
+                isi.setLocation(this.getX() + 25, this.getY() + istp.getHeight());
+            }
+            vo = isi;
+            isi = isi.getNext();
+        }
+        // this.revalidate();
     }
-    if (height == 0) {
-      height = 25;
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
+        if (b) {
+            p = e.getPoint();
+            ((JLayeredPane) this.getParent()).moveToFront(this);
+            ISpellItem isi = this.firstBlockItem;
+            while (isi != null) {
+                ((JLayeredPane) this.getParent()).moveToFront(isi);
+                isi = isi.getNext();
+            }
+        }
     }
-    if (this.isp == null) {
-      this.isp = new SidePanel();
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        super.mouseDragged(e);
+        ISpellItem isi = firstBlockItem;
+        ISpellItem vo = null;
+        while (isi != null) {
+            if (vo != null) {
+                isi.setLocation(vo.getX(), vo.getY() + vo.getHeight());
+            } else {
+                isi.setLocation(this.getX() + 25, this.getY() + istp.getHeight());
+            }
+            vo = isi;
+            isi = isi.getNext();
+        }
+        // this.revalidate();
     }
-    if (this.istp == null) {
-      this.istp = new ConditionStartPanel("elseif", true, this.w);
+
+    @Override
+    public String getItem() {
+        String lol = "";
+        if (istp.conditionslot.content != null) {
+            lol = istp.conditionslot.content.getString();
+        }
+        String s = "elseif, " + lol.trim();
+        ISpellItem isi = this.firstBlockItem;
+        while (isi != null) {
+            s += "\n";
+            s += isi.getItem();
+            isi = isi.getNext();
+        }
+        s += "\nendelseif";
+        return s;
     }
-    if (this.eip == null) {
-      this.eip = new EndPanel("endelseif");
+
+    private class IfItemDragGestureListener implements DragGestureListener, DragSourceMotionListener {
+        @Override
+        public void dragGestureRecognized(DragGestureEvent dge) {
+            String s = "[ELSEIFITEM]";
+            SimpleDragObject sdo = new SimpleDragObject(s);
+            BufferedImage bi = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+            paint(bi.getGraphics());
+            Cursor cursor = null;
+            ImageMover.start(bi, MouseInfo.getPointerInfo().getLocation());
+            if (dge.getDragAction() == DnDConstants.ACTION_COPY) {
+                cursor = DragSource.DefaultCopyDrop;
+            }
+            dge.startDrag(cursor, new SimpleDragObject.TransferableSimpleDragObject(sdo));
+        }
+
+        @Override
+        public void dragMouseMoved(DragSourceDragEvent dsde) {
+            ImageMover.w.setLocation(new Point(dsde.getLocation().x + 2, dsde.getLocation().y + 4));
+        }
     }
-    this.isp.setSize(25, height);
-    this.isp.setLocation(0, this.istp.getPreferredSize().height);
-    this.istp.setSize(this.istp.getPreferredSize());
-    this.eip.setSize(this.eip.getPreferredSize().width + 70, this.eip.getPreferredSize().height);
-    this.eip.setLocation(0, this.isp.getY() + this.isp.getHeight());
-    int h = this.eip.getY() + this.eip.getHeight();
-    for (Component com : getComponents()) {
-      if (com.getPreferredSize().width + com.getX() > w) {
-        w = com.getPreferredSize().width + com.getX();
-      }
-    }
-    isi = this.firstBlockItem;
-    ISpellItem vo = null;
-    while (isi != null)
-    {
-      if (vo != null) {
-        isi.setLocation(vo.getX(), vo.getY() + vo.getHeight());
-      } else {
-        isi.setLocation(getX() + 25, getY() + this.istp.getHeight());
-      }
-      vo = isi;
-      isi = isi.getNext();
-    }
-    setSize(w, h);
-    setPreferredSize(new Dimension(w, h));
-    super.revalidate();
-    if (this.previous != null) {
-      this.previous.revalidate();
-    }
-  }
-  
-  public void setLocation(int x, int y)
-  {
-    super.setLocation(x, y);
-    ISpellItem isi = this.firstBlockItem;
-    ISpellItem vo = null;
-    while (isi != null)
-    {
-      if (vo != null) {
-        isi.setLocation(vo.getX(), vo.getY() + vo.getHeight());
-      } else {
-        isi.setLocation(getX() + 25, getY() + this.istp.getHeight());
-      }
-      vo = isi;
-      isi = isi.getNext();
-    }
-  }
-  
-  public void mousePressed(MouseEvent e)
-  {
-    super.mousePressed(e);
-    if (this.b)
-    {
-      this.p = e.getPoint();
-      ((JLayeredPane)getParent()).moveToFront(this);
-      ISpellItem isi = this.firstBlockItem;
-      while (isi != null)
-      {
-        ((JLayeredPane)getParent()).moveToFront(isi);
-        isi = isi.getNext();
-      }
-    }
-  }
-  
-  public void mouseDragged(MouseEvent e)
-  {
-    super.mouseDragged(e);
-    ISpellItem isi = this.firstBlockItem;
-    ISpellItem vo = null;
-    while (isi != null)
-    {
-      if (vo != null) {
-        isi.setLocation(vo.getX(), vo.getY() + vo.getHeight());
-      } else {
-        isi.setLocation(getX() + 25, getY() + this.istp.getHeight());
-      }
-      vo = isi;
-      isi = isi.getNext();
-    }
-  }
-  
-  public String getItem()
-  {
-    String lol = "";
-    if (this.istp.conditionslot.content != null) {
-      lol = this.istp.conditionslot.content.getString();
-    }
-    String s = "elseif, " + lol.trim();
-    ISpellItem isi = this.firstBlockItem;
-    while (isi != null)
-    {
-      s = s + "\n";
-      s = s + isi.getItem();
-      isi = isi.getNext();
-    }
-    s = s + "\nendelseif";
-    return s;
-  }
-  
-  private class IfItemDragGestureListener
-    implements DragGestureListener, DragSourceMotionListener
-  {
-    private IfItemDragGestureListener() {}
-    
-    public void dragGestureRecognized(DragGestureEvent dge)
-    {
-      String s = "[ELSEIFITEM]";
-      SimpleDragObject sdo = new SimpleDragObject(s);
-      BufferedImage bi = new BufferedImage(ElseIfItem.this.getWidth(), ElseIfItem.this.getHeight(), 2);
-      ElseIfItem.this.paint(bi.getGraphics());
-      Cursor cursor = null;
-      ImageMover.start(bi, MouseInfo.getPointerInfo().getLocation());
-      if (dge.getDragAction() == 1) {
-        cursor = DragSource.DefaultCopyDrop;
-      }
-      dge.startDrag(cursor, new SimpleDragObject.TransferableSimpleDragObject(sdo));
-    }
-    
-    public void dragMouseMoved(DragSourceDragEvent dsde)
-    {
-      ImageMover.w.setLocation(new Point(dsde.getLocation().x + 2, dsde.getLocation().y + 4));
-    }
-  }
 }

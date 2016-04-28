@@ -1,41 +1,34 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-public enum CompareOperator
-{
-  Equals("=="),  NotEquals("!="),  Smaller("<"),  Larger(">"),  SmallerEquals("<="),  LargerEquals(">=");
-  
-  private final String token;
-  
-  private CompareOperator(String token)
-  {
-    this.token = token;
-  }
-  
-  public String getToken()
-  {
-    return this.token;
-  }
-  
-  public static CompareOperator getOperatorByToken(String s)
-  {
-    if (s.equalsIgnoreCase("==")) {
-      return Equals;
+
+public enum CompareOperator {
+    Equals("=="), NotEquals("!="), Smaller("<"), Larger(">"), SmallerEquals("<="), LargerEquals(">=");
+
+    private final String token;
+
+    private CompareOperator(String token) {
+        this.token = token;
     }
-    if (s.equalsIgnoreCase("!=")) {
-      return NotEquals;
+
+    public String getToken() {
+        return token;
     }
-    if (s.equalsIgnoreCase(">=")) {
-      return LargerEquals;
+
+    public static CompareOperator getOperatorByToken(String s) {
+        if (s.equalsIgnoreCase("==")) {
+            return Equals;
+        }
+        if (s.equalsIgnoreCase("!=")) {
+            return NotEquals;
+        } else if (s.equalsIgnoreCase(">=")) {
+            return LargerEquals;
+        } else if (s.equalsIgnoreCase("<=")) {
+            return SmallerEquals;
+        } else if (s.equalsIgnoreCase(">")) {
+            return Larger;
+        } else if (s.equalsIgnoreCase("<")) {
+            return Smaller;
+        }
+        return null;
     }
-    if (s.equalsIgnoreCase("<=")) {
-      return SmallerEquals;
-    }
-    if (s.equalsIgnoreCase(">")) {
-      return Larger;
-    }
-    if (s.equalsIgnoreCase("<")) {
-      return Smaller;
-    }
-    return null;
-  }
 }

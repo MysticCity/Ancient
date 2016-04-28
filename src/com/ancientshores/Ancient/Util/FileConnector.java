@@ -2,13 +2,12 @@ package com.ancientshores.Ancient.Util;
 
 import java.io.File;
 
-public abstract interface FileConnector
-{
-  public abstract String getElementOfFile(String paramString1, String paramString2);
-  
-  public abstract double getDoubleOfFile(String paramString1, String paramString2, File paramFile);
-  
-  public abstract int getIntOfFile(String paramString1, String paramString2, File paramFile);
-  
-  public abstract boolean getBooleanOfFile(String paramString1, String paramString2, File paramFile);
+public interface FileConnector {
+    public String getElementOfFile(String spellName, String rowName);
+
+    public double getDoubleOfFile(String spellname, String rowName, File path);
+
+    public int getIntOfFile(String spellname, String rowName, File path);
+
+    public boolean getBooleanOfFile(String spellname, String rowName, File path);
 }

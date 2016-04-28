@@ -4,27 +4,28 @@ import com.ancient.parameter.Parameter;
 import com.ancient.parameter.ParameterType;
 import com.ancient.spellmaker.CommandParameterizable;
 import com.ancientshores.Ancient.Classes.Spells.Variable;
-import java.util.HashMap;
 
-public class AddGlobalVariable
-  extends CommandParameterizable
-{
-  public AddGlobalVariable(int line)
-  {
-    super(line, "<html>Creates a global variable which is visible to all spells, can be accessed using normal variables.</html>", new Parameter[] { new Parameter(ParameterType.STRING, "variable name", false) });
-  }
-  
-  public Object[] execute()
-    throws Exception
-  {
-    if (!validValues()) {
-      throw new IllegalArgumentException(getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
-    }
-    String varName = (String)this.parameterValues[0];
-    
-    Variable v = new Variable(varName);
-    Variable.globVars.put(varName, v);
-    
-    return new Object[] { Integer.valueOf(this.line) };
-  }
+public class AddGlobalVariable extends CommandParameterizable {
+
+	public AddGlobalVariable(int line) {
+		super(	line,
+				"<html>Creates a global variable which is visible to all spells, can be accessed using normal variables.</html>",
+				new Parameter[]{new Parameter(ParameterType.STRING, "variable name", false)});
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Object[] execute() throws Exception {
+		if (!validValues()) throw new IllegalArgumentException(this.getClass().getName() + " in line " + this.line + " has parameters of a wrong type.");
+		
+		String varName = (String) parameterValues[0];
+		
+//		if (Variable.globVars.containsKey(varName)) throw new AncientVariableAlreadyExistsException(this.spell.getName() + this.getClass().getName(), this.line, varName);
+	
+		Variable v = new Variable(varName);
+		Variable.globVars.put(varName, v);
+		
+		return new Object[]{line};
+	}
+
 }

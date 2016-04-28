@@ -8,8 +8,6 @@ import com.ancient.util.spell.operations.Mathematic;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.Stack;
 import java.util.regex.Matcher;

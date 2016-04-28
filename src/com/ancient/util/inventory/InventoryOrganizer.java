@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class InventoryOrganizer
 {
@@ -20,7 +19,7 @@ public class InventoryOrganizer
     
     int menuItemsPerRow = (int)Math.ceil(menuItems.length / (9 - 2 * border - 2));
     int maxPerPage;
-    int maxPerPage;
+    
     if (menuItems.length == 0) {
       maxPerPage = (9 - 2 * border) * (maxRowsPerPage - 2 * border);
     } else {

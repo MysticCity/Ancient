@@ -1,81 +1,73 @@
 package de.pylamo.spellmaker.gui.SpellItems.Condition;
 
-import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
-import de.pylamo.spellmaker.gui.Window;
 import java.awt.Point;
 
-public abstract class ComplexItem
-  extends ISpellItem
-{
-  private static final long serialVersionUID = 1L;
-  public ISpellItem firstBlockItem;
-  private int lastheight;
-  
-  ComplexItem(Window w)
-  {
-    super(w);
-  }
-  
-  protected abstract EndPanel getEndPanel();
-  
-  public void setNachfolger(ISpellItem si, Point p)
-  {
-    if (si == this) {
-      return;
+import de.pylamo.spellmaker.gui.Window;
+import de.pylamo.spellmaker.gui.SpellItems.ISpellItem;
+
+public abstract class ComplexItem extends ISpellItem {
+    ComplexItem(Window w) {
+        super(w);
     }
-    if (si == null)
-    {
-      this.next = null;
-      revalidate();
-      return;
+
+    private static final long serialVersionUID = 1L;
+    public ISpellItem firstBlockItem;
+
+    protected abstract EndPanel getEndPanel();
+
+    public void setNachfolger(ISpellItem si, Point p) {
+        if (si == this) {
+            return;
+        }
+        if (si == null) {
+            this.next = null;
+            this.revalidate();
+            return;
+        }
+        if (p.getY() < this.getY() + this.getHeight() / 3 * 2) {
+            if (this.firstBlockItem == null) {
+                this.firstBlockItem = si;
+            }
+        } else {
+            super.setNext(si);
+        }
+        this.revalidate();
     }
-    if (p.getY() < getY() + getHeight() / 3 * 2)
-    {
-      if (this.firstBlockItem == null) {
-        this.firstBlockItem = si;
-      }
+
+    private int lastheight;
+
+    @Override
+    public void revalidate() {
+        if (lastheight != this.getHeight()) {
+            this.setNextLocation();
+            lastheight = this.getHeight();
+        }
+        if (this.getEndPanel() != null) {
+            this.getEndPanel().setSize(this.getEndPanel().getPreferredSize());
+        }
+        this.setNextLocation();
     }
-    else {
-      super.setNext(si);
+
+    @Override
+    public void recalculateSize() {
+        this.revalidate();
+        int y = this.getHeight() + this.getY();
+        ISpellItem isi = this.next;
+        while (isi != null) {
+            isi.setLocation(this.getX(), y);
+            y += isi.getHeight();
+            isi = isi.getNext();
+        }
     }
-    revalidate();
-  }
-  
-  public void revalidate()
-  {
-    if (this.lastheight != getHeight())
-    {
-      setNextLocation();
-      this.lastheight = getHeight();
+
+    @Override
+    public void setNextLocation() {
+        int y = this.getY() + this.getHeight();
+        ISpellItem isi = this.getNext();
+        while (isi != null) {
+            isi.setLocation(this.getX(), y);
+            y += isi.getHeight();
+            isi = isi.getNext();
+        }
     }
-    if (getEndPanel() != null) {
-      getEndPanel().setSize(getEndPanel().getPreferredSize());
-    }
-    setNextLocation();
-  }
-  
-  public void recalculateSize()
-  {
-    revalidate();
-    int y = getHeight() + getY();
-    ISpellItem isi = this.next;
-    while (isi != null)
-    {
-      isi.setLocation(getX(), y);
-      y += isi.getHeight();
-      isi = isi.getNext();
-    }
-  }
-  
-  public void setNextLocation()
-  {
-    int y = getY() + getHeight();
-    ISpellItem isi = getNext();
-    while (isi != null)
-    {
-      isi.setLocation(getX(), y);
-      y += isi.getHeight();
-      isi = isi.getNext();
-    }
-  }
 }

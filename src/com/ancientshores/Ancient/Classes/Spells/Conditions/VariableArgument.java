@@ -1,37 +1,30 @@
 package com.ancientshores.Ancient.Classes.Spells.Conditions;
 
-import com.ancientshores.Ancient.Classes.Spells.Spell;
 import com.ancientshores.Ancient.Classes.Spells.SpellInformationObject;
 import com.ancientshores.Ancient.Classes.Spells.Variable;
-import java.util.HashMap;
-import java.util.HashSet;
-import org.bukkit.entity.Entity;
 
-public class VariableArgument
-  extends IArgument
-{
-  final String name;
-  
-  public VariableArgument(String name)
-  {
-    this.name = name;
-  }
-  
-  public Object getArgument(Object[] params, SpellInformationObject so)
-  {
-    if ((Variable.playerVars.containsKey(so.buffcaster)) && (((HashMap)Variable.playerVars.get(so.buffcaster)).containsKey(this.name.toLowerCase()))) {
-      return ((Variable)((HashMap)Variable.playerVars.get(so.buffcaster)).get(this.name.toLowerCase())).getVariableObject();
+public class VariableArgument extends IArgument {
+    final String name;
+
+    public VariableArgument(String name) {
+        this.name = name;
     }
-    if (so.variables.containsKey(this.name.toLowerCase())) {
-      return ((Variable)so.variables.get(this.name.toLowerCase())).getVariableObject();
+
+    @Override
+    public Object getArgument(Object[] params, SpellInformationObject so) {
+        if (Variable.playerVars.containsKey(so.buffcaster) && Variable.playerVars.get(so.buffcaster).containsKey(name.toLowerCase())) {
+            return Variable.playerVars.get(so.buffcaster).get(name.toLowerCase()).getVariableObject();
+        }
+        if (so.variables.containsKey(name.toLowerCase())) {
+            return so.variables.get(name.toLowerCase()).getVariableObject();
+        }
+        if (so.mSpell.variables.contains(name.toLowerCase())) {
+            try {
+                return so.parseVariable(so.buffcaster.getUniqueId(), name.toLowerCase());
+            } catch (Exception ignored) {
+
+            }
+        }
+        return null;
     }
-    if (so.mSpell.variables.contains(this.name.toLowerCase())) {
-      try
-      {
-        return Integer.valueOf(so.parseVariable(so.buffcaster.getUniqueId(), this.name.toLowerCase()));
-      }
-      catch (Exception ignored) {}
-    }
-    return null;
-  }
 }

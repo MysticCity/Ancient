@@ -8,43 +8,40 @@ import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 
-public class ImageMover
-{
-  private static Image img;
-  public static Window w;
-  
-  public static void start(BufferedImage imga, Point p)
-  {
-    if (w == null) {
-      w = new Window(new Frame())
-      {
-        private static final long serialVersionUID = 1L;
-        
-        public void paint(Graphics g)
-        {
-          super.paint(g);
-          if (ImageMover.img != null) {
-            g.drawImage(ImageMover.img, 0, 0, getWidth(), getHeight(), null);
-          }
+public class ImageMover {
+    private static Image img;
+
+    public static Window w;
+
+    public static void start(final BufferedImage imga, Point p) {
+        if (w == null) {
+            w = new Window(new Frame()) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void paint(Graphics g) {
+                    super.paint(g);
+                    if (img != null) {
+                        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
+                    }
+                }
+            };
         }
-      };
+        w.setLocation(p);
+        w.repaint();
+        img = imga;
+        try {
+            Class<?> awtUtilClass = Class.forName("com.sun.awt.AWTUtilities");
+            Method setWindowOpacityMethod = awtUtilClass.getMethod("setWindowOpacity", Window.class, float.class);
+            setWindowOpacityMethod.invoke(null, w, 0.7f);
+        } catch (Exception ignored) {
+
+        }
+        w.setSize(imga.getWidth(), imga.getHeight());
+        w.setVisible(true);
     }
-    w.setLocation(p);
-    w.repaint();
-    img = imga;
-    try
-    {
-      Class<?> awtUtilClass = Class.forName("com.sun.awt.AWTUtilities");
-      Method setWindowOpacityMethod = awtUtilClass.getMethod("setWindowOpacity", new Class[] { Window.class, Float.TYPE });
-      setWindowOpacityMethod.invoke(null, new Object[] { w, Float.valueOf(0.7F) });
+
+    public static void stop() {
+        w.setVisible(false);
     }
-    catch (Exception ignored) {}
-    w.setSize(imga.getWidth(), imga.getHeight());
-    w.setVisible(true);
-  }
-  
-  public static void stop()
-  {
-    w.setVisible(false);
-  }
 }
