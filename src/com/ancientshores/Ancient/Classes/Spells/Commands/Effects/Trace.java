@@ -10,7 +10,6 @@ import com.ancientshores.Ancient.Classes.Spells.Commands.ICommand;
 
 import de.slikey.effectlib.EffectManager;
 import de.slikey.effectlib.effect.TraceEffect;
-import de.slikey.effectlib.effect.TraceEntityEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 
 public class Trace extends ICommand {
@@ -47,7 +46,8 @@ public class Trace extends ICommand {
 				for (Entity ent : entities) {
 					if (ent == null)
 						continue;
-					TraceEntityEffect e = new TraceEntityEffect(man, ent);
+                                        
+					TraceEffect e = new TraceEffect(man);
 					
 					e.particle = particle;
 					
@@ -57,6 +57,8 @@ public class Trace extends ICommand {
 					
 					e.period = period;
 					e.iterations = iterations;
+                                        
+                                        e.setEntity(ent); //Set entity
 					
 					e.start();
 				}

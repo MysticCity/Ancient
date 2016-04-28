@@ -10,6 +10,7 @@ import com.ancientshores.Ancient.Classes.Spells.Commands.ICommand;
 import de.slikey.effectlib.EffectManager;
 import de.slikey.effectlib.effect.LineEffect;
 import de.slikey.effectlib.util.ParticleEffect;
+import org.bukkit.entity.Entity;
 
 public class Line extends ICommand {
 	@CommandDescription(description = "<html>Creates a line from the given location one to the other</html>",
@@ -60,7 +61,9 @@ public class Line extends ICommand {
 				e.iterations = iterations;
 				
 				e.setLocation(loc1[0]);
-				e.setTarget(loc2[0]);
+                                                             
+				//e.setTargetEntity(); //@TODO Please check usage ! ?Required? -> Location already set
+                                
 				e.start();
 			
 			}
