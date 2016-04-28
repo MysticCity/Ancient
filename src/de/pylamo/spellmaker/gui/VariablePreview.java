@@ -75,9 +75,3 @@ public class VariablePreview
     }
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\de\pylamo\spellmaker\gui\VariablePreview.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
- */

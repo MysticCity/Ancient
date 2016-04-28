@@ -418,9 +418,3 @@ public class XmlStreamReader
     return (mime != null) && ((mime.equals("text/xml")) || (mime.equals("text/xml-external-parsed-entity")) || ((mime.startsWith("text/")) && (mime.endsWith("+xml"))));
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\org\apache\commons\io\input\XmlStreamReader.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
- */

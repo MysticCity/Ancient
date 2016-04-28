@@ -98,9 +98,3 @@ public class SetRaceCommand
     PlayerData.getPlayerData(p.getUniqueId()).setRacename(race.name.toLowerCase());
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\com\ancientshores\Ancient\Race\Commands\SetRaceCommand.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
- */

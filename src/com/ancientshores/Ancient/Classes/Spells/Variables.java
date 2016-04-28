@@ -21,9 +21,3 @@ public class Variables
     return ffc.getIntOfFile("" + level, name, f);
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\com\ancientshores\Ancient\Classes\Spells\Variables.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
- */

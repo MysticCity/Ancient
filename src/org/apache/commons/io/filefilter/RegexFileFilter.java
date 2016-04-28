@@ -53,9 +53,3 @@ public class RegexFileFilter
     return this.pattern.matcher(name).matches();
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\org\apache\commons\io\filefilter\RegexFileFilter.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
- */

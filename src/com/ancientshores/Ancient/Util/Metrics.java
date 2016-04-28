@@ -531,9 +531,3 @@ public class Metrics
     }
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\com\ancientshores\Ancient\Util\Metrics.class
- * Java compiler version: 5 (49.0)
- * JD-Core Version:       0.7.1
- */

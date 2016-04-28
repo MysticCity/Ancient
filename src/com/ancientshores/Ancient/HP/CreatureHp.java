@@ -257,9 +257,3 @@ public class CreatureHp
     return config.getLong("CreatureHp.minimum time between each attack on a creature in milliseconds");
   }
 }
-
-
-/* Location:              C:\Users\Jens\Desktop\Spigot Server\plugins\Ancient_v1.1.0 (1).jar!\com\ancientshores\Ancient\HP\CreatureHp.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
- */
