@@ -44,3 +44,4 @@ build.number
 /bin
 /repo
 /build/
+/dist/
