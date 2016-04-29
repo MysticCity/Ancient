@@ -56,7 +56,7 @@ public class Arc extends ICommand {
 				
 				
 				e.setLocation(loc1[0]);
-				e.setTarget(loc2[0]);
+				//e.setTarget(loc2[0]);
 				
 				e.start();
 			}

@@ -35,11 +35,18 @@ public class Methods
         catch (IllegalAccessException ex)
         {
           ex.printStackTrace();
+          continue;
         }
-        continue;
-        if (!methods.containsKey(name)) {
-          methods.put(name, c.asSubclass(Method.class));
-        }
+         
+        
+         // V UNREACHABLE V
+         
+//        continue;
+//        if ( !methods.containsKey(name) ) {
+//            methods.put(name, c.asSubclass(Method.class));
+//        }
+
+            
       }
     }
   }
