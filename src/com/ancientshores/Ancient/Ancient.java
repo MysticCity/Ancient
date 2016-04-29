@@ -78,6 +78,7 @@ import com.ancientshores.Ancient.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.Ancient.Spells.Commands.SpellsCommandExecutor;
 import com.ancientshores.Ancient.Util.FlatFileConnector;
 import com.ancientshores.Ancient.Util.SerializableZone;
+import com.ancientshores.external.LocStats;
 
 import de.slikey.effectlib.EffectLib;
 
@@ -171,6 +172,17 @@ public class Ancient extends JavaPlugin {
 		} catch (IOException ex) { // noch keine Verwendung
 			
 		}
+                
+                try{
+                        LocStats loc = new LocStats(this);
+                        if (loc.isInstalled())
+                        {
+                            loc.registerEvents();
+                        }
+                } catch (Exception ex) {
+                    
+                }
+                
 		// =============
 		// enable (de)serialization of configs
 		// =============

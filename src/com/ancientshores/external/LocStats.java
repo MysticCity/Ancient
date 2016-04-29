@@ -6,12 +6,14 @@
 package com.ancientshores.external;
 
 import com.ancientshores.Ancient.Ancient;
+import com.ancientshores.external.locstats.Loc_Deaths;
+import com.ancientshores.external.locstats.Loc_Join;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 public class LocStats {
 
-    protected Ancient plugin;
+    public Ancient plugin;
     
     //Construct class
     public LocStats(Ancient plugin)
@@ -51,9 +53,16 @@ public class LocStats {
     }
     
     //Registers all LOCStats required Listeners
-    public static void registerEvents()
+    public void registerEvents()
     {
-        //Currently nothing
+        //@NAME: Player-Join
+        //@DOES: Create profile for a newbie
+        plugin.getServer().getPluginManager().registerEvents(new Loc_Join(this), plugin);
+        
+        //@NAME: Player-Died
+        //@DOES: Set PlayerDeaths & PlayerKills
+        plugin.getServer().getPluginManager().registerEvents(new Loc_Deaths(this), plugin);
+        
     }
     
 }
