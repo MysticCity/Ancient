@@ -89,7 +89,7 @@ public class AncientEntityListener implements Listener {
 			
 			final ItemStack[] armor = unfinalArmor;
 			
-			entity.getEquipment().setArmorContents(null);
+			entity.getEquipment().setArmorContents(armor);
 			
 			Armor.damageArmor(armor);
 			
