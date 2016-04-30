@@ -134,7 +134,7 @@ public class Tokenizer
     
     public static TokenType getByRegex(String text)
     {
-      for (TokenType t : ) {
+      for (TokenType t : TokenType.values()) {
         if (text.contains(t.regex)) {
           return t;
         }

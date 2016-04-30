@@ -1,137 +1,180 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.commons.io;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LineIterator
-  implements Iterator<String>
-{
-  private final BufferedReader bufferedReader;
-  private String cachedLine;
-  private boolean finished = false;
-  
-  public LineIterator(Reader reader)
-    throws IllegalArgumentException
-  {
-    if (reader == null) {
-      throw new IllegalArgumentException("Reader must not be null");
+/**
+ * An Iterator over the lines in a <code>Reader</code>.
+ * <p>
+ * <code>LineIterator</code> holds a reference to an open <code>Reader</code>.
+ * When you have finished with the iterator you should close the reader
+ * to free internal resources. This can be done by closing the reader directly,
+ * or by calling the {@link #close()} or {@link #closeQuietly(LineIterator)}
+ * method on the iterator.
+ * <p>
+ * The recommended usage pattern is:
+ * <pre>
+ * LineIterator it = FileUtils.lineIterator(file, "UTF-8");
+ * try {
+ *   while (it.hasNext()) {
+ *     String line = it.nextLine();
+ *     // do something with line
+ *   }
+ * } finally {
+ *   it.close();
+ * }
+ * </pre>
+ *
+ * @version $Id: LineIterator.java 1471767 2013-04-24 23:24:19Z sebb $
+ * @since 1.2
+ */
+public class LineIterator implements Iterator<String> {
+
+    // N.B. This class deliberately does not implement Iterable, see https://issues.apache.org/jira/browse/IO-181
+
+    /** The reader that is being read. */
+    private final BufferedReader bufferedReader;
+    /** The current line. */
+    private String cachedLine;
+    /** A flag indicating if the iterator has been fully read. */
+    private boolean finished = false;
+
+    /**
+     * Constructs an iterator of the lines for a <code>Reader</code>.
+     *
+     * @param reader the <code>Reader</code> to read from, not null
+     * @throws IllegalArgumentException if the reader is null
+     */
+    public LineIterator(final Reader reader) throws IllegalArgumentException {
+        if (reader == null) {
+            throw new IllegalArgumentException("Reader must not be null");
+        }
+        if (reader instanceof BufferedReader) {
+            bufferedReader = (BufferedReader) reader;
+        } else {
+            bufferedReader = new BufferedReader(reader);
+        }
     }
-    if ((reader instanceof BufferedReader)) {
-      this.bufferedReader = ((BufferedReader)reader);
-    } else {
-      this.bufferedReader = new BufferedReader(reader);
+
+    //-----------------------------------------------------------------------
+    /**
+     * Indicates whether the <code>Reader</code> has more lines.
+     * If there is an <code>IOException</code> then {@link #close()} will
+     * be called on this instance.
+     *
+     * @return {@code true} if the Reader has more lines
+     * @throws IllegalStateException if an IO exception occurs
+     */
+    public boolean hasNext() {
+        if (cachedLine != null) {
+            return true;
+        } else if (finished) {
+            return false;
+        } else {
+            try {
+                while (true) {
+                    final String line = bufferedReader.readLine();
+                    if (line == null) {
+                        finished = true;
+                        return false;
+                    } else if (isValidLine(line)) {
+                        cachedLine = line;
+                        return true;
+                    }
+                }
+            } catch(final IOException ioe) {
+                close();
+                throw new IllegalStateException(ioe);
+            }
+        }
     }
-  }
-  
-  /* Error */
-  public boolean hasNext()
-  {
-    // Byte code:
-    //   0: aload_0
-    //   1: getfield 46	org/apache/commons/io/LineIterator:cachedLine	Ljava/lang/String;
-    //   4: ifnull +5 -> 9
-    //   7: iconst_1
-    //   8: ireturn
-    //   9: aload_0
-    //   10: getfield 23	org/apache/commons/io/LineIterator:finished	Z
-    //   13: ifeq +5 -> 18
-    //   16: iconst_0
-    //   17: ireturn
-    //   18: aload_0
-    //   19: getfield 34	org/apache/commons/io/LineIterator:bufferedReader	Ljava/io/BufferedReader;
-    //   22: invokevirtual 50	java/io/BufferedReader:readLine	()Ljava/lang/String;
-    //   25: astore_1
-    //   26: aload_1
-    //   27: ifnonnull +10 -> 37
-    //   30: aload_0
-    //   31: iconst_1
-    //   32: putfield 23	org/apache/commons/io/LineIterator:finished	Z
-    //   35: iconst_0
-    //   36: ireturn
-    //   37: aload_0
-    //   38: aload_1
-    //   39: invokevirtual 56	org/apache/commons/io/LineIterator:isValidLine	(Ljava/lang/String;)Z
-    //   42: ifeq +10 -> 52
-    //   45: aload_0
-    //   46: aload_1
-    //   47: putfield 46	org/apache/commons/io/LineIterator:cachedLine	Ljava/lang/String;
-    //   50: iconst_1
-    //   51: ireturn
-    //   52: goto -34 -> 18
-    //   55: astore_1
-    //   56: aload_0
-    //   57: invokevirtual 59	org/apache/commons/io/LineIterator:close	()V
-    //   60: new 61	java/lang/IllegalStateException
-    //   63: dup
-    //   64: aload_1
-    //   65: invokespecial 64	java/lang/IllegalStateException:<init>	(Ljava/lang/Throwable;)V
-    //   68: athrow
-    // Line number table:
-    //   Java source line #88	-> byte code offset #0
-    //   Java source line #89	-> byte code offset #7
-    //   Java source line #90	-> byte code offset #9
-    //   Java source line #91	-> byte code offset #16
-    //   Java source line #95	-> byte code offset #18
-    //   Java source line #96	-> byte code offset #26
-    //   Java source line #97	-> byte code offset #30
-    //   Java source line #98	-> byte code offset #35
-    //   Java source line #99	-> byte code offset #37
-    //   Java source line #100	-> byte code offset #45
-    //   Java source line #101	-> byte code offset #50
-    //   Java source line #103	-> byte code offset #52
-    //   Java source line #104	-> byte code offset #55
-    //   Java source line #105	-> byte code offset #56
-    //   Java source line #106	-> byte code offset #60
-    // Local variable table:
-    //   start	length	slot	name	signature
-    //   0	69	0	this	LineIterator
-    //   25	22	1	line	String
-    //   55	10	1	ioe	java.io.IOException
-    // Exception table:
-    //   from	to	target	type
-    //   18	36	55	java/io/IOException
-    //   37	51	55	java/io/IOException
-    //   52	55	55	java/io/IOException
-  }
-  
-  protected boolean isValidLine(String line)
-  {
-    return true;
-  }
-  
-  public String next()
-  {
-    return nextLine();
-  }
-  
-  public String nextLine()
-  {
-    if (!hasNext()) {
-      throw new NoSuchElementException("No more lines");
+
+    /**
+     * Overridable method to validate each line that is returned.
+     * This implementation always returns true.
+     * @param line  the line that is to be validated
+     * @return true if valid, false to remove from the iterator
+     */
+    protected boolean isValidLine(final String line) {
+        return true;
     }
-    String currentLine = this.cachedLine;
-    this.cachedLine = null;
-    return currentLine;
-  }
-  
-  public void close()
-  {
-    this.finished = true;
-    IOUtils.closeQuietly(this.bufferedReader);
-    this.cachedLine = null;
-  }
-  
-  public void remove()
-  {
-    throw new UnsupportedOperationException("Remove unsupported on LineIterator");
-  }
-  
-  public static void closeQuietly(LineIterator iterator)
-  {
-    if (iterator != null) {
-      iterator.close();
+
+    /**
+     * Returns the next line in the wrapped <code>Reader</code>.
+     *
+     * @return the next line from the input
+     * @throws NoSuchElementException if there is no line to return
+     */
+    public String next() {
+        return nextLine();
     }
-  }
+
+    /**
+     * Returns the next line in the wrapped <code>Reader</code>.
+     *
+     * @return the next line from the input
+     * @throws NoSuchElementException if there is no line to return
+     */
+    public String nextLine() {
+        if (!hasNext()) {
+            throw new NoSuchElementException("No more lines");
+        }
+        final String currentLine = cachedLine;
+        cachedLine = null;
+        return currentLine;
+    }
+
+    /**
+     * Closes the underlying <code>Reader</code> quietly.
+     * This method is useful if you only want to process the first few
+     * lines of a larger file. If you do not close the iterator
+     * then the <code>Reader</code> remains open.
+     * This method can safely be called multiple times.
+     */
+    public void close() {
+        finished = true;
+        IOUtils.closeQuietly(bufferedReader);
+        cachedLine = null;
+    }
+
+    /**
+     * Unsupported.
+     *
+     * @throws UnsupportedOperationException always
+     */
+    public void remove() {
+        throw new UnsupportedOperationException("Remove unsupported on LineIterator");
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Closes the iterator, handling null and ignoring exceptions.
+     *
+     * @param iterator  the iterator to close
+     */
+    public static void closeQuietly(final LineIterator iterator) {
+        if (iterator != null) {
+            iterator.close();
+        }
+    }
+
 }

@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
-import com.apple.eawt.Application;
+import com.apple.eawt.Application; //Missing OS X Lib ??
 
 import de.pylamo.spellmaker.SettingsReader.UpdateType;
 import de.pylamo.spellmaker.examples.ExampleSpellLoader;

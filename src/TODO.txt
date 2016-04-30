@@ -1,0 +1,8 @@
+HIGH-Priority:
+Currently nothing ! :)
+
+OTHER-Stuff:
+Finish LocStats implementation
+
+ERRORS-to fix:
+Currently nothing ! :)

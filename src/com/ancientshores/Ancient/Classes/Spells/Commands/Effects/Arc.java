@@ -43,7 +43,8 @@ public class Arc extends ICommand {
 			int iterations = ((Number) ca.getParams().get(6)).intValue();
 			
 			if (loc1 != null && loc2 != null && loc1.length != 0 && loc2.length != 0) {
-				ArcEffect e = new ArcEffect(man);
+				
+                            ArcEffect e = new ArcEffect(man);
 					
 				e.particle = particle;
 				
@@ -55,7 +56,7 @@ public class Arc extends ICommand {
 				
 				
 				e.setLocation(loc1[0]);
-				e.setTarget(loc2[0]);
+				//e.setTarget(loc2[0]);
 				
 				e.start();
 			}
