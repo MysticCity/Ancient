@@ -11,8 +11,8 @@
 
 # NetBeans
 /nbproject
-build.xml
 manifest.mf
+build.xml
 
 # vim
 .*.sw[a-p]
