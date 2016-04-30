@@ -52,6 +52,7 @@ import com.ancientshores.Ancient.Commands.AncientCommand;
 import com.ancientshores.Ancient.Display.Display;
 import com.ancientshores.Ancient.Experience.AncientExperience;
 import com.ancientshores.Ancient.Experience.SetXpCommand;
+import com.ancientshores.Ancient.GUI.Events.GUIEvents;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.Guild.AncientGuildRanks;
 import com.ancientshores.Ancient.Guild.Commands.GuildCommandChat;
@@ -96,7 +97,7 @@ public class Ancient extends JavaPlugin {
 	public CommandPlayer ef; // ???
 	public static String languagecode; // für die Sprache wird aus Config geladen in mconfig.loadkeys();
 	public static EffectLib effectLib;
-	// ClassListeners
+        // ClassListeners
 	
 	HashMap<SpellInformationObject, UUID> executingSpells = new HashMap<SpellInformationObject, UUID>(); // ??? Hashmap für die Zauber
 
@@ -182,6 +183,11 @@ public class Ancient extends JavaPlugin {
                 } catch (Exception ex) {
                     
                 }
+                
+                // =============
+                // load GUI requirements
+                // =============
+                GUIEvents guiEvents = new GUIEvents(this);
                 
 		// =============
 		// enable (de)serialization of configs
