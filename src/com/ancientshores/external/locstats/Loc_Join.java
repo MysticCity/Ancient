@@ -28,16 +28,7 @@ public class Loc_Join implements Listener{
             
             PlayerProfile profile = new PlayerProfile(loader.plugin, p); //Create his profile
             
-            if ( profile.getStatInt("PlayerDeaths") == null )
-            {
-                /*
-                 * Default settings here !
-                 */
-                
-                profile.setStat("PlayerDeaths", 0); //Set default stats
-                profile.setStat("PlayerKills", 0);
-                
-            }
+            //Nothing to do
             
         }catch(Exception ex){
             

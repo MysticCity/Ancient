@@ -2,7 +2,7 @@ HIGH-Priority:
 Currently nothing ! :)
 
 OTHER-Stuff:
-Finish LocStats implementation
+Start with GraphicalUserInterface
 
 ERRORS-to fix:
 Currently nothing ! :)

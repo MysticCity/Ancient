@@ -6,6 +6,8 @@
 package com.ancientshores.external;
 
 import com.ancientshores.Ancient.Ancient;
+import com.ancientshores.external.locstats.Loc_Ancient_Levelup;
+import com.ancientshores.external.locstats.Loc_Ancient_Party_Join;
 import com.ancientshores.external.locstats.Loc_Deaths;
 import com.ancientshores.external.locstats.Loc_Join;
 import org.bukkit.Bukkit;
@@ -62,6 +64,14 @@ public class LocStats {
         //@NAME: Player-Died
         //@DOES: Set PlayerDeaths & PlayerKills
         plugin.getServer().getPluginManager().registerEvents(new Loc_Deaths(this), plugin);
+        
+        //@NAME: Player join into an Ancient-Party
+        //@DOES: Set PartiesJoined
+        plugin.getServer().getPluginManager().registerEvents(new Loc_Ancient_Party_Join(this), plugin);
+        
+        //@NAME: Player get a LevelUp
+        //@DOES: Set PlayerLevel
+        plugin.getServer().getPluginManager().registerEvents(new Loc_Ancient_Levelup(this), plugin);
         
     }
     
