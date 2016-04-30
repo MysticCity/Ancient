@@ -1,5 +1,5 @@
 HIGH-Priority:
-Patch EventPass-Error Could not pass: [EntityDamageEvent]
+Currently nothing ! :)
 
 OTHER-Stuff:
 Finish LocStats implementation
