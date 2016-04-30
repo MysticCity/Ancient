@@ -5,14 +5,10 @@ import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -99,12 +95,34 @@ public class GuiMenuOpener implements Listener{
         
     }
     
-    //Remove user if inventory opend
-    @EventHandler
-    public void inventoryClosed(InventoryOpenEvent e)
+    //Remove items after death
+    @EventHandler(priority = EventPriority.LOW)
+    public void inventoryClosed(PlayerDropItemEvent e)
     {
-
-
+        try{
+            
+            ItemStack openItem = new ItemStack(Material.COMPASS); //Item
+            ItemMeta openMeta = openItem.getItemMeta(); //Item-meta
+            ArrayList<String> lore = new ArrayList<String>(); //Item lore/description
+            
+            lore.add(ChatColor.DARK_PURPLE + "Left click to open"); //Add description
+            openMeta.setLore(lore); //Set description
+            
+            openMeta.setDisplayName(ChatColor.BLUE + "Menu"); //Set item-name
+            
+            openItem.setItemMeta(openMeta); //Set meta to item
+            
+            if ( e.getItemDrop().getItemStack().equals(openItem) ) //Remove dropped menu opener
+            {
+                e.getItemDrop().remove();
+            }
+            
+        } catch (Exception ex) {
+            
+            //Nothing
+            
+        }
+        
     }
     
     //Open menu
