@@ -6,10 +6,14 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.PlayerData;
+import org.bukkit.Bukkit;
 
 public class SetXpCommand {
     public static void setXp(CommandSender cs, String[] args) {
+        
         String playername = "";
+        Player target = null;
+        
         if (cs instanceof Player && !cs.hasPermission(AncientExperience.nodeXPAdmin)) {
             cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "You don't have the permission to use this command");
             return;
@@ -27,7 +31,20 @@ public class SetXpCommand {
             playername = cs.getName();
         }
         if (args.length == 3) {
-            playername = args[2];
+            
+            try{
+                
+                playername = args[2];
+                
+                target = Bukkit.getPlayer(playername);
+                
+            } catch (Exception ex) {
+                
+                cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.RED + "Player not found/online !");
+                return;
+                
+            }
+            
         }
         try {
             amount = Integer.parseInt(args[1]);
