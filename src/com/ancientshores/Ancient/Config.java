@@ -79,7 +79,8 @@ public class Config {
 			e.printStackTrace();
 		}
 		
-		Ancient.languagecode = plugin.getConfig().getString("Ancient.language", Ancient.languagecode); // die Sprache setzen
+                //      WANT TO REENABLE ?  DONT FORGET THE ANCIENT CLASS !
+		//Ancient.languagecode = plugin.getConfig().getString("Ancient.language", Ancient.languagecode); // die Sprache setzen
 		
 		AncientParty.loadConfig(plugin); // Party config laden ???
 		

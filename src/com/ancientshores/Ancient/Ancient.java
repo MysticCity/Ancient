@@ -62,6 +62,8 @@ import com.ancientshores.Ancient.HP.Armor;
 import com.ancientshores.Ancient.HP.CreatureHp;
 import com.ancientshores.Ancient.HP.DamageConverter;
 import com.ancientshores.Ancient.HP.HPCommand;
+import com.ancientshores.Ancient.Language.LanguageFile;
+import com.ancientshores.Ancient.Language.LanguageLoad;
 import com.ancientshores.Ancient.Listeners.AncientBlockListener;
 import com.ancientshores.Ancient.Listeners.AncientEntityListener;
 import com.ancientshores.Ancient.Listeners.AncientPlayerListener;
@@ -131,10 +133,11 @@ public class Ancient extends JavaPlugin {
 	public static String ancientCommand = "ancient"; // das Kommando, welches zum Ausführen des ??? allgemeinen informations codes genommen werden soll
 	public static final String ancientCommandNode = "Ancient.Commands.ancient";
 	public static String versionString = ""; // string der die aktuelle version des servers speichert NNN
-	static Locale currentLocale; // speichert die position des servers NNN
+	//static Locale currentLocale; // speichert die position des servers NNN
 	public static String brand = "ANCIENT"; // logo fuer textausgaben
-	public static String brand2 = ""; // ??? NNN
-	static ResourceBundle messages; // die Texte in der jeweiligen Sprache
+	public static String brand2 = "[ANCIENT] "; // ??? NNN
+        public LanguageFile lang;
+	//static ResourceBundle messages; // die Texte in der jeweiligen Sprache
 
 	
 	public void onEnable() { // beim aktivieren des Plugins
@@ -185,6 +188,12 @@ public class Ancient extends JavaPlugin {
                 }
                 
                 // =============
+                // setup lang-files
+                // =============
+                LanguageLoad.loadLanguageConfig(this);
+                lang = new LanguageFile(this, LanguageLoad.getLanguageCode(this));
+                
+                // =============
                 // load GUI requirements
                 // =============
                 GUIEvents guiEvents = new GUIEvents(this);
@@ -232,12 +241,13 @@ public class Ancient extends JavaPlugin {
 		registerCommands();
 		// ??? warum wird hier nochmal registriert, weil es nicht zu den sprüchen gehört?
 		
-		try {
-			Locale l = new Locale(languagecode); // neues Locale für das setzen der Sprache
-			messages = ResourceBundle.getBundle("AncientMessages", l); // die Resourcen laden, d.h. die Sprache speichern
-		} catch (Exception ex) { // noch keine Verwendung
-
-		}
+                // WANT TO REENABLE ?  DON'T FORGET THE CONFIG CLASS !
+//		try {
+//			Locale l = new Locale(languagecode); // neues Locale für das setzen der Sprache
+//			messages = ResourceBundle.getBundle("AncientMessages", l); // die Resourcen laden, d.h. die Sprache speichern
+//		} catch (Exception ex) { // noch keine Verwendung
+//
+//		}
 		
 		this.setupEconomy(); //  Economysetup ausführen, verknüpfen mit Vault
 		this.saveConfig(); // speichert die standart config FIX weiß nicht, ob das funktioniert
@@ -748,9 +758,9 @@ public class Ancient extends JavaPlugin {
 		return a.hasPermission(b) || a.isOp();
 	}
 
-	public static String getLocalizedString(String code) {
-		return messages.getString(code);
-	}
+//	public static String getLocalizedString(String code) {
+//		return messages.getString(code);
+//	}
 
 	public static ApiManager getApiManager() {
 		return manager;
