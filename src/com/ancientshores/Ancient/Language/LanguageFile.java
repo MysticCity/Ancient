@@ -34,7 +34,7 @@ public class LanguageFile {
     {
         try{
             
-            return lang.getString(textPath);
+            return lang.getString(textPath.toLowerCase());
             
         }catch (Exception ex){
             
@@ -49,7 +49,7 @@ public class LanguageFile {
     {
         try{
             
-            lang.set(textPath, text);
+            lang.set(textPath.toLowerCase() , text);
             langFile.saveConfig();
             
         }catch (Exception ex){
@@ -64,16 +64,16 @@ public class LanguageFile {
         
         try{
             
-            if ( !lang.getString(textPath).equals(text) )
+            if ( !lang.getString(textPath.toLowerCase()).equals(text) )
             {
-                lang.set(textPath, text);
+                lang.set(textPath.toLowerCase() , text);
                 langFile.saveConfig();
             }
         
         } catch (Exception ex) {
             
                 System.out.println(Ancient.brand2 + "Language: Blueprint not found. creating...");
-                lang.set(textPath, text);
+                lang.set(textPath.toLowerCase() , text);
                 langFile.saveConfig();
                 System.out.println(Ancient.brand2 + "Language: Created (" + textPath + ") in " + langCode.name() + "...");
             
