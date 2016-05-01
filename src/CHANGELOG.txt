@@ -8,6 +8,7 @@ Ancient-Changelog for version 1.2
 [+] Implemented experimental GUI (Not done!)
 [+] Implemented support for LOCStats by Th3Shadowbroker
 [+] Implemented LoaderClasses (GUIEvents, LocStats)
+[+] Implemented Language-System
 
 [i] Updated MythicMobs support
 [i] Updated Apache components
