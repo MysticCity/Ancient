@@ -64,7 +64,7 @@ public class LanguageLoad {
         /*
         *                       HOW TO SETUP DEFAULT LANGUAGES
         *   Use the language file for the language you want to setup by simply using
-        *                       EN.setTextOnce(<Path to text>, <Text>);
+        *                       EN:DE:US.setTextOnce(<Path to text>, <Text>);
         *
         */
         
