@@ -16,7 +16,8 @@ public class PartyCommandLeave {
             mPlayersParty.giveNextLeader();
             mPlayersParty.sendMessage(Ancient.brand2 + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " left your party.");
             mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "Successfully left the party.");
-            if (mPlayersParty.getMemberNumber() == 0) {
+            if (mPlayersParty.getMemberNumber() == 1) {
+                mPlayersParty.sendMessage(Ancient.brand2 + ChatColor.RED + "Your party has been deleted.");
                 AncientParty.partys.remove(mPlayersParty);
             }
         } else {
