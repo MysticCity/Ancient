@@ -23,7 +23,7 @@ public class GuildCommandMemberlist {
                 mPlayer.sendMessage(AncientGuildRanks.getChatColorByRank(g.gMember.get(uuid)) + PlayerFinder.getPlayerName(uuid));
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

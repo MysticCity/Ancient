@@ -11,10 +11,10 @@ public class GuildCommandToggle {
         Player mPlayer = (Player) sender;
         if (!AncientPlayerListener.toggleguildlist.contains(mPlayer.getUniqueId())) {
             AncientPlayerListener.toggleguildlist.add(mPlayer.getUniqueId());
-            mPlayer.sendMessage(Ancient.brand2 + "Guild chat activated");
+            mPlayer.sendMessage(Ancient.ChatBrand + "Guild chat activated");
         } else {
             AncientPlayerListener.toggleguildlist.remove(mPlayer.getUniqueId());
-            mPlayer.sendMessage(Ancient.brand2 + "Guild chat deactivated");
+            mPlayer.sendMessage(Ancient.ChatBrand + "Guild chat deactivated");
         }
     }
 }

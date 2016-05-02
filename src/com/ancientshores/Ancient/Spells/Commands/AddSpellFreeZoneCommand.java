@@ -21,13 +21,13 @@ public class AddSpellFreeZoneCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             if (!p.hasPermission(SpellFreeZoneListener.selectspellfreezoneperm)) {
-                p.sendMessage(Ancient.brand2 + "You don't have the permission to create spell-free zones");
+                p.sendMessage(Ancient.ChatBrand + "You don't have the permission to create spell-free zones");
                 return;
             }
             if (SpellFreeZoneListener.leftlocs.containsKey(p.getUniqueId()) && SpellFreeZoneListener.rightlocs.containsKey(p.getUniqueId()) && args.length == 2) {
                 SerializableZone sz = new SerializableZone(SpellFreeZoneListener.leftlocs.get(p.getUniqueId()), SpellFreeZoneListener.rightlocs.get(p.getUniqueId()));
                 spellfreezones.put(args[1], sz);
-                sender.sendMessage(Ancient.brand2 + "Successfully created spell-free zone");
+                sender.sendMessage(Ancient.ChatBrand + "Successfully created spell-free zone");
                 File f = new File(Ancient.plugin.getDataFolder().getPath() + File.separator + "spellfreezones");
                 f.mkdir();
                 File nf = new File(f.getPath() + File.separator + args[1] + ".sfz");
@@ -40,7 +40,7 @@ public class AddSpellFreeZoneCommand {
                     e.printStackTrace();
                 }
             } else {
-                sender.sendMessage(Ancient.brand2 + "You have to define two corners first, and specify a name");
+                sender.sendMessage(Ancient.ChatBrand + "You have to define two corners first, and specify a name");
             }
         }
     }

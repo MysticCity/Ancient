@@ -16,14 +16,14 @@ public class GuildCommandLeave {
             ChatColor farbe = AncientGuildRanks.getChatColorByRank(guild.getGuildMembers().get(mPlayer.getUniqueId()));
             guild.gMember.remove(mPlayer.getUniqueId());
             AncientGuild.writeGuild(guild);
-            guild.broadcastMessage(Ancient.brand2 + farbe + mPlayer.getName() + ChatColor.GREEN + " left the guild.");
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Succesfully left your guild.");
+            guild.broadcastMessage(Ancient.ChatBrand + farbe + mPlayer.getName() + ChatColor.GREEN + " left the guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Succesfully left your guild.");
             mPlayer.setDisplayName(mPlayer.getName());
             if (mPlayer.getUniqueId().compareTo(guild.gLeader) == 0 && guild.gMember.size() > 0) {
-                mPlayer.sendMessage(Ancient.brand2 + "You can't leave the guild as a leader unless you are the only one in the guild.");
+                mPlayer.sendMessage(Ancient.ChatBrand + "You can't leave the guild as a leader unless you are the only one in the guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

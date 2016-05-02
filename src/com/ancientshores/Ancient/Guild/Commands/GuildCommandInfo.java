@@ -35,7 +35,7 @@ public class GuildCommandInfo {
             mPlayer.sendMessage("To see a list of all members type /guild memberlist");
             mPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

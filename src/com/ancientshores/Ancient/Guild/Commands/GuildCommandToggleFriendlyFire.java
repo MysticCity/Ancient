@@ -18,20 +18,20 @@ public class GuildCommandToggleFriendlyFire {
                 if (r == AncientGuildRanks.CO_LEADER || r == AncientGuildRanks.LEADER) {
                     if (mGuild.friendlyFire) {
                         mGuild.friendlyFire = false;
-                        mGuild.broadcastMessage(Ancient.brand2 + ChatColor.GREEN + "Friendly fire is now: " + ChatColor.GREEN + "off");
+                        mGuild.broadcastMessage(Ancient.ChatBrand + ChatColor.GREEN + "Friendly fire is now: " + ChatColor.GREEN + "off");
                     } else {
                         mGuild.friendlyFire = true;
-                        mGuild.broadcastMessage(Ancient.brand2 + ChatColor.GREEN + "Friendly fire is now: " + ChatColor.RED + "on");
+                        mGuild.broadcastMessage(Ancient.ChatBrand + ChatColor.GREEN + "Friendly fire is now: " + ChatColor.RED + "on");
                     }
                     AncientGuild.writeGuild(mGuild);
                 } else {
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "You don't have permission to toggle friendly fire");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "You don't have permission to toggle friendly fire");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "You aren't in a guild!");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "You aren't in a guild!");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Config disallows toggling ff of guilds!");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Config disallows toggling ff of guilds!");
         }
     }
 }

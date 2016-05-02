@@ -17,25 +17,25 @@ public class GuildCommandDeposit {
                 try {
                     value = Double.parseDouble(args[1]);
                 } catch (Exception e) {
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "String given, Decimal expected");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "String given, Decimal expected");
                     return;
                 }
                 if (value > 0) {
                     if (Ancient.economy.has(mPlayer.getName(), value)) {
                         Ancient.economy.withdrawPlayer(mPlayer.getName(), value);
                         Ancient.economy.bankDeposit(mGuild.accountName, value);
-                        mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Successfully deposit " + value + " to the bank of your guild.");
+                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Successfully deposit " + value + " to the bank of your guild.");
                     } else {
-                        mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You don't have enough money.");
+                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You don't have enough money.");
                     }
                 } else {
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You must enter a value bigger than 0.");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You must enter a value bigger than 0.");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "Correct usage: /guild deposit <value>");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Correct usage: /guild deposit <value>");
         }
     }
 }

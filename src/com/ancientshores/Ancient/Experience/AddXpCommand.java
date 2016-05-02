@@ -15,17 +15,17 @@ public class AddXpCommand {
         Player target = null;
         
         if (cs instanceof Player && !cs.hasPermission(AncientExperience.nodeXPAdmin)) {
-            cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "You don't have the permission to use this command");
+            cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "You don't have the permission to use this command");
             return;
         }
         if (args.length < 2) {
-            cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "Correct usage is level setxp <amount> [player]");
+            cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Correct usage is level setxp <amount> [player]");
             return;
         }
         int amount;
         if (args.length == 2) {
             if (!(cs instanceof Player)) {
-                cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "Correct usage is level setxp amount player");
+                cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Correct usage is level setxp amount player");
                 return;
             }
             playername = cs.getName();
@@ -40,7 +40,7 @@ public class AddXpCommand {
                
            } catch (Exception ex) {
                
-               cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.RED + "Player not found/online !"); //If target  is offline
+               cs.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Player not found/online !"); //If target  is offline
                return;
                
            } 
@@ -49,7 +49,7 @@ public class AddXpCommand {
         try {
             amount = Integer.parseInt(args[1]);
         } catch (Exception e) {
-            cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "Expected Integer, recieved string");
+            cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Expected Integer, recieved string");
             return;
         }
         PlayerData pd;
@@ -65,12 +65,12 @@ public class AddXpCommand {
         }
         
         if (pd == null) {
-            cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "Player not found");
+            cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Player not found");
         }
         if (pd != null) {
             pd.getXpSystem().xp += amount;
             pd.getXpSystem().addXP(0, false);
-            cs.sendMessage(ChatColor.GOLD + "[" + Ancient.brand + "] " + ChatColor.YELLOW + "Successfully added " + amount + " to the experience of the player " + playername);
+            cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Successfully added " + amount + " to the experience of the player " + playername);
         }
     }
 }

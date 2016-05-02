@@ -18,7 +18,7 @@ public class GuildCommandWithdraw {
                 try {
                     value = Double.parseDouble(args[1]);
                 } catch (Exception e) {
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "String given, Decimal expected");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "String given, Decimal expected");
                     return;
                 }
                 if (value > 0) {
@@ -26,18 +26,18 @@ public class GuildCommandWithdraw {
                         if (mGuild.gMember.get(mPlayer.getUniqueId()) == AncientGuildRanks.LEADER || mGuild.gMember.get(mPlayer.getUniqueId()) == AncientGuildRanks.CO_LEADER) {
                             Ancient.economy.bankWithdraw(mGuild.accountName, value);
                             Ancient.economy.depositPlayer(mPlayer.getName(), value);
-                            mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Successfully withdraw " + value + " of the bank of your guild.");
+                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Successfully withdraw " + value + " of the bank of your guild.");
                         } else {
-                            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You must be a (co-)leader to do that.");
+                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You must be a (co-)leader to do that.");
                         }
                     } else {
-                        mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "Your guild doesn't have enough money.");
+                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Your guild doesn't have enough money.");
                     }
                 } else {
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You must enter a value bigger than 0");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You must enter a value bigger than 0");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You are in no guild.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You are in no guild.");
             }
         }
     }

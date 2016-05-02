@@ -15,10 +15,10 @@ public class GuildCommandDisband {
             if (mGuild.gLeader.compareTo(mPlayer.getUniqueId()) == 0) {
                 mGuild.disband(false);
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "Only the leader can disband the guild.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Only the leader can disband the guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

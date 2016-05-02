@@ -14,12 +14,12 @@ public class GuildCommandMoney {
         AncientGuild mGuild = AncientGuild.getPlayersGuild(mPlayer.getUniqueId());
         if (mGuild != null) {
             if (mGuild.gMember.get(mPlayer.getUniqueId()) != AncientGuildRanks.TRIAL) {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Your guild has " + Ancient.economy.format(Ancient.economy.bankBalance(mGuild.accountName).balance));
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Your guild has " + Ancient.economy.format(Ancient.economy.bankBalance(mGuild.accountName).balance));
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You must be at least a Member to do that.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You must be at least a Member to do that.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You arn't in a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You arn't in a guild.");
         }
     }
 }

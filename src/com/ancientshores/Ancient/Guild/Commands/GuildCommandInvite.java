@@ -22,26 +22,26 @@ public class GuildCommandInvite {
                         if (invitedPlayer.hasPermission(AncientGuild.gNodeJoin)) {
                             if (AncientGuild.invites.size() < AncientGuild.maxPlayers) {
                                 AncientGuild.invites.put(invitedPlayer.getUniqueId(), guild);
-                                player.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Invited " + invitedPlayer.getName() + " to your guild.");
-                                invitedPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "You were invited to the guild " + "\"" + guild.guildName + "\"" + " by " + player.getName() + ".");
-                                invitedPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Use /guild accept or/guild reject.");
+                                player.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Invited " + invitedPlayer.getName() + " to your guild.");
+                                invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "You were invited to the guild " + "\"" + guild.guildName + "\"" + " by " + player.getName() + ".");
+                                invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Use /guild accept or/guild reject.");
                             } else {
-                                player.sendMessage(Ancient.brand2 + ChatColor.RED + "Your guild is already full.");
+                                player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Your guild is already full.");
                             }
                         } else {
-                            player.sendMessage(Ancient.brand2 + ChatColor.RED + "This Player hasn't the permission to join a guild.");
+                            player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This Player hasn't the permission to join a guild.");
                         }
                     } else {
-                        player.sendMessage(Ancient.brand2 + ChatColor.RED + "This Player already has a guild or doesn't exist or already is invited.");
+                        player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This Player already has a guild or doesn't exist or already is invited.");
                     }
                 } else {
-                    player.sendMessage(Ancient.brand2 + ChatColor.RED + "You don't have the rank to invite people.");
+                    player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You don't have the rank to invite people.");
                 }
             } else {
-                player.sendMessage(Ancient.brand2 + ChatColor.RED + "You are in no guild.");
+                player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You are in no guild.");
             }
         } else {
-            player.sendMessage(Ancient.brand2 + ChatColor.RED + "Correct usage: /guild invite <player>");
+            player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Correct usage: /guild invite <player>");
         }
     }
 }

@@ -22,7 +22,7 @@ public class SetRaceCommand {
                 long t = System.currentTimeMillis();
                 long div = t - AncientRace.playersOnCd.get(p.getUniqueId());
                 if (div < (AncientRace.changeCd * 1000)) {
-                    sender.sendMessage(Ancient.brand2 + "The race change cooldown hasn't expired yet");
+                    sender.sendMessage(Ancient.ChatBrand + "The race change cooldown hasn't expired yet");
                     long timeleft = AncientRace.playersOnCd.get(p.getUniqueId()) + (AncientRace.changeCd * 1000) - System.currentTimeMillis();
                     int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
                     sender.sendMessage("You have to wait another " + minutes + " minutes.");
@@ -31,32 +31,32 @@ public class SetRaceCommand {
             }
             if (command.length == 3) {
                 if (!p.hasPermission(AncientRace.adminRacePermission)) {
-                    sender.sendMessage(Ancient.brand2 + "You don't have the permission to change another persons race");
+                    sender.sendMessage(Ancient.ChatBrand + "You don't have the permission to change another persons race");
                     return;
                 }
                 p = Bukkit.getServer().getPlayer(command[2]);
                 if (p == null) {
-                    sender.sendMessage(Ancient.brand2 + "Player not found");
+                    sender.sendMessage(Ancient.ChatBrand + "Player not found");
                     return;
                 }
             }
             AncientRace race = AncientRace.getRaceByName(command[1]);
             if (race == null) {
-                sender.sendMessage(Ancient.brand2 + "This race does not exist!");
+                sender.sendMessage(Ancient.ChatBrand + "This race does not exist!");
                 return;
             }
             if (race.permission != null && !race.permission.equals("") && !sender.hasPermission(race.permission)) {
-                sender.sendMessage(Ancient.brand2 + "You don't have the permission to set your race to this race");
+                sender.sendMessage(Ancient.ChatBrand + "You don't have the permission to set your race to this race");
                 return;
             }
             if (!sender.hasPermission(AncientRace.setRacePermission)) {
-                sender.sendMessage(Ancient.brand2 + "You don't have the permission to use this command");
+                sender.sendMessage(Ancient.ChatBrand + "You don't have the permission to use this command");
                 return;
             }
             setRace(p, race);
-            p.sendMessage(Ancient.brand2 + "Your race is now " + race.name);
+            p.sendMessage(Ancient.ChatBrand + "Your race is now " + race.name);
             if (p != sender) {
-                sender.sendMessage(Ancient.brand2 + "Successfully changed the race of " + command[2]);
+                sender.sendMessage(Ancient.ChatBrand + "Successfully changed the race of " + command[2]);
             }
             AncientRace.playersOnCd.put(sender.getUniqueId(), System.currentTimeMillis());
             File f = new File(Ancient.plugin.getDataFolder() + File.separator + "Races" + File.separator + "changecds.dat");
@@ -74,7 +74,7 @@ public class SetRaceCommand {
 				e.printStackTrace();
 			}
         } else {
-            sender.sendMessage(Ancient.brand2 + "Incorrect usage of setrace");
+            sender.sendMessage(Ancient.ChatBrand + "Incorrect usage of setrace");
         }
     }
 

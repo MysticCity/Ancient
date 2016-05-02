@@ -16,13 +16,13 @@ public class GuildCommandRemoveMotd {
 		if (guild != null) {
 			if (AncientGuildRanks.hasMotdRights(guild.gMember.get(player.getUniqueId()))) {
 				guild.motd = "";
-				player.sendMessage(Ancient.brand2 + ChatColor.GREEN + "MOTD was successfully removed!");
+				player.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "MOTD was successfully removed!");
 				AncientGuild.writeGuilds();
 			} else {
-				player.sendMessage(Ancient.brand2 + ChatColor.RED + "You do not have the rights to change the MOTD.");
+				player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You do not have the rights to change the MOTD.");
 			}
 		} else {
-			player.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+			player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
 		}
 	}
 }

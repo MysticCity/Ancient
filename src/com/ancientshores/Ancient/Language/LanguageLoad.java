@@ -76,6 +76,8 @@ public class LanguageLoad {
         LanguageFile US = new LanguageFile(plugin, LanguageCode.US); //US-English lang-config
         LanguageFile DE = new LanguageFile(plugin, LanguageCode.DE); //German lang-config
         
+        LanguageFile SYS = new LanguageFile(plugin, LanguageCode.SYSTEM); //System lang-config (required for prefixes etc.)
+        
         /*
          *  EN-Defaults
          */
@@ -117,6 +119,14 @@ public class LanguageLoad {
         DE.setTextOnce("GUI.PlayerMenu.Title", "&eMenü");
         DE.setTextOnce("GUI.PlayerMenu.Items.Help.Name", "&eHilfe");
         DE.setTextOnce("GUI.PlayerMenu.Items.Help.Description", "&9Falls du hilfe brauchst");
+        
+        /*
+         * System-Defaults
+         */
+        
+        //Chat prefixes/ConsoleBrands
+        SYS.setTextOnce("Ancient.ConsoleBrand", "[Ancient]");
+        SYS.setTextOnce("Ancient.ChatBrand", "&e[Ancient]");
     }
     
 }

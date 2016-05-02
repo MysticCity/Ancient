@@ -19,7 +19,7 @@ public class ClassCastCommand {
 
     public static boolean canCast(PlayerData pd, Player mPlayer, String s) {
         if (!mPlayer.hasPermission(AncientClass.cNodeSpells)) {
-            mPlayer.sendMessage(Ancient.brand2 + "You don't have permissions to cast a spell");
+            mPlayer.sendMessage(Ancient.ChatBrand + "You don't have permissions to cast a spell");
             return false;
         }
         Spell p = AncientClass.getSpell(s, pd);
@@ -51,16 +51,16 @@ public class ClassCastCommand {
         }
         for (Map.Entry<SpellInformationObject, UUID> entry : silencedPlayers.entrySet()) {
             if (entry.getValue().compareTo(mPlayer.getUniqueId()) == 0) {
-                mPlayer.sendMessage(Ancient.brand2 + "You are silenced and can't cast a spell");
+                mPlayer.sendMessage(Ancient.ChatBrand + "You are silenced and can't cast a spell");
                 return;
             }
         }
         if (!mPlayer.hasPermission(AncientClass.cNodeSpells)) {
-            mPlayer.sendMessage(Ancient.brand2 + "You don't have permissions to cast a spell");
+            mPlayer.sendMessage(Ancient.ChatBrand + "You don't have permissions to cast a spell");
             return;
         }
         if (!p.active) {
-            mPlayer.sendMessage(Ancient.brand2 + "You can't cast passive spells");
+            mPlayer.sendMessage(Ancient.ChatBrand + "You can't cast passive spells");
             return;
         }
         CommandPlayer.scheduleSpell(p, mPlayer.getUniqueId());

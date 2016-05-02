@@ -9,9 +9,7 @@ import java.io.ObjectInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +20,6 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -62,6 +59,7 @@ import com.ancientshores.Ancient.HP.Armor;
 import com.ancientshores.Ancient.HP.CreatureHp;
 import com.ancientshores.Ancient.HP.DamageConverter;
 import com.ancientshores.Ancient.HP.HPCommand;
+import com.ancientshores.Ancient.Language.LanguageCode;
 import com.ancientshores.Ancient.Language.LanguageFile;
 import com.ancientshores.Ancient.Language.LanguageLoad;
 import com.ancientshores.Ancient.Listeners.AncientBlockListener;
@@ -134,9 +132,12 @@ public class Ancient extends JavaPlugin {
 	public static final String ancientCommandNode = "Ancient.Commands.ancient";
 	public static String versionString = ""; // string der die aktuelle version des servers speichert NNN
 	//static Locale currentLocale; // speichert die position des servers NNN
-	public static String brand = "ANCIENT"; // logo fuer textausgaben
-	public static String brand2 = "[ANCIENT] "; // ??? NNN
+	public static String ConsoleBrand = "[Ancient] "; // logo fuer textausgaben
+	public static String ChatBrand = "§e[Ancient] "; // ??? NNN
+        
         public LanguageFile lang;
+        public LanguageFile systemLang;
+        
 	//static ResourceBundle messages; // die Texte in der jeweiligen Sprache
 
 	
@@ -191,7 +192,13 @@ public class Ancient extends JavaPlugin {
                 // setup lang-files
                 // =============
                 LanguageLoad.loadLanguageConfig(this);
+                
                 lang = new LanguageFile(this, LanguageLoad.getLanguageCode(this));
+                
+                systemLang = new LanguageFile(this, LanguageCode.SYSTEM);
+                
+                ConsoleBrand = systemLang.getText("Ancient.ConsoleBrand").replaceAll("&", "§") + " "; //Load Console-ConsoleBrand from SYSTEM - lang file
+                ChatBrand = systemLang.getText("Ancient.ChatBrand").replaceAll("&", "§") + " "; //Load Chat-ConsoleBrand from SYSTEM - lang file
                 
                 // =============
                 // load GUI requirements
@@ -522,9 +529,7 @@ public class Ancient extends JavaPlugin {
 		YamlConfiguration yc = new YamlConfiguration(); // erstellt eine neue yamlconfiguration EDIT ist laden aus der Datei nicht sinnvoller?
 		
 		// setzt die verschiedenen Punkte
-		// ??? funktioniert das, wenn man in der config was ändert? wird hierdurch nicht alles überschrieben besser bei if !exists
-		//BRAND
-		yc.set("Brand", brand);
+
 		yc.set(partyCommandNode, partyCommand);
 		yc.set(guildCommandNode, guildCommand);
 		yc.set(classCommandNode, classCommand);
@@ -556,9 +561,7 @@ public class Ancient extends JavaPlugin {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// BRAND STUFF
-			brand = yc1.getString("Brand", brand);
-			brand2 = ChatColor.GOLD + "[" + brand + "] " + ChatColor.YELLOW;
+			// ConsoleBrand STUFF
 			partyCommand = yc1.getString(partyCommandNode, partyCommand);
 			guildCommand = yc1.getString(guildCommandNode, guildCommand);
 			classCommand = yc1.getString(classCommandNode, classCommand);
@@ -574,9 +577,7 @@ public class Ancient extends JavaPlugin {
 			unbindCommand = yc1.getString(unbindCommandNode, unbindCommand);
 			ancientCommand = yc1.getString(ancientCommandNode, ancientCommand);
 		} else {
-			// BRAND STUFF
-			brand = yc.getString("Brand", brand);
-			brand2 = ChatColor.GOLD + "[" + brand + "] " + ChatColor.YELLOW;
+			
 			partyCommand = yc.getString(partyCommandNode, partyCommand);
 			guildCommand = yc.getString(guildCommandNode, guildCommand);
 			classCommand = yc.getString(classCommandNode, classCommand);

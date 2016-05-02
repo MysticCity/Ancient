@@ -16,10 +16,10 @@ public class PartyCommandDisband {
                 mParty.removeAll();
                 AncientParty.partys.remove(mParty);
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't the leader of this party.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't the leader of this party.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't in a party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't in a party.");
         }
     }
 }

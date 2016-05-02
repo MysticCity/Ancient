@@ -8,7 +8,10 @@ public enum LanguageCode
     //English
     EN, US,
     
-    //Deutsch
-    DE
+    //German
+    DE,
+    
+    //System
+    SYSTEM
   
 }

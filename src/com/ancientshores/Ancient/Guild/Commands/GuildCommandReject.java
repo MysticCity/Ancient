@@ -12,9 +12,9 @@ public class GuildCommandReject {
         Player mPlayer = (Player) sender;
         if (AncientGuild.invites.containsKey(mPlayer.getUniqueId())) {
             AncientGuild.invites.remove(mPlayer.getUniqueId());
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Succesfully rejected the guild invitation.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Succesfully rejected the guild invitation.");
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You weren't invited to a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You weren't invited to a guild.");
         }
     }
 }

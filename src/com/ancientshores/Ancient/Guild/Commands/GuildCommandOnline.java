@@ -18,7 +18,7 @@ public class GuildCommandOnline {
         Player mPlayer = (Player) sender;
         AncientGuild guild = AncientGuild.getPlayersGuild(mPlayer.getUniqueId());
         if (guild != null) {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Guild members online:");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Guild members online:");
             Set<UUID> uuids = guild.gMember.keySet();
             for (UUID uuid : uuids) {
                 if (Bukkit.getPlayer(uuid) != null && Bukkit.getPlayer(uuid).isOnline()) {
@@ -26,7 +26,7 @@ public class GuildCommandOnline {
                 }
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

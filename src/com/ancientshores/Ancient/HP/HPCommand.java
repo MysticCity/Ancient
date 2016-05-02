@@ -12,12 +12,12 @@ public class HPCommand {
             PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
-            p.sendMessage(Ancient.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (Math.round(hp * 100) / 100.0) + "/" + (Math.round(maxhp * 100) / 100.0) + " hp");
-            p.sendMessage(Ancient.brand2 + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + pd.getHpsystem().getHPRegen());
+            p.sendMessage(Ancient.ChatBrand + "You have " + getChatColorByHp(hp, maxhp) + (Math.round(hp * 100) / 100.0) + "/" + (Math.round(maxhp * 100) / 100.0) + " hp");
+            p.sendMessage(Ancient.ChatBrand + "Your hp regeneration per " + pd.getHpsystem().hpRegInterval + " seconds is " + ChatColor.GREEN + pd.getHpsystem().getHPRegen());
         } else {
             double hp = p.getHealth();
             double maxhp = p.getMaxHealth();
-            p.sendMessage(Ancient.brand2 + "You have " + getChatColorByHp(hp, maxhp) + (Math.round(hp * 100) / 100.0) + "/" + (Math.round(maxhp * 100) / 100.0) + " hp");
+            p.sendMessage(Ancient.ChatBrand + "You have " + getChatColorByHp(hp, maxhp) + (Math.round(hp * 100) / 100.0) + "/" + (Math.round(maxhp * 100) / 100.0) + " hp");
         }
     }
 

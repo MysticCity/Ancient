@@ -17,16 +17,16 @@ public class GuildCommandSetMotd {
                 if (AncientGuildRanks.hasMotdRights(guild.gMember.get(player.getUniqueId()))) {
                     args[0] = "";
                     guild.motd = Ancient.convertStringArrayToString(args);
-                    guild.broadcastMessage(Ancient.brand2 + ChatColor.GREEN + "<Guild> motd: " + guild.motd);
+                    guild.broadcastMessage(Ancient.ChatBrand + ChatColor.GREEN + "<Guild> motd: " + guild.motd);
                     AncientGuild.writeGuilds();
                 } else {
-                    player.sendMessage(Ancient.brand2 + ChatColor.RED + "You do not have the rights to change the MOTD.");
+                    player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You do not have the rights to change the MOTD.");
                 }
             } else {
-                player.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+                player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
             }
         } else {
-            player.sendMessage(Ancient.brand2 + ChatColor.RED + "Correct usage: /guild setmotd <message>");
+            player.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Correct usage: /guild setmotd <message>");
         }
     }
 }

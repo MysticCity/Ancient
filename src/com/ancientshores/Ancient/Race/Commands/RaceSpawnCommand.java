@@ -9,7 +9,7 @@ import com.ancientshores.Ancient.Race.AncientRace;
 public class RaceSpawnCommand {
     public static void raceSpawnCommand(Player p) {
         if (!p.hasPermission(AncientRace.teleportToSpawnPermission)) {
-            p.sendMessage(Ancient.brand2 + "You don't have permission to teleport to the spawn of your race");
+            p.sendMessage(Ancient.ChatBrand + "You don't have permission to teleport to the spawn of your race");
         } else {
             String racename = PlayerData.getPlayerData(p.getUniqueId()).getRacename();
             for (AncientRace r : AncientRace.races) {
@@ -18,7 +18,7 @@ public class RaceSpawnCommand {
                         return;
                     }
                     p.teleport(r.spawnLoc.toLocation());
-                    p.sendMessage(Ancient.brand2 + "Successfully teleported to the race spawn");
+                    p.sendMessage(Ancient.ChatBrand + "Successfully teleported to the race spawn");
                     return;
                 }
             }

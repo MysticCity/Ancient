@@ -14,20 +14,20 @@ public class PartyCommandAccept {
             if (AncientParty.invites.get(mPlayer.getUniqueId()).getMemberNumber() < AncientParty.maxPlayers) {
                 AncientParty inviteParty = AncientParty.invites.get(mPlayer.getUniqueId());
                 if (inviteParty != null && inviteParty.getMemberNumber() > 0) {
-                    inviteParty.sendMessage(Ancient.brand2 + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " joined your party.");
+                    inviteParty.sendMessage(Ancient.ChatBrand + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " joined your party.");
                     AncientParty.invites.get(mPlayer.getUniqueId()).addPlayer(mPlayer.getUniqueId());
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You joined a party.");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You joined a party.");
                 } else {
                     AncientParty.invites.remove(mPlayer.getUniqueId());
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "The party you tried to join doesn't exist anymore.");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "The party you tried to join doesn't exist anymore.");
                 }
             } else {
                 AncientParty.invites.remove(mPlayer.getUniqueId());
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "This party is already full.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This party is already full.");
             }
             AncientParty.invites.remove(mPlayer.getUniqueId());
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You weren't invited in a party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You weren't invited in a party.");
         }
     }
 }

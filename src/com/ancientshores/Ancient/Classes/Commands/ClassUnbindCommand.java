@@ -21,11 +21,11 @@ public class ClassUnbindCommand {
                 int matid = Integer.parseInt(args[1]);
                 mat = Material.getMaterial(matid);
                 if (mat == null) {
-                    p.sendMessage(Ancient.brand2 + "Material not found");
+                    p.sendMessage(Ancient.ChatBrand + "Material not found");
                     return;
                 }
             } catch (Exception e) {
-                p.sendMessage(Ancient.brand2 + "Expected Integer but received string");
+                p.sendMessage(Ancient.ChatBrand + "Expected Integer but received string");
             }
         } else {
             return;
@@ -45,6 +45,6 @@ public class ClassUnbindCommand {
         if (removedata != null) {
             pd.getBindings().remove(removedata);
         }
-        p.sendMessage(Ancient.brand2 + "Successfully unbound " + m.name() + ".");
+        p.sendMessage(Ancient.ChatBrand + "Successfully unbound " + m.name() + ".");
     }
 }

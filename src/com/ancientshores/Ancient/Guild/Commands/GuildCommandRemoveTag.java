@@ -19,10 +19,10 @@ public class GuildCommandRemoveTag {
 			if (AncientGuildRanks.hasMotdRights(mGuild.gMember.get(mPlayer.getUniqueId()))) {
 				mGuild.setTag("");
 				AncientGuild.writeGuilds();
-				mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Guild tag successfully removed!");
+				mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Guild tag successfully removed!");
 			}
 		} else {
-			mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You are in no guild.");
+			mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You are in no guild.");
 		}
 	}
 }

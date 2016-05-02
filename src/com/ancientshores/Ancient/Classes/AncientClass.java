@@ -438,16 +438,16 @@ public class AncientClass implements Serializable {
 			Player p = (Player) sender;
 			if (args.length == 0) {
 				PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-				p.sendMessage(Ancient.brand2 + ChatColor.YELLOW + "Your class is: " + ChatColor.BLUE + pd.getClassName());
+				p.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Your class is: " + ChatColor.BLUE + pd.getClassName());
 
 				AncientClass mClass = AncientClass.classList.get(pd.getClassName().toLowerCase());
 				if (mClass != null && mClass.description != null && !mClass.description.equals("")) {
 					p.sendMessage(mClass.description);
 				}
 				if (pd.getStance() != null && !pd.getStance().trim().equals("") && !pd.getStance().trim().equals("")) {
-					p.sendMessage(Ancient.brand2 + ChatColor.YELLOW + "Your stance is " + ChatColor.BLUE + pd.getStance());
+					p.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Your stance is " + ChatColor.BLUE + pd.getStance());
 				}
-				p.sendMessage(Ancient.brand2 + ChatColor.YELLOW + "To see a list of all Commands type: " + ChatColor.AQUA + "/class help");
+				p.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "To see a list of all Commands type: " + ChatColor.AQUA + "/class help");
 			} else if (args[0].equalsIgnoreCase("bind")) {
 				SpellBindCommand.bindCommand(args, p);
 			} else if (args[0].equalsIgnoreCase("bindslot")) {

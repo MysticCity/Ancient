@@ -16,10 +16,10 @@ public class GuildCommandChat {
                 args[0] = "";
                 mGuild.sendMessage(Ancient.convertStringArrayToString(args), mPlayer);
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You are in no guild.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You are in no guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "Correct usage: /guild chat <message> or /gs <message> or /gc <message>");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Correct usage: /guild chat <message> or /gs <message> or /gc <message>");
         }
     }
 }

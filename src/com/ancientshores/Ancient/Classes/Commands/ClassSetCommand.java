@@ -26,7 +26,7 @@ public class ClassSetCommand {
 	@SuppressWarnings("deprecation")
 	public static void setCommand(Object[] args, CommandSender sender) {
 		if (args.length == 1) {
-			sender.sendMessage(Ancient.brand2 + "Not enough arguments");
+			sender.sendMessage(Ancient.ChatBrand + "Not enough arguments");
 			return;
 		}
 		
@@ -38,7 +38,7 @@ public class ClassSetCommand {
 			long t = System.currentTimeMillis();
 			long div = t - AncientClass.playersOnCd.get(player.getUniqueId());
 			if (div < (AncientClass.changeCd * 1000)) {
-				sender.sendMessage(Ancient.brand2 + "The class change cooldown hasn't expired yet");
+				sender.sendMessage(Ancient.ChatBrand + "The class change cooldown hasn't expired yet");
 				long timeleft = AncientClass.playersOnCd.get(player.getUniqueId()) + (AncientClass.changeCd * 1000) - System.currentTimeMillis();
 				int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
 				sender.sendMessage("You have to wait another " + minutes + " minutes.");
@@ -60,18 +60,18 @@ public class ClassSetCommand {
 				player = pl;
 				c = AncientClass.classList.get(((String) args[2]).toLowerCase());
 			} else {
-				sender.sendMessage(Ancient.brand2 + "Player not found");
+				sender.sendMessage(Ancient.ChatBrand + "Player not found");
 				return;
 			}
 		}
 		
 		if (c != null) {
 			if ((c.preclass != null && !c.preclass.equals("") && (pd.getClassName() == null || !c.preclass.toLowerCase().equals(pd.getClassName().toLowerCase())))) {
-				sender.sendMessage(Ancient.brand2 + "You need to be a " + c.preclass + " to join this class");
+				sender.sendMessage(Ancient.ChatBrand + "You need to be a " + c.preclass + " to join this class");
 				return;
 			}
 			setClass(c, oldclass, player, sender);
-		} else sender.sendMessage(Ancient.brand2 + "This class does not exist (typo?)");
+		} else sender.sendMessage(Ancient.ChatBrand + "This class does not exist (typo?)");
 	}
 
 	public static void setCommandConsole(Object[] args) {
@@ -98,7 +98,7 @@ public class ClassSetCommand {
 		
 		if (AncientExperience.isWorldEnabled(p.getWorld())) {
 			if (pd.getXpSystem().level < newClass.minlevel) {
-				p.sendMessage(Ancient.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
+				p.sendMessage(Ancient.ChatBrand + "You need to be level " + newClass.minlevel + " to join this class");
 				return false;
 			}
 		}
@@ -129,26 +129,26 @@ public class ClassSetCommand {
 		if (newClass != null) {
 			if (sender == p && AncientExperience.isWorldEnabled(p.getWorld()))
 				if (pd.getXpSystem().level < newClass.minlevel) {
-					p.sendMessage(Ancient.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
+					p.sendMessage(Ancient.ChatBrand + "You need to be level " + newClass.minlevel + " to join this class");
 					return;
 				}
 
 			if (!sender.hasPermission(AncientClass.cNodeClass)) {
-				sender.sendMessage(Ancient.brand2 + "You don't have the required permissions to become this class");
+				sender.sendMessage(Ancient.ChatBrand + "You don't have the required permissions to become this class");
 				return;
 			}
 			if (!newClass.isWorldEnabled(p.getWorld())) {
-				sender.sendMessage(Ancient.brand2 + "This class cannot be used in this world");
+				sender.sendMessage(Ancient.ChatBrand + "This class cannot be used in this world");
 				return;
 			}
 			AncientRace race = AncientRace.getRaceByName(PlayerData.getPlayerData(p.getUniqueId()).getRacename());
 			if (newClass.requiredraces.size() > 0 && (race == null || !newClass.requiredraces.contains(race.name.toLowerCase()))) {
-				p.sendMessage(Ancient.brand2 + "Your race can't use this class");
+				p.sendMessage(Ancient.ChatBrand + "Your race can't use this class");
 				return;
 			}
 
 			if (sender == null || !(newClass.permissionNode == null || newClass.permissionNode.equalsIgnoreCase("")) && !sender.hasPermission(newClass.permissionNode)) {
-				p.sendMessage(Ancient.brand2 + "You don't have permissions to use this class");
+				p.sendMessage(Ancient.ChatBrand + "You don't have permissions to use this class");
 				return;
 			}
 			AncientClassChangeEvent classevent = new AncientClassChangeEvent(p.getUniqueId(), oldClass, newClass);
@@ -180,7 +180,7 @@ public class ClassSetCommand {
 			pd.getHpsystem().setMaxHP();
 			// pd.hpsystem.maxhp = ct.getMaxHp();
 			pd.setBindings(new HashMap<BindingData, String>());
-			p.sendMessage(Ancient.brand2 + "Your class is now " + newClass.name);
+			p.sendMessage(Ancient.ChatBrand + "Your class is now " + newClass.name);
 			pd.setStance("");
 			try {
 				if (newClass.permGroup != null && !newClass.permGroup.equals("") && Ancient.permissionHandler != null)

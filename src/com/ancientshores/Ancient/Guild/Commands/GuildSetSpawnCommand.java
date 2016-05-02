@@ -17,16 +17,16 @@ public class GuildSetSpawnCommand {
             if (rank == AncientGuildRanks.LEADER || rank == AncientGuildRanks.CO_LEADER) {
                 if (AncientGuild.spawnEnabled) {
                     mGuild.spawnLocation = new SerializableLocation(mPlayer.getLocation());
-                    sender.sendMessage(Ancient.brand2 + "Successfully set the guildspawn to your current location");
+                    sender.sendMessage(Ancient.ChatBrand + "Successfully set the guildspawn to your current location");
                     AncientGuild.writeGuild(mGuild);
                 } else {
-                    sender.sendMessage(Ancient.brand2 + "The spawn feature is not enabled on this server");
+                    sender.sendMessage(Ancient.ChatBrand + "The spawn feature is not enabled on this server");
                 }
             } else {
-                sender.sendMessage(Ancient.brand2 + "You have to be atleast a coleader to use this command");
+                sender.sendMessage(Ancient.ChatBrand + "You have to be atleast a coleader to use this command");
             }
         } else {
-            sender.sendMessage(Ancient.brand2 + "You have to be in a guild to use this command");
+            sender.sendMessage(Ancient.ChatBrand + "You have to be in a guild to use this command");
         }
     }
 }

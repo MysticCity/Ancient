@@ -38,7 +38,7 @@ public class LanguageFile {
             
         }catch (Exception ex){
             
-            System.out.println( "[" + Ancient.brand + "] " + "Text " + textPath + " does not exist.");
+            System.out.println( "[" + Ancient.ConsoleBrand + "] " + "Text " + textPath + " does not exist.");
             return "Text not found :(";
    
         }
@@ -62,22 +62,22 @@ public class LanguageFile {
     //Set a text only once
     public void setTextOnce(String textPath, String text){
         
-        try{
-            
-            if ( !lang.getString(textPath.toLowerCase()).equals(text) )
-            {
-                lang.set(textPath.toLowerCase() , text);
-                langFile.saveConfig();
-            }
-        
-        } catch (Exception ex) {
-            
-                System.out.println(Ancient.brand2 + "Language: Blueprint not found. creating...");
-                lang.set(textPath.toLowerCase() , text);
-                langFile.saveConfig();
-                System.out.println(Ancient.brand2 + "Language: Created (" + textPath + ") in " + langCode.name() + "...");
-            
-        }
+       try{
+           
+           if ( lang.getString(textPath.toLowerCase()) == null ) {
+               
+               lang.set(textPath.toLowerCase() , text);
+               langFile.saveConfig();
+               System.out.println(Ancient.ConsoleBrand + "Created lang-text " + textPath);
+               
+           }
+           
+       } catch (Exception ex) {
+           
+           System.out.println(Ancient.ConsoleBrand + "Error while creating lang-file:");
+           System.out.println(ex.getMessage());
+           
+       }
         
     }
     

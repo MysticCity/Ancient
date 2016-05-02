@@ -12,7 +12,7 @@ public class PartyCommandChat {
         Player mPlayer = (Player) sender;
         AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
         if (mParty == null) {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't in a party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't in a party.");
         } else {
             String[] message = new String[args.length - 1];
             System.arraycopy(args, 1, message, 0, args.length - 1);

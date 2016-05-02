@@ -11,8 +11,8 @@ public class ManaCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
         	PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-            p.sendMessage(Ancient.brand2 + "Your mana regeneration per " + pd.getManasystem().manareginterval + " seconds is " + pd.getManasystem().manareg);
-            p.sendMessage(Ancient.brand2 + "You currently have " + pd.getManasystem().curmana + " mana, your max mana is " + pd.getManasystem().maxmana);
+            p.sendMessage(Ancient.ChatBrand + "Your mana regeneration per " + pd.getManasystem().manareginterval + " seconds is " + pd.getManasystem().manareg);
+            p.sendMessage(Ancient.ChatBrand + "You currently have " + pd.getManasystem().curmana + " mana, your max mana is " + pd.getManasystem().maxmana);
         }
     }
 }

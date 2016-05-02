@@ -11,10 +11,10 @@ public class PartyCommandReject {
     public static void processReject(CommandSender sender) {
         Player mPlayer = (Player) sender;
         if (AncientParty.invites.containsKey(mPlayer.getUniqueId())) {
-            AncientParty.invites.get(mPlayer.getUniqueId()).sendMessage(Ancient.brand2 + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " rejected your invite.");
+            AncientParty.invites.get(mPlayer.getUniqueId()).sendMessage(Ancient.ChatBrand + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " rejected your invite.");
             AncientParty.invites.remove(mPlayer.getUniqueId());
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You weren't invited in a party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You weren't invited in a party.");
         }
     }
 }

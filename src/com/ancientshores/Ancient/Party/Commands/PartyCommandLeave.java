@@ -14,14 +14,14 @@ public class PartyCommandLeave {
             AncientParty mPlayersParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
             mPlayersParty.removePlayer(mPlayer.getUniqueId());
             mPlayersParty.giveNextLeader();
-            mPlayersParty.sendMessage(Ancient.brand2 + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " left your party.");
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "Successfully left the party.");
+            mPlayersParty.sendMessage(Ancient.ChatBrand + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + " left your party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Successfully left the party.");
             if (mPlayersParty.getMemberNumber() == 1) {
-                mPlayersParty.sendMessage(Ancient.brand2 + ChatColor.RED + "Your party has been deleted.");
+                mPlayersParty.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Your party has been deleted.");
                 AncientParty.partys.remove(mPlayersParty);
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't in a party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't in a party.");
         }
     }
 }

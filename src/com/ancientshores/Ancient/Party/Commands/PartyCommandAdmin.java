@@ -31,7 +31,7 @@ public class PartyCommandAdmin {
                     if (playertolist != null) {
                         if (AncientParty.getPlayersParty(playertolist.getUniqueId()) != null) {
                             AncientParty mParty = AncientParty.getPlayersParty(playertolist.getUniqueId());
-                            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "In this party are:");
+                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "In this party are:");
                             for (UUID uuid : mParty.getMembers()) {
                                 if (uuid != null) {
                                     if (uuid.compareTo(AncientParty.getPlayersParty(mPlayer.getUniqueId()).getLeader()) == 0) {
@@ -50,19 +50,19 @@ public class PartyCommandAdmin {
                     if (playertolist != null) {
                         if (AncientParty.getPlayersParty(playertolist.getUniqueId()) != null) {
                             AncientParty mParty = AncientParty.getPlayersParty(playertolist.getUniqueId());
-                            mParty.sendMessage(Ancient.brand2 + ChatColor.BLUE + "Your party has been disbandend by an admin.");
+                            mParty.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Your party has been disbandend by an admin.");
                             mParty.removeAll();
                             AncientParty.partys.remove(mParty);
                         } else {
-                            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "This user isn't in a Party");
+                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This user isn't in a Party");
                         }
                     } else {
-                        mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "This player isn't in a party.");
+                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player isn't in a party.");
                     }
                 }
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't a party admin");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't a party admin");
         }
     }
 }

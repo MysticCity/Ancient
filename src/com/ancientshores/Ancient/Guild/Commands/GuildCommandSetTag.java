@@ -21,13 +21,13 @@ public class GuildCommandSetTag {
                     args[0] = "";
                     mGuild.setTag(Ancient.convertStringArrayToString(args).trim());
                     AncientGuild.writeGuilds();
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Guild tag successfully set!");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Guild tag successfully set!");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You are in no guild.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You are in no guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "Correct usage: /guild settag <tag>");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Correct usage: /guild settag <tag>");
         }
     }
 }

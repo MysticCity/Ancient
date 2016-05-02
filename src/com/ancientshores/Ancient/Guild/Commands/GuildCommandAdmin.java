@@ -29,7 +29,7 @@ public class GuildCommandAdmin {
                     if (g != null) {
                         g.disband(true);
                     } else {
-                        mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "This player does not exist, please use the exact name.");
+                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This player does not exist, please use the exact name.");
                     }
                 } else if (args[1].equals("list")) {
                     AncientGuild g = AncientGuild.getPlayersGuild(Bukkit.getPlayer(args[2]).getUniqueId());
@@ -40,12 +40,12 @@ public class GuildCommandAdmin {
                             mPlayer.sendMessage(AncientGuildRanks.getChatColorByRank(g.gMember.get(uuid)) + PlayerFinder.getPlayerName(uuid));
                         }
                     } else {
-                        mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "This player does not exist, please use the exact name.");
+                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This player does not exist, please use the exact name.");
                     }
                 }
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't a guild admin.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't a guild admin.");
         }
     }
 }

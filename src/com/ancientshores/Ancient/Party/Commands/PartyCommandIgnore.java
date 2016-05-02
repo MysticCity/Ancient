@@ -13,13 +13,13 @@ public class PartyCommandIgnore {
         if (args.length == 0) {
             if (!AncientParty.mIgnoreList.contains(mPlayer.getUniqueId())) {
                 AncientParty.mIgnoreList.add(mPlayer.getUniqueId());
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You are ignoring all invitations now.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You are ignoring all invitations now.");
             } else {
                 AncientParty.mIgnoreList.remove(mPlayer.getUniqueId());
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't ignoring invitations anymore.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't ignoring invitations anymore.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "Correct usage: /pignore");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Correct usage: /pignore");
         }
     }
 }

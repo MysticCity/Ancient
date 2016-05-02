@@ -17,16 +17,16 @@ public class PartyCommandKick {
                 if (mParty.getLeader().compareTo(mPlayer.getUniqueId()) == 0) {
                     Player mKickedPlayer = main.getServer().getPlayer(args[1]);
                     mParty.removePlayer(mKickedPlayer.getUniqueId());
-                    mParty.sendMessage(Ancient.brand2 + ChatColor.GOLD + mKickedPlayer.getName() + ChatColor.BLUE + " was kicked out of your party.");
-                    mKickedPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You were kicked out of the party.");
+                    mParty.sendMessage(Ancient.ChatBrand + ChatColor.GOLD + mKickedPlayer.getName() + ChatColor.BLUE + " was kicked out of your party.");
+                    mKickedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were kicked out of the party.");
                 } else {
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't the leader of the party.");
+                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't the leader of the party.");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't in a party.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't in a party.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "Correct usage: /pkick <name>");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Correct usage: /pkick <name>");
         }
     }
 }

@@ -16,7 +16,7 @@ public class PartyCommandList {
         if (AncientParty.getPlayersParty(mPlayer.getUniqueId()) != null) {
             if (mPlayer.hasPermission("")) { // ??? --- mega sinnlos
                 AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "In your party are:");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "In your party are:");
                 for (UUID uuid : mParty.getMembers()) {
                     if (uuid != null) {
                         if (uuid == AncientParty.getPlayersParty(mPlayer.getUniqueId()).getLeader()) {
@@ -27,10 +27,10 @@ public class PartyCommandList {
                     }
                 }
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You don't have the permissions to list the party members.");
+                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You don't have the permissions to list the party members.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't in a party.");
+            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't in a party.");
         }
     }
 }

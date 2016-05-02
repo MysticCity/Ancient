@@ -31,7 +31,7 @@ public class SpellsCommand {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         PageBuilder pb = new PageBuilder();
         if (AncientClass.classList.containsKey(pd.getClassName().toLowerCase())) {
-            pb.addMessage(Ancient.brand2 + "Class spells:");
+            pb.addMessage(Ancient.ChatBrand + "Class spells:");
             for (Entry<String, Spell> s : AncientClass.classList.get(pd.getClassName().toLowerCase()).spellList.entrySet()) {
             	String message;
                 if (s.getValue().buff) {
@@ -54,7 +54,7 @@ public class SpellsCommand {
                 }
                 pb.addMessage(message);
             }
-            pb.addMessage(Ancient.brand2 + "Global spells:");
+            pb.addMessage(Ancient.ChatBrand + "Global spells:");
             for (Entry<String, Spell> s : AncientClass.globalSpells.entrySet()) {
                 String message;
                 if (s.getValue().buff) {
@@ -123,7 +123,7 @@ public class SpellsCommand {
                 }
             }
         } else {
-            pb.addMessage(Ancient.brand2 + "You don't have a class");
+            pb.addMessage(Ancient.ChatBrand + "You don't have a class");
             pb.addMessage("Global spells:");
             for (Entry<String, Spell> s : AncientClass.globalSpells.entrySet()) {
                 String message;

@@ -17,6 +17,6 @@ public class GuildCommandMotd {
         	else
         		p.sendMessage(ChatColor.RED + "Your guild has no motd.");
         else
-            p.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            p.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
     }
 }

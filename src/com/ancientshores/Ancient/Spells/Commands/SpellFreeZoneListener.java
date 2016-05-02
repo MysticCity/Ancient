@@ -30,13 +30,13 @@ public class SpellFreeZoneListener implements Listener {
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (event.getPlayer().hasPermission(selectspellfreezoneperm) && event.getItem() != null && event.getItem().getTypeId() == selectionid) {
                 leftlocs.put(event.getPlayer().getUniqueId(), event.getClickedBlock().getLocation());
-                event.getPlayer().sendMessage(Ancient.brand2 + "Defined first point for a spell free zone");
+                event.getPlayer().sendMessage(Ancient.ChatBrand + "Defined first point for a spell free zone");
             }
         }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getPlayer().hasPermission(selectspellfreezoneperm) && event.getItem() != null && event.getItem().getTypeId() == selectionid) {
                 rightlocs.put(event.getPlayer().getUniqueId(), event.getClickedBlock().getLocation());
-                event.getPlayer().sendMessage(Ancient.brand2 + "Defined second point for a spell free zone");
+                event.getPlayer().sendMessage(Ancient.ChatBrand + "Defined second point for a spell free zone");
             }
         }
     }
