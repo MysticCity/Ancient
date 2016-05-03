@@ -1,6 +1,6 @@
 package com.ancientshores.Ancient.GUI.Events;
 
-import com.ancientshores.Ancient.GUI.PlayerMenu;
+import com.ancientshores.Ancient.Interactive.InteractiveMessage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -14,6 +14,7 @@ public class TestEvent implements Listener{
         
         this.loader = loaderClass;
         
+        
     }
     
     @EventHandler
@@ -23,8 +24,8 @@ public class TestEvent implements Listener{
         {
             try{
             
-            PlayerMenu menu = new PlayerMenu(e.getPlayer(), loader.plugin);
-            menu.open();
+                InteractiveMessage m = new InteractiveMessage("&9Testmessage", "help");
+                m.sendToPlayer(e.getPlayer());
             
             } catch (Exception ex ) {
 

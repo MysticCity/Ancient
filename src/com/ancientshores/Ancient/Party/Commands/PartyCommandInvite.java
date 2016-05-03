@@ -5,10 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
+import com.ancientshores.Ancient.Interactive.InteractiveMessage;
 import com.ancientshores.Ancient.Party.AncientParty;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 
 
 public class PartyCommandInvite {
@@ -34,47 +32,27 @@ public class PartyCommandInvite {
                                                 //Send notification message
                                                 invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
 
-                                                //Check the servers operating system (Bungee or Spigot are required for used ComponentBuilder)
-                                                if ( Bukkit.getVersion().toLowerCase().contains("spigot") | Bukkit.getVersion().toLowerCase().contains("bungee") ) {
+                                                
                                                     
                                                     /*
                                                      * Accept party invite
                                                      */
-                                                    TextComponent interactiveAccept = new TextComponent("► Accept invite"); //What will be transmitted
-                                                    ClickEvent onClickAccept = new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/party accept"); //Set action
-                                                    interactiveAccept.setColor(net.md_5.bungee.api.ChatColor.GREEN); //Set message-color
-                                                    interactiveAccept.setClickEvent(onClickAccept); //Set ClickEvent
-                                                    
-                                                    invitedPlayer.spigot().sendMessage( interactiveAccept );//Send the whole stuff
+                                                    InteractiveMessage accept = new InteractiveMessage("&2► Accept invite","party accept");
+                                                    accept.sendToPlayer(invitedPlayer);
                                                     
                                                     /*
                                                      * Reject party invite
                                                      */
-                                                    TextComponent interactiveReject = new TextComponent("► Reject invite"); //What will be transmitted
-                                                    ClickEvent onClickReject = new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/party reject"); //Set action
-                                                    interactiveReject.setColor(net.md_5.bungee.api.ChatColor.RED); //Set message-color
-                                                    interactiveReject.setClickEvent(onClickReject); //Set ClickEvent
-                                                    
-                                                    invitedPlayer.spigot().sendMessage( interactiveReject );//Send the whole stuff
+                                                    InteractiveMessage reject = new InteractiveMessage("&c► Reject invite","party reject");
+                                                    reject.sendToPlayer(invitedPlayer);
                                                     
                                                     /*
                                                      * Ignore party invites
                                                      */
-                                                    TextComponent interactiveIgnore = new TextComponent("► Ignore invite"); //What will be transmitted
-                                                    ClickEvent onClickIgnore = new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/party ignore"); //Set action
-                                                    interactiveIgnore.setColor(net.md_5.bungee.api.ChatColor.GOLD); //Set message-color
-                                                    interactiveIgnore.setClickEvent(onClickIgnore); //Set ClickEvent
+                                                   InteractiveMessage ignore = new InteractiveMessage("&e► Ignore invites","party ignore");
+                                                   ignore.sendToPlayer(invitedPlayer);
+
                                                     
-                                                    invitedPlayer.spigot().sendMessage( interactiveIgnore );//Send the whole stuff
-                                                    
-                                                }else{
-                                                    
-                                                    invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
-                                                    invitedPlayer.sendMessage(ChatColor.BLUE + "Use /party accept or /party reject to join the party or reject the invitation.");
-                                                    invitedPlayer.sendMessage(ChatColor.BLUE + "If you want to ignore the invites of all players use /party ignore.");
-                                                    
-                                                }
-                                               
                                                 //Send success message   
                                                 mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Succesfully invited " + ChatColor.GOLD + invitedPlayer.getName() + ChatColor.BLUE + " to your new party.");
                                                 
@@ -121,47 +99,24 @@ public class PartyCommandInvite {
                                                             //Send notification message
                                                             invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
                                                     
-                                                            //Check the servers operating system (Bungee or Spigot are required for used ComponentBuilder)
-                                                        if ( Bukkit.getVersion().toLowerCase().contains("spigot") | Bukkit.getVersion().toLowerCase().contains("bungee") ) {
+                                                               /*
+                                                                * Accept party invite
+                                                                */
+                                                               InteractiveMessage accept = new InteractiveMessage("&2► Accept invite","party accept");
+                                                               accept.sendToPlayer(invitedPlayer);
 
-                                                            /*
-                                                             * Accept party invite
-                                                             */
-                                                            TextComponent interactiveAccept = new TextComponent("► Accept invite"); //What will be transmitted
-                                                            ClickEvent onClickAccept = new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/party accept"); //Set action
-                                                            interactiveAccept.setColor(net.md_5.bungee.api.ChatColor.GREEN); //Set message-color
-                                                            interactiveAccept.setClickEvent(onClickAccept); //Set ClickEvent
+                                                               /*
+                                                                * Reject party invite
+                                                                */
+                                                               InteractiveMessage reject = new InteractiveMessage("&c► Reject invite","party reject");
+                                                               reject.sendToPlayer(invitedPlayer);
 
-                                                            invitedPlayer.spigot().sendMessage( interactiveAccept );//Send the whole stuff
+                                                               /*
+                                                                * Ignore party invites
+                                                                */
+                                                              InteractiveMessage ignore = new InteractiveMessage("&e► Ignore invites","party ignore");
+                                                              ignore.sendToPlayer(invitedPlayer);
 
-                                                            /*
-                                                             * Reject party invite
-                                                             */
-                                                            TextComponent interactiveReject = new TextComponent("► Reject invite"); //What will be transmitted
-                                                            ClickEvent onClickReject = new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/party reject"); //Set action
-                                                            interactiveReject.setColor(net.md_5.bungee.api.ChatColor.RED); //Set message-color
-                                                            interactiveReject.setClickEvent(onClickReject); //Set ClickEvent
-
-                                                            invitedPlayer.spigot().sendMessage( interactiveReject );//Send the whole stuff
-
-                                                            /*
-                                                             * Ignore party invites
-                                                             * @TODO Remove after quickmenu is created
-                                                             */
-                                                            TextComponent interactiveIgnore = new TextComponent("► Ignore invite"); //What will be transmitted
-                                                            ClickEvent onClickIgnore = new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/party ignore"); //Set action
-                                                            interactiveIgnore.setColor(net.md_5.bungee.api.ChatColor.GOLD); //Set message-color
-                                                            interactiveIgnore.setClickEvent(onClickIgnore); //Set ClickEvent
-
-                                                            invitedPlayer.spigot().sendMessage( interactiveIgnore );//Send the whole stuff
-
-                                                        }else{
-
-                                                            invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
-                                                            invitedPlayer.sendMessage(ChatColor.BLUE + "Use /party accept or /party reject to join the party or reject the invitation.");
-                                                            invitedPlayer.sendMessage(ChatColor.BLUE + "If you want to ignore the invites of all players use /party ignore.");
-
-                                                        }
 
                                                         //Send success message   
                                                         mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Succesfully invited " + ChatColor.GOLD + invitedPlayer.getName() + ChatColor.BLUE + " to your new party.");
