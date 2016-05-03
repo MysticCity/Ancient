@@ -54,7 +54,7 @@ public class AddXpCommand {
         }
         PlayerData pd;
         
-        if (args.length == 3) {
+        if (args.length == 3 && target != null) {
             
             pd = PlayerData.playerHasPlayerData( ((Player) target).getUniqueId() );
             

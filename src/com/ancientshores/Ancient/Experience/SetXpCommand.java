@@ -34,7 +34,7 @@ public class SetXpCommand {
             
             try{
                 
-                playername = args[2];
+                playername = args[3];
                 
                 target = Bukkit.getPlayer(playername);
                 
@@ -52,7 +52,20 @@ public class SetXpCommand {
             cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Expected Integer, recieved string");
             return;
         }
-        PlayerData pd = PlayerData.playerHasPlayerData(((Player) cs).getUniqueId());
+        
+        PlayerData pd;
+        
+        if ( args.length == 3 && target != null)
+        {
+            
+            pd = PlayerData.playerHasPlayerData(((Player) target).getUniqueId());
+            
+        } else {
+            
+            pd = PlayerData.playerHasPlayerData(((Player) cs).getUniqueId());
+            
+        }
+        
         if (pd == null) {
             cs.sendMessage(Ancient.ChatBrand + ChatColor.YELLOW + "Player not found");
         }
