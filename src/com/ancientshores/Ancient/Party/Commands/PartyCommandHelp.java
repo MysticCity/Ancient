@@ -7,8 +7,12 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.HelpList;
+import com.ancientshores.Ancient.Language.Prefix;
 
 public class PartyCommandHelp {
+    
+    protected static String PartyBrand = Prefix.get( Ancient.systemLang.getText("Party.PartyBrand") );
+    
     public static HelpList helpList;
 
     public static void processHelp(CommandSender sender, String[] args) {

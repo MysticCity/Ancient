@@ -6,9 +6,13 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
+import com.ancientshores.Ancient.Language.Prefix;
 import com.ancientshores.Ancient.Party.AncientParty;
 
 public class PartyCommandToggleFriendlyFire {
+    
+    protected static String PartyBrand = Prefix.get( Ancient.systemLang.getText("Party.PartyBrand") );
+    
     public static void processFF(CommandSender sender) {
         Player mPlayer = (Player) sender;
         AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
@@ -16,15 +20,15 @@ public class PartyCommandToggleFriendlyFire {
             if (mParty != null) {
                 if (mParty.getLeader().compareTo(mPlayer.getUniqueId()) == 0) {
                     mParty.setFriendlyFireEnabled(!mParty.isFriendlyFireEnabled());
-                    mParty.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Friendly fire is now: " + ChatColor.GREEN + (mParty.isFriendlyFireEnabled() ? "off" : "on"));
+                    mParty.sendMessage(PartyBrand + ChatColor.BLUE + "Friendly fire is now: " + ChatColor.GREEN + (mParty.isFriendlyFireEnabled() ? "off" : "on"));
                 } else {
-                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You don't have permission to toggle friendly fire");
+                    mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You don't have permission to toggle friendly fire");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You aren't in a party!");
+                mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You aren't in a party!");
             }
         } else {
-            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Config disallows toggling ff of parties!");
+            mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "Config disallows toggling ff of parties!");
         }
     }
 }

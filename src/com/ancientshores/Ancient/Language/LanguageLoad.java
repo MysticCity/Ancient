@@ -53,6 +53,10 @@ public class LanguageLoad {
             return LanguageCode.DE;
         }
         
+        if ( currentLang.equalsIgnoreCase( LanguageCode.SYSTEM.name() ) ){ //If language set to system
+            return LanguageCode.SYSTEM;
+        }
+        
         return LanguageCode.EN; //Default language
         
     }
@@ -127,6 +131,8 @@ public class LanguageLoad {
         //Chat prefixes/ConsoleBrands
         SYS.setTextOnce("Ancient.ConsoleBrand", "[Ancient]");
         SYS.setTextOnce("Ancient.ChatBrand", "&e[Ancient]");
+        SYS.setTextOnce("Party.PartyBrand", "&9[Party]");
+        SYS.setTextOnce("Guild.GuildBrands", "&2[%GUILD_NAME%]");
     }
     
 }

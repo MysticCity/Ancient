@@ -132,11 +132,12 @@ public class Ancient extends JavaPlugin {
 	public static final String ancientCommandNode = "Ancient.Commands.ancient";
 	public static String versionString = ""; // string der die aktuelle version des servers speichert NNN
 	//static Locale currentLocale; // speichert die position des servers NNN
-	public static String ConsoleBrand = "[Ancient] "; // logo fuer textausgaben
+	
+        public static String ConsoleBrand = "[Ancient] "; // logo fuer textausgaben
 	public static String ChatBrand = "§e[Ancient] "; // ??? NNN
         
-        public LanguageFile lang;
-        public LanguageFile systemLang;
+        public static LanguageFile lang;
+        public static LanguageFile systemLang;
         
 	//static ResourceBundle messages; // die Texte in der jeweiligen Sprache
 

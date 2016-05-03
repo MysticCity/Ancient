@@ -6,10 +6,14 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Interactive.InteractiveMessage;
+import com.ancientshores.Ancient.Language.Prefix;
 import com.ancientshores.Ancient.Party.AncientParty;
 
 
 public class PartyCommandInvite {
+    
+    protected static String PartyBrand = Prefix.get( Ancient.systemLang.getText("Party.PartyBrand") );
+    
     @SuppressWarnings("deprecation")
 	public static void processInvite(CommandSender sender, String[] args, Ancient main) {
         Player mPlayer = (Player) sender;
@@ -30,7 +34,7 @@ public class PartyCommandInvite {
                                               try{
                                                   
                                                 //Send notification message
-                                                invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
+                                                invitedPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
 
                                                 
                                                     
@@ -54,7 +58,7 @@ public class PartyCommandInvite {
 
                                                     
                                                 //Send success message   
-                                                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Succesfully invited " + ChatColor.GOLD + invitedPlayer.getName() + ChatColor.BLUE + " to your new party.");
+                                                mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "Succesfully invited " + ChatColor.GOLD + invitedPlayer.getName() + ChatColor.BLUE + " to your new party.");
                                                 
                                               }catch (Exception ex) {
                                                   
@@ -67,22 +71,22 @@ public class PartyCommandInvite {
                                             }
                                             AncientParty.invites.put(invitedPlayer.getUniqueId(), mParty);
                                         } else {
-                                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player ignores all invitations.");
+                                            mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "This player ignores all invitations.");
                                         }
                                     } else {
-                                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You are already invited to a party, please reject (/party reject) it first.");
+                                        mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You are already invited to a party, please reject (/party reject) it first.");
                                     }
                                 } else {
-                                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player already is invited. He has to reject (/party reject) it first.");
+                                    mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "This player already is invited. He has to reject (/party reject) it first.");
                                 }
                             } else {
-                                sender.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player is already in a party.");
+                                sender.sendMessage(PartyBrand + ChatColor.BLUE + "This player is already in a party.");
                             }
                         } else {
-                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This player doesn't have the permissions to join a party.");
+                            mPlayer.sendMessage(PartyBrand + ChatColor.RED + "This player doesn't have the permissions to join a party.");
                         }
                     } else {
-                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This player doesn't exist");
+                        mPlayer.sendMessage(PartyBrand + ChatColor.RED + "This player doesn't exist");
                     }
                 } else {
                     Player invitedPlayer = main.getServer().getPlayer(args[1]);
@@ -97,7 +101,7 @@ public class PartyCommandInvite {
                                                 if (!AncientParty.mIgnoreList.contains(invitedPlayer.getUniqueId())) {
                                                                                                       
                                                             //Send notification message
-                                                            invitedPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
+                                                            invitedPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You were invited to a party by " + ChatColor.GOLD + mPlayer.getName() + ChatColor.BLUE + ".");
                                                     
                                                                /*
                                                                 * Accept party invite
@@ -119,42 +123,42 @@ public class PartyCommandInvite {
 
 
                                                         //Send success message   
-                                                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Succesfully invited " + ChatColor.GOLD + invitedPlayer.getName() + ChatColor.BLUE + " to your new party.");
+                                                        mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "Succesfully invited " + ChatColor.GOLD + invitedPlayer.getName() + ChatColor.BLUE + " to your new party.");
                                                     
                                                     if (AncientParty.invites.containsKey(invitedPlayer.getUniqueId())) {
                                                         AncientParty.invites.remove(invitedPlayer.getUniqueId());
                                                     }
                                                     AncientParty.invites.put(invitedPlayer.getUniqueId(), mParty);
                                                 } else {
-                                                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player is ignoring all party invitations.");
+                                                    mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "This player is ignoring all party invitations.");
                                                 }
                                             } else {
-                                                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You are not the leader of the party.");
+                                                mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You are not the leader of the party.");
                                             }
                                         } else {
-                                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "You are already invited to a party, please reject (/party reject) it first.");
+                                            mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You are already invited to a party, please reject (/party reject) it first.");
                                         }
                                     } else {
-                                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player already is invited. He has to reject (/party reject) it first.");
+                                        mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "This player already is invited. He has to reject (/party reject) it first.");
                                     }
                                 } else {
-                                    sender.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This player is already in a party.");
+                                    sender.sendMessage(PartyBrand + ChatColor.BLUE + "This player is already in a party.");
                                 }
                             } else {
-                                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This player hasn't the required permissions to join a party.");
+                                mPlayer.sendMessage(PartyBrand + ChatColor.RED + "This player hasn't the required permissions to join a party.");
                             }
                         } else {
-                            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "This player doesn't exist");
+                            mPlayer.sendMessage(PartyBrand + ChatColor.RED + "This player doesn't exist");
                         }
                     } else {
-                        mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Your party is already full.");
+                        mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "Your party is already full.");
                     }
                 }
             } else {
-                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You don't have the permissions to create a party.");
+                mPlayer.sendMessage(PartyBrand + ChatColor.RED + "You don't have the permissions to create a party.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Correct usage: /party invite <name>");
+            mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "Correct usage: /party invite <name>");
         }
     }
 }
