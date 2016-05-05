@@ -35,6 +35,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.ancient.util.PlayerFinder;
 import com.ancient.util.UUIDConverter;
 import com.ancientshores.Ancient.API.ApiManager;
+import com.ancientshores.Ancient.Chat.Events.ChatEventLoader;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.AncientClassHelp;
 import com.ancientshores.Ancient.Classes.BindingData;
@@ -205,6 +206,11 @@ public class Ancient extends JavaPlugin {
                 // load GUI requirements
                 // =============
                 GUIEvents guiEvents = new GUIEvents(this);
+                
+                // =============
+                // load Chat-Events
+                // =============
+                ChatEventLoader chatEvents = new ChatEventLoader(this);
                 
 		// =============
 		// enable (de)serialization of configs
