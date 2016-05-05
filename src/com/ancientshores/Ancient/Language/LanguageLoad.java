@@ -89,8 +89,6 @@ public class LanguageLoad {
         EN.setTextOnce("Test", "test");
         
         //GUI-Texts
-        EN.setTextOnce("GUI.MenuOpener.Item.Name", "&eMenu");
-        EN.setTextOnce("GUI.MenuOpener.Item.Description", "&9Left click to open");
         
         EN.setTextOnce("GUI.PlayerMenu.Title", "&eMenu");
         EN.setTextOnce("GUI.PlayerMenu.Items.Help.Name", "&eHelp");
@@ -103,12 +101,10 @@ public class LanguageLoad {
         US.setTextOnce("Test", "test");
         
         //GUI-Texts
-        US.setTextOnce("GUI.MenuOpener.Item.Name", "&eMenu");
-        US.setTextOnce("GUI.MenuOpener.Item.Description", "&9Left click to open");
-        
+                
         US.setTextOnce("GUI.PlayerMenu.Title", "&eMenu");
-        US.setTextOnce("GUI.PlayerMenu.Items.Help.Name", "&eHelp");
-        US.setTextOnce("GUI.PlayerMenu.Items.Help.Description", "&9If you need help");
+        US.setTextOnce("GUI.PlayerMenu.Help.Name", "&eHelp");
+        US.setTextOnce("GUI.PlayerMenu.Help.Description", "&9If you need help");
         
         /*
          *  DE-Defaults
@@ -117,12 +113,10 @@ public class LanguageLoad {
         DE.setTextOnce("Test", "test");
         
         //GUI-Texts
-        DE.setTextOnce("GUI.MenuOpener.Item.Name", "&eMenü");
-        DE.setTextOnce("GUI.MenuOpener.Item.Description", "&9Linksklick zum öffnen");
-        
+               
         DE.setTextOnce("GUI.PlayerMenu.Title", "&eMenü");
-        DE.setTextOnce("GUI.PlayerMenu.Items.Help.Name", "&eHilfe");
-        DE.setTextOnce("GUI.PlayerMenu.Items.Help.Description", "&9Falls du hilfe brauchst");
+        DE.setTextOnce("GUI.PlayerMenu.Help.Name", "&eHilfe");
+        DE.setTextOnce("GUI.PlayerMenu.Help.Description", "&9Falls du hilfe brauchst");
         
         /*
          * System-Defaults
