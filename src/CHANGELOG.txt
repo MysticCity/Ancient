@@ -10,6 +10,7 @@ Ancient-Changelog for version 1.2
 [+] Implemented LoaderClasses (GUIEvents, LocStats)
 [+] Implemented Language-System
 [+] Implemented new languages (EN, US, DE, SYSTEM)
+[+] Implemented interactive whispering
 
 [i] Advanced chat customization
 
