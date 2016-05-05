@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.Guild.AncientGuildRanks;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandMoney {
     public static void processMoney(CommandSender sender) {
@@ -14,12 +15,12 @@ public class GuildCommandMoney {
         AncientGuild mGuild = AncientGuild.getPlayersGuild(mPlayer.getUniqueId());
         if (mGuild != null) {
             if (mGuild.gMember.get(mPlayer.getUniqueId()) != AncientGuildRanks.TRIAL) {
-                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Your guild has " + Ancient.economy.format(Ancient.economy.bankBalance(mGuild.accountName).balance));
+                mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.GREEN + "Your guild has " + Ancient.economy.format(Ancient.economy.bankBalance(mGuild.accountName).balance));
             } else {
-                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You must be at least a Member to do that.");
+                mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You must be at least a Member to do that.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You arn't in a guild.");
+            mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You arn't in a guild.");
         }
     }
 }

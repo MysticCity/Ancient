@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandDisband {
     public static void processDisband(CommandSender sender) {
@@ -15,10 +16,10 @@ public class GuildCommandDisband {
             if (mGuild.gLeader.compareTo(mPlayer.getUniqueId()) == 0) {
                 mGuild.disband(false);
             } else {
-                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Only the leader can disband the guild.");
+                mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "Only the leader can disband the guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

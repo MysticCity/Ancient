@@ -13,7 +13,7 @@ public class GuildBrand {
         if ( AncientGuild.getPlayersGuild(p.getUniqueId()) != null ) {
             
             String GuildBrand = Ancient.systemLang.getText("Guild.GuildBrands");
-            GuildBrand = GuildBrand.replaceAll("%GUILD_NAME%", AncientGuild.getPlayersGuild(p.getUniqueId()).tag );
+            GuildBrand = GuildBrand.replaceAll("%GUILD_NAME%", AncientGuild.getPlayersGuild(p.getUniqueId()).getGuildName() );
             
             return Prefix.get(GuildBrand);
             
@@ -28,11 +28,21 @@ public class GuildBrand {
         
     }
     
+    public static String getGuildBrand(AncientGuild guild)
+    {
+        
+        String GuildBrand = Ancient.systemLang.getText("Guild.GuildBrands");
+        GuildBrand = GuildBrand.replaceAll("%GUILD_NAME%", guild.getGuildName() );
+        
+        return GuildBrand;
+        
+    }
+    
     public static String getDefaultGuildBrand()
     {
         
         String GuildBrand = Ancient.systemLang.getText("Guild.GuildBrands");
-            GuildBrand = GuildBrand.replaceAll("%GUILD_NAME%", "&2Guilds" );
+        GuildBrand = GuildBrand.replaceAll("%GUILD_NAME%", "&2Guilds" );
             
             return Prefix.get(GuildBrand);
         

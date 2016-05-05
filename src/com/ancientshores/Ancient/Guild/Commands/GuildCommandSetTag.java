@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.Guild.AncientGuildRanks;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandSetTag {
     public static void processSetTag(CommandSender sender, String[] args) {
@@ -21,13 +22,13 @@ public class GuildCommandSetTag {
                     args[0] = "";
                     mGuild.setTag(Ancient.convertStringArrayToString(args).trim());
                     AncientGuild.writeGuilds();
-                    mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Guild tag successfully set!");
+                    mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.GREEN + "Guild tag successfully set!");
                 }
             } else {
-                mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You are in no guild.");
+                mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You are in no guild.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "Correct usage: /guild settag <tag>");
+            mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "Correct usage: /guild settag <tag>");
         }
     }
 }

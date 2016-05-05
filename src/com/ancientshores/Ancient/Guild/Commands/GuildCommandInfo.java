@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandInfo {
     public static void processInfo(CommandSender sender) {
@@ -35,7 +36,7 @@ public class GuildCommandInfo {
             mPlayer.sendMessage("To see a list of all members type /guild memberlist");
             mPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
         } else {
-            mPlayer.sendMessage(Ancient.ChatBrand + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

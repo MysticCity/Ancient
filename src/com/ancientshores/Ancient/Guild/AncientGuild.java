@@ -135,7 +135,7 @@ public class AncientGuild implements Serializable {
 		for (UUID uuid : gMember.keySet()) {
 			Player p = Bukkit.getPlayer(uuid);
 			if (p != null) {
-				p.sendMessage(ChatColor.GREEN + "<Guild>" + AncientGuildRanks.getChatColorByRank(gMember.get(sender.getUniqueId())) + sender.getName() + ChatColor.GREEN + ": " + message);
+				p.sendMessage(GuildBrand.getPlayersGuild(p) + AncientGuildRanks.getChatColorByRank(gMember.get(sender.getUniqueId())) + sender.getName() + ChatColor.GREEN + ": " + message);
 			}
 		}
 	}
