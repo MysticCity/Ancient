@@ -1,18 +1,21 @@
-package com.ancientshores.Ancient.Chat.Events;
+package com.ancientshores.Ancient.Chat;
 
 import com.ancientshores.Ancient.Ancient;
+import com.ancientshores.Ancient.Chat.Events.WhisperMessage;
 
 public class ChatEventLoader {
     
-    protected Ancient plugin;
+    public Ancient plugin;
     
     //Construction
     public ChatEventLoader( Ancient plugin ){
         
         this.plugin = plugin;
         
-        registerEvents();
-        
+        if ( AncientChat.chatIsEnabled() ) 
+        {
+            registerEvents();
+        }
     }
     
     //Register all CategoryEvents

@@ -1,5 +1,6 @@
 package com.ancientshores.Ancient.Chat.Events;
 
+import com.ancientshores.Ancient.Chat.ChatEventLoader;
 import com.ancientshores.Ancient.Interactive.CommandSuggestion;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
