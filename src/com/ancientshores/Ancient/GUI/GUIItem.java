@@ -7,12 +7,14 @@ public class GUIItem {
     
     protected ItemStack item;
     protected ItemMeta meta;
+    protected int pos;
     
     //Construction
     public GUIItem ( ItemStack item , ItemMeta meta , int pos )
     {
         this.item = item; //The item
         this.meta = meta; //The items meta
+        this.pos = pos; //The item-position
     }
     
     //Get the item
@@ -25,6 +27,12 @@ public class GUIItem {
     public ItemMeta getMeta()
     {
         return this.meta;
+    }
+    
+    //Get position
+    public int getPos()
+    {
+        return this.pos;
     }
         
 }
