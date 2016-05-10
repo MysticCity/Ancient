@@ -81,6 +81,7 @@ import com.ancientshores.Ancient.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.Ancient.Spells.Commands.SpellsCommandExecutor;
 import com.ancientshores.Ancient.Util.FlatFileConnector;
 import com.ancientshores.Ancient.Util.SerializableZone;
+import com.ancientshores.external.AtMessage;
 import com.ancientshores.external.LocStats;
 
 import de.slikey.effectlib.EffectLib;
@@ -211,9 +212,17 @@ public class Ancient extends JavaPlugin {
                 // =============
                 // load Chat-Events & create the config
                 // =============
-                AncientChat.writeConfig( this );
-                ChatEventLoader chatEvents = new ChatEventLoader(this);
+                AtMessage AtMessage = new AtMessage( this );
                 
+                if ( !AtMessage.isInstalled() )
+                {
+                    AncientChat.writeConfig( this );
+                    ChatEventLoader chatEvents = new ChatEventLoader(this);
+                } else {
+                    
+                    System.out.println( ConsoleBrand + "AncientChat has been disabled by AtMessage" );
+                    
+                }
                 
 		// =============
 		// enable (de)serialization of configs

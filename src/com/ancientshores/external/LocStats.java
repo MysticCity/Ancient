@@ -18,7 +18,7 @@ public class LocStats {
     public Ancient plugin;
     
     //Construct class
-    public LocStats(Ancient plugin)
+    public LocStats( Ancient plugin )
     {
         
         this.plugin = plugin; //Set plugin
