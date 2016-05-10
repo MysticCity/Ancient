@@ -23,7 +23,7 @@ public class Events {
             /*                                                      HOW TO USE
              *      plugin.getServer().getPluginManager().registerEvents( new <Listener Class>( this ) , plugin);
              */
-
+            
         } catch ( Exception ex ) {
             
             ex.printStackTrace();

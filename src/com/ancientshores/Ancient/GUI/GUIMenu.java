@@ -1,8 +1,6 @@
 package com.ancientshores.Ancient.GUI;
 
-import java.util.ArrayList;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -81,6 +79,12 @@ public class GUIMenu {
      public Inventory getMenu()
      {
          return menu;
+     }
+     
+     //Get the menu-name
+     public String getMenuName()
+     {
+         return menu.getTitle();
      }
     
 }

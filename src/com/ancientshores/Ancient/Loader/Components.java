@@ -24,7 +24,6 @@ public class Components {
              *                                               Just add everything to load.
              */
             
-            
         } catch ( Exception ex ) {
             
             ex.printStackTrace();
