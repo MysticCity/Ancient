@@ -28,6 +28,7 @@ public class GUIMenu {
     }
     
     //Add a new item
+    @Deprecated
     public void addItem( GUIItem itemToAdd )
     {
         try {
@@ -38,6 +39,20 @@ public class GUIMenu {
             item.setItemMeta( meta );
 
             menu.setItem( itemToAdd.getPos() , item);
+            
+        } catch ( Exception ex ) {
+            
+            ex.printStackTrace();
+            
+        }
+    }
+    
+    //Add a new item-stack
+    public void addItem( GUIItemStack itemToAdd )
+    {
+        try {
+
+            menu.setItem( itemToAdd.getPosition() , itemToAdd.getItemStack() );
             
         } catch ( Exception ex ) {
             

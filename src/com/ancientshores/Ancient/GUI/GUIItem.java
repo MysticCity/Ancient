@@ -3,6 +3,7 @@ package com.ancientshores.Ancient.GUI;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+@Deprecated
 public class GUIItem {
     
     protected ItemStack item;
