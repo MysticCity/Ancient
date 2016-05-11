@@ -22,7 +22,7 @@ public class LanguageLoad {
         
         FileConfiguration config = langConfig.getConfig();
         
-        config.addDefault("language", "en");
+        config.addDefault("language", LanguageCode.EN.name() );
         
         config.options().copyDefaults(true);
         
@@ -90,9 +90,15 @@ public class LanguageLoad {
         
         //GUI-Texts
         
-        EN.setTextOnce("GUI.PlayerMenu.Title", "&eMenu");
-        EN.setTextOnce("GUI.PlayerMenu.Items.Help.Name", "&eHelp");
-        EN.setTextOnce("GUI.PlayerMenu.Items.Help.Description", "&9If you need help");
+        EN.setTextOnce("GUI.MainMenu.Title", "&eMenu");
+        EN.setTextOnce("GUI.MainMenu.Items.Help.Name", "&eHelp");
+        EN.setTextOnce("GUI.MainMenu.Items.Help.Description", "&9If you need help");
+        
+        EN.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStats");
+        EN.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9View your stats");
+        
+        EN.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
+        EN.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
         
         /*
          *  US-Defaults
@@ -102,9 +108,15 @@ public class LanguageLoad {
         
         //GUI-Texts
                 
-        US.setTextOnce("GUI.PlayerMenu.Title", "&eMenu");
-        US.setTextOnce("GUI.PlayerMenu.Help.Name", "&eHelp");
-        US.setTextOnce("GUI.PlayerMenu.Help.Description", "&9If you need help");
+        US.setTextOnce("GUI.MainMenu.Title", "&eMenu");
+        US.setTextOnce("GUI.MainMenu.Help.Name", "&eHelp");
+        US.setTextOnce("GUI.MainMenu.Help.Description", "&9If you need help");
+        
+        US.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStats");
+        US.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9View your stats");
+        
+        US.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
+        US.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
         
         /*
          *  DE-Defaults
@@ -114,9 +126,15 @@ public class LanguageLoad {
         
         //GUI-Texts
                
-        DE.setTextOnce("GUI.PlayerMenu.Title", "&eMenü");
-        DE.setTextOnce("GUI.PlayerMenu.Help.Name", "&eHilfe");
-        DE.setTextOnce("GUI.PlayerMenu.Help.Description", "&9Falls du hilfe brauchst");
+        DE.setTextOnce("GUI.MainMenu.Title", "&eMenü");
+        DE.setTextOnce("GUI.MainMenu.Help.Name", "&eHilfe");
+        DE.setTextOnce("GUI.MainMenu.Help.Description", "&9Falls du hilfe brauchst");
+        
+        DE.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStatistik");
+        DE.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9Sieh dir deine Statistik");
+        
+        DE.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Klassen");
+        DE.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Aendere deine Klasse");
         
         /*
          * System-Defaults
