@@ -9,12 +9,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GUIMenu {
 
     protected Inventory menu;
+    protected int size;
     
     //Construction
     public GUIMenu( String menuTitle , int size )
     {
         
         this.menu = Bukkit.createInventory( null , size , menuTitle);
+        this.size = size;
         setup();
         
     }
@@ -59,6 +61,18 @@ public class GUIMenu {
             ex.printStackTrace();
             
         }
+    }
+    
+    //Get menu-item
+    public ItemStack getItem( int i )
+    {
+        return menu.getItem( i );
+    }
+    
+    //Get menu-size
+    public int size()
+    {
+        return size;
     }
      
     //Open this menu

@@ -42,6 +42,7 @@ public class MainMenu {
         
         
         helpAction.setExtension( new MainMenu_Extension_Help() );
+        statAction.setExtension( new MainMenu_Extension_Stats() );
         
     }
     

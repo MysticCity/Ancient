@@ -7,6 +7,7 @@ public abstract class GUIExtension {
     
     public Ancient plugin;
     public Player player;
+    public GUIMenu menu;
     
     public abstract void runExtension();
     

@@ -54,6 +54,7 @@ public class GUIItemAction implements Listener {
                     if ( extension != null )
                     {
                         extension.player = p;
+                        extension.menu = menu;
                         extension.runExtension();
                     }
                     

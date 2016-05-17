@@ -100,6 +100,12 @@ public class LanguageLoad {
         EN.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
         EN.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
         
+        EN.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
+        EN.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
+        
+        EN.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
+        EN.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
+        
         /*
          *  US-Defaults
          */
@@ -118,6 +124,12 @@ public class LanguageLoad {
         US.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
         US.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
         
+        US.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
+        US.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
+        
+        US.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
+        US.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
+        
         /*
          *  DE-Defaults
          */
@@ -135,6 +147,12 @@ public class LanguageLoad {
         
         DE.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Klassen");
         DE.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Aendere deine Klasse");
+        
+        DE.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
+        DE.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
+        
+        DE.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
+        DE.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
         
         /*
          * System-Defaults
