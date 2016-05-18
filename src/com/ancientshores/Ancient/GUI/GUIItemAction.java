@@ -12,6 +12,7 @@ public class GUIItemAction implements Listener {
     private GUIItemStack item;
     private String command;
     private GUIExtension extension;
+    private Ancient plugin;
     
     //Construction
     public GUIItemAction ( Ancient plugin , GUIMenu menu , GUIItemStack item , String command )
@@ -20,6 +21,7 @@ public class GUIItemAction implements Listener {
         this.menu = menu;
         this.item = item;
         this.command = command;
+        this.plugin = plugin;
         
         plugin.getServer().getPluginManager().registerEvents( this , plugin );
         
@@ -55,6 +57,7 @@ public class GUIItemAction implements Listener {
                     {
                         extension.player = p;
                         extension.menu = menu;
+                        extension.plugin = plugin;
                         extension.runExtension();
                     }
                     

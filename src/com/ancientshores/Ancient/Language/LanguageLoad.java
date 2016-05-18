@@ -90,21 +90,26 @@ public class LanguageLoad {
         
         //GUI-Texts
         
-        EN.setTextOnce("GUI.MainMenu.Title", "&eMenu");
-        EN.setTextOnce("GUI.MainMenu.Items.Help.Name", "&eHelp");
-        EN.setTextOnce("GUI.MainMenu.Items.Help.Description", "&9If you need help");
+            //Main-Menu
+            EN.setTextOnce("GUI.MainMenu.Title", "&eMenu");
+            EN.setTextOnce("GUI.MainMenu.Items.Help.Name", "&eHelp");
+            EN.setTextOnce("GUI.MainMenu.Items.Help.Description", "&9If you need help");
+
+            EN.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStats");
+            EN.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9View your stats");
+
+            EN.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
+            EN.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
         
-        EN.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStats");
-        EN.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9View your stats");
-        
-        EN.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
-        EN.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
-        
-        EN.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
-        EN.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
-        
-        EN.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
-        EN.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
+            //Stat-Menu
+            EN.setTextOnce("GUI.StatMenu.Title", "&cStats");
+            EN.setTextOnce("GUI.StatMenu.LocStatsError", "&cLocStats is not installed. Sorry.");
+
+            EN.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
+            EN.setTextOnce("GUI.StatMenu.Items.Kills.Description", "&2%AMOUNT% kills");
+
+            EN.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
+            EN.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
         
         /*
          *  US-Defaults
@@ -113,22 +118,27 @@ public class LanguageLoad {
         US.setTextOnce("Test", "test");
         
         //GUI-Texts
-                
-        US.setTextOnce("GUI.MainMenu.Title", "&eMenu");
-        US.setTextOnce("GUI.MainMenu.Help.Name", "&eHelp");
-        US.setTextOnce("GUI.MainMenu.Help.Description", "&9If you need help");
         
-        US.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStats");
-        US.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9View your stats");
+            //Main-Menu
+            US.setTextOnce("GUI.MainMenu.Title", "&eMenu");
+            US.setTextOnce("GUI.MainMenu.Items.Help.Name", "&eHelp");
+            US.setTextOnce("GUI.MainMenu.Items.Help.Description", "&9If you need help");
+
+            US.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStats");
+            US.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9View your stats");
+
+            US.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
+            US.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
         
-        US.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Classes");
-        US.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Change your class");
-        
-        US.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
-        US.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
-        
-        US.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
-        US.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
+            //Stat-Menu
+            US.setTextOnce("GUI.StatMenu.Title", "&cStats");
+            US.setTextOnce("GUI.StatMenu.LocStatsError", "&cLocStats is not installed. Sorry.");
+
+            US.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
+            US.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
+
+            US.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
+            US.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
         
         /*
          *  DE-Defaults
@@ -137,22 +147,27 @@ public class LanguageLoad {
         DE.setTextOnce("Test", "test");
         
         //GUI-Texts
-               
-        DE.setTextOnce("GUI.MainMenu.Title", "&eMenü");
-        DE.setTextOnce("GUI.MainMenu.Help.Name", "&eHilfe");
-        DE.setTextOnce("GUI.MainMenu.Help.Description", "&9Falls du hilfe brauchst");
+            
+            //Main-Menu
+            DE.setTextOnce("GUI.MainMenu.Title", "&eMenue");
+            DE.setTextOnce("GUI.MainMenu.Items.Help.Name", "&eHilfe");
+            DE.setTextOnce("GUI.MainMenu.Items.Help.Description", "&9Klicke wenn du Hilfe brauchst");
+
+            DE.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStatistik");
+            DE.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9Sieh dir deine Statistiken an");
+
+            DE.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Klassen");
+            DE.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Aendere deine Klasse");
         
-        DE.setTextOnce("GUI.MainMenu.Items.Stats.Name", "&cStatistik");
-        DE.setTextOnce("GUI.MainMenu.Items.Stats.Description", "&9Sieh dir deine Statistik");
-        
-        DE.setTextOnce("GUI.MainMenu.Items.Classes.Name", "&9Klassen");
-        DE.setTextOnce("GUI.MainMenu.Items.Classes.Description", "&9Aendere deine Klasse");
-        
-        DE.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
-        DE.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% kills");
-        
-        DE.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cDeaths");
-        DE.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% deaths");
+            //Stat-Menu
+            DE.setTextOnce("GUI.StatMenu.Title", "&cStatistiken");
+            DE.setTextOnce("GUI.StatMenu.LocStatsError", "&cLocStats ist derzeit nicht installiert. Sorry.");
+
+            DE.setTextOnce("GUI.StatMenu.Items.Kills.Name", "&2Kills");
+            DE.setTextOnce("GUI.StatMenu.Items.Kills.Description", "%&2%AMOUNT% Kills");
+
+            DE.setTextOnce("GUI.StatMenu.Items.Deaths.Name", "&cTode");
+            DE.setTextOnce("GUI.StatMenu.Items.Deaths.Description", "&c%AMOUNT% Tode");
         
         /*
          * System-Defaults
