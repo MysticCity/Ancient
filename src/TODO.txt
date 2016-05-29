@@ -23,6 +23,8 @@ ERRORS-to fix:
 
 MENUES:
 
+- Deny item input
+
 - Main-Menu
 - Friends-Menu
 - Privacy-Menu

@@ -12,6 +12,9 @@ public class GUIItemStack {
     private final Material ItemMaterial;
     private final List<String> ItemDescription;
     
+    //If ItemStack already exist
+    private final ItemStack ExistingStack;
+    
     //Construction
     public GUIItemStack( String name , Material material , List<String> description , int position )
     {
@@ -20,26 +23,48 @@ public class GUIItemStack {
         this.ItemPosition = position;
         this.ItemMaterial = material;
         this.ItemDescription = description;
+        this.ExistingStack = null;
+        
+    }
+    
+    //Construction with existing ItemStack
+    public GUIItemStack( ItemStack item , int position )
+    {
+        
+        this.ItemName = null;
+        this.ItemPosition = position;
+        this.ItemMaterial = null;
+        this.ItemDescription = null;
+        this.ExistingStack = item;
         
     }
     
     //Get complete Item
     public ItemStack getItemStack()
     {
-        
-        ItemStack item = new ItemStack( ItemMaterial );
-        ItemMeta meta = item.getItemMeta();
-        
-        meta.setDisplayName( ItemName );
-        
-        if ( ItemDescription != null )
+        if ( ExistingStack == null )
         {
-            meta.setLore( ItemDescription );
+            
+            ItemStack item = new ItemStack( ItemMaterial );
+            ItemMeta meta = item.getItemMeta();
+
+            meta.setDisplayName( ItemName );
+
+            if ( ItemDescription != null )
+            {
+                meta.setLore( ItemDescription );
+            }
+
+            item.setItemMeta(meta);
+        
+            return item;
+            
+        } else {
+            
+            return ExistingStack;
+            
         }
         
-        item.setItemMeta(meta);
-        
-        return item;
         
     }
     

@@ -1,6 +1,8 @@
 package com.ancientshores.Ancient.GUI;
 
+import com.ancientshores.Ancient.Ancient;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +29,9 @@ public class GUIMenu {
        /*
         *   Everything that's required
         */
+        
+        Bukkit.getPluginManager().registerEvents( new GUIItemBlocker( Ancient.plugin , this ) , Ancient.plugin );
+        
     }
     
     //Add a new item
@@ -63,6 +68,20 @@ public class GUIMenu {
         }
     }
     
+     //Add a new item-stack
+    public void addItem( ItemStack itemToAdd, int pos )
+    {
+        try {
+
+            menu.setItem( pos , itemToAdd );
+            
+        } catch ( Exception ex ) {
+            
+            ex.printStackTrace();
+            
+        }
+    }
+    
     //Get menu-item
     public ItemStack getItem( int i )
     {
@@ -80,6 +99,7 @@ public class GUIMenu {
     {
         try {
             
+            fillEmptySlots();
             p.openInventory( menu );
             
         } catch ( Exception ex ) {
@@ -116,4 +136,26 @@ public class GUIMenu {
          return menu.getTitle();
      }
     
+     //Fill up all empty slots
+     private void fillEmptySlots()
+     {
+       
+         for ( int i = 0 ; i <= size-1 ; i++ )
+         {
+             if ( menu.getItem( i ) == null )
+             {
+                 
+                 ItemStack spacer = new ItemStack( Material.STAINED_GLASS_PANE , 1 , (short) 15 );
+                 ItemMeta spacerMeta = spacer.getItemMeta();
+                 
+                 spacerMeta.setDisplayName( Ancient.ChatBrand );
+                 spacer.setItemMeta( spacerMeta );
+
+                 menu.setItem( i , spacer );
+                 
+             }
+         }
+         
+     }
+     
 }
