@@ -1,6 +1,6 @@
 package com.ancientshores.Ancient.Loader;
 
-import com.ancientshores.Ancient.AncientNew;
+import com.ancientshores.Ancient.Main.AncientNew;
 
 public class Prefixes {
     

@@ -1,4 +1,4 @@
-package com.ancientshores.Ancient;
+package com.ancientshores.Ancient.Main;
 
 import com.ancientshores.Ancient.Loader.Commands;
 import com.ancientshores.Ancient.Loader.Components;
