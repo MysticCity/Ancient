@@ -1,6 +1,5 @@
 package com.ancientshores.Ancient.Loader;
 
-import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Main.AncientNew;
 import com.ancientshores.Ancient.Main.CompatibilityTool;
 import org.bukkit.Bukkit;
@@ -45,7 +44,7 @@ public class Commands {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.2" );
                     
                     /*
-                     *      Load all classes/liseners eg. that require 1.9.2
+                     *      Load all classes/liseners that require 1.9.2
                      */
                     
                     break;
@@ -55,7 +54,7 @@ public class Commands {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.4" );
                     
                     /*
-                     *      Load all classes/liseners eg. that require 1.9.4
+                     *      Load all classes/liseners that require 1.9.4
                      */
                     
                     break;
@@ -65,7 +64,7 @@ public class Commands {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.10.0" );
                     
                     /*
-                     *      Load all classes/liseners eg. that require 1.10.0
+                     *      Load all classes/liseners that require 1.10.0
                      */
                 
                     break;

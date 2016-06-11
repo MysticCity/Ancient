@@ -44,7 +44,7 @@ public class Components {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.2" );
                     
                     /*
-                     *      Load all classes/liseners eg. that require 1.9.2
+                     *      Load all classes/liseners that require 1.9.2
                      */
                     
                     break;
@@ -54,7 +54,7 @@ public class Components {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.4" );
                     
                     /*
-                     *      Load all classes/liseners eg. that require 1.9.4
+                     *      Load all classes/liseners that require 1.9.4
                      */
                     
                     break;
@@ -64,7 +64,7 @@ public class Components {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.10.0" );
                     
                     /*
-                     *      Load all classes/liseners eg. that require 1.10.0
+                     *      Load all classes/liseners that require 1.10.0
                      */
                 
                     break;
