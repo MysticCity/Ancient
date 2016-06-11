@@ -33,7 +33,7 @@ public class Components {
                 //Version unknown
                 case VERSION_NONE:
                     
-                    System.out.println( plugin.ConsoleBrand + "Unknow server system! Disabling." );
+                    System.out.println( plugin.ConsoleBrand + "Unknown server system! Disabling." );
                     
                     Bukkit.getPluginManager().disablePlugin( plugin );
                     
