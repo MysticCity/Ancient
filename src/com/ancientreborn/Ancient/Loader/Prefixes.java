@@ -1,13 +1,13 @@
-package com.ancientshores.Ancient.Loader;
+package com.ancientreborn.Ancient.Loader;
 
-import com.ancientshores.Ancient.Main.AncientNew;
+import com.ancientreborn.Ancient.Ancient;
 
 public class Prefixes {
     
-    public AncientNew plugin;
+    public Ancient plugin;
     
     //Construction
-    public Prefixes( AncientNew plugin )
+    public Prefixes( Ancient plugin )
     {
         
         this.plugin = plugin;

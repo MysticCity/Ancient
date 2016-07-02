@@ -1,30 +1,29 @@
-package com.ancientshores.Ancient.Loader;
+package com.ancientreborn.Ancient.Loader;
 
-import com.ancientshores.Ancient.Main.AncientNew;
-import com.ancientshores.Ancient.Main.CompatibilityTool;
+import com.ancientreborn.Ancient.Ancient;
+import com.ancientreborn.Ancient.CompatibilityTool;
 import org.bukkit.Bukkit;
 
-public class Commands {
-    
-    public AncientNew plugin;
+public class Events {
+ 
+    public Ancient plugin;
     
     //Construction
-    public Commands( AncientNew plugin )
+    public Events( Ancient plugin )
     {
-     
+        
         this.plugin = plugin;
         
-        registerCommands();
+        registerEvents();
         
     }
     
-    //Register all events
-    private void registerCommands()
+    //Register all required events
+    private void registerEvents()
     {
         try {
-            
             /*                                                      HOW TO USE
-             *  plugin.getCommand(<Command Name as String>).setExecutor( new <Executor Class>(this, <Command from config>) );
+             *      plugin.getServer().getPluginManager().registerEvents( new <Listener Class>( this ) , plugin);
              */
             
             switch( CompatibilityTool.getSrvVersion() )
@@ -44,7 +43,7 @@ public class Commands {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.2" );
                     
                     /*
-                     *      Load all classes/liseners that require 1.9.2
+                     *      Load all classes/listeners that require 1.9.2
                      */
                     
                     break;
@@ -54,7 +53,7 @@ public class Commands {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.4" );
                     
                     /*
-                     *      Load all classes/liseners that require 1.9.4
+                     *      Load all classes/listeners that require 1.9.4
                      */
                     
                     break;
@@ -64,12 +63,13 @@ public class Commands {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.10.0" );
                     
                     /*
-                     *      Load all classes/liseners that require 1.10.0
+                     *      Load all classes/listeners that require 1.10.0
                      */
                 
                     break;
                     
             }
+            
             
         } catch ( Exception ex ) {
             

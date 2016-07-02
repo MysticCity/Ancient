@@ -1,33 +1,46 @@
-package com.ancientshores.Ancient.Loader;
+package com.ancientreborn.Ancient.Loader;
 
-import com.ancientshores.Ancient.Main.AncientNew;
-import com.ancientshores.Ancient.Main.CompatibilityTool;
+import com.ancientreborn.Ancient.Ancient;
+import com.ancientreborn.Ancient.CompatibilityTool;
+import com.ancientreborn.Ancient.Dependencies.DependencyManager;
+import com.ancientreborn.Ancient.Dependencies.DependencyManager.DependencyType;
 import org.bukkit.Bukkit;
 
-public class Components {
+public class Dependencys 
+{
     
-    public AncientNew plugin;
+    private final Ancient plugin;
     
     //Construction
-    public Components( AncientNew plugin )
+    public Dependencys( Ancient plugin )
     {
         
         this.plugin = plugin;
         
-        loadComponents();
+        LoadDependency();
+        
+        LoadVersionDependency();
         
     }
     
-    //Load all required components
-    private void loadComponents()
+    /*                              HOW TO USE
+     * DependencyManager.CheckDependency( PluginName, DependencyType );
+     */
+    
+    //Check dependency
+    private void LoadDependency()
     {
-        try {
-            /*                                                        HOW TO USE
-             *                                               Just add everything to load.
-             */
-            
-            
-            switch( CompatibilityTool.getSrvVersion() )
+        
+        //Check for Vault
+        DependencyManager.CheckDependency( "Vault" , DependencyType.REQUIRED );
+        
+    }
+    
+    //Check dependencies by version
+    private void LoadVersionDependency()
+    {
+        
+        switch( CompatibilityTool.getSrvVersion() )
             {
                 
                 //Version unknown
@@ -44,7 +57,7 @@ public class Components {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.2" );
                     
                     /*
-                     *      Load all classes/liseners that require 1.9.2
+                     *      Load all classes/listeners that require 1.9.2
                      */
                     
                     break;
@@ -54,7 +67,7 @@ public class Components {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.9.4" );
                     
                     /*
-                     *      Load all classes/liseners that require 1.9.4
+                     *      Load all classes/listeners that require 1.9.4
                      */
                     
                     break;
@@ -64,18 +77,13 @@ public class Components {
                     System.out.println( plugin.ConsoleBrand + "Using compatibility: 1.10.0" );
                     
                     /*
-                     *      Load all classes/liseners that require 1.10.0
+                     *      Load all classes/listeners that require 1.10.0
                      */
                 
                     break;
                     
             }
-            
-        } catch ( Exception ex ) {
-            
-            ex.printStackTrace();
-            
-        }
+        
     }
     
 }

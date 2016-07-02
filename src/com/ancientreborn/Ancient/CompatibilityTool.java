@@ -1,4 +1,4 @@
-package com.ancientshores.Ancient.Main;
+package com.ancientreborn.Ancient;
 
 import org.bukkit.Bukkit;
 
