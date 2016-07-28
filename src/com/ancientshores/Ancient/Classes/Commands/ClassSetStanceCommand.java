@@ -18,7 +18,7 @@ import com.ancientshores.Ancient.Experience.AncientExperience;
 public class ClassSetStanceCommand {
 	public static void setStanceCommand(Object[] args, Player p) {
 		if (args.length == 1) {
-			p.sendMessage(Ancient.brand2 + "Not enough arguments");
+			p.sendMessage(Ancient.ChatBrand + "Not enough arguments");
 			return;
 		}
 
@@ -26,7 +26,7 @@ public class ClassSetStanceCommand {
 			long t = System.currentTimeMillis();
 			long div = t - AncientClass.playersOnCd.get(p.getUniqueId());
 			if (div < (AncientClass.changeCd * 1000)) {
-				p.sendMessage(Ancient.brand2 + "The class change cooldown hasn't expired yet");
+				p.sendMessage(Ancient.ChatBrand + "The class change cooldown hasn't expired yet");
 				long timeleft = AncientClass.playersOnCd.get(p.getUniqueId()) + (AncientClass.changeCd * 1000) - System.currentTimeMillis();
 				int minutes = (int) ((((double) timeleft) / 1000 / 60) + 1);
 				if (minutes == 1) {
@@ -49,13 +49,13 @@ public class ClassSetStanceCommand {
 				pd = PlayerData.getPlayerData(p.getUniqueId());
 				p = pl;
 			} else {
-				p.sendMessage(Ancient.brand2 + "Player not found");
+				p.sendMessage(Ancient.ChatBrand + "Player not found");
 				return;
 			}
 		}
 		AncientClass rootclass = AncientClass.classList.get(pd.getClassName().toLowerCase());
 		if (rootclass == null) {
-			p.sendMessage(Ancient.brand2 + "You need a class to set a stance!");
+			p.sendMessage(Ancient.ChatBrand + "You need a class to set a stance!");
 			return;
 		}
 		AncientClass oldstance = rootclass.stances.get(pd.getStance());
@@ -63,7 +63,7 @@ public class ClassSetStanceCommand {
 		if (stance != null) {
 			setStance(oldstance, stance, rootclass, p, csender);
 		} else {
-			p.sendMessage(Ancient.brand2 + "This stance does not exist (typo?)");
+			p.sendMessage(Ancient.ChatBrand + "This stance does not exist (typo?)");
 		}
 	}
 
@@ -71,7 +71,7 @@ public class ClassSetStanceCommand {
 		PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
 		if (AncientExperience.isWorldEnabled(p.getWorld())) {
 			if (pd.getXpSystem().level < newClass.minlevel) {
-				p.sendMessage(Ancient.brand2 + "You need to be level " + newClass.minlevel + " to join this class");
+				p.sendMessage(Ancient.ChatBrand + "You need to be level " + newClass.minlevel + " to join this class");
 				return false;
 			}
 		}
@@ -88,21 +88,21 @@ public class ClassSetStanceCommand {
 		if (newStance != null) {
 			if (sender != p && AncientExperience.isWorldEnabled(p.getWorld())) {
 				if (pd.getXpSystem().level < newStance.minlevel) {
-					p.sendMessage(Ancient.brand2 + "You need to be level " + newStance.minlevel + " to join this stance");
+					p.sendMessage(Ancient.ChatBrand + "You need to be level " + newStance.minlevel + " to join this stance");
 					return;
 				}
 			}
 			if (!newStance.isWorldEnabled(p.getWorld())) {
-				p.sendMessage(Ancient.brand2 + "This stance cannot be used in this world");
+				p.sendMessage(Ancient.ChatBrand + "This stance cannot be used in this world");
 				return;
 			}
 
 			if (sender == p && !(newStance.permissionNode == null || newStance.permissionNode.equalsIgnoreCase("")) && !sender.hasPermission(newStance.permissionNode)) {
-				p.sendMessage(Ancient.brand2 + "You don't have permissions to set join stance");
+				p.sendMessage(Ancient.ChatBrand + "You don't have permissions to set join stance");
 				return;
 			}
 			if (sender == p && newStance.preclass != null && !newStance.preclass.equals("") && !oldstance.name.equalsIgnoreCase(newStance.preclass)) {
-				p.sendMessage(Ancient.brand2 + "You need to be the stance " + newStance.preclass);
+				p.sendMessage(Ancient.ChatBrand + "You need to be the stance " + newStance.preclass);
 				return;
 			}
 			try {
@@ -125,7 +125,7 @@ public class ClassSetStanceCommand {
 			// pd.hpsystem.maxhp = ct.getMaxHp();
 			pd.setBindings(new HashMap<BindingData, String>());
 			pd.getHpsystem().maxhp = newStance.hp;
-			p.sendMessage(Ancient.brand2 + "Your stance is now " + newStance.name);
+			p.sendMessage(Ancient.ChatBrand + "Your stance is now " + newStance.name);
 			try {
 				if (newStance.permGroup != null && !newStance.permGroup.equals("") && Ancient.permissionHandler != null) {
 					Ancient.permissionHandler.playerAddGroup(p, newStance.permGroup);

@@ -23,31 +23,31 @@ public class SpellBindCommand {
                 }
                 bd = new BindingData(matid, data);
             } catch (Exception e) {
-                mPlayer.sendMessage(Ancient.brand2 + "Expected Integer but received string");
+                mPlayer.sendMessage(Ancient.ChatBrand + "Expected Integer but received string");
                 return;
             }
         }
         if (!mPlayer.hasPermission(AncientClass.cNodeBind)) {
-            mPlayer.sendMessage(Ancient.brand2 + "You don't have permissions to bind a spell");
+            mPlayer.sendMessage(Ancient.ChatBrand + "You don't have permissions to bind a spell");
             return;
         }
         if (args.length >= 2) {
             bind(mPlayer, args[1], bd);
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + "Missing spell name");
+            mPlayer.sendMessage(Ancient.ChatBrand + "Missing spell name");
         }
     }
 
     public static void bindSlotCommand(String[] args, Player mPlayer) {
         int slot = mPlayer.getInventory().getHeldItemSlot();
         if (!mPlayer.hasPermission(AncientClass.cNodeBind)) {
-            mPlayer.sendMessage(Ancient.brand2 + "You don't have permissions to bind a spell");
+            mPlayer.sendMessage(Ancient.ChatBrand + "You don't have permissions to bind a spell");
             return;
         }
         if (args.length >= 2) {
             bindSlot(mPlayer, args[1], slot);
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + "Missing spell name");
+            mPlayer.sendMessage(Ancient.ChatBrand + "Missing spell name");
         }
     }
 
@@ -55,9 +55,9 @@ public class SpellBindCommand {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         if (AncientClass.canBind(spell, pd, p)) {
             pd.getSlotbinds().put(slot, spell.toLowerCase());
-            p.sendMessage(Ancient.brand2 + "Successfully bound " + spell + " to the slot");
+            p.sendMessage(Ancient.ChatBrand + "Successfully bound " + spell + " to the slot");
         } else {
-            p.sendMessage(Ancient.brand2 + "Error in binding the spell");
+            p.sendMessage(Ancient.ChatBrand + "Error in binding the spell");
         }
     }
 
@@ -66,9 +66,9 @@ public class SpellBindCommand {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         if (AncientClass.canBind(spell, pd, p)) {
             pd.getBindings().put(bd, spell.toLowerCase());
-            p.sendMessage(Ancient.brand2 + "Successfully bound " + spell + " to " + Material.getMaterial(bd.id) + ".");
+            p.sendMessage(Ancient.ChatBrand + "Successfully bound " + spell + " to " + Material.getMaterial(bd.id) + ".");
         } else {
-            p.sendMessage(Ancient.brand2 + "Error in binding the spell");
+            p.sendMessage(Ancient.ChatBrand + "Error in binding the spell");
         }
     }
 }

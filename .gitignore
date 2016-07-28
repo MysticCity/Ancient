@@ -11,8 +11,8 @@
 
 # NetBeans
 /nbproject
-build.xml
 manifest.mf
+build.xml
 
 # vim
 .*.sw[a-p]
@@ -45,3 +45,6 @@ build.number
 /repo
 /build/
 /dist/
+
+# Th3Shadowbroker
+Backup.zip

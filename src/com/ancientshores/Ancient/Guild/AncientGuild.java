@@ -135,7 +135,7 @@ public class AncientGuild implements Serializable {
 		for (UUID uuid : gMember.keySet()) {
 			Player p = Bukkit.getPlayer(uuid);
 			if (p != null) {
-				p.sendMessage(ChatColor.GREEN + "<Guild>" + AncientGuildRanks.getChatColorByRank(gMember.get(sender.getUniqueId())) + sender.getName() + ChatColor.GREEN + ": " + message);
+				p.sendMessage(GuildBrand.getPlayersGuild(p) + AncientGuildRanks.getChatColorByRank(gMember.get(sender.getUniqueId())) + sender.getName() + ChatColor.GREEN + ": " + message);
 			}
 		}
 	}
@@ -161,9 +161,9 @@ public class AncientGuild implements Serializable {
 		AncientGuildRanks gr = gMember.get(uuid);
 		gMember.remove(uuid);
 		OfflinePlayer p = Bukkit.getOfflinePlayer(uuid);
-		this.broadcastMessage(Ancient.brand2 + AncientGuildRanks.getChatColorByRank(gr) + p.getName() + ChatColor.GREEN + " was kicked out of the guild");
+		this.broadcastMessage(Ancient.ChatBrand + AncientGuildRanks.getChatColorByRank(gr) + p.getName() + ChatColor.GREEN + " was kicked out of the guild");
 		if (p.isOnline())
-			p.getPlayer().sendMessage(Ancient.brand2 + "You were kicked out of your guild");
+			p.getPlayer().sendMessage(Ancient.ChatBrand + "You were kicked out of your guild");
 	}
 
 	public void giveNextLeader() {
@@ -178,13 +178,13 @@ public class AncientGuild implements Serializable {
 					Ancient.economy.createBank(this.accountName, Bukkit.getOfflinePlayer(this.gLeader).getName());
 					Ancient.economy.bankDeposit(this.accountName, balance);
 				}
-				this.broadcastMessage(Ancient.brand2 + ChatColor.DARK_RED + Bukkit.getPlayer(gLeader) + " is the new Leader of the guild.");
+				this.broadcastMessage(Ancient.ChatBrand + ChatColor.DARK_RED + Bukkit.getPlayer(gLeader) + " is the new Leader of the guild.");
 
 				AncientGuild.writeGuild(this);
 				return;
 			}
 		}
-		this.broadcastMessage(Ancient.brand2 + ChatColor.GREEN + " this guild has been disbanded because no one of the members can be a Leader.");
+		this.broadcastMessage(Ancient.ChatBrand + ChatColor.GREEN + " this guild has been disbanded because no one of the members can be a Leader.");
 		if (Ancient.iConomyEnabled()) { // ??? -- wofür? mega unnötig
 			double balance = Ancient.economy.bankBalance(this.accountName).amount;
 			Ancient.economy.depositPlayer(PlayerFinder.getPlayerName(gLeader), balance);
@@ -198,14 +198,14 @@ public class AncientGuild implements Serializable {
 			for (UUID uuid : gMember.keySet()) {
 				Player p = Bukkit.getPlayer(uuid);
 				if (p != null) {
-					p.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Your guild has been disbanded by an admin.");
+					p.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Your guild has been disbanded by an admin.");
 				}
 			}
 		} else {
 			for (UUID uuid : gMember.keySet()) {
 				Player p = Bukkit.getPlayer(uuid);
 				if (p != null) {
-					p.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Your guild has been disbanded by the leader.");
+					p.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + "Your guild has been disbanded by the leader.");
 				}
 			}
 		}

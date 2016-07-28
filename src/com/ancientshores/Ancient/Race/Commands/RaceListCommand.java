@@ -18,7 +18,7 @@ public class RaceListCommand {
         }
         PageBuilder pb = new PageBuilder();
         if (!p.hasPermission(AncientRace.listRacePermission)) {
-            p.sendMessage(Ancient.brand2 + "You don't have permission to list the races");
+            p.sendMessage(Ancient.ChatBrand + "You don't have permission to list the races");
             return;
         }
         for (AncientRace race : AncientRace.races) {

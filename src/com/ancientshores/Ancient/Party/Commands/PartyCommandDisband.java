@@ -5,9 +5,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
+import com.ancientshores.Ancient.Language.Prefix;
 import com.ancientshores.Ancient.Party.AncientParty;
 
 public class PartyCommandDisband {
+    
+    protected static String PartyBrand = Prefix.get( Ancient.systemLang.getText("Party.PartyBrand") );
+    
     public static void processDisband(CommandSender sender) {
         Player mPlayer = (Player) sender;
         AncientParty mParty = AncientParty.getPlayersParty(mPlayer.getUniqueId());
@@ -16,10 +20,10 @@ public class PartyCommandDisband {
                 mParty.removeAll();
                 AncientParty.partys.remove(mParty);
             } else {
-                mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't the leader of this party.");
+                mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You aren't the leader of this party.");
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.BLUE + "You aren't in a party.");
+            mPlayer.sendMessage(PartyBrand + ChatColor.BLUE + "You aren't in a party.");
         }
     }
 }

@@ -33,21 +33,20 @@ public class Loc_Deaths implements Listener
                 
                 PlayerProfile profile = new PlayerProfile(loader.plugin, dead); //Load LOCStats-profile
                 
-                int before = profile.getStatInt("PlayerDeaths"); //Deaths before this one
-                int amount = 1;
+                int D_before = profile.getStatInt("PlayerDeaths"); //Deaths before this one
                 
-                profile.setStat("PlayerDeaths", before + amount);
+                profile.setStat("PlayerDeaths", D_before++);
                 
                 /////////////////////////////////////////////////////////////////////////////////////////
                 
                 if (killer instanceof Player) //Add a kill to killers stats
                 {
                     
-                    PlayerProfile profile2 = new PlayerProfile(loader.plugin, killer); //Load LOCStats-profile
+                    PlayerProfile K_profile = new PlayerProfile(loader.plugin, killer); //Load LOCStats-profile
                 
-                    int before2 = profile2.getStatInt("PlayerKills"); //Deaths before this one
+                    int K_before = K_profile.getStatInt("PlayerKills"); //Deaths before this one
                                         
-                    profile2.setStat("PlayerKills", before2 + amount);
+                    K_profile.setStat("PlayerKills", K_before++);
                    
                     
                 }

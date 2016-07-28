@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandMotd {
     public static void processMotd(CommandSender sender) {
@@ -17,6 +18,6 @@ public class GuildCommandMotd {
         	else
         		p.sendMessage(ChatColor.RED + "Your guild has no motd.");
         else
-            p.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            p.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You aren't in a guild.");
     }
 }

@@ -11,6 +11,7 @@ import com.ancient.util.PlayerFinder;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.Guild.AncientGuildRanks;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandMemberlist {
     public static void processMemberList(CommandSender sender) {
@@ -23,7 +24,7 @@ public class GuildCommandMemberlist {
                 mPlayer.sendMessage(AncientGuildRanks.getChatColorByRank(g.gMember.get(uuid)) + PlayerFinder.getPlayerName(uuid));
             }
         } else {
-            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+            mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You aren't in a guild.");
         }
     }
 }

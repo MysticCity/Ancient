@@ -22,7 +22,7 @@ public class ClassStanceListCommand {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         AncientClass c = AncientClass.classList.get(pd.getClassName().toLowerCase());
         if (c != null) {
-            pb.addMessage(Ancient.brand2 + "Class-stances:");
+            pb.addMessage(Ancient.ChatBrand + "Class-stances:");
             pb.addMessage(ChatColor.STRIKETHROUGH + "--------------------------------");
             for (String s : c.stances.keySet()) {
                 if (ClassSetStanceCommand.canSetStanceClass(c.stances.get(s), p)) {

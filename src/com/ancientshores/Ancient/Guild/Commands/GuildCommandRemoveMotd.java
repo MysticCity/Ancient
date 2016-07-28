@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
 import com.ancientshores.Ancient.Guild.AncientGuildRanks;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandRemoveMotd {
 	public static void processRemoveMOTD(CommandSender sender, String[] args) {
@@ -16,13 +17,13 @@ public class GuildCommandRemoveMotd {
 		if (guild != null) {
 			if (AncientGuildRanks.hasMotdRights(guild.gMember.get(player.getUniqueId()))) {
 				guild.motd = "";
-				player.sendMessage(Ancient.brand2 + ChatColor.GREEN + "MOTD was successfully removed!");
+				player.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.GREEN + "MOTD was successfully removed!");
 				AncientGuild.writeGuilds();
 			} else {
-				player.sendMessage(Ancient.brand2 + ChatColor.RED + "You do not have the rights to change the MOTD.");
+				player.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You do not have the rights to change the MOTD.");
 			}
 		} else {
-			player.sendMessage(Ancient.brand2 + ChatColor.RED + "You aren't in a guild.");
+			player.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You aren't in a guild.");
 		}
 	}
 }

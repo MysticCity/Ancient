@@ -108,7 +108,7 @@ public class AncientParty {
 						return false;
 					}
 					members.remove(uuid);
-					this.sendMessage(Ancient.brand2 + ChatColor.GOLD + playeruuid + ChatColor.BLUE + " left your party.");
+					this.sendMessage(Ancient.ChatBrand + ChatColor.GOLD + playeruuid + ChatColor.BLUE + " left your party.");
 					giveNextLeader();
 				} else {
 					AncientPartyLeaveEvent event = new AncientPartyLeaveEvent(uuid, this);
@@ -117,7 +117,7 @@ public class AncientParty {
 						return false;
 					}
 					members.remove(uuid);
-					this.sendMessage(Ancient.brand2 + ChatColor.GOLD + PlayerFinder.getPlayerName(playeruuid) + ChatColor.BLUE + " left your party.");
+					this.sendMessage(Ancient.ChatBrand + ChatColor.GOLD + PlayerFinder.getPlayerName(playeruuid) + ChatColor.BLUE + " left your party.");
 					if (this.getMemberNumber() == 0) {
 						partys.remove(this);
 					}
@@ -167,7 +167,7 @@ public class AncientParty {
 		for (UUID uuid : members) {
 			Player p = Bukkit.getPlayer(uuid);
 			if (p != null) {
-				p.sendMessage(Ancient.brand2 + ChatColor.BLUE + "Your party was disbanded.");
+				p.sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "Your party was disbanded.");
 			}
 		}
 		members = null;
@@ -179,11 +179,11 @@ public class AncientParty {
 			Player p = Bukkit.getPlayer(uuid);
 			if (p != null && (p.hasPermission(pNodeCreate))) {
 				leader = uuid;
-				this.sendMessage(Ancient.brand2 + ChatColor.GREEN + p.getName() + ChatColor.BLUE + " is the new leader of the party.");
+				this.sendMessage(Ancient.ChatBrand + ChatColor.GREEN + p.getName() + ChatColor.BLUE + " is the new leader of the party.");
 				return;
 			}
 		}
-		sendMessage(Ancient.brand2 + ChatColor.BLUE + "This Party has been disbanded because no one has the rights to be the leader of it");
+		sendMessage(Ancient.ChatBrand + ChatColor.BLUE + "This Party has been disbanded because no one has the rights to be the leader of it");
 		removeAll();
 		partys.remove(this);
 	}

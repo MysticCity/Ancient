@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import com.ancientshores.Ancient.Ancient;
 import com.ancientshores.Ancient.Guild.AncientGuild;
+import com.ancientshores.Ancient.Guild.GuildBrand;
 
 public class GuildCommandCreate {
     public static boolean isValidGuildname(String Name) {
@@ -26,7 +27,7 @@ public class GuildCommandCreate {
                 args[0] = "";
                 String name = Ancient.convertStringArrayToString(Arrays.copyOfRange(args, 1, args.length));
                 if (!GuildCommandCreate.isValidGuildname(name)) {
-                    sender.sendMessage(Ancient.brand2 + ChatColor.RED + "The guildname has invalid characters (only A-Z) or is too long/short");
+                    sender.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "The guildname has invalid characters (only A-Z) or is too long/short");
                     return;
                 }
                 if (!AncientGuild.guildExists(name)) {
@@ -34,20 +35,20 @@ public class GuildCommandCreate {
                         if (Ancient.economy.has(mPlayer.getName(), AncientGuild.cost)) {
                             Ancient.economy.withdrawPlayer(mPlayer.getName(), AncientGuild.cost);
                         } else {
-                            mPlayer.sendMessage(Ancient.brand2 + ChatColor.RED + "You don't have enough money to create a guild");
+                            mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You don't have enough money to create a guild");
                             return;
                         }
                     }
                     AncientGuild.guilds.add(new AncientGuild(name, mPlayer.getUniqueId()));
-                    mPlayer.sendMessage(Ancient.brand2 + ChatColor.GREEN + "Succesfully created a new Guild");
+                    mPlayer.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.GREEN + "Succesfully created a new Guild");
                 } else {
-                    sender.sendMessage(Ancient.brand2 + ChatColor.RED + "A guild with that name already exists.");
+                    sender.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "A guild with that name already exists.");
                 }
             } else {
-                sender.sendMessage(Ancient.brand2 + ChatColor.RED + "You are already in a guild.");
+                sender.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You are already in a guild.");
             }
         } else {
-            sender.sendMessage(Ancient.brand2 + ChatColor.RED + "You don't have the permissions to create a guild");
+            sender.sendMessage(GuildBrand.getDefaultGuildBrand() + ChatColor.RED + "You don't have the permissions to create a guild");
         }
     }
 }

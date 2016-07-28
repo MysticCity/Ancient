@@ -16,7 +16,7 @@ public class ClassResetCommand {
         PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
         AncientClass oldClass = AncientClass.classList.get(pd.getClassName().toLowerCase());
         reset(p, oldClass, pd);
-        p.sendMessage(Ancient.brand2 + "Successfully reset your class");
+        p.sendMessage(Ancient.ChatBrand + "Successfully reset your class");
     }
 
     public static void reset(Player p, AncientClass oldClass, PlayerData pd) {

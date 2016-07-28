@@ -9,9 +9,7 @@ import java.io.ObjectInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +20,6 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -38,6 +35,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.ancient.util.PlayerFinder;
 import com.ancient.util.UUIDConverter;
 import com.ancientshores.Ancient.API.ApiManager;
+import com.ancientshores.Ancient.Chat.AncientChat;
+import com.ancientshores.Ancient.Chat.ChatEventLoader;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.AncientClassHelp;
 import com.ancientshores.Ancient.Classes.BindingData;
@@ -62,6 +61,9 @@ import com.ancientshores.Ancient.HP.Armor;
 import com.ancientshores.Ancient.HP.CreatureHp;
 import com.ancientshores.Ancient.HP.DamageConverter;
 import com.ancientshores.Ancient.HP.HPCommand;
+import com.ancientshores.Ancient.Language.LanguageCode;
+import com.ancientshores.Ancient.Language.LanguageFile;
+import com.ancientshores.Ancient.Language.LanguageLoad;
 import com.ancientshores.Ancient.Listeners.AncientBlockListener;
 import com.ancientshores.Ancient.Listeners.AncientEntityListener;
 import com.ancientshores.Ancient.Listeners.AncientPlayerListener;
@@ -79,6 +81,7 @@ import com.ancientshores.Ancient.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.Ancient.Spells.Commands.SpellsCommandExecutor;
 import com.ancientshores.Ancient.Util.FlatFileConnector;
 import com.ancientshores.Ancient.Util.SerializableZone;
+import com.ancientshores.external.AtMessage;
 import com.ancientshores.external.LocStats;
 
 import de.slikey.effectlib.EffectLib;
@@ -131,10 +134,15 @@ public class Ancient extends JavaPlugin {
 	public static String ancientCommand = "ancient"; // das Kommando, welches zum Ausführen des ??? allgemeinen informations codes genommen werden soll
 	public static final String ancientCommandNode = "Ancient.Commands.ancient";
 	public static String versionString = ""; // string der die aktuelle version des servers speichert NNN
-	static Locale currentLocale; // speichert die position des servers NNN
-	public static String brand = "ANCIENT"; // logo fuer textausgaben
-	public static String brand2 = ""; // ??? NNN
-	static ResourceBundle messages; // die Texte in der jeweiligen Sprache
+	//static Locale currentLocale; // speichert die position des servers NNN
+	
+        public static String ConsoleBrand = "[Ancient] "; // logo fuer textausgaben
+	public static String ChatBrand = "§e[Ancient] "; // ??? NNN
+        
+        public static LanguageFile lang;
+        public static LanguageFile systemLang;
+        
+	//static ResourceBundle messages; // die Texte in der jeweiligen Sprache
 
 	
 	public void onEnable() { // beim aktivieren des Plugins
@@ -185,9 +193,36 @@ public class Ancient extends JavaPlugin {
                 }
                 
                 // =============
+                // setup lang-files
+                // =============
+                LanguageLoad.loadLanguageConfig(this);
+                
+                lang = new LanguageFile(this, LanguageLoad.getLanguageCode(this));
+                
+                systemLang = new LanguageFile(this, LanguageCode.SYSTEM);
+                
+                ConsoleBrand = systemLang.getText("Ancient.ConsoleBrand").replaceAll("&", "§") + " "; //Load Console-ConsoleBrand from SYSTEM - lang file
+                ChatBrand = systemLang.getText("Ancient.ChatBrand").replaceAll("&", "§") + " "; //Load Chat-ConsoleBrand from SYSTEM - lang file
+                
+                // =============
                 // load GUI requirements
                 // =============
                 GUIEvents guiEvents = new GUIEvents(this);
+                
+                // =============
+                // load Chat-Events & create the config
+                // =============
+                AtMessage AtMessage = new AtMessage( this );
+                
+                if ( !AtMessage.isInstalled() )
+                {
+                    AncientChat.writeConfig( this );
+                    ChatEventLoader chatEvents = new ChatEventLoader(this);
+                } else {
+                    
+                    System.out.println( ConsoleBrand + "AncientChat has been disabled by AtMessage" );
+                    
+                }
                 
 		// =============
 		// enable (de)serialization of configs
@@ -232,12 +267,13 @@ public class Ancient extends JavaPlugin {
 		registerCommands();
 		// ??? warum wird hier nochmal registriert, weil es nicht zu den sprüchen gehört?
 		
-		try {
-			Locale l = new Locale(languagecode); // neues Locale für das setzen der Sprache
-			messages = ResourceBundle.getBundle("AncientMessages", l); // die Resourcen laden, d.h. die Sprache speichern
-		} catch (Exception ex) { // noch keine Verwendung
-
-		}
+                // WANT TO REENABLE ?  DON'T FORGET THE CONFIG CLASS !
+//		try {
+//			Locale l = new Locale(languagecode); // neues Locale für das setzen der Sprache
+//			messages = ResourceBundle.getBundle("AncientMessages", l); // die Resourcen laden, d.h. die Sprache speichern
+//		} catch (Exception ex) { // noch keine Verwendung
+//
+//		}
 		
 		this.setupEconomy(); //  Economysetup ausführen, verknüpfen mit Vault
 		this.saveConfig(); // speichert die standart config FIX weiß nicht, ob das funktioniert
@@ -512,9 +548,7 @@ public class Ancient extends JavaPlugin {
 		YamlConfiguration yc = new YamlConfiguration(); // erstellt eine neue yamlconfiguration EDIT ist laden aus der Datei nicht sinnvoller?
 		
 		// setzt die verschiedenen Punkte
-		// ??? funktioniert das, wenn man in der config was ändert? wird hierdurch nicht alles überschrieben besser bei if !exists
-		//BRAND
-		yc.set("Brand", brand);
+
 		yc.set(partyCommandNode, partyCommand);
 		yc.set(guildCommandNode, guildCommand);
 		yc.set(classCommandNode, classCommand);
@@ -546,9 +580,7 @@ public class Ancient extends JavaPlugin {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// BRAND STUFF
-			brand = yc1.getString("Brand", brand);
-			brand2 = ChatColor.GOLD + "[" + brand + "] " + ChatColor.YELLOW;
+			// ConsoleBrand STUFF
 			partyCommand = yc1.getString(partyCommandNode, partyCommand);
 			guildCommand = yc1.getString(guildCommandNode, guildCommand);
 			classCommand = yc1.getString(classCommandNode, classCommand);
@@ -564,9 +596,7 @@ public class Ancient extends JavaPlugin {
 			unbindCommand = yc1.getString(unbindCommandNode, unbindCommand);
 			ancientCommand = yc1.getString(ancientCommandNode, ancientCommand);
 		} else {
-			// BRAND STUFF
-			brand = yc.getString("Brand", brand);
-			brand2 = ChatColor.GOLD + "[" + brand + "] " + ChatColor.YELLOW;
+			
 			partyCommand = yc.getString(partyCommandNode, partyCommand);
 			guildCommand = yc.getString(guildCommandNode, guildCommand);
 			classCommand = yc.getString(classCommandNode, classCommand);
@@ -748,9 +778,9 @@ public class Ancient extends JavaPlugin {
 		return a.hasPermission(b) || a.isOp();
 	}
 
-	public static String getLocalizedString(String code) {
-		return messages.getString(code);
-	}
+//	public static String getLocalizedString(String code) {
+//		return messages.getString(code);
+//	}
 
 	public static ApiManager getApiManager() {
 		return manager;

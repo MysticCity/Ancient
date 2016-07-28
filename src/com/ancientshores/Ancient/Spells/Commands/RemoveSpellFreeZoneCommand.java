@@ -15,7 +15,7 @@ public class RemoveSpellFreeZoneCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             if (!p.hasPermission(SpellFreeZoneListener.selectspellfreezoneperm)) {
-                p.sendMessage(Ancient.brand2 + "You don't have the permission to create spell-free zones");
+                p.sendMessage(Ancient.ChatBrand + "You don't have the permission to create spell-free zones");
                 return;
             }
             if (args.length == 1) {
@@ -31,7 +31,7 @@ public class RemoveSpellFreeZoneCommand {
                     f.mkdir();
                     File nf = new File(f.getPath() + File.separator + sl.getKey() + ".sfz");
                     nf.delete();
-                    p.sendMessage(Ancient.brand2 + "Successfully removed spellfreezone " + sl.getKey());
+                    p.sendMessage(Ancient.ChatBrand + "Successfully removed spellfreezone " + sl.getKey());
                 }
             } else if (args.length == 2) {
                 HashMap<String, SerializableZone> removeZones = new HashMap<String, SerializableZone>();
@@ -46,7 +46,7 @@ public class RemoveSpellFreeZoneCommand {
                     f.mkdir();
                     File nf = new File(f.getPath() + File.separator + sl.getKey() + ".sfz");
                     nf.delete();
-                    p.sendMessage(Ancient.brand2 + "Successfully removed spellfreezone " + sl.getKey());
+                    p.sendMessage(Ancient.ChatBrand + "Successfully removed spellfreezone " + sl.getKey());
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.ancientshores.Ancient;
 
+import com.ancientshores.Ancient.Chat.AncientChat;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class Config {
 		} catch (InvalidConfigurationException ex) {
 		}
 		
-		plugin.getConfig().set("Ancient.language", Ancient.languagecode); // in der Config die verwendete Sprache auf die Angegebene setzten. --- solange bis dies auch was anderes als en sein kann
+		//plugin.getConfig().set("Ancient.language", Ancient.languagecode); // in der Config die verwendete Sprache auf die Angegebene setzten. --- solange bis dies auch was anderes als en sein kann
 		
 		// Party Config
 		AncientParty.writeConfig(plugin); // ???
@@ -56,6 +57,7 @@ public class Config {
 	   
 		// XP Config
 		AncientExperience.writeConfig(plugin); // ???
+                
 		
 		// ??? warum kommt hier nicht die Überprüfung
 		CreatureHp.writeConfig(); // ???
@@ -79,7 +81,8 @@ public class Config {
 			e.printStackTrace();
 		}
 		
-		Ancient.languagecode = plugin.getConfig().getString("Ancient.language", Ancient.languagecode); // die Sprache setzen
+                //      WANT TO REENABLE ?  DONT FORGET THE ANCIENT CLASS !
+		//Ancient.languagecode = plugin.getConfig().getString("Ancient.language", Ancient.languagecode); // die Sprache setzen
 		
 		AncientParty.loadConfig(plugin); // Party config laden ???
 		
