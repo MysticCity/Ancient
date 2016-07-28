@@ -1,5 +1,6 @@
 package com.ancientreborn.Ancient;
 
+import com.ancientreborn.Ancient.Addon.AncientAddonLoader;
 import com.ancientreborn.Ancient.Loader.Commands;
 import com.ancientreborn.Ancient.Loader.Components;
 import com.ancientreborn.Ancient.Loader.Dependencys;
@@ -35,6 +36,8 @@ public class Ancient extends JavaPlugin {
         loadCommands();
         
         registerEvents();
+        
+        loadAddons();
         
     }
     
@@ -97,6 +100,14 @@ public class Ancient extends JavaPlugin {
          */
         
         Prefixes prefixLoader = new Prefixes( this );
+        
+    }
+    
+    //Try to load addons
+    private void loadAddons()
+    {
+        
+        AncientAddonLoader AddonLoader = new AncientAddonLoader();
         
     }
     
