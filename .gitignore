@@ -47,4 +47,4 @@ build.number
 /dist/
 
 # Th3Shadowbroker
-Backup.zip
+/backup/
