@@ -48,3 +48,6 @@ build.number
 
 # Th3Shadowbroker
 Backup.zip
+build.xml
+pom.xml
+pom.xml.versionsBackup

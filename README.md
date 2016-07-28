@@ -1,3 +1,6 @@
+
+REMEMBER TO ADD EVERY CHANGE TO THE UPDATE-LOG
+
 # License-informations
 
 - All rights reserved by the owner & developers of Ancient
