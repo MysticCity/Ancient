@@ -1,0 +1,38 @@
+HIGH-Priority:
+Currently nothing ! :)
+
+OTHER-Stuff:
+Start with GraphicalUserInterface
+
+ERRORS-to fix:
+
+    Party:
+    - Feedback bei reject an empfänger
+    - Party ignore: Wrong usage
+    - Player need to reject after ignore command
+
+    Guild:
+    - Feedback an Recruiter fehlt.
+    - Eingeladener Spieler erhält success ohne prefix
+
+    Configs:
+    - ChatConfig.yml: Rename InChunks to InBlocks
+
+    All classes:
+    - Add hover text
+
+MENUES:
+
+- Deny item input
+
+- Main-Menu
+- Friends-Menu
+- Privacy-Menu
+- Guild-Menu
+- Party-Menu
+- Class-Menu
+- Race-Menu
+- Spell-Menu
+- Admin-Menu
+
+    

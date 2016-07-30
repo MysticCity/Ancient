@@ -1,6 +1,0 @@
-name: Ancient
-main: com.ancientshores.Ancient.Ancient
-version: 1.1
-depend: [Vault]
-softdepend: [MythicMobs, EffectLib]
-authors: [FroznMine,Keyle,Pylamo]

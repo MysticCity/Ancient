@@ -1,0 +1,20 @@
+Ancient-Changelog for version 1.2
+
+[+] New features | [-] Removed stuff | [i] Imformations
+
+[i] Ancient has been updated to v1.2
+    Please report errors :)
+
+[+] Implemented experimental GUI (Not done!)
+[+] Implemented support for LOCStats by Th3Shadowbroker
+[+] Implemented LoaderClasses (GUIEvents, LocStats)
+[+] Implemented Language-System
+[+] Implemented new languages (EN, US, DE, SYSTEM)
+[+] Implemented interactive whispering
+
+[i] Advanced chat customization
+
+[i] Updated MythicMobs support
+[i] Updated Apache components
+[i] Updated Apple components
+[i] Updated Party-Accept command (Currently Spigot & Bungee only)

@@ -1,0 +1,21 @@
+HOW TO USE THE GUI-COMPONENTS
+
+Creating a new menu:
+
+GUIMenu menu = new GUIMenu( "Menu-Name" , 9 <- Menu size );s
+
+Functions of GUIMenu-Objects:
+    addItem( GUIItem item ) <--Deprecated
+    addItem( GUIItemStack item )
+    openToUser( Player player )
+    switchTo( Player p, GUIMenu anotherMenu )
+    getMenu()
+    getMenuName()
+
+Binding functions to items in menu:
+
+GUIItemAction action = new GUIItemAction( Ancient plugin, GUIMenu menu, GUIItemStack item, String command )
+
+Functions of GUIItemAction-Objects:
+    setExtension( new GUIExtension-Class ) <-- GUIExtension need to extend GUIExtension
+    guiItemAction() <-- Launch extensions runExtension()-function
