@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -49,7 +48,6 @@ import com.ancientshores.Ancient.PlayerData;
 import com.ancientshores.Ancient.API.AncientGainExperienceEvent;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.BindingData;
-import com.ancientshores.Ancient.Classes.CooldownTimer;
 import com.ancientshores.Ancient.Classes.Commands.ClassCastCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassResetCommand;
 import com.ancientshores.Ancient.Classes.Commands.ClassSetCommand;
@@ -262,9 +260,8 @@ public class AncientPlayerListener implements Listener {
 
 		pd.getHpsystem().health = pd.getHpsystem().maxhp;
 	}
-
 	@EventHandler
-	public void onInventoryClose(final InventoryCloseEvent event) {
+	public void onInventoryClose(InventoryCloseEvent event) {
 		if (event.getInventory().getHolder() instanceof Player) {
 			Player p = (Player) event.getInventory().getHolder();
 			AncientClass mClass = AncientClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
@@ -273,36 +270,36 @@ public class AncientPlayerListener implements Listener {
 			if (!mClass.isWorldEnabled(p.getWorld())) return;
 
 			for (ItemStack is : p.getInventory().getArmorContents()) {
-				boolean canEquip = !mClass.blacklistedArmor.contains(is.getType());
-				if (!canEquip) {
-					if (is.equals(p.getInventory().getBoots()))
-						p.getInventory().setBoots(null);
-					if (is.equals(p.getInventory().getChestplate()))
-						p.getInventory().setChestplate(null);
-					if (is.equals(p.getInventory().getLeggings()))
-						p.getInventory().setLeggings(null);
-					if (is.equals(p.getInventory().getHelmet()))
-						p.getInventory().setHelmet(null);
-					p.getInventory().addItem(is);
-					p.sendMessage("Your class can't equip this item");
+				if (is != null) {
+					boolean canEquip = mClass.blacklistedArmor.contains(is.getType());
+					if (canEquip) {
+						if (is.equals(p.getInventory().getBoots()))
+							p.getInventory().setBoots(null);
+						if (is.equals(p.getInventory().getChestplate()))
+							p.getInventory().setChestplate(null);
+						if (is.equals(p.getInventory().getLeggings()))
+							p.getInventory().setLeggings(null);
+						if (is.equals(p.getInventory().getHelmet()))
+							p.getInventory().setHelmet(null);
+						p.getInventory().addItem(is);
+						p.sendMessage("Your class can't equip this item");
+					}
 				}
 			}
-		}
+		
 
 		Material m;
+		Material m2;
 		int newslot = event.getPlayer().getInventory().getHeldItemSlot();
 		try {
-			m = event.getPlayer().getInventory().getItemInHand().getType();
+			m = event.getPlayer().getInventory().getItemInMainHand().getType();
+			m2 = event.getPlayer().getInventory().getItemInOffHand().getType();
 		} catch (Exception e) {
 			return;
 		}
-		Player p = (Player) event.getPlayer();
-		AncientClass mClass = AncientClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
-		if (mClass == null) return;
-		
 		if (!mClass.isWorldEnabled(p.getWorld())) return;
 		if (mClass.blacklistedMats.contains(m)) {
-			ItemStack oldStack = p.getInventory().getItemInHand();
+			ItemStack oldStack = p.getInventory().getItemInMainHand();
 			int fslot = p.getInventory().firstEmpty();
 			if (fslot == -1)
 				p.getWorld().dropItem(event.getPlayer().getLocation(), oldStack);
@@ -311,6 +308,18 @@ public class AncientPlayerListener implements Listener {
 			if (newslot != -1)
 				p.getInventory().clear(newslot);
 			p.sendMessage("Your class can't use this item");
+		}
+		if (mClass.blacklistedMats.contains(m2)) {
+			ItemStack oldStack = p.getInventory().getItemInOffHand();
+			int fslot = p.getInventory().firstEmpty();
+			if (fslot == -1) {
+				p.getWorld().dropItem(event.getPlayer().getLocation(), oldStack);
+			} else {
+				p.getInventory().setItem(fslot, oldStack);
+				p.getInventory().clear(40);
+			}
+			p.sendMessage("Your class can't use this item");
+		}
 		}
 	}
 
@@ -339,12 +348,12 @@ public class AncientPlayerListener implements Listener {
 				Material m;
 				int newslot = p.getInventory().getHeldItemSlot();
 				try {
-					m = p.getInventory().getItemInHand().getType();
+					m = p.getInventory().getItemInMainHand().getType();
 				} catch (Exception e) {
 					return;
 				}
 				if (mClass.blacklistedMats.contains(m)) {
-					ItemStack oldStack = p.getInventory().getItemInHand();
+					ItemStack oldStack = p.getInventory().getItemInMainHand();
 					p.getInventory().setItem(p.getInventory().firstEmpty(), oldStack);
 					if (newslot != -1) 
 						p.getInventory().clear(newslot);
@@ -429,8 +438,10 @@ public class AncientPlayerListener implements Listener {
 			if (damageevent.getDamager() instanceof Player) {
 				Player p = (Player) damageevent.getDamager();
 				PlayerData pd = PlayerData.getPlayerData(p.getUniqueId());
-				if (pd != null && !AncientClass.rightClick && p.getInventory().getItemInHand() != null && pd.getBindings().containsKey(new BindingData(p.getItemInHand())) && !damageignored)
-					ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getItemInHand())), ClassCastCommand.castType.LEFT);
+				if (pd != null && !AncientClass.rightClick && p.getInventory().getItemInMainHand() != null && pd.getBindings().containsKey(new BindingData(p.getInventory().getItemInMainHand())) && !damageignored)
+					ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getInventory().getItemInMainHand())), ClassCastCommand.castType.LEFT);
+				if (pd != null && !AncientClass.rightClick && p.getInventory().getItemInOffHand() != null && pd.getBindings().containsKey(new BindingData(p.getInventory().getItemInOffHand())) && !damageignored)
+					ClassCastCommand.processCast(pd, p, pd.getBindings().get(new BindingData(p.getInventory().getItemInOffHand())), ClassCastCommand.castType.LEFT);
 			}
 		}
 	}
@@ -476,6 +487,42 @@ public class AncientPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
+		AncientClass mClass = AncientClass.classList.get(PlayerData.getPlayerData(p.getUniqueId()).getClassName().toLowerCase());
+		if (mClass == null) return;
+		
+		if (!mClass.isWorldEnabled(p.getWorld())) return;
+		Material m;
+		Material m2;
+		int newslot = event.getPlayer().getInventory().getHeldItemSlot();
+		try {
+			m = event.getPlayer().getInventory().getItemInMainHand().getType();
+			m2 = event.getPlayer().getInventory().getItemInOffHand().getType();
+		} catch (Exception e) {
+			return;
+		}
+		if (!mClass.isWorldEnabled(p.getWorld())) return;
+		if (mClass.blacklistedMats.contains(m)) {
+			ItemStack oldStack = p.getInventory().getItemInMainHand();
+			int fslot = p.getInventory().firstEmpty();
+			if (fslot == -1)
+				p.getWorld().dropItem(event.getPlayer().getLocation(), oldStack);
+			else
+				p.getInventory().setItem(fslot, oldStack);
+			if (newslot != -1)
+				p.getInventory().clear(newslot);
+			p.sendMessage("Your class can't use this item");
+		}
+		if (mClass.blacklistedMats.contains(m2)) {
+			ItemStack oldStack = p.getInventory().getItemInOffHand();
+			int fslot = p.getInventory().firstEmpty();
+			if (fslot == -1) {
+				p.getWorld().dropItem(event.getPlayer().getLocation(), oldStack);
+			} else {
+				p.getInventory().setItem(fslot, oldStack);
+				p.getInventory().clear(40);
+			}
+			p.sendMessage("Your class can't use this item");
+		}
 		if (AncientEntityListener.StunList.contains(p.getUniqueId())) {
 			event.setCancelled(true);
 			return;
