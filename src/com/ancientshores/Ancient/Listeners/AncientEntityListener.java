@@ -1,6 +1,6 @@
 package com.ancientshores.Ancient.Listeners;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -165,12 +165,17 @@ public class AncientEntityListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDeathWithArmor(EntityDeathEvent event) {
-		// drop armor
-		if (Armor.hasChangedArmor(event.getEntity())) {
-			event.getDrops().addAll(addArmorDrops(event.getEntity()));
-			
-			Armor.removeChangedArmor(event.getEntity());
-			
+		if (event.getEntity() instanceof Player) {
+			if (Armor.hasChangedArmor(event.getEntity())) {
+				Armor.removeChangedArmor(event.getEntity());
+			}
+		} else {
+			// drop armor
+			if (Armor.hasChangedArmor(event.getEntity())) {
+				event.getDrops().addAll(addArmorDrops(event.getEntity()));
+				
+				Armor.removeChangedArmor(event.getEntity());
+			}
 		}	
 	}
 	
