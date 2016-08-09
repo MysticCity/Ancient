@@ -2,7 +2,7 @@
 |||||||||| Update History |||||||||| 
 
 
-
+09.08.2016 --> 14:54 ||| Th3Shadowbroker = Fixed #196, Code cleanup, Removed LocStats support
 
 01.08.2016 --> 19:18 ||| Th3Shadowbroker = Fixed #195
 

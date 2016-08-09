@@ -35,8 +35,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.ancient.util.PlayerFinder;
 import com.ancient.util.UUIDConverter;
 import com.ancientshores.Ancient.API.ApiManager;
-import com.ancientshores.Ancient.Chat.AncientChat;
-import com.ancientshores.Ancient.Chat.ChatEventLoader;
 import com.ancientshores.Ancient.Classes.AncientClass;
 import com.ancientshores.Ancient.Classes.AncientClassHelp;
 import com.ancientshores.Ancient.Classes.BindingData;
@@ -81,8 +79,6 @@ import com.ancientshores.Ancient.Spells.Commands.SpellFreeZoneListener;
 import com.ancientshores.Ancient.Spells.Commands.SpellsCommandExecutor;
 import com.ancientshores.Ancient.Util.FlatFileConnector;
 import com.ancientshores.Ancient.Util.SerializableZone;
-import com.ancientshores.external.AtMessage;
-import com.ancientshores.external.LocStats;
 
 import de.slikey.effectlib.EffectLib;
 
@@ -157,7 +153,7 @@ public class Ancient extends JavaPlugin {
 		Plugin vault = this.getServer().getPluginManager().getPlugin("Vault"); // speichert das Objekt des Plugins Vault in vault
 		
 		if (vault != null && vault instanceof Vault) { // wenn vault erfolgreich geladen wurde, d.h. auf dem Server vorhanden ist und aktiv ist und wirklich eine Instanz vom Vault plugin ist EDIT wenn dies nicht der Fall ist das plugin unloaden ??? warum war hier ein & geht nicht auch &&
-			log.info(String.format("[%s] Enabled Version %s", getDescription().getName(), getDescription().getVersion())); // Informiere, dass Plugin aktiviert wurde MOVE zum ende von enable
+			log.info(String.format("Enabled Version %s", getDescription().getVersion())); // Informiere, dass Plugin aktiviert wurde MOVE zum ende von enable
 		} else {
 			log.warning(String.format("[%s] Vault was _NOT_ found! Disabling plugin.", getDescription().getName())); // warnen, dass Vault nicht gefunden wurde.
 			getPluginLoader().disablePlugin(this); // plugin deaktivieren
@@ -182,15 +178,7 @@ public class Ancient extends JavaPlugin {
 			
 		}
                 
-                try{
-                        LocStats loc = new LocStats(this);
-                        if (loc.isInstalled())
-                        {
-                            loc.registerEvents();
-                        }
-                } catch (Exception ex) {
-                    
-                }
+               
                 
                 // =============
                 // setup lang-files
@@ -212,17 +200,6 @@ public class Ancient extends JavaPlugin {
                 // =============
                 // load Chat-Events & create the config
                 // =============
-                AtMessage AtMessage = new AtMessage( this );
-                
-                if ( !AtMessage.isInstalled() )
-                {
-                    AncientChat.writeConfig( this );
-                    ChatEventLoader chatEvents = new ChatEventLoader(this);
-                } else {
-                    
-                    System.out.println( ConsoleBrand + "AncientChat has been disabled by AtMessage" );
-                    
-                }
                 
 		// =============
 		// enable (de)serialization of configs

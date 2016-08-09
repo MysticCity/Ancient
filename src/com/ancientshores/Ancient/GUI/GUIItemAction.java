@@ -3,8 +3,10 @@ package com.ancientshores.Ancient.GUI;
 import com.ancientshores.Ancient.Ancient;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.plugin.RegisteredListener;
 
 public class GUIItemAction implements Listener {
     
@@ -23,7 +25,10 @@ public class GUIItemAction implements Listener {
         this.command = command;
         this.plugin = plugin;
         
-        plugin.getServer().getPluginManager().registerEvents( this , plugin );
+        if ( this.IsUnique() )
+        {
+            plugin.getServer().getPluginManager().registerEvents( this , plugin );
+        }
         
     }
     
@@ -33,10 +38,28 @@ public class GUIItemAction implements Listener {
         this.extension = extension;
     }
     
+    //Check if this class is unique
+    private boolean IsUnique()
+    {
+        for ( RegisteredListener listener : HandlerList.getRegisteredListeners( Ancient.plugin ) )
+         {
+            if ( listener.getListener().equals( this ) )
+            {
+
+                return  false;
+                
+            }
+         }
+        
+        return true;
+        
+    }
+    
     //Add automated action to item
     @EventHandler
     public void guiItemAction( InventoryClickEvent e )
     {
+
         if ( e.getInventory().getTitle().equals( menu.getMenuName() ) )
         {
             if ( e.getCurrentItem().equals( item.getItemStack() ) )
