@@ -1,6 +1,7 @@
 
 |||||||||| Update History |||||||||| 
 
+12.08.2016 --> 12:36 ||| Th3Shadowbroker = Deactivated menu test-event
 
 09.08.2016 --> 14:54 ||| Th3Shadowbroker = Fixed #196, Code cleanup, Removed LocStats support
 

@@ -41,7 +41,7 @@ public class GUIEvents {
              *  Load up everything has to do with the GUI
              */
             
-            plugin.getServer().getPluginManager().registerEvents( new Testevent( this ) , plugin);
+            //plugin.getServer().getPluginManager().registerEvents( new Testevent( this ) , plugin);
             
         } catch ( Exception ex ) {
             
